@@ -1,10 +1,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import type { Observable } from 'rxjs';
-
 import type { AddOrderResponse } from '../models/AddOrderResponse';
 import type { errorResponse } from '../models/errorResponse';
 import type { OrderDeleteViewModel } from '../models/OrderDeleteViewModel';
@@ -14,13 +10,11 @@ import type { OrderPutResponse } from '../models/OrderPutResponse';
 import type { OrderResponse } from '../models/OrderResponse';
 import type { OrderStatusPutRequest } from '../models/OrderStatusPutRequest';
 
+import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
-@Injectable()
 export class OrderService {
-
-    constructor(public readonly http: HttpClient) {}
 
     /**
      * get all orders data API
@@ -29,7 +23,7 @@ export class OrderService {
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public getOrders({
+    public static getOrders({
 acceptLanguage,
 count,
 offset,
@@ -71,8 +65,8 @@ filter?: string,
  * Example : name, profileImage
  */
 select?: string,
-}): Observable<OrderResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<OrderResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/order',
             query: {
@@ -99,12 +93,12 @@ select?: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public addOrder({
+    public static addOrder({
 requestBody,
 }: {
 requestBody: OrderModel,
-}): Observable<AddOrderResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<AddOrderResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'POST',
             url: '/order',
             body: requestBody,
@@ -124,12 +118,12 @@ requestBody: OrderModel,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public getOrderApi({
+    public static getOrderApi({
 id,
 }: {
 id: string,
-}): Observable<AddOrderResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<AddOrderResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/order/orderId',
             query: {
@@ -149,12 +143,12 @@ id: string,
      * @returns OrderDeleteViewModel 200 response
      * @throws ApiError
      */
-    public deleteOrder({
+    public static deleteOrder({
 id,
 }: {
 id: string,
-}): Observable<OrderDeleteViewModel> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<OrderDeleteViewModel> {
+        return __request(OpenAPI, {
             method: 'DELETE',
             url: '/order/orderId',
             query: {
@@ -174,12 +168,12 @@ id: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public patchOrderUpdate({
+    public static patchOrderUpdate({
 requestBody,
 }: {
 requestBody: OrderStatusPutRequest,
-}): Observable<OrderPutResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<OrderPutResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'PATCH',
             url: '/order/orderstatus',
             body: requestBody,
@@ -199,12 +193,12 @@ requestBody: OrderStatusPutRequest,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public putOrderUpdate({
+    public static putOrderUpdate({
 requestBody,
 }: {
 requestBody: OrderPutRequest,
-}): Observable<OrderPutResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<OrderPutResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'PUT',
             url: '/order/update-details',
             body: requestBody,

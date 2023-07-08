@@ -1,22 +1,16 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import type { Observable } from 'rxjs';
-
 import type { commonGetResponse } from '../models/commonGetResponse';
 import type { errorResponse } from '../models/errorResponse';
 import type { OneReviewParams } from '../models/OneReviewParams';
 import type { ReviewResponse } from '../models/ReviewResponse';
 
+import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
-@Injectable()
 export class ReviewService {
-
-    constructor(public readonly http: HttpClient) {}
 
     /**
      * get all reviews data API
@@ -25,7 +19,7 @@ export class ReviewService {
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public getReviews({
+    public static getReviews({
 productId,
 acceptLanguage,
 count,
@@ -69,8 +63,8 @@ filter?: string,
  * Example : name, profileImage
  */
 select?: string,
-}): Observable<ReviewResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<ReviewResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/review',
             query: {
@@ -98,15 +92,15 @@ select?: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public addReview({
+    public static addReview({
 requestBody,
 }: {
 requestBody: {
 review: string;
 rating: number;
 },
-}): Observable<commonGetResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<commonGetResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'POST',
             url: '/review',
             body: requestBody,
@@ -126,7 +120,7 @@ rating: number;
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public getReviewApi({
+    public static getReviewApi({
 productId,
 reviewId,
 acceptLanguage,
@@ -138,8 +132,8 @@ reviewId: string,
  * Example : en_US, jp_JP
  */
 acceptLanguage?: string,
-}): Observable<ReviewResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<ReviewResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/review/productId/reviews/reviewId',
             query: {
@@ -162,12 +156,12 @@ acceptLanguage?: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public patchReviewUpdate({
+    public static patchReviewUpdate({
 requestBody,
 }: {
 requestBody: OneReviewParams,
-}): Observable<commonGetResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<commonGetResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'PATCH',
             url: '/review/productId/reviews/reviewId',
             body: requestBody,
@@ -186,14 +180,14 @@ requestBody: OneReviewParams,
      * @returns commonGetResponse 200 response
      * @throws ApiError
      */
-    public deleteReview({
+    public static deleteReview({
 productId,
 reviewId,
 }: {
 productId: string,
 reviewId: string,
-}): Observable<commonGetResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<commonGetResponse> {
+        return __request(OpenAPI, {
             method: 'DELETE',
             url: '/review/reviewId',
             query: {

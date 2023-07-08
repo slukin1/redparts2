@@ -1,10 +1,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import type { Observable } from 'rxjs';
-
 import type { commonPostResponse } from '../models/commonPostResponse';
 import type { errorResponse } from '../models/errorResponse';
 import type { LoginRequestBody } from '../models/LoginRequestBody';
@@ -17,13 +13,11 @@ import type { UserChangePassword } from '../models/UserChangePassword';
 import type { UserMail } from '../models/UserMail';
 import type { UserResetPassword } from '../models/UserResetPassword';
 
+import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
-@Injectable()
 export class AuthService {
-
-    constructor(public readonly http: HttpClient) {}
 
     /**
      * login API
@@ -32,12 +26,12 @@ export class AuthService {
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public userLogin({
+    public static userLogin({
 requestBody,
 }: {
 requestBody: LoginRequestBody,
-}): Observable<LoginResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<LoginResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'POST',
             url: '/auth/login',
             body: requestBody,
@@ -58,12 +52,12 @@ requestBody: LoginRequestBody,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public registerUser({
+    public static registerUser({
 requestBody,
 }: {
 requestBody: RegisterData,
-}): Observable<RegisterResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<RegisterResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'POST',
             url: '/auth/register',
             body: requestBody,
@@ -83,12 +77,12 @@ requestBody: RegisterData,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public userLogout({
+    public static userLogout({
 requestBody,
 }: {
 requestBody: Token,
-}): Observable<commonPostResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<commonPostResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'POST',
             url: '/auth/logout',
             body: requestBody,
@@ -108,12 +102,12 @@ requestBody: Token,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public userToken({
+    public static userToken({
 requestBody,
 }: {
 requestBody: Token,
-}): Observable<TokenPostResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<TokenPostResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'POST',
             url: '/auth/tokens',
             body: requestBody,
@@ -133,12 +127,12 @@ requestBody: Token,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public passwordForgot({
+    public static passwordForgot({
 requestBody,
 }: {
 requestBody: UserMail,
-}): Observable<commonPostResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<commonPostResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'POST',
             url: '/auth/forgot-password',
             body: requestBody,
@@ -158,12 +152,12 @@ requestBody: UserMail,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public passwordReset({
+    public static passwordReset({
 requestBody,
 }: {
 requestBody: UserResetPassword,
-}): Observable<commonPostResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<commonPostResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'POST',
             url: '/auth/reset-password',
             body: requestBody,
@@ -183,12 +177,12 @@ requestBody: UserResetPassword,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public passwordChange({
+    public static passwordChange({
 requestBody,
 }: {
 requestBody: UserChangePassword,
-}): Observable<commonPostResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<commonPostResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'POST',
             url: '/auth/change-password',
             body: requestBody,

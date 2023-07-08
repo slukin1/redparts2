@@ -1,10 +1,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import type { Observable } from 'rxjs';
-
 import type { AddVehicleResponse } from '../models/AddVehicleResponse';
 import type { errorResponse } from '../models/errorResponse';
 import type { RangeList } from '../models/RangeList';
@@ -13,13 +9,11 @@ import type { VehicleModel } from '../models/VehicleModel';
 import type { VehicleResponse } from '../models/VehicleResponse';
 import type { VehicleStatusParams } from '../models/VehicleStatusParams';
 
+import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
-@Injectable()
 export class VehicleService {
-
-    constructor(public readonly http: HttpClient) {}
 
     /**
      * get all vehicles data API
@@ -28,7 +22,7 @@ export class VehicleService {
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public getVehicles({
+    public static getVehicles({
 acceptLanguage,
 count,
 offset,
@@ -70,8 +64,8 @@ filter?: string,
  * Example : name, profileImage
  */
 select?: string,
-}): Observable<VehicleResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<VehicleResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle',
             query: {
@@ -98,12 +92,12 @@ select?: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public addVehicle({
+    public static addVehicle({
 requestBody,
 }: {
 requestBody: VehicleModel,
-}): Observable<AddVehicleResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<AddVehicleResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'POST',
             url: '/vehicle',
             body: requestBody,
@@ -123,7 +117,7 @@ requestBody: VehicleModel,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public searchtVehicles({
+    public static searchtVehicles({
 acceptLanguage,
 count,
 offset,
@@ -165,8 +159,8 @@ filter?: string,
  * Example : name, profileImage
  */
 select?: string,
-}): Observable<VehicleResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<VehicleResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/search',
             query: {
@@ -193,7 +187,7 @@ select?: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public getVehicleList({
+    public static getVehicleList({
 acceptLanguage,
 count,
 offset,
@@ -235,8 +229,8 @@ filter?: string,
  * Example : name, profileImage
  */
 select?: string,
-}): Observable<VehicleResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<VehicleResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/list',
             query: {
@@ -263,12 +257,12 @@ select?: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public getVehicleApi({
+    public static getVehicleApi({
 id,
 }: {
 id: string,
-}): Observable<AddVehicleResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<AddVehicleResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/vehicleId',
             query: {
@@ -288,12 +282,12 @@ id: string,
      * @returns VehicleDeleteViewModel 200 response
      * @throws ApiError
      */
-    public deleteVehicle({
+    public static deleteVehicle({
 id,
 }: {
 id: string,
-}): Observable<VehicleDeleteViewModel> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<VehicleDeleteViewModel> {
+        return __request(OpenAPI, {
             method: 'DELETE',
             url: '/vehicle/vehicleId',
             query: {
@@ -313,12 +307,12 @@ id: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public updateVehicleStatusApi({
+    public static updateVehicleStatusApi({
 requestBody,
 }: {
 requestBody: VehicleStatusParams,
-}): Observable<AddVehicleResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<AddVehicleResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'POST',
             url: '/vehicle/status',
             body: requestBody,
@@ -338,7 +332,7 @@ requestBody: VehicleStatusParams,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public getMakers({
+    public static getMakers({
 acceptLanguage,
 }: {
 /**
@@ -346,10 +340,10 @@ acceptLanguage,
  * Example : en_US, jp_JP
  */
 acceptLanguage?: string,
-}): Observable<{
+}): CancelablePromise<{
 results: Array<string>;
 } | errorResponse> {
-        return __request(OpenAPI, this.http, {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/makers',
             query: {
@@ -370,7 +364,7 @@ results: Array<string>;
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public getModels({
+    public static getModels({
 acceptLanguage,
 }: {
 /**
@@ -378,10 +372,10 @@ acceptLanguage,
  * Example : en_US, jp_JP
  */
 acceptLanguage?: string,
-}): Observable<{
+}): CancelablePromise<{
 results: Array<string>;
 } | errorResponse> {
-        return __request(OpenAPI, this.http, {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/models',
             query: {
@@ -402,7 +396,7 @@ results: Array<string>;
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public getYears({
+    public static getYears({
 acceptLanguage,
 }: {
 /**
@@ -410,10 +404,10 @@ acceptLanguage,
  * Example : en_US, jp_JP
  */
 acceptLanguage?: string,
-}): Observable<{
+}): CancelablePromise<{
 results: Array<number>;
 } | errorResponse> {
-        return __request(OpenAPI, this.http, {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/years',
             query: {
@@ -434,7 +428,7 @@ results: Array<number>;
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public getEngineTypes({
+    public static getEngineTypes({
 acceptLanguage,
 }: {
 /**
@@ -442,10 +436,10 @@ acceptLanguage,
  * Example : en_US, jp_JP
  */
 acceptLanguage?: string,
-}): Observable<{
+}): CancelablePromise<{
 results: Array<string>;
 } | errorResponse> {
-        return __request(OpenAPI, this.http, {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/engine-types',
             query: {
@@ -466,7 +460,7 @@ results: Array<string>;
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public getBodyTypes({
+    public static getBodyTypes({
 acceptLanguage,
 }: {
 /**
@@ -474,10 +468,10 @@ acceptLanguage,
  * Example : en_US, jp_JP
  */
 acceptLanguage?: string,
-}): Observable<{
+}): CancelablePromise<{
 results: Array<string>;
 } | errorResponse> {
-        return __request(OpenAPI, this.http, {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/body-types',
             query: {
@@ -498,14 +492,14 @@ results: Array<string>;
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public getModelsMake({
+    public static getModelsMake({
 maker,
 }: {
 maker: string,
-}): Observable<{
+}): CancelablePromise<{
 results: Array<string>;
 } | errorResponse> {
-        return __request(OpenAPI, this.http, {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/models-by-maker',
             query: {
@@ -526,14 +520,14 @@ results: Array<string>;
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public getModelsByYear({
+    public static getModelsByYear({
 year,
 }: {
 year: number,
-}): Observable<{
+}): CancelablePromise<{
 results: Array<string>;
 } | errorResponse> {
-        return __request(OpenAPI, this.http, {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/models-by-year',
             query: {
@@ -554,16 +548,16 @@ results: Array<string>;
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public getModelsByYearMaker({
+    public static getModelsByYearMaker({
 year,
 maker,
 }: {
 year: number,
 maker: string,
-}): Observable<{
+}): CancelablePromise<{
 results: Array<string>;
 } | errorResponse> {
-        return __request(OpenAPI, this.http, {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/models-by-year-maker',
             query: {
@@ -585,14 +579,14 @@ results: Array<string>;
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public getMakeModels({
+    public static getMakeModels({
 model,
 }: {
 model: string,
-}): Observable<{
+}): CancelablePromise<{
 results: Array<string>;
 } | errorResponse> {
-        return __request(OpenAPI, this.http, {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/makers-by-model',
             query: {
@@ -613,7 +607,7 @@ results: Array<string>;
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public getByYearMakerModel({
+    public static getByYearMakerModel({
 year,
 maker,
 model,
@@ -621,8 +615,8 @@ model,
 year: number,
 maker: string,
 model: string,
-}): Observable<VehicleResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<VehicleResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/by-year-maker-model',
             query: {
@@ -645,7 +639,7 @@ model: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public filterVehicle({
+    public static filterVehicle({
 year,
 price,
 mileage,
@@ -675,8 +669,8 @@ refNo?: string,
 fuel?: string,
 status?: string,
 color?: string,
-}): Observable<VehicleResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<VehicleResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/filter',
             query: {
@@ -710,12 +704,12 @@ color?: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public vehicleRange({
+    public static vehicleRange({
 requestBody,
 }: {
 requestBody: RangeList,
-}): Observable<VehicleResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<VehicleResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'POST',
             url: '/vehicle/range',
             body: requestBody,
