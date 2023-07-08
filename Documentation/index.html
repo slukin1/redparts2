@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>RedParts</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i" rel="stylesheet">
+
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="vendor/highlight.js-9.15.6/styles/github-gist.css">
+
+    <!-- js -->
+    <script src="vendor/highlight.js-9.15.6/highlight.pack.js"></script>
+    <script src="js/index.js"></script>
+</head>
+<body>
+<div class="docs-markup">
+    <div class="docs-header">
+        <button type="button" class="docs-header__menu">Menu</button>
+    </div>
+    <nav class="docs-nav">
+        <div class="docs-nav__logo">
+            <a href="" target="_blank">
+                <svg class="docs-logo" xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+                    <path d="M40,19.9c-0.3,0-0.7,0.1-1,0.1h-4.5c-0.8,0-1.5-0.7-1.5-1.5v-17C33,0.7,33.7,0,34.5,0H39c0.3,0,0.7,0,1,0.1
+	c4.5,0.5,8,4.3,8,8.9v2C48,15.6,44.5,19.5,40,19.9z M44,9.5C44,6.7,41.8,4,39,4h-0.8C37.5,4,37,4.5,37,5.2v9.6
+	c0,0.7,0.5,1.2,1.2,1.2H39c2.8,0,5-2.7,5-5.5V9.5z M29.5,20h-11c-0.8,0-1.5-0.7-1.5-1.5v-17C17,0.7,17.7,0,18.5,0h11
+	C30.3,0,31,0.7,31,1.5v1C31,3.3,30.3,4,29.5,4H21v4h6.5C28.3,8,29,8.7,29,9.5v1c0,0.8-0.7,1.5-1.5,1.5H21v4h8.5
+	c0.8,0,1.5,0.7,1.5,1.5v1C31,19.3,30.3,20,29.5,20z M14.8,17.8c0.6,1-0.1,2.3-1.3,2.3h-2L8,14H4v4.5C4,19.3,3.3,20,2.5,20h-1
+	C0.7,20,0,19.3,0,18.5v-17C0,0.7,0.7,0,1.5,0H8c0.3,0,0.7,0,1,0.1c3.4,0.5,6,3.4,6,6.9c0,2.4-1.2,4.5-3.1,5.8L14.8,17.8z M9,4.2
+	C8.7,4.1,8.3,4,8,4H5C4.4,4,4,4.4,4,5v4c0,0.6,0.4,1,1,1h3c0.3,0,0.7-0.1,1-0.2c0.3-0.1,0.7-0.3,0.9-0.5C10.6,8.8,11,7.9,11,7
+	C11,5.7,10.2,4.6,9,4.2z"></path>
+                    <path d="M128.6,6h-1c-0.5,0-0.9-0.3-1.2-0.7c-0.2-0.3-0.4-0.6-0.8-0.8c-0.5-0.3-1.4-0.5-2.1-0.5c-1.5,0-2.8,0.9-2.8,2
+	c0,0.7,0.5,1.3,1.2,1.6c0.8,0.4,1.1,1.3,0.7,2.1l-0.4,0.9c-0.4,0.7-1.2,1-1.8,0.6c-0.6-0.3-1.2-0.7-1.6-1.2c-1-1.1-1.7-2.5-1.7-4
+	c0-3.3,2.9-6,6.5-6c2.8,0,5.5,1.7,6.4,4C130.3,4.9,129.6,6,128.6,6z M113.5,4H109v14.5c0,0.8-0.7,1.5-1.5,1.5h-1
+	c-0.8,0-1.5-0.7-1.5-1.5V4h-4.5C99.7,4,99,3.3,99,2.5v-1c0-0.8,0.7-1.5,1.5-1.5h13c0.8,0,1.5,0.7,1.5,1.5v1C115,3.3,114.3,4,113.5,4
+	z M97.8,17.8c0.6,1-0.1,2.3-1.3,2.3h-2L91,14h-4v4.5c0,0.8-0.7,1.5-1.5,1.5h-1c-0.8,0-1.5-0.7-1.5-1.5v-17C83,0.7,83.7,0,84.5,0H91
+	c0.3,0,0.7,0,1,0.1c3.4,0.5,6,3.4,6,6.9c0,2.4-1.2,4.5-3.1,5.8L97.8,17.8z M92,4.2C91.7,4.1,91.3,4,91,4h-3c-0.6,0-1,0.4-1,1v4
+	c0,0.6,0.4,1,1,1h3c0.3,0,0.7-0.1,1-0.2c0.3-0.1,0.7-0.3,0.9-0.5C93.6,8.8,94,7.9,94,7C94,5.7,93.2,4.6,92,4.2z M79.5,20h-1.1
+	c-0.6,0-1.2-0.4-1.4-1l-1.5-4h-6.1L68,19c-0.2,0.6-0.8,1-1.4,1h-1.1c-1,0-1.8-1-1.4-2l6.2-17c0.2-0.6,0.8-1,1.4-1h1.6
+	c0.6,0,1.2,0.4,1.4,1l6.2,17C81.3,19,80.5,20,79.5,20z M72.5,6.6L70.9,11h3.2L72.5,6.6z M58,14h-4v4.5c0,0.8-0.7,1.5-1.5,1.5h-1
+	c-0.8,0-1.5-0.7-1.5-1.5v-17C50,0.7,50.7,0,51.5,0H58c3.9,0,7,3.1,7,7S61.9,14,58,14z M61,7c0-1.3-0.8-2.4-2-2.8
+	C58.7,4.1,58.3,4,58,4h-3c-0.5,0-1,0.4-1,1v4c0,0.6,0.5,1,1,1h3c0.3,0,0.7-0.1,1-0.2c0.3-0.1,0.7-0.3,0.9-0.5C60.6,8.8,61,7.9,61,7z
+	 M118.4,14h1c0.5,0,0.9,0.3,1.2,0.7c0.2,0.3,0.4,0.6,0.8,0.8c0.5,0.3,1.4,0.5,2.1,0.5c1.5,0,2.8-0.9,2.8-2c0-0.7-0.5-1.3-1.2-1.6
+	c-0.8-0.4-1.1-1.3-0.7-2.1l0.4-0.9c0.4-0.7,1.2-1,1.8-0.6c0.6,0.3,1.2,0.7,1.6,1.2c1,1.1,1.7,2.5,1.7,4c0,3.3-2.9,6-6.5,6
+	c-2.8,0-5.5-1.7-6.4-4C116.7,15.1,117.4,14,118.4,14z"></path>
+                </svg>
+            </a>
+        </div>
+
+        <ul class="docs-nav__links">
+            
+                <li>
+                    <a class="docs-nav__link" href="#section-home">
+                        Introduction
+                    </a>
+                </li>
+            
+                <li>
+                    <a class="docs-nav__link" href="#section-features">
+                        Features
+                    </a>
+                </li>
+            
+                <li>
+                    <a class="docs-nav__link" href="#section-getting-started">
+                        Getting Started
+                    </a>
+                </li>
+            
+                <li>
+                    <a class="docs-nav__link" href="#section-project-structure">
+                        Project Structure
+                    </a>
+                </li>
+            
+                <li>
+                    <a class="docs-nav__link" href="#section-customization">
+                        Customization
+                    </a>
+                </li>
+            
+                <li>
+                    <a class="docs-nav__link" href="#section-third-party-modules">
+                        Third-Party Packages
+                    </a>
+                </li>
+            
+                <li>
+                    <a class="docs-nav__link" href="#section-scss-files">
+                        SCSS Files
+                    </a>
+                </li>
+            
+                <li>
+                    <a class="docs-nav__link" href="#section-fonts">
+                        Fonts
+                    </a>
+                </li>
+            
+                <li>
+                    <a class="docs-nav__link" href="#section-translation">
+                        Translation
+                    </a>
+                </li>
+            
+                <li>
+                    <a class="docs-nav__link" href="#section-currencies">
+                        Currencies
+                    </a>
+                </li>
+            
+                <li>
+                    <a class="docs-nav__link" href="#section-changelog">
+                        Changelog
+                    </a>
+                </li>
+            
+                <li>
+                    <a class="docs-nav__link" href="#section-credits">
+                        Credits
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <div class="docs-nav-backdrop"></div>
+    <div class="docs-content">
+        
+            <section class="docs-section" id="section-home">
+                <h1 class="docs-section__title">RedParts</h1>
+
+                <div class="docs-typography">
+    <p>
+        Thank you for purchasing my theme. If you have any questions that are beyond the
+        scope of this help file, please feel free to email via my
+        user page contact form <a href="https://themeforest.net/user/kos9">here</a>. Thanks so much!
+    </p>
+</div>
+
+            </section>
+        
+            <section class="docs-section" id="section-features">
+                <h1 class="docs-section__title">Features</h1>
+
+                <div class="docs-typography">
+    <ul>
+        <li>Two header layouts</li>
+        <li>RTL/LTR Supported</li>
+        <li>Five different color schemes</li>
+        <li>Based on Bootstrap 4.6.x</li>
+        <li>Powerful mobile menu</li>
+        <li>With auto parts store features</li>
+        <li>100% Responsive Layout</li>
+        <li>HTML5, CSS3, SASS</li>
+        <li>CSS3 Animation</li>
+        <li>SVG & Font Awesome Icons</li>
+        <li>BEM syntax</li>
+        <li>Roboto Google Font</li>
+        <li>Compatible with all major browsers</li>
+        <li>Four shop layouts</li>
+        <li>Quickview</li>
+        <li>Offcanvas filters</li>
+        <li>Account pages</li>
+        <li>Megamenu</li>
+        <li>Vertical Megamenu</li>
+        <li>Photoswipe gallery</li>
+        <li>Cursor based and page based navigation</li>
+    </ul>
+</div>
+
+            </section>
+        
+            <section class="docs-section" id="section-getting-started">
+                <h1 class="docs-section__title">Getting Started</h1>
+
+                <div class="docs-typography">
+    <h2>Preparation</h2>
+
+    <ol>
+        <li>
+            Make sure your system has installed
+            <a href="https://nodejs.org">Node.js</a>
+            and
+            <a href="https://yarnpkg.com/">Yarn</a>.
+        </li>
+        <li>
+            Open a terminal window and go to the <code>Sources</code> directory.
+        </li>
+        <li>
+            Run the <code>yarn install</code> command. This command will load all necessary dependencies specified in
+            the <code>package.json</code> file.
+        </li>
+    </ol>
+
+    <h2>Build Project</h2>
+
+    <p>To start a local HTTP server and runs the build process with change tracking run the command:</p>
+
+    <pre><code class="language-text">npm run dev</code></pre>
+
+    <p>To build for production, run the command:</p>
+
+    <pre><code class="language-text">npm run build</code></pre>
+
+    <p>After executing the command, the compiled project will be located in the <code>.next</code> directory.</p>
+
+    <p>
+        You can find more information about the available commands in the
+        official NextJs <a href="https://nextjs.org/docs/getting-started" target="_blank">documentation</a>.
+    </p>
+</div>
+
+            </section>
+        
+            <section class="docs-section" id="section-project-structure">
+                <h1 class="docs-section__title">Project Structure</h1>
+
+                <div class="docs-typography">
+    <p>
+        Project source codes are in the <code>Sources</code> directory.
+        After downloading and unpacking the package, the <code>Sources</code> directory will look like this:
+    </p>
+    <pre><code class="language-text">Sources/
+    public/
+        i18n/
+        images/
+    src/
+        api/
+        components/
+        data/
+        fake-server/
+        interfaces/
+        pages/
+        scss/
+        services/
+        store/
+        svg/
+    .babelrc
+    .editorconfig
+    .env
+    .eslintrc.js
+    .gitignore
+    custom.d.ts
+    next.config.js
+    next-env.d.ts
+    package.json
+    tsconfig.json
+    yarn.lock</code></pre>
+
+    <p>
+        Here is a description of the most important files and directories of the project:
+    </p>
+
+    <ul>
+        <li>
+            <code>Sources/src/api/</code> - Contains functions that fetch data from the server.
+            You need to replace calls to the fake server with real AJAX requests.
+        </li>
+        <li>
+            <code>Sources/src/components/</code> - Contains components used in the template. More details below.
+        </li>
+        <li>
+            <code>Sources/src/data/</code> - Contains stubs data for the template, products, categories, etc.
+        </li>
+        <li>
+            <code>Sources/src/fake-server/</code> - Contains fake server code. Used for demonstration purposes only.
+            After you replace calls to the fake server with real AJAX requests, you can delete this directory.
+        </li>
+        <li>
+            <code>Sources/src/interfaces/</code> - Contains the typescript interfaces used in the template.
+        </li>
+        <li>
+            <code>Sources/src/pages/</code> - Contains the components of Next.js pages.
+        </li>
+        <li>
+            <code>Sources/src/scss/</code> - Contains project styles. More details are described in the
+            <strong>SCSS Files</strong> section.
+        </li>
+        <li>
+            <code>Sources/src/services/</code> - Contains some useful functions and classes that are used in the
+            template.
+        </li>
+        <li>
+            <code>Sources/src/store/</code> - Files related to React Redux: actions, reducers, .etc. More details
+            below.
+        </li>
+        <li>
+            <code>Sources/src/svg/</code> - Contains separate SVG files.
+        </li>
+    </ul>
+
+    <h2>Components directory</h2>
+
+    <p><code>Sources/src/components</code> is a main directory with the following structure:</p>
+
+    <pre><code class="language-text">components/
+    account/
+    blocks/
+    blog/
+    filters/
+    footer/
+    header/
+    mobile/
+    shared/
+    shop/
+    site/
+    widgets/
+    Layout.tsx</code></pre>
+
+    <p><strong>Directory Description</strong></p>
+
+    <ul>
+        <li>
+            <p>
+                <strong>src/components/account</strong><br>
+                Contains customer pages and components.
+            </p>
+        </li>
+        <li>
+            <p>
+                <strong>src/components/blocks</strong><br>
+                Contains components used as a construction bricks for pages (mainly used on the home page).
+            </p>
+        </li>
+        <li>
+            <p>
+                <strong>src/components/blog</strong><br>
+                Blog related components, pages, etc.
+            </p>
+        </li>
+        <li>
+            <p>
+                <strong>src/components/filters</strong><br>
+                Contains shop filters.
+            </p>
+        </li>
+        <li>
+            <p>
+                <strong>src/components/footer</strong><br>
+                Contains the components used in the footer of the site.
+            </p>
+        </li>
+        <li>
+            <p>
+                <strong>src/components/header</strong><br>
+                Contains the components used in the header of the site.
+            </p>
+        </li>
+        <li>
+            <p>
+                <strong>src/components/mobile</strong><br>
+                Contains the components used in the mobile header and mobile menu.
+            </p>
+        </li>
+        <li>
+            <p>
+                <strong>src/components/shared</strong><br>
+                Contains components used across all template.
+            </p>
+        </li>
+        <li>
+            <p>
+                <strong>src/components/shop</strong><br>
+                Contains shop pages (category, product, cart, checkout, etc.) and components.
+            </p>
+        </li>
+        <li>
+            <p>
+                <strong>src/components/site</strong><br>
+                Contains rest site pages (About Us, Contact Us, etc.).
+            </p>
+        </li>
+        <li>
+            <p>
+                <strong>src/components/widgets</strong><br>
+                Contains components used in the shop or/and blog sidebar.
+            </p>
+        </li>
+    </ul>
+
+    <h2>Store directory</h2>
+
+    <p><code>Sources/src/store</code> contains files related to React Redux: actions, reducers, .etc.</p>
+
+    <p>
+        All actions, reducers are logically separated by "feature", you can see the structure of this directory below:
+    </p>
+
+    <pre><code class="language-text">store/
+    cart/
+        cartActions.ts
+        cartActionTypes.ts
+        cartHooks.ts
+        cartReducer.ts
+        cartTypes.ts
+    compare/
+        ...
+    currency/
+        ...
+    garage/
+        ...
+    mobile-menu/
+        ...
+    options/
+        ...
+    quickview/
+        ...
+    root/
+        ...
+    shop/
+        ...
+    user/
+        ...
+    wishlist/
+        ...
+    client.ts
+    hooks.ts
+    store.ts
+    types.ts
+    version.ts</code></pre>
+</div>
+
+            </section>
+        
+            <section class="docs-section" id="section-customization">
+                <h1 class="docs-section__title">Customization</h1>
+
+                <div class="docs-typography">
+    <h2>How to change logo?</h2>
+
+    <ul>
+        <li>
+            <strong>Desktop header</strong> - In the
+            <code>src/components/header/Logo.tsx</code>
+            file, find comments <code>{/* logo */}</code> and
+            <code>{/* logo / end */}</code> and replace code between them with your logo image.
+        </li>
+        <li>
+            <strong>Mobile header</strong> - In the
+            <code>src/components/mobile/MobileLogo.tsx</code>
+            file, find comments <code>{/* mobile-logo */}</code> and
+            <code>{/* mobile-logo / end */}</code> and replace code between them with your logo image.
+        </li>
+    </ul>
+
+    <h2>How to change font?</h2>
+
+    <ol>
+        <li>
+            Open the <code>src/pages/_document.tsx</code> file.
+        </li>
+        <li>
+            Find and replace with the desired font:<pre><code class="language-jsx">{/* fonts */}
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i&quot;&gt;</code></pre>
+        </li>
+        <li>Open the <code>src/scss/_custom-variables.scss</code> file.</li>
+        <li>
+            And define a special variable, as in the example below:
+            <pre><code class="language-scss">$body-font-family: 'YOUR_FONT_NAME';</code></pre>
+        </li>
+    </ol>
+
+    <h2>How to change theme color scheme?</h2>
+
+    <p><strong>Predefined color schemes</strong></p>
+
+    <ul>
+        <li>
+            To compile a template with one of the predefined color schemes, open the
+            <code>src/scss/_custom-variables.scss</code> file.
+        </li>
+        <li>
+            Then find and uncomment one of the following lines:
+
+            <pre><code class="language-scss">//@import 'themes/theme-red/theme-variables';
+//@import 'themes/theme-blue/theme-variables';
+//@import 'themes/theme-green/theme-variables';
+//@import 'themes/theme-orange/theme-variables';
+//@import 'themes/theme-violet/theme-variables';</code></pre>
+        </li>
+        <li>
+            After that, you need to rebuild the template.
+        </li>
+    </ul>
+
+    <p><strong>Your own color scheme</strong></p>
+
+    <ol>
+        <li>Open the <code>src/scss/_custom-variables.scss</code> file.</li>
+        <li>
+            Find the code below:<pre><code class="language-scss">// Change main theme color
+//$theme-scheme: (
+//    main:  #584d8c, // main theme color
+//    muted: #cdc8e5, // muted text color
+//);</code></pre>
+        </li>
+        <li>Uncomment these lines and replace the colors with the ones you need.</li>
+    </ol>
+
+    <h2>How to remove/change copyright notice?</h2>
+
+    <ol>
+        <li>Open the <code>src/components/footer/Footer.tsx</code> file.</li>
+        <li>
+            Find comments <code>{/* copyright */}</code> and
+            <code>{/* copyright / end */}</code>, then replace code between them with your copyright.
+        </li>
+    </ol>
+
+    <h2>How to change layout and header variant?</h2>
+
+    <ol>
+        <li>
+            Open the <code>src/config.ts</code> file.
+        </li>
+        <li>
+            Find the following code:<pre><code class="language-typescript">const config: IConfig = {
+    desktopHeaderVariant: &#039;spaceship/one&#039;,
+    mobileHeaderVariant: &#039;one&#039;,
+};</code></pre>
+        </li>
+        <li>
+            Then change the value of the <code>desktopHeaderVariant</code> and <code>mobileHeaderVariant</code>
+            properties.
+        </li>
+        <li>
+            Open the <code>src/pages/_app.tsx</code> file, then find and remove all unused header styles:<pre><code class="language-typescript">import &#039;../scss/style.header-spaceship-variant-one.scss&#039;;
+import &#039;../scss/style.header-spaceship-variant-two.scss&#039;;
+import &#039;../scss/style.header-spaceship-variant-three.scss&#039;;
+import &#039;../scss/style.header-classic-variant-one.scss&#039;;
+import &#039;../scss/style.header-classic-variant-two.scss&#039;;
+import &#039;../scss/style.header-classic-variant-three.scss&#039;;
+import &#039;../scss/style.header-classic-variant-four.scss&#039;;
+import &#039;../scss/style.header-classic-variant-five.scss&#039;;
+import &#039;../scss/style.mobile-header-variant-one.scss&#039;;
+import &#039;../scss/style.mobile-header-variant-two.scss&#039;;</code></pre>
+        </li>
+    </ol>
+</div>
+
+
+
+
+
+
+            </section>
+        
+            <section class="docs-section" id="section-third-party-modules">
+                <h1 class="docs-section__title">Third-Party Packages</h1>
+
+                <div class="docs-typography">
+    <p>This template uses third-party modules from the following packages:</p>
+
+    <ul>
+        <li>
+            <p>
+                <strong>React</strong>
+                (<a href="https://reactjs.org/" target="_blank">
+                    https://reactjs.org/
+                </a>)<br>
+                A JavaScript library for building user interfaces
+            </p>
+        </li>
+
+        <li>
+            <p>
+                <strong>Next.js</strong>
+                (<a href="https://nextjs.org/" target="_blank">
+                    https://nextjs.org/
+                </a>)<br>
+                The React Framework for server side rendering.
+            </p>
+        </li>
+
+        <li>
+            <p>
+                <strong>Next Redux Wrapper</strong>
+                (<a href="https://github.com/kirill-konshin/next-redux-wrapper" target="_blank">
+                    https://github.com/kirill-konshin/next-redux-wrapper
+                </a>)<br>
+                A HOC that brings Next.js and Redux together.
+            </p>
+        </li>
+
+        <li>
+            <p>
+                <strong>React Hook Form</strong>
+                (<a href="https://react-hook-form.com/" target="_blank">
+                    https://react-hook-form.com/
+                </a>)<br>
+                Performant, flexible and extensible forms with easy-to-use validation.
+            </p>
+        </li>
+
+        <li>
+            <p>
+                <strong>React Input Range</strong>
+                (<a href="https://github.com/davidchin/react-input-range" target="_blank">
+                    https://github.com/davidchin/react-input-range
+                </a>)<br>
+                React component for inputting numeric values within a range (range slider).
+            </p>
+        </li>
+
+        <li>
+            <p>
+                <strong>React Intl</strong>
+                (<a href="https://www.npmjs.com/package/react-intl" target="_blank">
+                    https://www.npmjs.com/package/react-intl
+                </a>)<br>
+                Internationalize React apps. This library provides React components and an API to format dates,
+                numbers, and strings, including pluralization and handling translations.
+            </p>
+        </li>
+
+        <li>
+            <p>
+                <strong>React Redux</strong>
+                (<a href="https://react-redux.js.org/" target="_blank">
+                    https://react-redux.js.org/
+                </a>)<br>
+                Official React bindings for Redux.
+            </p>
+        </li>
+
+        <li>
+            <p>
+                <strong>React Slick</strong>
+                (<a href="https://react-slick.neostack.com/" target="_blank">
+                    https://react-slick.neostack.com/
+                </a>)<br>
+                React carousel component.
+            </p>
+        </li>
+
+        <li>
+            <p>
+                <strong>React Toastify</strong>
+                (<a href="https://fkhadra.github.io/react-toastify/" target="_blank">
+                    https://fkhadra.github.io/react-toastify/
+                </a>)<br>
+                React notification made easy.
+            </p>
+        </li>
+
+        <li>
+            <p>
+                <strong>Reactstrap</strong>
+                (<a href="https://reactstrap.github.io/" target="_blank">
+                    https://reactstrap.github.io/
+                </a>)<br>
+                Simple React Bootstrap 4 components.
+            </p>
+        </li>
+    </ul>
+
+    <p>The following libraries and frameworks are also used:</p>
+
+    <ul>
+        <li>
+            <p>
+                <strong>Bootstrap</strong>
+                (<a href="https://getbootstrap.com/" target="_blank">
+                    https://getbootstrap.com/
+                </a>)<br>
+                Bootstrap is an open source toolkit for developing with HTML, CSS, and JS.
+            </p>
+        </li>
+        <li>
+            <p>
+                <strong>Classnames</strong>
+                (<a href="https://github.com/JedWatson/classnames" target="_blank">
+                    https://github.com/JedWatson/classnames
+                </a>)<br>
+                A simple javascript utility for conditionally joining classNames together.
+            </p>
+        </li>
+        <li>
+            <p>
+                <strong>Redux</strong>
+                (<a href="https://redux.js.org/" target="_blank">
+                    https://redux.js.org/
+                </a>)<br>
+                Predictable state container for JavaScript apps.
+            </p>
+        </li>
+        <li>
+            <p>
+                <strong>Redux Thunk</strong>
+                (<a href="https://github.com/reduxjs/redux-thunk" target="_blank">
+                    https://github.com/reduxjs/redux-thunk
+                </a>)<br>
+                Thunk middleware for Redux.
+            </p>
+        </li>
+        <li>
+            <p>
+                <strong>PhotoSwipe</strong>
+                (<a href="https://photoswipe.com/" target="_blank">
+                    https://photoswipe.com/
+                </a>)<br>
+                JavaScript gallery, no dependencies. Used on the product page.
+            </p>
+        </li>
+        <li>
+            <p>
+                <strong>query-string</strong>
+                (<a href="https://github.com/sindresorhus/query-string" target="_blank">
+                    https://github.com/sindresorhus/query-string
+                </a>)<br>
+                Parse and stringify URL query strings.
+            </p>
+        </li>
+    </ul>
+</div>
+
+            </section>
+        
+            <section class="docs-section" id="section-scss-files">
+                <h1 class="docs-section__title">SCSS Files</h1>
+
+                <div class="docs-typography">
+    <p>The directory with SCSS files contains the following files and subdirectories:</p>
+
+    <pre><code class="language-text">scss/
+    account/
+    blocks/
+    blog/
+    common/
+    components/
+    filters/
+    footer/
+    header/
+    mixins/
+    mobile/
+    pages/
+    shop/
+    themes/
+    widgets/
+    _bootstrap-variables.scss
+    _constants.scss
+    _custom.scss
+    _custom-variables.scss
+    _functions.scss
+    _style.header.scss
+    _style.mobile.scss
+    _svg.scss
+    _variables.scss
+    bootstrap.scss
+    index.scss
+    style.header-classic-variant-five.scss
+    style.header-classic-variant-four.scss
+    style.header-classic-variant-one.scss
+    style.header-classic-variant-three.scss
+    style.header-classic-variant-two.scss
+    style.header-spaceship-variant-one.scss
+    style.header-spaceship-variant-three.scss
+    style.header-spaceship-variant-two.scss
+    style.mobile-header-variant-one.scss
+    style.mobile-header-variant-two.scss
+    style.scss</code></pre>
+
+    <p>You can make changes to any of these files.</p>
+
+    <p>
+        To make it easier for you in the future to upgrade the template to the new version,
+        we recommend (if possible) making changes only to <code>_custom-variables.scss</code> and
+        <code>_custom.scss</code> files.
+    </p>
+
+    <ul>
+        <li><code>_custom-variables.scss</code> - It is used to override the values of variables.</li>
+        <li><code>_custom.scss</code> - Use to write your own scss code.</li>
+    </ul>
+
+    <h2>How does LTR/RTL support work?</h2>
+
+    <p>The direction is controlled using two scss variables:</p>
+
+    <ul>
+        <li>
+            <code>$direction</code> - indicates direction. Possible values: <code>ltr</code> or <code>rtl</code>.
+        </li>
+        <li>
+            <code>$both-directions</code> - if <code>true</code> compiles styles for two directions, the
+            <code>$direction</code> variable will be ignored. Possible values: <code>true</code> or <code>false</code>.
+        </li>
+    </ul>
+
+    <p>
+        Some "magic" variables are also used, which change their value depending on the given direction value.
+        The names of these variables are the same as the names of the
+        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties" target="_blank">Logical Properties</a>
+        (for example, variable <code>$margin-inline-start</code>).
+        These variables should only be used in the <code>direction</code> mixin.
+    </p>
+
+    <p>This example demonstrates how it works:</p>
+
+    <pre><code class="language-scss">.alert {
+    @include direction {
+        #{$margin-inline-start}: 20px;
+    }
+}</code></pre>
+
+    <p>Will be compiled to:</p>
+
+    <ul>
+        <li>
+            <p>If <code>$direction == ltr</code> and <code>$both-directions == false</code>:
+            </p>
+
+            <pre><code class="language-css">.alert {
+    margin-left: 20px;
+}</code></pre>
+        </li>
+        <li>
+            <p>If <code>$direction == rtl</code> and <code>$both-directions == false</code>:</p>
+            <pre><code class="language-css">.alert {
+    margin-right: 20px;
+}</code></pre>
+        </li>
+        <li>
+            <p>If <code>$both-directions == true</code>:</p>
+            <pre><code class="language-css">[dir=ltr] .alert {
+    margin-left: 20px;
+}
+[dir=rtl] .alert {
+    margin-right: 20px;
+}</code></pre>
+        </li>
+    </ul>
+
+    <h3>What if you want to use only one direction?</h3>
+
+    <p>Open <code>src/scss/_custom-variables.scss</code>, and define next variables:</p>
+
+    <pre><code class="language-scss">$direction:       ltr;   // specify the direction you need (ltr or rtl)
+$both-directions: false; // set to false to disable style compilation
+                         // for two directions</code></pre>
+</div>
+
+            </section>
+        
+            <section class="docs-section" id="section-fonts">
+                <h1 class="docs-section__title">Fonts</h1>
+
+                <div class="docs-typography">
+    <p>We used two fonts in this template:</p>
+
+    <ul>
+        <li>
+            <p>
+                <strong>Roboto</strong>
+                (Google Web Font: <a href="https://fonts.google.com/specimen/Roboto">
+                    https://fonts.google.com/specimen/Roboto
+                </a>)
+                The main font used in the template.
+            </p>
+        </li>
+        <li>
+            <p>
+                <strong>FontAwesome</strong>
+                (<a href="https://fontawesome.com/">
+                    https://fontawesome.com/
+                </a>)
+                Icon Font to display some icons in the template.
+            </p>
+        </li>
+    </ul>
+</div>
+
+            </section>
+        
+            <section class="docs-section" id="section-translation">
+                <h1 class="docs-section__title">Translation</h1>
+
+                <div class="docs-typography">
+
+    <p>
+        The language configuration is in the
+        <code>src/data/shopLanguages.ts</code> file.
+    </p>
+
+    <p>
+        Set the default language and an array of available languages:
+    </p>
+
+    <pre><code class="language-typescript">const dataShopLanguages: ILanguage[] = [
+    {
+        locale: 'en',
+        code: 'en',
+        name: 'English',
+        icon: '/images/languages/language-1.png',
+        direction: 'ltr',
+    },
+    // ...
+];
+
+export const dataShopDefaultLocale = 'en';</code></pre>
+
+    <h2>How to translate template?</h2>
+
+    <ol>
+        <li>Go to <code>public/i18n/</code> directory.</li>
+        <li>
+            Then copy the <code>en.json</code> file and specify its name, for example
+            <code>[LANGUAGE_LOCALE].json</code>.
+        </li>
+        <li>
+            Open the copied file and translate all entries.
+        </li>
+        <li>
+            Add a new language to the configuration.<br>
+            <code>src/data/shopLanguages.ts</code>
+
+            <pre><code class="language-typescript">const dataShopLanguages: ILanguage[] = [
+    {
+        locale: 'en',
+        code: 'en',
+        name: 'English',
+        icon: '/images/languages/language-1.png',
+        direction: 'ltr',
+    },
+    {
+        locale: LANGUAGE_LOCALE,
+        code: LANGUAGE_CODE,
+        name: LANGUAGE_NAME,
+        icon: LANGUAGE_ICON, // path to the language icon
+        direction: LANGUAGE_DIRECTION, // ltr or rtl
+    },
+];</code></pre>
+        </li>
+    </ol>
+
+    <h2>Where can I get flag icons?</h2>
+
+    <p>
+        You can get flag icons from the
+        <a href="https://github.com/gosquared/flags/tree/master/src/flags">https://github.com/gosquared/flags</a>
+        repository.
+    </p>
+
+    <p>
+        The template uses a 24px (24.png) version of the icons.
+    </p>
+</div>
+
+            </section>
+        
+            <section class="docs-section" id="section-currencies">
+                <h1 class="docs-section__title">Currencies</h1>
+
+                <div class="docs-typography">
+    <p>
+        Currency configuration is in the
+        <code>src/data/shopCurrencies.ts</code> file.
+    </p>
+
+    <p>
+        Find the following piece of code and set the default currency and an array of available currencies:
+    </p>
+
+    <pre><code class="language-typescript">const dataShopCurrencies: ICurrency[] = [
+    {
+        code: 'USD',
+        symbol: '$',
+        name: 'US Dollar',
+        rate: 1,
+    },
+    // ...
+];
+
+const dataShopDefaultCurrencyCode = 'USD';</code></pre>
+</div>
+
+            </section>
+        
+            <section class="docs-section" id="section-changelog">
+                <h1 class="docs-section__title">Changelog</h1>
+
+                <div class="docs-typography">
+    <p><strong>Version 1.2.0</strong> – September 1, 2021</p>
+
+    <ul>
+        <li>Fixed: The provided `href` (/catalog/[slug]/products) value is missing query values (slug) to be interpolated properly;</li>
+        <li>Updated: Next.js from 10.2.0 to 11.1.2;</li>
+        <li>Updated: Other dependencies.</li>
+    </ul>
+
+    <p><strong>Version 1.1.0</strong> – May 5, 2021</p>
+
+    <ul>
+        <li>Added: Support for cursor based navigation;</li>
+        <li>Fixed: range filter incorrectly rounds min and max values if they have the same value;</li>
+        <li>Fixed: Bug of displaying slides of a react-slick if the infinite property is true and the slides are not enough to fill the entire frame;</li>
+        <li>Updated: Next.js from 9.5.2 to 10.2.0;</li>
+        <li>Updated: React from 16.13.1 to 17.0.2;</li>
+        <li>Updated: react-hook-form from 6.13.1 to 7.4.0;</li>
+        <li>Updated: Other dependencies.</li>
+    </ul>
+
+    <p><strong>Version 1.0.0</strong> – September 2, 2020</p>
+
+    <ul>
+        <li>Initial Release.</li>
+    </ul>
+</div>
+
+            </section>
+        
+            <section class="docs-section" id="section-credits">
+                <h1 class="docs-section__title">Credits</h1>
+
+                <div class="docs-typography">
+    <ul>
+        <li>React (<a href="https://reactjs.org/">https://reactjs.org/</a>)</li>
+        <li>Next.js (<a href="https://nextjs.org/">https://nextjs.org/</a>)</li>
+        <li>Next Redux Wrapper (<a href="https://github.com/kirill-konshin/next-redux-wrapper">https://github.com/kirill-konshin/next-redux-wrapper</a>)</li>
+        <li>React Hook Form (<a href="https://react-hook-form.com/">https://react-hook-form.com/</a>)</li>
+        <li>React Input Range (<a href="https://github.com/davidchin/react-input-range">https://github.com/davidchin/react-input-range</a>)</li>
+        <li>React Intl (<a href="https://www.npmjs.com/package/react-intl">https://www.npmjs.com/package/react-intl</a>)</li>
+        <li>React Redux (<a href="https://react-redux.js.org/">https://react-redux.js.org/</a>)</li>
+        <li>React Slick (<a href="https://react-slick.neostack.com/">https://react-slick.neostack.com/</a>)</li>
+        <li>React Toastify (<a href="https://fkhadra.github.io/react-toastify/">https://fkhadra.github.io/react-toastify/</a>)</li>
+        <li>Reactstrap (<a href="https://reactstrap.github.io/">https://reactstrap.github.io/</a>)</li>
+        <li>Bootstrap (<a href="https://getbootstrap.com/">https://getbootstrap.com/</a>)</li>
+        <li>Classnames (<a href="https://github.com/JedWatson/classnames">https://github.com/JedWatson/classnames</a>)</li>
+        <li>Redux (<a href="https://redux.js.org/">https://redux.js.org/</a>)</li>
+        <li>Redux Thunk (<a href="https://github.com/reduxjs/redux-thunk">https://github.com/reduxjs/redux-thunk</a>)</li>
+        <li>PhotoSwipe (<a href="https://photoswipe.com/">https://photoswipe.com/</a>)</li>
+        <li>query-string (<a href="https://github.com/sindresorhus/query-string">https://github.com/sindresorhus/query-string</a>)</li>
+    </ul>
+</div>
+
+            </section>
+        
+    </div>
+</div>
+</body>
+</html>
