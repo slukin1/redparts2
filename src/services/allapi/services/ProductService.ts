@@ -63,7 +63,7 @@ page?: string,
 filter?: string,
 /**
  * Select only fields you want.
- * Example : name, profileImage
+ * Example : make, mileage, model
  */
 select?: string,
 }): CancelablePromise<ProductResponse | errorResponse> {

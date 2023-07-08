@@ -1,8 +1,8 @@
 {
     "i18n-ally.localesPaths": [
         "public/i18n",
+        "public/images/languages",
         "src/services/i18n",
-        "src/store/language",
-        "public/images/languages"
+        "src/store/language"
     ]
 }
