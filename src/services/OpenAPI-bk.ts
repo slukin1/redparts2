@@ -25,12 +25,14 @@ export const OpenAPI: OpenAPIConfig = {
     VERSION: '1',
     WITH_CREDENTIALS: false,
     CREDENTIALS: 'include',
-    TOKEN: environment.bearerAuth,
+    // is converted to base64 and HEADERS{Authorization} in request.ts
+    TOKEN: environment.bearerAuth,  
+    // is converted to base64 and HEADERS{Authorization} in request.ts
     USERNAME: environment.username,
     PASSWORD: environment.password,
     HEADERS: {
         'Content-Type': 'application/json',
-        'Authorization': `Basic ${Buffer.from(`${environment.username}:${environment.password}`).toString('base64')}`,
+        'Authorization': ``, // add token or refresh token from from response only
     },
     ENCODE_PATH: (path: string) => {
         // Encode the path using encodeURIComponent

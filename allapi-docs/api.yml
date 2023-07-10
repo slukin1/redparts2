@@ -4048,6 +4048,13 @@ components:
       allOf:
         - $ref: '#/components/schemas/commonPostResponse'
         - $ref: '#/components/schemas/Response'
+    LogoutRequestBody:
+      type: object
+      properties:
+        refreshToken:
+          type: string
+      required:
+        - refreshToken
     Token:
       type: object
       properties:
@@ -4055,8 +4062,6 @@ components:
           type: string
       required:
         - accessToken
-    LogoutRequestBody:
-      $ref: '#/components/schemas/Token'
     TokenRequestBody:
       $ref: '#/components/schemas/Token'
     TokenPostResponse:

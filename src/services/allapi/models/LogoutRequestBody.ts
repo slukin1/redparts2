@@ -2,6 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Token } from './Token';
-
-export type LogoutRequestBody = Token;
+export type LogoutRequestBody = {
+    refreshToken: string;
+};

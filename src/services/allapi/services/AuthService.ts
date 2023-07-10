@@ -5,6 +5,7 @@ import type { commonPostResponse } from '../models/commonPostResponse';
 import type { errorResponse } from '../models/errorResponse';
 import type { LoginRequestBody } from '../models/LoginRequestBody';
 import type { LoginResponse } from '../models/LoginResponse';
+import type { LogoutRequestBody } from '../models/LogoutRequestBody';
 import type { RegisterData } from '../models/RegisterData';
 import type { RegisterResponse } from '../models/RegisterResponse';
 import type { Token } from '../models/Token';
@@ -80,7 +81,7 @@ requestBody: RegisterData,
     public static userLogout({
 requestBody,
 }: {
-requestBody: Token,
+requestBody: LogoutRequestBody,
 }): CancelablePromise<commonPostResponse | errorResponse> {
         return __request(OpenAPI, {
             method: 'POST',

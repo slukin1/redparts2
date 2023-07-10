@@ -165,7 +165,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Token"
+                "$ref": "#/components/schemas/LogoutRequestBody"
               }
             }
           },
@@ -6204,6 +6204,17 @@
           }
         ]
       },
+      "LogoutRequestBody": {
+        "type": "object",
+        "properties": {
+          "refreshToken": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "refreshToken"
+        ]
+      },
       "Token": {
         "type": "object",
         "properties": {
@@ -6214,9 +6225,6 @@
         "required": [
           "accessToken"
         ]
-      },
-      "LogoutRequestBody": {
-        "$ref": "#/components/schemas/Token"
       },
       "TokenRequestBody": {
         "$ref": "#/components/schemas/Token"
