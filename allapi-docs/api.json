@@ -445,7 +445,7 @@
       }
     },
     "/auth/change-password": {
-      "post": {
+      "patch": {
         "tags": [
           "Auth"
         ],

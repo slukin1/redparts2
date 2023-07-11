@@ -28,10 +28,10 @@ export class AuthService {
      * @throws ApiError
      */
     public static userLogin({
-        requestBody,
-    }: {
-        requestBody: LoginRequestBody,
-    }): CancelablePromise<LoginResponse | errorResponse> {
+requestBody,
+}: {
+requestBody: LoginRequestBody,
+}): CancelablePromise<LoginResponse | errorResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/auth/login',
@@ -54,10 +54,10 @@ export class AuthService {
      * @throws ApiError
      */
     public static registerUser({
-        requestBody,
-    }: {
-        requestBody: RegisterData,
-    }): CancelablePromise<RegisterResponse | errorResponse> {
+requestBody,
+}: {
+requestBody: RegisterData,
+}): CancelablePromise<RegisterResponse | errorResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/auth/register',
@@ -79,10 +79,10 @@ export class AuthService {
      * @throws ApiError
      */
     public static userLogout({
-        requestBody,
-    }: {
-        requestBody: LogoutRequestBody,
-    }): CancelablePromise<commonPostResponse | errorResponse> {
+requestBody,
+}: {
+requestBody: LogoutRequestBody,
+}): CancelablePromise<commonPostResponse | errorResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/auth/logout',
@@ -104,10 +104,10 @@ export class AuthService {
      * @throws ApiError
      */
     public static userToken({
-        requestBody,
-    }: {
-        requestBody: Token,
-    }): CancelablePromise<TokenPostResponse | errorResponse> {
+requestBody,
+}: {
+requestBody: Token,
+}): CancelablePromise<TokenPostResponse | errorResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/auth/tokens',
@@ -129,10 +129,10 @@ export class AuthService {
      * @throws ApiError
      */
     public static passwordForgot({
-        requestBody,
-    }: {
-        requestBody: UserMail,
-    }): CancelablePromise<commonPostResponse | errorResponse> {
+requestBody,
+}: {
+requestBody: UserMail,
+}): CancelablePromise<commonPostResponse | errorResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/auth/forgot-password',
@@ -154,10 +154,10 @@ export class AuthService {
      * @throws ApiError
      */
     public static passwordReset({
-        requestBody,
-    }: {
-        requestBody: UserResetPassword,
-    }): CancelablePromise<commonPostResponse | errorResponse> {
+requestBody,
+}: {
+requestBody: UserResetPassword,
+}): CancelablePromise<commonPostResponse | errorResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/auth/reset-password',
@@ -179,12 +179,12 @@ export class AuthService {
      * @throws ApiError
      */
     public static passwordChange({
-        requestBody,
-    }: {
-        requestBody: UserChangePassword,
-    }): CancelablePromise<commonPostResponse | errorResponse> {
+requestBody,
+}: {
+requestBody: UserChangePassword,
+}): CancelablePromise<commonPostResponse | errorResponse> {
         return __request(OpenAPI, {
-            method: 'POST',
+            method: 'PATCH',
             url: '/auth/change-password',
             body: requestBody,
             mediaType: 'application/json',
