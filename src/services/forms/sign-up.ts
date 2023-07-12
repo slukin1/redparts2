@@ -11,6 +11,7 @@ interface ISignUpFormOptions {
 }
 
 export interface ISignUpForm {
+    username: string;
     email: string;
     password: string;
     confirmPassword: string;
@@ -22,6 +23,7 @@ export function useSignUpForm(options: ISignUpFormOptions = {}) {
     const [serverError, setServerError] = useState<string | null>(null);
     const methods = useForm<ISignUpForm>({
         defaultValues: {
+            username: 'username',
             email: 'user@example.com',
             password: '123456',
             confirmPassword: '123456',
@@ -31,7 +33,7 @@ export function useSignUpForm(options: ISignUpFormOptions = {}) {
     const [submit, submitInProgress] = useAsyncAction((data: ISignUpForm) => {
         setServerError(null);
 
-        return signUp(data.email, data.password).then(
+        return signUp(data.email, data.password, data.username).then(
             () => {
                 if (onSuccess) {
                     onSuccess();

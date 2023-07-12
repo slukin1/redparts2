@@ -13,7 +13,7 @@ import url from '~/services/url';
 import { useSignInForm } from '~/services/forms/sign-in';
 import { useSignUpForm } from '~/services/forms/sign-up';
 import { useUser } from '~/store/user/userHooks';
-import { validateEmail } from '~/services/validators';
+import { validateEmail, validateUserName } from '~/services/validators';
 
 function Page() {
     const intl = useIntl();
@@ -161,6 +161,29 @@ function Page() {
                                                 )}
                                             </div>
                                         </div>
+                                        <div className="form-group">
+                                            <label htmlFor="signup-username">
+                                                <FormattedMessage id="INPUT_USERNAME_LABEL" />
+                                            </label>
+                                            <input
+                                                id="signup-username"
+                                                type="text"
+                                                className={classNames('form-control', {
+                                                    'is-invalid': signUpForm.errors.username,
+                                                })}
+                                                placeholder="username"
+                                                {...signUpForm.register('username', {
+                                                    required: true,
+                                                    validate: { username: validateUserName },
+                                                })}
+                                            />
+                                            <div className="invalid-feedback">
+                                                {signUpForm.errors.username?.type === 'required' && (
+                                                    <FormattedMessage id="ERROR_FORM_REQUIRED" />
+                                                )}
+                                            </div>
+                                        </div>
+
                                         <div className="form-group">
                                             <label htmlFor="signup-password">
                                                 <FormattedMessage id="INPUT_PASSWORD_LABEL" />

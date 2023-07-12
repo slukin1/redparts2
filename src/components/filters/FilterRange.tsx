@@ -92,9 +92,39 @@ function FilterRange(props: Props) {
             </div>
             <div className="filter-range__title-button">
                 <div className="filter-range__title">
-                    <span className="filter-range__min-value"><CurrencyFormat value={fromLabel} /></span>
-                    {' – '}
-                    <span className="filter-range__max-value"><CurrencyFormat value={toLabel} /></span>
+                    { (options.slug === 'mileage' || options.slug === 'year') && (
+                        <React.Fragment>
+                            <span className="filter-range__min-value">
+                                {' '}
+                                {fromLabel}
+                                {' '}
+                            </span>
+                            <span> – </span>
+                            <span
+                                className="filter-range__max-value"
+                            >
+                                {' '}
+                                {toLabel}
+                                {' '}
+
+                            </span>
+                        </React.Fragment>
+                    )}
+                    { options.slug === 'price' && (
+                        <React.Fragment>
+                            <span className="filter-range__min-value">
+                                <CurrencyFormat
+                                    value={fromLabel}
+                                />
+                            </span>
+                            <span> –</span>
+                            <span className="filter-range__max-value">
+                                <CurrencyFormat
+                                    value={toLabel}
+                                />
+                            </span>
+                        </React.Fragment>
+                    )}
                 </div>
             </div>
         </div>

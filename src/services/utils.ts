@@ -36,7 +36,7 @@ export function isArrayOfNumbers(value: any): value is number[] {
 
 export function isEmptyList(navigation: INavigation): boolean {
     return (
-        // Page based navigation
+        // Index based navigation
         (navigation.type === 'page' && navigation.total === 0)
         // Cursor based navigation
         || (navigation.type === 'cursor' && navigation.startCursor === null && navigation.endCursor === null)

@@ -40,9 +40,9 @@ function FilterRadio(props: Props) {
                         />
 
                         <span className="filter-list__title">{item.name}</span>
-                        {item.count !== 0 && (
-                            <span className="filter-list__counter">{item.count}</span>
-                        )}
+                        {/* {item.count !== 0 && ( */}
+                        {/*    <span className="filter-list__counter">{item.count}</span> */}
+                        {/* )} */}
                     </label>
                 ))}
             </div>

@@ -29,9 +29,6 @@ function Page() {
             { id: 2, name: 'Power Tools', categorySlug: 'power-tools' },
             { id: 3, name: 'Hand Tools', categorySlug: 'hand-tools' },
             { id: 4, name: 'Plumbing', categorySlug: 'plumbing' },
-            // { id: 2, name: 'Power Tools', categorySlug: 'power-tools' },
-            // { id: 3, name: 'Hand Tools', categorySlug: 'hand-tools' },
-            // { id: 4, name: 'Plumbing', categorySlug: 'plumbing' },
         ], []),
         (tab) => shopApi.getFeaturedProducts(tab.categorySlug, 8),
     );

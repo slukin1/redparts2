@@ -161,7 +161,7 @@ const dataHeaderMainMenu: IMainMenuLink[] = [
     //                 url: '/vehicles/shop/shop-cursor-navigation',
     //                 links: [
     //                     { title: 'Cursor-Based', url: '/vehicles/shop/shop-cursor-navigation' },
-    //                     { title: 'Page-Based', url: '/vehicles/shop/shop-page-navigation' },
+    //                     { title: 'Index-Based', url: '/vehicles/shop/shop-page-navigation' },
     //                 ],
     //             },
     //             {
@@ -212,7 +212,7 @@ const dataHeaderMainMenu: IMainMenuLink[] = [
     //                 ],
     //             },
     //             {
-    //                 title: 'Post Page',
+    //                 title: 'Post Index',
     //                 url: '/vehicles/blog/post-full-width',
     //                 links: [
     //                     { title: 'Full Width', url: '/vehicles/blog/post-full-width' },

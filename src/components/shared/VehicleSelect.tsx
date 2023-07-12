@@ -19,10 +19,9 @@ function VehicleSelect(props: Props) {
 
     return (
         <div className={rootClasses} {...rootProps}>
-            <div className="vehicle-select__list">
+            <div className="vehicle-select__list ">
                 {form.items.map((item, itemIdx) => {
                     const options = item.options as Array<number | string | IVehicle>;
-
                     return (
                         <div
                             key={itemIdx}

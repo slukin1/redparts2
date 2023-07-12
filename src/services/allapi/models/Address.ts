@@ -13,5 +13,5 @@ export type Address = {
     country?: string;
     createdAt?: string;
     updatedAt?: string;
-    deletedAt?: string;
+    deletedAt?: null | string;
 };

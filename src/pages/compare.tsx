@@ -194,7 +194,7 @@ function Page() {
                                     })}
                                     onClick={run}
                                 >
-                                    <FormattedMessage id="BUTTON_ADD_TO_CART" />
+                                    <FormattedMessage id="BUTTON_INQUIRY" />
                                 </button>
                             )}
                         />

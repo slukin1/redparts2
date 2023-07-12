@@ -66,7 +66,7 @@ export interface IFilterableList<T> extends IList<T> {
 export interface IListOptions {
     sort?: string;
     limit?: number;
-    // Page based navigation
+    // Index based navigation
     page?: number;
     // Cursor based navigation
     before?: string;

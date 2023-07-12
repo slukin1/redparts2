@@ -71,14 +71,7 @@ export default function useVehicleForm(options: IOptions = {}) {
     const { onChange } = options;
     const cancelPrevRequestRef = useRef(() => {});
     const [items, setItems] = useState(makeItems([
-        {
-            key: 'year',
-            label: intl.formatMessage({ id: 'INPUT_VEHICLE_YEAR_LABEL' }),
-            placeholder: intl.formatMessage({ id: 'INPUT_VEHICLE_YEAR_PLACEHOLDER' }),
-            optionsSource: vehicleApi.getYears.bind(vehicleApi),
-            serializeOptionFn: (option: number) => option.toString(),
-            deserializeOptionFn: (option: string) => parseFloat(option),
-        },
+
         {
             key: 'brand',
             label: intl.formatMessage({ id: 'INPUT_VEHICLE_BRAND_LABEL' }),
@@ -92,14 +85,32 @@ export default function useVehicleForm(options: IOptions = {}) {
             optionsSource: vehicleApi.getModels.bind(vehicleApi),
         },
         {
+            key: 'yearFrom',
+            label: 'year from',
+            placeholder: 'Select Year from',
+            optionsSource: vehicleApi.getYearsFrom.bind(vehicleApi),
+            serializeOptionFn: (option: number) => option.toString(),
+            deserializeOptionFn: (option: string) => parseFloat(option),
+        },
+        {
+            key: 'yearTo',
+            label: 'year to',
+            placeholder: 'Select Year to',
+            optionsSource: vehicleApi.getYearsTo.bind(vehicleApi),
+            serializeOptionFn: (option: number) => option.toString(),
+            deserializeOptionFn: (option: string) => parseFloat(option),
+        },
+        {
+            key: 'mileage',
+            label: 'Mileage',
+            placeholder: 'Select Mileage',
+            optionsSource: vehicleApi.getMileage.bind(vehicleApi),
+        },
+        {
             key: 'engine',
-            label: intl.formatMessage({ id: 'INPUT_VEHICLE_ENGINE_LABEL' }),
-            placeholder: intl.formatMessage({ id: 'INPUT_VEHICLE_ENGINE_PLACEHOLDER' }),
-            optionsSource: vehicleApi.getVehicles.bind(vehicleApi),
-            serializeOptionFn: (option: IVehicle) => option.engine,
-            deserializeOptionFn: (option: string, item: VehicleSelectItem<IVehicle>) => (
-                item.options.find((x) => x.engine === option)!
-            ),
+            label: 'Engine',
+            placeholder: 'Select Engine',
+            optionsSource: vehicleApi.getEngine.bind(vehicleApi),
         },
     ]));
 

@@ -14,7 +14,7 @@ import CompatibilityStatusBadge from '~/components/shared/CompatibilityStatusBad
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
 import InputNumber from '~/components/shared/InputNumber';
 import PageTitle from '~/components/shared/PageTitle';
-import ProductForm from '~/components/shop/ProductForm';
+// import ProductForm from '~/components/shop/ProductForm';
 import ProductGallery, { IProductGalleryLayout } from '~/components/shop/ProductGallery';
 import ProductSidebar from '~/components/shop/ProductSidebar';
 import ProductTabs from '~/components/shop/ProductTabs';
@@ -228,22 +228,22 @@ function ShopPageProduct(props: Props) {
         <div className="product__actions">
             {product.stock !== 'out-of-stock' && (
                 <React.Fragment>
-                    <div className="product__actions-item product__actions-item--quantity">
-                        <Controller
-                            name="quantity"
-                            rules={{
-                                required: true,
-                            }}
-                            render={({ field: { ref: fieldRef, ...fieldProps } }) => (
-                                <InputNumber
-                                    size="lg"
-                                    min={1}
-                                    inputRef={fieldRef}
-                                    {...fieldProps}
-                                />
-                            )}
-                        />
-                    </div>
+                    {/* <div className="product__actions-item product__actions-item--quantity"> */}
+                    {/*    <Controller */}
+                    {/*        name="quantity" */}
+                    {/*        rules={{ */}
+                    {/*            required: true, */}
+                    {/*        }} */}
+                    {/*        render={({ field: { ref: fieldRef, ...fieldProps } }) => ( */}
+                    {/*            <InputNumber */}
+                    {/*                size="lg" */}
+                    {/*                min={1} */}
+                    {/*                inputRef={fieldRef} */}
+                    {/*                {...fieldProps} */}
+                    {/*            /> */}
+                    {/*        )} */}
+                    {/*    /> */}
+                    {/* </div> */}
                     <div className="product__actions-item product__actions-item--addtocart">
                         <button
                             type="submit"
@@ -251,7 +251,7 @@ function ShopPageProduct(props: Props) {
                                 'btn-loading': productForm.submitInProgress,
                             })}
                         >
-                            <FormattedMessage id="BUTTON_ADD_TO_CART" />
+                            <FormattedMessage id="BUTTON_INQUIRY" />
                         </button>
                     </div>
                     <div className="product__actions-divider" />
@@ -408,13 +408,13 @@ function ShopPageProduct(props: Props) {
                                             <form onSubmit={productForm.submit} className="product__info-card">
                                                 {productInfoBody}
 
-                                                {product.options.length > 0 && (
-                                                    <ProductForm
-                                                        options={product.options}
-                                                        className="product__form"
-                                                        namespace="options"
-                                                    />
-                                                )}
+                                                {/* {product.options.length > 0 && ( */}
+                                                {/*    <ProductForm */}
+                                                {/*        options={product.options} */}
+                                                {/*        className="product__form" */}
+                                                {/*        namespace="options" */}
+                                                {/*    /> */}
+                                                {/* )} */}
 
                                                 {productActions}
 

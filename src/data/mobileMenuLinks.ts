@@ -75,7 +75,7 @@ const dataMobileMenuLinks: IMobileMenuLink[] = [
                 url: '/vehicles/shop/shop-cursor-navigation',
                 submenu: [
                     { title: 'Cursor-Based', url: '/vehicles/shop/shop-cursor-navigation' },
-                    { title: 'Page-Based', url: '/vehicles/shop/shop-page-navigation' },
+                    { title: 'Index-Based', url: '/vehicles/shop/shop-page-navigation' },
                 ],
             },
             {
@@ -125,7 +125,7 @@ const dataMobileMenuLinks: IMobileMenuLink[] = [
     //             ],
     //         },
     //         {
-    //             title: 'Post Page',
+    //             title: 'Post Index',
     //             url: '/vehicles/blog/post-full-width',
     //             submenu: [
     //                 { title: 'Full Width', url: '/vehicles/blog/post-full-width' },

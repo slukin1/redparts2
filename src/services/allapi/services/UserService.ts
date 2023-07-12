@@ -94,13 +94,14 @@ select?: string,
      * @throws ApiError
      */
     public static getUserApi({
-id,
+id, token
 }: {
 id: string,
 }): CancelablePromise<AddUserResponse | errorResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/user/userId',
+            token: token,
             query: {
                 'id': id,
             },
@@ -195,12 +196,13 @@ image: string,
      * @throws ApiError
      */
     public static putUserUpdateProfile({
-requestBody,
+requestBody, token
 }: {
 requestBody: UserPutRequest,
 }): CancelablePromise<UserPutResponse | errorResponse> {
         return __request(OpenAPI, {
             method: 'PATCH',
+            token: token,
             url: '/user/update-details',
             body: requestBody,
             mediaType: 'application/json',

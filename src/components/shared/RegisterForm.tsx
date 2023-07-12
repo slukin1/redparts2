@@ -12,6 +12,7 @@ export interface IRegisterForm {
     email: string;
     password: string;
     confirmPassword: string;
+    username: string;
 }
 
 interface Props {
@@ -25,6 +26,7 @@ export function getRegisterFormDefaultValue(initialData: IRegisterForm | null = 
         email: '',
         password: '',
         confirmPassword: '',
+        username: '',
         ...initialData,
     };
 }

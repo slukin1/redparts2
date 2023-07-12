@@ -59,14 +59,14 @@ function ProductsView(props: Props) {
 
     const handleSortChange = useSetOption('sort', (event) => event.target.value);
     const handleLimitChange = useSetOption('limit', (event) => parseFloat(event.target.value));
-    // Page based navigation
+    // Index based navigation
     const handlePageChange = useSetOption('page', parseFloat);
     // Cursor based navigation
     const handleAfterChange = useSetOption('after');
     const handleBeforeChange = useSetOption('before');
 
     const onNavigate = useCallback((event: INavigationEvent) => {
-        // Page based navigation
+        // Index based navigation
         if (event.type === 'page') {
             handlePageChange(event.page);
         }
@@ -353,7 +353,7 @@ function ProductsView(props: Props) {
                         </div>
 
                         <div className="products-view__pagination">
-                            <nav aria-label="Page navigation example">
+                            <nav aria-label="Index navigation example">
                                 {navigation && (
                                     <Navigation
                                         data={navigation}

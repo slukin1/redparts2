@@ -59,9 +59,9 @@ function FilterRating(props: Props) {
                             <span className="filter-rating__item-title sr-only">
                                 <FormattedMessage id="TEXT_STARS" values={{ stars: item.rating }} />
                             </span>
-                            {item.count !== 0 && (
-                                <span className="filter-rating__item-counter">{item.count}</span>
-                            )}
+                            {/* {item.count !== 0 && ( */}
+                            {/*    <span className="filter-rating__item-counter">{item.count}</span> */}
+                            {/* )} */}
                         </label>
                     </li>
                 ))}

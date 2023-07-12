@@ -25,9 +25,10 @@ export function userSignIn(
 export function userSignUp(
     email: string,
     password: string,
+    username: string,
 ): UserThunkAction<Promise<void>> {
     return (dispatch) => (
-        accountApi.signUp(email, password).then((user) => {
+        accountApi.signUp(email, password, username).then((user) => {
             dispatch(userSetCurrent(user));
         })
     );

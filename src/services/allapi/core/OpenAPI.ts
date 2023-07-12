@@ -1,6 +1,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+
+import environment from 'src/environment';
 import type { ApiRequestOptions } from './ApiRequestOptions';
 
 type Resolver<T> = (options: ApiRequestOptions) => Promise<T>;
@@ -19,13 +21,21 @@ export type OpenAPIConfig = {
 };
 
 export const OpenAPI: OpenAPIConfig = {
-    BASE: 'http://localhost:8000/api/v1',
+    BASE: environment.apiBaseURL ,
     VERSION: '1',
     WITH_CREDENTIALS: false,
     CREDENTIALS: 'include',
-    TOKEN: undefined,
-    USERNAME: undefined,
-    PASSWORD: undefined,
-    HEADERS: undefined,
-    ENCODE_PATH: undefined,
+    TOKEN: environment.bearerAuth,
+    // USERNAME: environment.username,
+    // PASSWORD: environment.password,
+    HEADERS: {
+        'Content-Type': 'application/json',
+        'Origin': 'x-requested-with',
+        // 'Authorization': `Basic ${Buffer.from(`${environment.username}:${environment.password}`).toString('base64')}`,
+    },
+    ENCODE_PATH: (path: string) => {
+        // Encode the path using encodeURIComponent
+        const encodedPath = encodeURIComponent(path);
+        return encodedPath;
+    },
 };

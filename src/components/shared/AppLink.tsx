@@ -67,7 +67,6 @@ function AppLink(props: Props) {
     const isExternal = !!data.href.hostname;
     const hasPath = !!data.href.pathname;
     const onlyHash = formatUrl(data.href).startsWith('#');
-
     if (isExternal || anchor || onlyHash) {
         let anchorHref;
 

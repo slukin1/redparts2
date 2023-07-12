@@ -201,7 +201,7 @@ function ProductCard(props: Props) {
                                     className={classNames('product-card__addtocart-icon', {
                                         'product-card__addtocart-icon--loading': loading,
                                     })}
-                                    aria-label={intl.formatMessage({ id: 'BUTTON_ADD_TO_CART' })}
+                                    aria-label={intl.formatMessage({ id: 'BUTTON_INQUIRY' })}
                                     onClick={run}
                                 >
                                     <Cart20Svg />
@@ -220,7 +220,7 @@ function ProductCard(props: Props) {
                                             })}
                                             onClick={run}
                                         >
-                                            <FormattedMessage id="BUTTON_ADD_TO_CART" />
+                                            <FormattedMessage id="BUTTON_INQUIRY" />
                                         </button>
                                     )}
                                 />

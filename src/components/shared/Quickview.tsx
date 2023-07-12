@@ -127,11 +127,11 @@ function Quickview() {
                 <StockStatusBadge className="quickview__product-stock" stock={product.stock} />
             </div>
 
-            <ProductForm
-                options={product.options}
-                className="quickview__product-form"
-                namespace="options"
-            />
+            {/* <ProductForm */}
+            {/*    options={product.options} */}
+            {/*    className="quickview__product-form" */}
+            {/*    namespace="options" */}
+            {/* /> */}
 
             <div className="quickview__product-actions">
                 <div className="quickview__product-actions-item quickview__product-actions-item--quantity">
@@ -154,7 +154,7 @@ function Quickview() {
                             'btn-loading': productForm.submitInProgress,
                         })}
                     >
-                        <FormattedMessage id="BUTTON_ADD_TO_CART" />
+                        <FormattedMessage id="BUTTON_INQUIRY" />
                     </button>
                 </div>
 

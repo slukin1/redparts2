@@ -5,7 +5,6 @@ import type { commonPostResponse } from '../models/commonPostResponse';
 import type { errorResponse } from '../models/errorResponse';
 import type { LoginRequestBody } from '../models/LoginRequestBody';
 import type { LoginResponse } from '../models/LoginResponse';
-import type { LogoutRequestBody } from '../models/LogoutRequestBody';
 import type { RegisterData } from '../models/RegisterData';
 import type { RegisterResponse } from '../models/RegisterResponse';
 import type { Token } from '../models/Token';
@@ -81,7 +80,7 @@ requestBody: RegisterData,
     public static userLogout({
 requestBody,
 }: {
-requestBody: LogoutRequestBody,
+requestBody: Token,
 }): CancelablePromise<commonPostResponse | errorResponse> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -179,12 +178,13 @@ requestBody: UserResetPassword,
      * @throws ApiError
      */
     public static passwordChange({
-requestBody,
+requestBody, accessToken,
 }: {
 requestBody: UserChangePassword,
 }): CancelablePromise<commonPostResponse | errorResponse> {
         return __request(OpenAPI, {
             method: 'PATCH',
+            token: accessToken,
             url: '/auth/change-password',
             body: requestBody,
             mediaType: 'application/json',

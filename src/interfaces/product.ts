@@ -77,6 +77,7 @@ export interface IProduct {
     description: string;
     slug: string;
     sku?: string;
+    mileage?: number|null;
     partNumber: string;
     stock: IProductStock;
     price: number;

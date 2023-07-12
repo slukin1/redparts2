@@ -40,7 +40,6 @@ function shopReducerFetchProductsListSuccess(
     const activeFilters = action.productsList.filters
         .filter((x) => hasHandler(x))
         .reduce<IActiveFilter[]>((acc, filter) => [...acc, ...getActiveFilters(filter)], []);
-
     return {
         ...state,
         productsListIsLoading: false,
@@ -56,7 +55,7 @@ function shopReducerSetOptionValue(state: IShopState, action: ShopSetOptionValue
         ...state,
         options: {
             ...state.options,
-            // Page based navigation
+            // Index based navigation
             page: 1,
             // Cursor based navigation
             before: undefined,
@@ -85,7 +84,7 @@ function shopReducerSetFilterValue(state: IShopState, action: ShopSetFilterValue
         ...state,
         options: {
             ...state.options,
-            // Page based navigation
+            // Index based navigation
             page: 1,
             // Cursor based navigation
             before: undefined ,
@@ -127,7 +126,7 @@ function shopReducerResetFilter(state: IShopState, action: ShopResetFilterAction
         ...state,
         options: {
             ...state.options,
-            // Page based navigation
+            // Index based navigation
             page: 1,
             // Cursor based navigation
             before: undefined,

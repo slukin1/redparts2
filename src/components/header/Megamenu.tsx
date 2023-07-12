@@ -35,7 +35,6 @@ function Megamenu(props: Props) {
                 {menu.columns.map((column, columnIndex) => {
                     const columnClasses = classNames(`col-${column.size}`);
                     const hasLinks = column.links?.length > 0;
-
                     return (
                         <div className={columnClasses} key={columnIndex}>
                             {hasLinks && (

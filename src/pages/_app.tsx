@@ -11,6 +11,7 @@ import LanguageProvider, { getLanguageInitialProps, ILanguageProviderProps } fro
 import Layout from '~/components/Layout';
 import PageTitle from '~/components/shared/PageTitle';
 import { AppDispatch } from '~/store/types';
+// import { updateResults } from '~/store/custom/slices/years';
 import { CurrentVehicleGarageProvider } from '~/services/current-vehicle';
 import { getLanguageByLocale } from '~/services/i18n/utils';
 import { load, save, wrapper } from '~/store/store';
@@ -43,6 +44,13 @@ function App(props: Props) {
     const store = useStore();
     const applyClientState = useApplyClientState();
     const loadUserVehicles = useLoadUserVehicles();
+    // const dispatch = useDispatch();
+    // useEffect(() => {
+    //     VehicleService.getYears({}).then((data) => {
+    //         // @ts-ignore
+    //         dispatch(updateResults(data.results));
+    //     });
+    // }, []);
 
     // Loading and saving state on the client side (cart, wishlist, etc.).
     useEffect(() => {

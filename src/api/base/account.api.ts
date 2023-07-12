@@ -18,7 +18,7 @@ export interface IEditAddressData extends IAddressData {
 export abstract class AccountApi {
     abstract signIn(email: string, password: string): Promise<IUser>;
 
-    abstract signUp(email: string, password: string): Promise<IUser>;
+    abstract signUp(email: string, password: string, username: string): Promise<IUser>;
 
     abstract signOut(): Promise<void>;
 

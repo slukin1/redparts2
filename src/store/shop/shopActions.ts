@@ -125,6 +125,7 @@ export function shopFetchProductsListThunk(): ShopThunkAction<Promise<void>> {
         const shopState = getState()[SHOP_NAMESPACE];
 
         let { filters } = shopState;
+        console.log(filters);
 
         if (shopState.categorySlug !== null) {
             filters = { ...filters, category: shopState.categorySlug };
