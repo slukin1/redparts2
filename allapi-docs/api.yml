@@ -341,7 +341,7 @@ paths:
             type: string
         - name: count
           in: query
-          description: count
+          description: if count = 1 get total items
           required: false
           schema:
             type: string
@@ -679,7 +679,7 @@ paths:
             type: string
         - name: count
           in: query
-          description: count
+          description: if count = 1 get total items
           required: false
           schema:
             type: string
@@ -982,7 +982,7 @@ paths:
             type: string
         - name: count
           in: query
-          description: count
+          description: if count = 1 get total items
           required: false
           schema:
             type: string
@@ -1283,7 +1283,7 @@ paths:
             type: string
         - name: count
           in: query
-          description: count
+          description: if count = 1 get total items
           required: false
           schema:
             type: string
@@ -1583,9 +1583,14 @@ paths:
           required: false
           schema:
             type: string
+        - name: keyWord
+          in: query
+          required: true
+          schema:
+            type: string
         - name: count
           in: query
-          description: count
+          description: if count = 1 get total items
           required: false
           schema:
             type: string
@@ -1719,9 +1724,14 @@ paths:
           required: false
           schema:
             type: string
+        - name: keyWord
+          in: query
+          required: true
+          schema:
+            type: string
         - name: count
           in: query
-          description: count
+          description: if count = 1 get total items
           required: false
           schema:
             type: string
@@ -1811,9 +1821,14 @@ paths:
           required: false
           schema:
             type: string
+        - name: keyWord
+          in: query
+          required: true
+          schema:
+            type: string
         - name: count
           in: query
-          description: count
+          description: if count = 1 get total items
           required: false
           schema:
             type: string
@@ -2014,6 +2029,230 @@ paths:
       description: This route allow you to get vehicles makers data
       summary: vehicles makers data API
       operationId: getMakers
+      parameters:
+        - name: accept-language
+          in: query
+          description: |-
+            Accept-Language
+            Example : en_US, jp_JP
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        make:
+                          type: string
+                        total:
+                          type: number
+                          format: float
+                      required:
+                        - make
+                        - total
+                required:
+                  - results
+        '400':
+          description: 400 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response400'
+        '404':
+          description: 404 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response404'
+        '500':
+          description: 500 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response500'
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /vehicle/locations:
+    get:
+      tags:
+        - Vehicle
+      description: This route allow you to get vehicles locations data
+      summary: vehicles locations data API
+      operationId: getLocations
+      parameters:
+        - name: accept-language
+          in: query
+          description: |-
+            Accept-Language
+            Example : en_US, jp_JP
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        location:
+                          type: string
+                        make:
+                          type: string
+                        totalVehicles:
+                          type: number
+                          format: float
+                      required:
+                        - location
+                        - make
+                        - totalVehicles
+                required:
+                  - results
+        '400':
+          description: 400 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response400'
+        '404':
+          description: 404 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response404'
+        '500':
+          description: 500 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response500'
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /vehicle/fuels:
+    get:
+      tags:
+        - Vehicle
+      description: This route allow you to get vehicles fuels data
+      summary: vehicles fuels data API
+      operationId: getFuels
+      parameters:
+        - name: accept-language
+          in: query
+          description: |-
+            Accept-Language
+            Example : en_US, jp_JP
+          required: false
+          schema:
+            type: string
+      responses:
+        '400':
+          description: 400 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response400'
+        '404':
+          description: 404 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response404'
+        '500':
+          description: 500 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response500'
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /vehicle/transmissions:
+    get:
+      tags:
+        - Vehicle
+      description: This route allow you to get vehicles transmissions data
+      summary: vehicles transmissions data API
+      operationId: getTransmissions
+      parameters:
+        - name: accept-language
+          in: query
+          description: |-
+            Accept-Language
+            Example : en_US, jp_JP
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: string
+                required:
+                  - results
+        '400':
+          description: 400 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response400'
+        '404':
+          description: 404 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response404'
+        '500':
+          description: 500 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response500'
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /vehicle/colors:
+    get:
+      tags:
+        - Vehicle
+      description: This route allow you to get vehicles colors data
+      summary: vehicles colors data API
+      operationId: getColors
       parameters:
         - name: accept-language
           in: query
@@ -2249,9 +2488,18 @@ paths:
                 type: object
                 properties:
                   results:
-                    type: array
-                    items:
-                      type: string
+                    type: object
+                    properties:
+                      bodyTypes:
+                        type: array
+                        items:
+                          type: string
+                      total:
+                        type: number
+                        format: float
+                    required:
+                      - bodyTypes
+                      - total
                 required:
                   - results
         '400':
@@ -2302,7 +2550,16 @@ paths:
                   results:
                     type: array
                     items:
-                      type: string
+                      type: object
+                      properties:
+                        make:
+                          type: string
+                        total:
+                          type: number
+                          format: float
+                      required:
+                        - make
+                        - total
                 required:
                   - results
         '400':
@@ -2619,6 +2876,51 @@ paths:
             type: string
         - name: color
           in: query
+          required: false
+          schema:
+            type: string
+        - name: count
+          in: query
+          description: if count = 1 get total items
+          required: false
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: offset
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: limit
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: >-
+            When number of user is greater than 10 in data, it divides into
+            pages each page contain 10 in data.
+
+            Example : 2
+          required: false
+          schema:
+            type: string
+        - name: filter
+          in: query
+          description: |-
+            filter
+            This will filter all fields about this word
+            Example : name, description, language
+          required: false
+          schema:
+            type: string
+        - name: select
+          in: query
+          description: |-
+            Select only fields you want.  
+            Example : make, mileage, model
           required: false
           schema:
             type: string
@@ -2977,7 +3279,7 @@ paths:
             type: string
         - name: count
           in: query
-          description: count
+          description: if count = 1 get total items
           required: false
           schema:
             type: string
@@ -3479,7 +3781,7 @@ paths:
             type: string
         - name: count
           in: query
-          description: count
+          description: if count = 1 get total items
           required: false
           schema:
             type: string

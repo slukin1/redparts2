@@ -38,7 +38,7 @@ select,
  */
 acceptLanguage?: string,
 /**
- * count
+ * if count = 1 get total items
  */
 count?: string,
 /**

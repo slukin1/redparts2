@@ -23,6 +23,7 @@ export class VehicleService {
      * @throws ApiError
      */
     public static getVehicles({
+keyWord,
 acceptLanguage,
 count,
 offset,
@@ -31,13 +32,14 @@ page,
 filter,
 select,
 }: {
+keyWord: string,
 /**
  * Accept-Language
  * Example : en_US, jp_JP
  */
 acceptLanguage?: string,
 /**
- * count
+ * if count = 1 get total items
  */
 count?: string,
 /**
@@ -70,6 +72,7 @@ select?: string,
             url: '/vehicle',
             query: {
                 'accept-language': acceptLanguage,
+                'keyWord': keyWord,
                 'count': count,
                 'offset': offset,
                 'limit': limit,
@@ -118,6 +121,7 @@ requestBody: VehicleModel,
      * @throws ApiError
      */
     public static searchtVehicles({
+keyWord,
 acceptLanguage,
 count,
 offset,
@@ -126,13 +130,14 @@ page,
 filter,
 select,
 }: {
+keyWord: string,
 /**
  * Accept-Language
  * Example : en_US, jp_JP
  */
 acceptLanguage?: string,
 /**
- * count
+ * if count = 1 get total items
  */
 count?: string,
 /**
@@ -165,6 +170,7 @@ select?: string,
             url: '/vehicle/search',
             query: {
                 'accept-language': acceptLanguage,
+                'keyWord': keyWord,
                 'count': count,
                 'offset': offset,
                 'limit': limit,
@@ -188,6 +194,7 @@ select?: string,
      * @throws ApiError
      */
     public static getVehicleList({
+keyWord,
 acceptLanguage,
 count,
 offset,
@@ -196,13 +203,14 @@ page,
 filter,
 select,
 }: {
+keyWord: string,
 /**
  * Accept-Language
  * Example : en_US, jp_JP
  */
 acceptLanguage?: string,
 /**
- * count
+ * if count = 1 get total items
  */
 count?: string,
 /**
@@ -235,6 +243,7 @@ select?: string,
             url: '/vehicle/list',
             query: {
                 'accept-language': acceptLanguage,
+                'keyWord': keyWord,
                 'count': count,
                 'offset': offset,
                 'limit': limit,
@@ -341,11 +350,143 @@ acceptLanguage,
  */
 acceptLanguage?: string,
 }): CancelablePromise<{
-results: Array<string>;
+results: Array<{
+make: string;
+total: number;
+}>;
 } | errorResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/makers',
+            query: {
+                'accept-language': acceptLanguage,
+            },
+            errors: {
+                400: `400 response`,
+                404: `404 response`,
+                500: `500 response`,
+            },
+        });
+    }
+
+    /**
+     * vehicles locations data API
+     * This route allow you to get vehicles locations data
+     * @returns any 200 response
+     * @returns errorResponse default response
+     * @throws ApiError
+     */
+    public static getLocations({
+acceptLanguage,
+}: {
+/**
+ * Accept-Language
+ * Example : en_US, jp_JP
+ */
+acceptLanguage?: string,
+}): CancelablePromise<{
+results: Array<{
+location: string;
+make: string;
+totalVehicles: number;
+}>;
+} | errorResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/vehicle/locations',
+            query: {
+                'accept-language': acceptLanguage,
+            },
+            errors: {
+                400: `400 response`,
+                404: `404 response`,
+                500: `500 response`,
+            },
+        });
+    }
+
+    /**
+     * vehicles fuels data API
+     * This route allow you to get vehicles fuels data
+     * @returns errorResponse default response
+     * @throws ApiError
+     */
+    public static getFuels({
+acceptLanguage,
+}: {
+/**
+ * Accept-Language
+ * Example : en_US, jp_JP
+ */
+acceptLanguage?: string,
+}): CancelablePromise<errorResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/vehicle/fuels',
+            query: {
+                'accept-language': acceptLanguage,
+            },
+            errors: {
+                400: `400 response`,
+                404: `404 response`,
+                500: `500 response`,
+            },
+        });
+    }
+
+    /**
+     * vehicles transmissions data API
+     * This route allow you to get vehicles transmissions data
+     * @returns any 200 response
+     * @returns errorResponse default response
+     * @throws ApiError
+     */
+    public static getTransmissions({
+acceptLanguage,
+}: {
+/**
+ * Accept-Language
+ * Example : en_US, jp_JP
+ */
+acceptLanguage?: string,
+}): CancelablePromise<{
+results: Array<string>;
+} | errorResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/vehicle/transmissions',
+            query: {
+                'accept-language': acceptLanguage,
+            },
+            errors: {
+                400: `400 response`,
+                404: `404 response`,
+                500: `500 response`,
+            },
+        });
+    }
+
+    /**
+     * vehicles colors data API
+     * This route allow you to get vehicles colors data
+     * @returns any 200 response
+     * @returns errorResponse default response
+     * @throws ApiError
+     */
+    public static getColors({
+acceptLanguage,
+}: {
+/**
+ * Accept-Language
+ * Example : en_US, jp_JP
+ */
+acceptLanguage?: string,
+}): CancelablePromise<{
+results: Array<string>;
+} | errorResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/vehicle/colors',
             query: {
                 'accept-language': acceptLanguage,
             },
@@ -469,7 +610,10 @@ acceptLanguage,
  */
 acceptLanguage?: string,
 }): CancelablePromise<{
-results: Array<string>;
+results: {
+bodyTypes: Array<string>;
+total: number;
+};
 } | errorResponse> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -497,7 +641,10 @@ maker,
 }: {
 maker: string,
 }): CancelablePromise<{
-results: Array<string>;
+results: Array<{
+make: string;
+total: number;
+}>;
 } | errorResponse> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -654,6 +801,12 @@ refNo,
 fuel,
 status,
 color,
+count,
+offset,
+limit,
+page,
+filter,
+select,
 }: {
 year?: string,
 price?: string,
@@ -669,6 +822,34 @@ refNo?: string,
 fuel?: string,
 status?: string,
 color?: string,
+/**
+ * if count = 1 get total items
+ */
+count?: string,
+/**
+ * offset
+ */
+offset?: string,
+/**
+ * limit
+ */
+limit?: string,
+/**
+ * When number of user is greater than 10 in data, it divides into pages each page contain 10 in data.
+ * Example : 2
+ */
+page?: string,
+/**
+ * filter
+ * This will filter all fields about this word
+ * Example : name, description, language
+ */
+filter?: string,
+/**
+ * Select only fields you want.
+ * Example : make, mileage, model
+ */
+select?: string,
 }): CancelablePromise<VehicleResponse | errorResponse> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -688,6 +869,12 @@ color?: string,
                 'fuel': fuel,
                 'status': status,
                 'color': color,
+                'count': count,
+                'offset': offset,
+                'limit': limit,
+                'page': page,
+                'filter': filter,
+                'select': select,
             },
             errors: {
                 400: `400 response`,
