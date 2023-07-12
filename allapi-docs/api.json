@@ -2459,14 +2459,6 @@
             }
           },
           {
-            "name": "keyWord",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "name": "count",
             "in": "query",
             "description": "if count = 1 get total items",
@@ -2653,7 +2645,7 @@
         ],
         "description": "This route allow you to search vehicles data",
         "summary": "search vehicles data API",
-        "operationId": "searchtVehicles",
+        "operationId": "searchVehicles",
         "parameters": [
           {
             "name": "accept-language",
@@ -2795,14 +2787,6 @@
             "in": "query",
             "description": "Accept-Language\nExample : en_US, jp_JP",
             "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "keyWord",
-            "in": "query",
-            "required": true,
             "schema": {
               "type": "string"
             }
@@ -10216,12 +10200,9 @@
       }
     },
     {
-      "url": "https://api.jacokin.com:{port}/{basePath}",
+      "url": "https://devapi.muepu-devapi.com/{basePath}",
       "description": "The production API server",
       "variables": {
-        "port": {
-          "default": "8000"
-        },
         "basePath": {
           "default": "api/v1"
         }

@@ -1583,11 +1583,6 @@ paths:
           required: false
           schema:
             type: string
-        - name: keyWord
-          in: query
-          required: true
-          schema:
-            type: string
         - name: count
           in: query
           description: if count = 1 get total items
@@ -1714,7 +1709,7 @@ paths:
         - Vehicle
       description: This route allow you to search vehicles data
       summary: search vehicles data API
-      operationId: searchtVehicles
+      operationId: searchVehicles
       parameters:
         - name: accept-language
           in: query
@@ -1819,11 +1814,6 @@ paths:
             Accept-Language
             Example : en_US, jp_JP
           required: false
-          schema:
-            type: string
-        - name: keyWord
-          in: query
-          required: true
           schema:
             type: string
         - name: count

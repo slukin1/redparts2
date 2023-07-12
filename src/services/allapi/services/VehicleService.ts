@@ -23,7 +23,6 @@ export class VehicleService {
      * @throws ApiError
      */
     public static getVehicles({
-keyWord,
 acceptLanguage,
 count,
 offset,
@@ -32,7 +31,6 @@ page,
 filter,
 select,
 }: {
-keyWord: string,
 /**
  * Accept-Language
  * Example : en_US, jp_JP
@@ -72,7 +70,6 @@ select?: string,
             url: '/vehicle',
             query: {
                 'accept-language': acceptLanguage,
-                'keyWord': keyWord,
                 'count': count,
                 'offset': offset,
                 'limit': limit,
@@ -120,7 +117,7 @@ requestBody: VehicleModel,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public static searchtVehicles({
+    public static searchVehicles({
 keyWord,
 acceptLanguage,
 count,
@@ -194,7 +191,6 @@ select?: string,
      * @throws ApiError
      */
     public static getVehicleList({
-keyWord,
 acceptLanguage,
 count,
 offset,
@@ -203,7 +199,6 @@ page,
 filter,
 select,
 }: {
-keyWord: string,
 /**
  * Accept-Language
  * Example : en_US, jp_JP
@@ -243,7 +238,6 @@ select?: string,
             url: '/vehicle/list',
             query: {
                 'accept-language': acceptLanguage,
-                'keyWord': keyWord,
                 'count': count,
                 'offset': offset,
                 'limit': limit,
