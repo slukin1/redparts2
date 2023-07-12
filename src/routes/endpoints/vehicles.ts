@@ -33,6 +33,10 @@ export async function getEngine(make: string, model:string, yearFrom:number, yea
     return delayResponse(Promise.resolve(response?.results), 750);
 }
 
+export async function getTransmission(make: string, model:string, yearFrom:number, yearTo:number, mileage:string, engine:string): Promise<string[]> {
+    const response = await VehicleService.getTransmissionTypes({ acceptLanguage: 'en_US' });
+}
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function getYearsFrom(make:string, model:string): Promise<number[]> {
     const response = await VehicleService.getYears({ acceptLanguage: 'en_US' });
@@ -63,7 +67,9 @@ export async function getModels(maker: string): Promise<string[]> {
 export async function getMakes(): Promise<string[]> {
     const response = await VehicleService.getMakers({ acceptLanguage: 'en_US' });
     // @ts-ignore
-    return delayResponse(Promise.resolve(response?.results.sort()), 750);
+    const responseMake = response.results.map((x) => x.make);
+    // @ts-ignore
+    return delayResponse(Promise.resolve(responseMake.sort()), 750);
 }
 
 export function getVehicles(year: number, make: string, model: string): Promise<IVehicle[]> {

@@ -19,6 +19,19 @@ export class VehicleApiIntg extends VehicleApi {
         return getEngine(make, model, yearFrom, yearTo, mileage);
     }
 
+    getTransmission(make: string, model: string, yearFrom: number, yearTo: number, mileage:string, engine:string): Promise<string[]> {
+        return getEngine(make, model, yearFrom, yearTo, mileage);
+    }
+
+    getFuel(make: string, model: string, yearFrom: number, yearTo: number, mileage:string, engine:string, transmission:string): Promise<string[]> {
+        return getEngine(make, model, yearFrom, yearTo, mileage);
+    }
+
+    getColor(make: string, model: string, yearFrom: number, yearTo: number, mileage:string, engine:string,
+        transmission:string, fuel:string): Promise<string[]> {
+        return getEngine(make, model, yearFrom, yearTo, mileage);
+    }
+
     getMileage(make: string, model: string, yearFrom: number, yearTo: number): Promise<string[]> {
         return getMileage(make, model, yearFrom, yearTo);
     }

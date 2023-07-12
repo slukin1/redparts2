@@ -6,6 +6,14 @@ import { IVehicle } from '~/interfaces/vehicle';
 export abstract class VehicleApi {
     abstract getEngine(make: string, model: string, yearFrom: number, yearTo: number, mileage:string): Promise<string[]>;
 
+    abstract getTransmission(make: string, model: string, yearFrom: number, yearTo: number, mileage:string, engine:string): Promise<string[]>;
+
+    abstract getFuel(make: string, model: string, yearFrom: number, yearTo: number, mileage:string, engine:string,
+                     transmission:string): Promise<string[]>;
+
+    abstract getColor(make: string, model: string, yearFrom: number, yearTo: number, mileage:string, engine:string,
+        transmission:string, fuel:string): Promise<string[]>;
+
     abstract getMileage(make: string, model: string, yearFrom: number, yearTo: number): Promise<string[]>;
 
     abstract getYearsFrom(make: string, model: string): Promise<number[]>;

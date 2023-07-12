@@ -112,6 +112,24 @@ export default function useVehicleForm(options: IOptions = {}) {
             placeholder: 'Select Engine',
             optionsSource: vehicleApi.getEngine.bind(vehicleApi),
         },
+        {
+            key: 'transmission',
+            label: 'Transmission',
+            placeholder: 'Select Transmission',
+            optionsSource: vehicleApi.getTransmission.bind(vehicleApi),
+        },
+        {
+            key: 'fuel',
+            label: 'Fuel',
+            placeholder: 'Select Fuel',
+            optionsSource: vehicleApi.getFuel.bind(vehicleApi),
+        },
+        {
+            key: 'color',
+            label: 'Color',
+            placeholder: 'Select Color',
+            optionsSource: vehicleApi.getColor.bind(vehicleApi),
+        },
     ]));
 
     const load = async (items: VehicleSelectItem[], index: number) => {
