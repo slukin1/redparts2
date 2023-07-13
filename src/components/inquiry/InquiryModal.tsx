@@ -18,12 +18,13 @@ import url from '~/services/url';
 import { Compare16Svg, Cross12Svg, Wishlist16Svg } from '~/svg';
 import { useCompareAddItem } from '~/store/compare/compareHooks';
 import { useProductForm } from '~/services/forms/product';
-import { useQuickview, useQuickviewClose } from '~/store/quickview/quickviewHooks';
+// import { useQuickview, useQuickviewClose } from '~/store/quickview/quickviewHooks';
+import { useInquire, useInquireClose } from '~/store/inquire/inquireHooks';
 import { useWishlistAddItem } from '~/store/wishlist/wishlistHooks';
 
-function Quickview() {
-    const quickview = useQuickview();
-    const quickviewClose = useQuickviewClose();
+function InquiryModal() {
+    const quickview = useInquire();
+    const quickviewClose = useInquireClose();
     const wishlistAddItem = useWishlistAddItem();
     const compareAddItem = useCompareAddItem();
     const { product } = quickview;
@@ -216,4 +217,4 @@ function Quickview() {
     );
 }
 
-export default Quickview;
+export default InquiryModal;

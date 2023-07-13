@@ -4,6 +4,11 @@ import { IVehicle } from '~/interfaces/vehicle';
 import { userVehicles, vehicles } from '~/routes/database/vehicles';
 import { VehicleService } from '~/services/allapi';
 
+async function filterUndefinedNullEmpty<T>(promise: Promise<T[]>): Promise<T[]> {
+    const results = await promise;
+    return results.filter((item) => item !== undefined && item !== null && item !== '');
+}
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function getMileage(make: string, model:string, yearFrom:number, yearTo:number): Promise<string[]> {
     const result: string[] = [
@@ -24,17 +29,55 @@ export function getMileage(make: string, model:string, yearFrom:number, yearTo:n
     return delayResponse(Promise.resolve(result), 750);
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function getEngine(make: string, model:string, yearFrom:number, yearTo:number, mileage:string): Promise<string[]> {
-    localStorage.setItem('query', JSON.stringify({
-        make: make.includes(' ') ? make.split(' ').join('_') : make, model: model.includes(' ') ? model.split(' ').join('_') : model, yearFrom, yearTo, mileage,
-    }));
     const response = await VehicleService.getEngineTypes({ acceptLanguage: 'en_US' });
     // @ts-ignore
     return delayResponse(Promise.resolve(response?.results), 750);
 }
-
-export async function getTransmission(make: string, model:string, yearFrom:number, yearTo:number, mileage:string, engine:string): Promise<string[]> {
-    const response = await VehicleService.getTransmissionTypes({ acceptLanguage: 'en_US' });
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function getTransmission(make: string, model:string, yearFrom:number, yearTo:number, mileage:string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    engine:string): Promise<string[]> {
+    const response = await VehicleService.getTransmissions({ acceptLanguage: 'en_US' });
+    // @ts-ignore
+    return delayResponse(Promise.resolve(filterUndefinedNullEmpty(response?.results)), 750);
+}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function getBodyType(make: string, model:string, yearFrom:number, yearTo:number, mileage:string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    engine:string, transmission:string): Promise<string[]> {
+    const response = await VehicleService.getBodyTypes({ acceptLanguage: 'en_US' });
+    // @ts-ignore
+    const responseMake = response.results.map((x) => x.bodyType);
+    return delayResponse(Promise.resolve(filterUndefinedNullEmpty(responseMake)), 750);
+}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function getFuel(make: string, model:string, yearFrom:number, yearTo:number, mileage:string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    engine:string, transmission:string, bodyType:string): Promise<string[]> {
+    const response = await VehicleService.getFuels({ acceptLanguage: 'en_US' });
+    // @ts-ignore
+    return delayResponse(Promise.resolve(filterUndefinedNullEmpty(response?.results)), 750);
+}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function getColor(make: string, model:string, yearFrom:number, yearTo:number, mileage:string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    engine:string, transmission:string, bodyType:string, fuel:string): Promise<string[]> {
+    localStorage.setItem('query', JSON.stringify({
+        make: make.includes(' ') ? make.split(' ').join('_') : make,
+        model: model.includes(' ') ? model.split(' ').join('_') : model,
+        yearFrom,
+        yearTo,
+        mileage,
+        engineType: engine.includes(' ') ? engine.split(' ').join('_') : engine,
+        transmission: transmission.includes(' ') ? transmission.split(' ').join('_') : transmission,
+        bodyType: bodyType.includes(' ') ? bodyType.split(' ').join('_') : bodyType,
+        fuel: fuel.includes(' ') ? fuel.split(' ').join('_') : fuel,
+    }));
+    const response = await VehicleService.getColors({ acceptLanguage: 'en_US' });
+    // @ts-ignore
+    return delayResponse(Promise.resolve(filterUndefinedNullEmpty(response?.results)), 750);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -61,7 +104,7 @@ export async function getYearsTo(make: string, model:string, yearFrom:number): P
 export async function getModels(maker: string): Promise<string[]> {
     const response = await VehicleService.getModelsMake({ maker });
     // @ts-ignore
-    return delayResponse(Promise.resolve(response?.results.sort()), 750);
+    return delayResponse(Promise.resolve(filterUndefinedNullEmpty(response?.results.sort())), 750);
 }
 
 export async function getMakes(): Promise<string[]> {
@@ -69,7 +112,7 @@ export async function getMakes(): Promise<string[]> {
     // @ts-ignore
     const responseMake = response.results.map((x) => x.make);
     // @ts-ignore
-    return delayResponse(Promise.resolve(responseMake.sort()), 750);
+    return delayResponse(Promise.resolve(filterUndefinedNullEmpty(responseMake.sort())), 750);
 }
 
 export function getVehicles(year: number, make: string, model: string): Promise<IVehicle[]> {

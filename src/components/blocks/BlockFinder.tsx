@@ -17,21 +17,27 @@ function BlockFinder() {
 
     const onSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        let query: any = {};
         // @ts-ignore
-        query = JSON.parse(localStorage.getItem('query'));
+        const query: any = JSON.parse(localStorage.getItem('query'));
         localStorage.removeItem('query');
         if (!vehicle) {
             return;
         }
+        let color = vehicle.toString();
+        color = color.includes(' ') ? color.split(' ').join('_') : color;
+
         router.push(
             ...hrefToRouterArgs(url.products({
                 filters: {
                     filter_year: `${query.yearFrom}-${query.yearTo}`,
                     filter_maker: query.make,
                     filter_model: query.model,
-                    filter_engineType: vehicle.toString(),
+                    filter_engineType: query.engineType,
                     filter_mileage: query.mileage,
+                    filter_transmission: query.transmission,
+                    filter_fuel: query.fuel,
+                    filter_bodyType: query.bodyType,
+                    filter_color: color,
                 },
             })),
         ).then();

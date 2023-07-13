@@ -344,22 +344,22 @@ function ShopPageProduct(props: Props) {
                                         <h1 className="product__title">{product.name}</h1>
 
                                         <div className="product__subtitle">
-                                            <div className="product__rating">
-                                                <div className="product__rating-stars">
-                                                    <Rating value={product.rating || 0} />
-                                                </div>
-                                                <div className="product__rating-label">
-                                                    <AppLink href={{ href: { hash: 'product-tab-reviews' } }}>
-                                                        <FormattedMessage
-                                                            id="TEXT_RATING_LABEL"
-                                                            values={{
-                                                                rating: product.rating,
-                                                                reviews: product.reviews,
-                                                            }}
-                                                        />
-                                                    </AppLink>
-                                                </div>
-                                            </div>
+                                            {/*<div className="product__rating">*/}
+                                            {/*    <div className="product__rating-stars">*/}
+                                            {/*        <Rating value={product.rating || 0} />*/}
+                                            {/*    </div>*/}
+                                            {/*    <div className="product__rating-label">*/}
+                                            {/*        <AppLink href={{ href: { hash: 'product-tab-reviews' } }}>*/}
+                                            {/*            <FormattedMessage*/}
+                                            {/*                id="TEXT_RATING_LABEL"*/}
+                                            {/*                values={{*/}
+                                            {/*                    rating: product.rating,*/}
+                                            {/*                    reviews: product.reviews,*/}
+                                            {/*                }}*/}
+                                            {/*            />*/}
+                                            {/*        </AppLink>*/}
+                                            {/*    </div>*/}
+                                            {/*</div>*/}
 
                                             <CompatibilityStatusBadge className="product__fit" product={product} />
                                         </div>

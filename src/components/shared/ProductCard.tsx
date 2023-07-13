@@ -15,6 +15,7 @@ import { IProduct } from '~/interfaces/product';
 import { useCartAddItem } from '~/store/cart/cartHooks';
 import { useCompareAddItem } from '~/store/compare/compareHooks';
 import { useQuickviewOpen } from '~/store/quickview/quickviewHooks';
+import { useInquireOpen } from '~/store/inquire/inquireHooks';
 import { useWishlistAddItem } from '~/store/wishlist/wishlistHooks';
 import {
     Cart20Svg,
@@ -47,10 +48,12 @@ function ProductCard(props: Props) {
     const quickviewOpen = useQuickviewOpen();
     const compareAddItem = useCompareAddItem();
     const wishlistAddItem = useWishlistAddItem();
+    const inquire = useInquireOpen();
 
     const showQuickview = () => quickviewOpen(product.slug);
     const addToWishlist = () => wishlistAddItem(product);
     const addToCompare = () => compareAddItem(product);
+    const showInquire = () => inquire(product.slug);
 
     const rootClasses = classNames('product-card', className, {
         [`product-card--layout--${layout}`]: layout,
@@ -145,18 +148,18 @@ function ProductCard(props: Props) {
                     <AppLink href={url.product(product)}>{product.name}</AppLink>
                 </div>
 
-                <div className="product-card__rating">
-                    <Rating className="product-card__rating-stars" value={product.rating || 0} />
-                    <div className=" product-card__rating-label">
-                        <FormattedMessage
-                            id="TEXT_RATING_LABEL"
-                            values={{
-                                rating: product.rating,
-                                reviews: product.reviews,
-                            }}
-                        />
-                    </div>
-                </div>
+                {/*<div className="product-card__rating">*/}
+                {/*    /!*<Rating className="product-card__rating-stars" value={product.rating || 0} />*!/*/}
+                {/*    <div className=" product-card__rating-label">*/}
+                {/*        <FormattedMessage*/}
+                {/*            id="TEXT_RATING_LABEL"*/}
+                {/*            values={{*/}
+                {/*                rating: product.rating,*/}
+                {/*                reviews: product.reviews,*/}
+                {/*            }}*/}
+                {/*        />*/}
+                {/*    </div>*/}
+                {/*</div>*/}
 
                 {!exclude.includes('features') && featuredAttributes.length > 0 && (
                     <div className="product-card__features">
@@ -194,7 +197,7 @@ function ProductCard(props: Props) {
                 {!exclude.includes('buttons') && (
                     <React.Fragment>
                         <AsyncAction
-                            action={() => cartAddItem(product)}
+                            action={() => showInquire()}
                             render={({ run, loading }) => (
                                 <button
                                     type="button"

@@ -36,7 +36,7 @@ function Filter(props: Props) {
     }, [shopSetFilterValue]);
 
     const renderFn: RenderFilterFn = ({ toggle, setItemRef, setContentRef }) => (
-        <div className="filter filter--opened" ref={setItemRef}>
+        <div className="filter" ref={setItemRef}>
             <button type="button" className="filter__title" onClick={toggle}>
                 {filter.name}
                 <span className="filter__arrow">

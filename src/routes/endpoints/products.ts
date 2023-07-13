@@ -12,7 +12,7 @@ import { prepareCategory } from '~/routes/endpoints/categories';
 import { products as dbProducts } from '~/routes/database/products';
 import { RadioFilterBuilder } from '~/routes/filters/radio-filter-builder';
 import { RangeFilterBuilder } from '~/routes/filters/range-filter-builder';
-import { RatingFilterBuilder } from '~/routes/filters/rating-filter-builder';
+// import { RatingFilterBuilder } from '~/routes/filters/rating-filter-builder';
 import { shopCategoriesList } from '~/routes/database/categories';
 // import { VehicleFilterBuilder } from '~/routes/filters/vehicle-filter-builder';
 import {
@@ -371,42 +371,50 @@ export async function getProductsList(
         new RadioFilterBuilder('maker', 'Brand'),
         new RadioFilterBuilder('engineType', 'Engine'),
         // new RadioFilterBuilder('discount', 'With Discount'),
-        new RatingFilterBuilder('rating', 'Rating'),
+        // new RatingFilterBuilder('rating', 'Rating'),
+        new RadioFilterBuilder('transmission', 'Transmission'),
+        new RadioFilterBuilder('fuel', 'Fuel'),
         new ColorFilterBuilder('color', 'Color'),
     ];
     let products = dbProducts.slice(0);
     const validFilters = filters.filter((filter) => filterValues[filter.slug] !== undefined && filterValues[filter.slug].length > 0);
     const filterValuesToPrint: any = {};
-
     validFilters.forEach((filter) => {
         if (filter.slug in filterValues) {
             filterValuesToPrint[filter.slug] = filterValues[filter.slug];
         }
     });
-    if (filterValuesToPrint.maker && filterValuesToPrint.maker.includes('_')) {
-        filterValuesToPrint.maker = filterValuesToPrint.maker?.split('_').join(' ');
-    }
-    if (filterValuesToPrint.bodyType && filterValuesToPrint.bodyType.includes('_')) {
-        filterValuesToPrint.bodyType = filterValuesToPrint.bodyType?.split('_').join(' ');
-    }
-    if (filterValuesToPrint.engineType && filterValuesToPrint.engineType.includes('_')) {
-        filterValuesToPrint.engineType = filterValuesToPrint.engineType?.split('_').join(' ');
-    }
-    // console.log(filterValuesToPrint);
-    const response = await VehicleService.filterVehicle(filterValuesToPrint);
+    const replaceUnderscoreWithSpace = (value: string | undefined): string | undefined => (value?.includes('_') ? value.split('_').join(' ') : value);
+    filterValuesToPrint.maker = replaceUnderscoreWithSpace(filterValuesToPrint.maker);
+    filterValuesToPrint.bodyType = replaceUnderscoreWithSpace(filterValuesToPrint.bodyType);
+    filterValuesToPrint.engineType = replaceUnderscoreWithSpace(filterValuesToPrint.engineType);
+    filterValuesToPrint.transmission = replaceUnderscoreWithSpace(filterValuesToPrint.transmission);
+    filterValuesToPrint.fuel = replaceUnderscoreWithSpace(filterValuesToPrint.fuel);
+    filterValuesToPrint.color = replaceUnderscoreWithSpace(filterValuesToPrint.color);
+    filterValuesToPrint.limit = options?.limit || 16;
+    filterValuesToPrint.offset = options?.page ? (options.page - 1) * filterValuesToPrint.limit : 0;
 
-    filters.forEach((filter) => filter.makeItems(products, filterValues[filter.slug]));
-    // Calculate items count for filter values
+    const response = await VehicleService.filterVehicle(filterValuesToPrint);
+    // await Promise.all(filters.map(async (filter) => {
+    //     await filter.makeItems(products, filterValues[filter.slug]);
+    // }));
+    async function processFilters() {
+        // eslint-disable-next-line no-restricted-syntax
+        for (const filter of filters) {
+            // eslint-disable-next-line no-await-in-loop
+            await filter.makeItems(products, filterValues[filter.slug]);
+        }
+    }
+
+    await processFilters();
+
     filters.forEach((filter) => filter.calc(filters));
-    // Apply filters to products list.
     products = products.filter((product) => filters.reduce<boolean>((mr, filter) => mr && filter.test(product), true));
     const sort = options?.sort || 'default';
     // @ts-ignore
     products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
     // @ts-ignore
     const total = response.total.totalItems;
-
-    // Sort items array.
     products = products.sort((a, b) => {
         if (['name_asc', 'name_desc'].includes(sort)) {
             if (a.name === b.name) {
@@ -427,8 +435,6 @@ export async function getProductsList(
     // @ts-ignore
     // eslint-disable-next-line prefer-const
     result = makePageBasedNavigation(temp, limit, options?.page || 1);
-    // }
-
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_, navigation] = result;
     // @ts-ignore

@@ -144,7 +144,6 @@ const RadioFilterHandler: IFilterHandler = {
         if (filter.type !== 'radio') {
             throw Error('Provide a "radio" filter!');
         }
-
         return filter.items[0].slug;
     },
     getActiveFilters: (filter) => {

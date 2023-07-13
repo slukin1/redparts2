@@ -8,3 +8,5 @@ export const useQuickview = () => useAppSelector((state) => state[QUICKVIEW_NAME
 export const useQuickviewOpen = () => useAppAction(quickviewOpen);
 
 export const useQuickviewClose = () => useAppAction(quickviewClose);
+
+export const useInquire = () => useAppAction(quickviewOpen);

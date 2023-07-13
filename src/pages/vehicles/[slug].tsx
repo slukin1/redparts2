@@ -316,13 +316,11 @@ interface IForm {
 //     "stateFrom": "client"
 // }
 function Page({ product }: Props) {
-    console.log(product);
     const router = useRouter();
     const intl = useIntl();
     const user = useUser();
     const userSignUp = useUserSignUp();
     const cart = useCart();
-    console.log(cart);
     const formMethods = useForm<IForm>({
         defaultValues: {
             billingAddress: getAddressFormDefaultValue(),

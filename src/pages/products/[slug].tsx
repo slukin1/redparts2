@@ -23,7 +23,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ params }) 
 };
 
 function Page(props: Props) {
-    console.log(props);
     const { product } = props;
 
     if (product === null) {

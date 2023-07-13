@@ -43,7 +43,7 @@ function BlockCategories(props: Props) {
                             <ul className="category-card__children">
                                 {children.map((child) => (
                                     <li key={child.id}>
-                                        <AppLink href={url.category(child)}>
+                                        <AppLink href={url.productsCustom(child)}>
                                             {child.name}
                                         </AppLink>
                                     </li>
@@ -51,7 +51,7 @@ function BlockCategories(props: Props) {
                             </ul>
                             <div className="category-card__actions">
                                 <AppLink
-                                    href={url.category(category)}
+                                    href={url.prodcutsCustomShopAll()}
                                     className="category-card__link"
                                 >
                                     <FormattedMessage id="LINK_SHOP_ALL" />

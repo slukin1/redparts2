@@ -69,19 +69,19 @@ function AnalogsTable(props: Props) {
                                     {analog.sku}
                                 </div>
                             </td>
-                            <td className="analogs-table__column analogs-table__column--rating">
-                                <div className="analogs-table__rating">
-                                    <div className="analogs-table__rating-stars">
-                                        <Rating value={analog.rating || 0} />
-                                    </div>
-                                    <div className="analogs-table__rating-label">
-                                        <FormattedMessage
-                                            id="TEXT_RATING_LABEL"
-                                            values={{ rating: analog.rating, reviews: analog.reviews }}
-                                        />
-                                    </div>
-                                </div>
-                            </td>
+                            {/*<td className="analogs-table__column analogs-table__column--rating">*/}
+                            {/*    <div className="analogs-table__rating">*/}
+                            {/*        <div className="analogs-table__rating-stars">*/}
+                            {/*            <Rating value={analog.rating || 0} />*/}
+                            {/*        </div>*/}
+                            {/*        <div className="analogs-table__rating-label">*/}
+                            {/*            <FormattedMessage*/}
+                            {/*                id="TEXT_RATING_LABEL"*/}
+                            {/*                values={{ rating: analog.rating, reviews: analog.reviews }}*/}
+                            {/*            />*/}
+                            {/*        </div>*/}
+                            {/*    </div>*/}
+                            {/*</td>*/}
                             <td
                                 className="analogs-table__column analogs-table__column--brand"
                                 data-title={intl.formatMessage({ id: 'TABLE_BRAND' })}

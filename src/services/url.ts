@@ -34,6 +34,19 @@ const url = {
             },
         },
     }),
+    prodcutsCustomShopAll: (): IAppLinkHref => ({
+        href: {
+            pathname: '/catalog/products',
+        },
+    }),
+    productsCustom: (category:ICategory): IAppLinkHref => ({
+        href: {
+            pathname: '/catalog/products',
+            query: {
+                ...JSON.parse(category.slug),
+            },
+        },
+    }),
     product: (product: IProduct): IAppLinkHref => ({
         href: `/products/[slug]?slug=${product.slug}`,
         as: `/products/${product.slug}`,

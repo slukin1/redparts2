@@ -18,7 +18,6 @@ export function prepareCategory<T extends IBaseCategory>(category: T, depth?: nu
     } else if (category.parent === null) {
         parent = null;
     }
-
     return JSON.parse(JSON.stringify({
         ...category,
         parent,
@@ -43,8 +42,6 @@ export function getCategories(options?: IGetCategoriesOptions): Promise<IShopCat
     const depth = options?.depth || 0;
     const optionParent = options?.parent;
     const optionSlugs = options?.slugs;
-    console.log(categories);
-    console.log(options);
     if (optionParent) {
         const parent = shopCategoriesList.find((x) => x.slug === optionParent.slug);
 
@@ -54,9 +51,7 @@ export function getCategories(options?: IGetCategoriesOptions): Promise<IShopCat
     } else if (optionSlugs) {
         categories = shopCategoriesList.filter((x) => optionSlugs.includes(x.slug));
     }
-
     categories = categories.map((x) => prepareCategory(x, depth));
-
     return Promise.resolve(clone(categories));
 }
 

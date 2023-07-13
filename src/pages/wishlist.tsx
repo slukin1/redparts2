@@ -128,20 +128,20 @@ function Page() {
                                             <div className="wishlist__product-name">
                                                 <AppLink href={url.product(product)}>{product.name}</AppLink>
                                             </div>
-                                            <div className="wishlist__product-rating">
-                                                <div className="wishlist__product-rating-stars">
-                                                    <Rating value={product.rating || 0} />
-                                                </div>
-                                                <div className="wishlist__product-rating-title">
-                                                    <FormattedMessage
-                                                        id="TEXT_RATING_LABEL"
-                                                        values={{
-                                                            rating: product.rating,
-                                                            reviews: product.reviews,
-                                                        }}
-                                                    />
-                                                </div>
-                                            </div>
+                                            {/*<div className="wishlist__product-rating">*/}
+                                            {/*    <div className="wishlist__product-rating-stars">*/}
+                                            {/*        <Rating value={product.rating || 0} />*/}
+                                            {/*    </div>*/}
+                                            {/*    <div className="wishlist__product-rating-title">*/}
+                                            {/*        <FormattedMessage*/}
+                                            {/*            id="TEXT_RATING_LABEL"*/}
+                                            {/*            values={{*/}
+                                            {/*                rating: product.rating,*/}
+                                            {/*                reviews: product.reviews,*/}
+                                            {/*            }}*/}
+                                            {/*        />*/}
+                                            {/*    </div>*/}
+                                            {/*</div>*/}
                                         </td>
                                         <td
                                             className={classNames(

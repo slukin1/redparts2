@@ -74,8 +74,8 @@ export default function useVehicleForm(options: IOptions = {}) {
 
         {
             key: 'brand',
-            label: intl.formatMessage({ id: 'INPUT_VEHICLE_BRAND_LABEL' }),
-            placeholder: intl.formatMessage({ id: 'INPUT_VEHICLE_BRAND_PLACEHOLDER' }),
+            label: 'Maker',
+            placeholder: 'Select Maker',
             optionsSource: vehicleApi.getMakes.bind(vehicleApi),
         },
         {
@@ -86,7 +86,7 @@ export default function useVehicleForm(options: IOptions = {}) {
         },
         {
             key: 'yearFrom',
-            label: 'year from',
+            label: 'Year from',
             placeholder: 'Select Year from',
             optionsSource: vehicleApi.getYearsFrom.bind(vehicleApi),
             serializeOptionFn: (option: number) => option.toString(),
@@ -94,7 +94,7 @@ export default function useVehicleForm(options: IOptions = {}) {
         },
         {
             key: 'yearTo',
-            label: 'year to',
+            label: 'Year to',
             placeholder: 'Select Year to',
             optionsSource: vehicleApi.getYearsTo.bind(vehicleApi),
             serializeOptionFn: (option: number) => option.toString(),
@@ -107,7 +107,7 @@ export default function useVehicleForm(options: IOptions = {}) {
             optionsSource: vehicleApi.getMileage.bind(vehicleApi),
         },
         {
-            key: 'engine',
+            key: 'engineType',
             label: 'Engine',
             placeholder: 'Select Engine',
             optionsSource: vehicleApi.getEngine.bind(vehicleApi),
@@ -117,6 +117,12 @@ export default function useVehicleForm(options: IOptions = {}) {
             label: 'Transmission',
             placeholder: 'Select Transmission',
             optionsSource: vehicleApi.getTransmission.bind(vehicleApi),
+        },
+        {
+            key: 'bodyType',
+            label: 'Body',
+            placeholder: 'Select Body',
+            optionsSource: vehicleApi.getBodyType.bind(vehicleApi),
         },
         {
             key: 'fuel',

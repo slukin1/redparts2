@@ -120,14 +120,12 @@ export async function accountSignOut(): Promise<void> {
 }
 
 export async function accountEditProfile(data: IEditProfileData): Promise<IUser> {
-    console.log(JSON.parse(localStorage.getItem('Tokens') || '{}').id);
     const userData = await UserService.getUserApi({
         id: JSON.parse(localStorage.getItem('Tokens') || '{}').id,
         // @ts-ignore
         token: JSON.parse(localStorage.getItem('Tokens') || '{}').accessToken,
     });
     // @ts-ignore
-    console.log({ ...userData?.results, ...data });
     const response = await UserService.putUserUpdateProfile({
         // @ts-ignore
         // eslint-disable-next-line no-underscore-dangle
@@ -135,7 +133,6 @@ export async function accountEditProfile(data: IEditProfileData): Promise<IUser>
         // @ts-ignore
         token: JSON.parse(localStorage.getItem('Tokens') || '{}').accessToken,
     });
-    console.log(response);
     const user: IUser = {
         email: data.email,
         phone: data.phone,
@@ -150,8 +147,6 @@ export async function accountChangePassword(currentPassword: string, password: s
     if (password.length < 6) {
         return delayResponse(() => error('AUTH_WEAK_PASSWORD'));
     }
-    console.log(currentPassword, password);
-    console.log(JSON.parse(localStorage.getItem('Tokens') || '{}').accessToken);
     const response = await AuthService.passwordChange({
         requestBody: {
             currentPassword,
@@ -161,7 +156,6 @@ export async function accountChangePassword(currentPassword: string, password: s
         // @ts-ignore
         accessToken: JSON.parse(localStorage.getItem('Tokens') || '{}').accessToken,
     });
-    console.log(response);
     if (response.type === 'Success') {
         return delayResponse(Promise.resolve());
     }

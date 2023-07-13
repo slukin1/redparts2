@@ -2,29 +2,29 @@
 import { IProduct } from '~/interfaces/product';
 import { shopApi } from '~/api';
 import {
-    QUICKVIEW_CLOSE,
-    QUICKVIEW_OPEN,
-    QuickviewCloseAction,
-    QuickviewOpenAction,
-    QuickviewThunkAction,
-} from '~/store/quickview/quickviewActionTypes';
+    INQUIRE_CLOSE,
+    INQUIRE_OPEN,
+    InquireCloseAction,
+    InquireOpenAction,
+    InquireThunkAction,
+} from './inquireActionTypes';
 
 let cancelPreviousRequest = () => {};
 
-export function quickviewOpenSuccess(product: IProduct): QuickviewOpenAction {
+export function inquireOpenSuccess(product: IProduct): InquireOpenAction {
     return {
-        type: QUICKVIEW_OPEN,
+        type: INQUIRE_OPEN,
         product,
     };
 }
 
-export function quickviewClose(): QuickviewCloseAction {
+export function inquireClose(): InquireCloseAction {
     return {
-        type: QUICKVIEW_CLOSE,
+        type: INQUIRE_CLOSE,
     };
 }
 
-export function quickviewOpen(productSlug: string): QuickviewThunkAction<Promise<void>> {
+export function inquireOpen(productSlug: string): InquireThunkAction<Promise<void>> {
     return (dispatch) => {
         cancelPreviousRequest();
         return new Promise((resolve) => {
@@ -37,7 +37,7 @@ export function quickviewOpen(productSlug: string): QuickviewThunkAction<Promise
                     }
 
                     if (product) {
-                        dispatch(quickviewOpenSuccess(product));
+                        dispatch(inquireOpenSuccess(product));
                     }
 
                     resolve();

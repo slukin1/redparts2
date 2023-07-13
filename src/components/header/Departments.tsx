@@ -23,10 +23,11 @@ function Departments(props: Props) {
 
     const handleButtonClick = () => {
         setIsOpen((state) => !state);
+        setCurrentItem(dataHeaderDepartments[0]);
     };
 
     const handleBodyMouseLeave = () => {
-        setCurrentItem(null);
+        setCurrentItem(dataHeaderDepartments[0]);
     };
 
     const handleListPaddingMouseEnter = () => {
@@ -68,48 +69,48 @@ function Departments(props: Props) {
             <div className="departments__menu">
                 <div className="departments__arrow" />
                 <div className="departments__body" onMouseLeave={handleBodyMouseLeave}>
-                    <ul className="departments__list">
-                        <li
-                            className="departments__list-padding"
-                            role="presentation"
-                            onMouseEnter={handleListPaddingMouseEnter}
-                        />
-                        {dataHeaderDepartments.map((item, index) => {
-                            const itemHasSubmenu = !!item.submenu;
-                            const itemClasses = classNames('departments__item', {
-                                'departments__item--has-submenu': itemHasSubmenu,
-                                'departments__item--submenu--megamenu': item.submenu?.type === 'megamenu',
-                                'departments__item--hover': item === currentItem,
-                            });
+                    {/* <ul className="departments__list"> */}
+                    {/*    <li */}
+                    {/*        className="departments__list-padding" */}
+                    {/*        role="presentation" */}
+                    {/*        onMouseEnter={handleListPaddingMouseEnter} */}
+                    {/*    /> */}
+                    {/*    {dataHeaderDepartments.map((item, index) => { */}
+                    {/*        const itemHasSubmenu = !!item.submenu; */}
+                    {/*        const itemClasses = classNames('departments__item', { */}
+                    {/*            'departments__item--has-submenu': itemHasSubmenu, */}
+                    {/*            'departments__item--submenu--megamenu': item.submenu?.type === 'megamenu', */}
+                    {/*            'departments__item--hover': item === currentItem, */}
+                    {/*        }); */}
 
-                            return (
-                                <li
-                                    className={itemClasses}
-                                    key={index}
-                                    onMouseEnter={() => handleItemMouseEnter(item)}
-                                >
-                                    <AppLink
-                                        className="departments__item-link"
-                                        href={item.url}
-                                        onClick={() => handleItemClick()}
-                                        {...item.customFields?.anchorProps}
-                                    >
-                                        {item.title}
-                                        {itemHasSubmenu && (
-                                            <span className="departments__item-arrow">
-                                                <ArrowRoundedRight7x11Svg />
-                                            </span>
-                                        )}
-                                    </AppLink>
-                                </li>
-                            );
-                        })}
-                        <li
-                            className="departments__list-padding"
-                            role="presentation"
-                            onMouseEnter={handleListPaddingMouseEnter}
-                        />
-                    </ul>
+                    {/*        return ( */}
+                    {/*            <li */}
+                    {/*                className={itemClasses} */}
+                    {/*                key={index} */}
+                    {/*                onMouseEnter={() => handleItemMouseEnter(item)} */}
+                    {/*            > */}
+                    {/*                <AppLink */}
+                    {/*                    className="departments__item-link" */}
+                    {/*                    href={item.url} */}
+                    {/*                    onClick={() => handleItemClick()} */}
+                    {/*                    {...item.customFields?.anchorProps} */}
+                    {/*                > */}
+                    {/*                    {item.title} */}
+                    {/*                    {itemHasSubmenu && ( */}
+                    {/*                        <span className="departments__item-arrow"> */}
+                    {/*                            <ArrowRoundedRight7x11Svg /> */}
+                    {/*                        </span> */}
+                    {/*                    )} */}
+                    {/*                </AppLink> */}
+                    {/*            </li> */}
+                    {/*        ); */}
+                    {/*    })} */}
+                    {/*    <li */}
+                    {/*        className="departments__list-padding" */}
+                    {/*        role="presentation" */}
+                    {/*        onMouseEnter={handleListPaddingMouseEnter} */}
+                    {/*    /> */}
+                    {/* </ul> */}
 
                     <div className="departments__menu-container">
                         {dataHeaderDepartments.map((item, index) => {

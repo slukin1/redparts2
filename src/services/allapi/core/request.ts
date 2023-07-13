@@ -143,7 +143,6 @@ const getHeaders = async (config: OpenAPIConfig, options: ApiRequestOptions): Pr
     if (options?.token) {
         token = options?.token;
         delete options[token];
-        console.log('token', token);
     }
     const headers = Object.entries({
         Accept: 'application/json',

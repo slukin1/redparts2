@@ -4,6 +4,7 @@ import React, { useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import classNames from 'classnames';
 // application
+import { useRouter } from 'next/router';
 import AppImage from '~/components/shared/AppImage';
 import AppLink from '~/components/shared/AppLink';
 import AsyncAction from '~/components/shared/AsyncAction';
@@ -28,6 +29,7 @@ import {
 
 export function Search() {
     const intl = useIntl();
+    const router = useRouter();
     const [query, setQuery] = useState('');
     const [suggestionsIsOpen, setSuggestionsIsOpen] = useState(false);
     const [hasSuggestions, setHasSuggestions] = useState(false);
@@ -117,7 +119,9 @@ export function Search() {
     };
 
     const handleButtonClick = () => {
-        toggleVehiclePicker();
+        // toggleVehiclePicker();
+        // navigate to catalog/products
+        router.push('/catalog').then();
     };
 
     const handleChangeCurrentVehicle = (event: React.FormEvent<HTMLInputElement>) => {
@@ -249,20 +253,20 @@ export function Search() {
                                             <div className="suggestions__product-name">
                                                 {product.name}
                                             </div>
-                                            <div className="suggestions__product-rating">
-                                                <div className="suggestions__product-rating-stars">
-                                                    <Rating value={product.rating || 0} />
-                                                </div>
-                                                <div className="suggestions__product-rating-label">
-                                                    <FormattedMessage
-                                                        id="TEXT_RATING_LABEL"
-                                                        values={{
-                                                            rating: product.rating,
-                                                            reviews: product.reviews,
-                                                        }}
-                                                    />
-                                                </div>
-                                            </div>
+                                            {/*<div className="suggestions__product-rating">*/}
+                                            {/*    <div className="suggestions__product-rating-stars">*/}
+                                            {/*        <Rating value={product.rating || 0} />*/}
+                                            {/*    </div>*/}
+                                            {/*    <div className="suggestions__product-rating-label">*/}
+                                            {/*        <FormattedMessage*/}
+                                            {/*            id="TEXT_RATING_LABEL"*/}
+                                            {/*            values={{*/}
+                                            {/*                rating: product.rating,*/}
+                                            {/*                reviews: product.reviews,*/}
+                                            {/*            }}*/}
+                                            {/*        />*/}
+                                            {/*    </div>*/}
+                                            {/*</div>*/}
                                         </div>
                                         <div className=" suggestions__product-price">
                                             <CurrencyFormat value={product.price} />

@@ -23,48 +23,48 @@ export class VehicleService {
      * @throws ApiError
      */
     public static getVehicles({
-acceptLanguage,
-count,
-offset,
-limit,
-page,
-filter,
-select,
-}: {
-/**
- * Accept-Language
- * Example : en_US, jp_JP
- */
-acceptLanguage?: string,
-/**
- * count
- */
-count?: string,
-/**
- * offset
- */
-offset?: string,
-/**
- * limit
- */
-limit?: string,
-/**
- * When number of user is greater than 10 in data, it divides into pages each page contain 10 in data.
- * Example : 2
- */
-page?: string,
-/**
- * filter
- * This will filter all fields about this word
- * Example : name, description, language
- */
-filter?: string,
-/**
- * Select only fields you want.
- * Example : make, mileage, model
- */
-select?: string,
-}): CancelablePromise<VehicleResponse | errorResponse> {
+                                  acceptLanguage,
+                                  count,
+                                  offset,
+                                  limit,
+                                  page,
+                                  filter,
+                                  select,
+                              }: {
+        /**
+         * Accept-Language
+         * Example : en_US, jp_JP
+         */
+        acceptLanguage?: string,
+        /**
+         * if count = 1 get total items
+         */
+        count?: string,
+        /**
+         * offset
+         */
+        offset?: string,
+        /**
+         * limit
+         */
+        limit?: string,
+        /**
+         * When number of user is greater than 10 in data, it divides into pages each page contain 10 in data.
+         * Example : 2
+         */
+        page?: string,
+        /**
+         * filter
+         * This will filter all fields about this word
+         * Example : name, description, language
+         */
+        filter?: string,
+        /**
+         * Select only fields you want.
+         * Example : make, mileage, model
+         */
+        select?: string,
+    }): CancelablePromise<VehicleResponse | errorResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle',
@@ -93,10 +93,10 @@ select?: string,
      * @throws ApiError
      */
     public static addVehicle({
-requestBody,
-}: {
-requestBody: VehicleModel,
-}): CancelablePromise<AddVehicleResponse | errorResponse> {
+                                 requestBody,
+                             }: {
+        requestBody: VehicleModel,
+    }): CancelablePromise<AddVehicleResponse | errorResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/vehicle',
@@ -117,54 +117,57 @@ requestBody: VehicleModel,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public static searchtVehicles({
-acceptLanguage,
-count,
-offset,
-limit,
-page,
-filter,
-select,
-}: {
-/**
- * Accept-Language
- * Example : en_US, jp_JP
- */
-acceptLanguage?: string,
-/**
- * count
- */
-count?: string,
-/**
- * offset
- */
-offset?: string,
-/**
- * limit
- */
-limit?: string,
-/**
- * When number of user is greater than 10 in data, it divides into pages each page contain 10 in data.
- * Example : 2
- */
-page?: string,
-/**
- * filter
- * This will filter all fields about this word
- * Example : name, description, language
- */
-filter?: string,
-/**
- * Select only fields you want.
- * Example : make, mileage, model
- */
-select?: string,
-}): CancelablePromise<VehicleResponse | errorResponse> {
+    public static searchVehicles({
+                                     keyWord,
+                                     acceptLanguage,
+                                     count,
+                                     offset,
+                                     limit,
+                                     page,
+                                     filter,
+                                     select,
+                                 }: {
+        keyWord: string,
+        /**
+         * Accept-Language
+         * Example : en_US, jp_JP
+         */
+        acceptLanguage?: string,
+        /**
+         * if count = 1 get total items
+         */
+        count?: string,
+        /**
+         * offset
+         */
+        offset?: string,
+        /**
+         * limit
+         */
+        limit?: string,
+        /**
+         * When number of user is greater than 10 in data, it divides into pages each page contain 10 in data.
+         * Example : 2
+         */
+        page?: string,
+        /**
+         * filter
+         * This will filter all fields about this word
+         * Example : name, description, language
+         */
+        filter?: string,
+        /**
+         * Select only fields you want.
+         * Example : make, mileage, model
+         */
+        select?: string,
+    }): CancelablePromise<VehicleResponse | errorResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/search',
             query: {
                 'accept-language': acceptLanguage,
+                'keyWord': keyWord,
                 'count': count,
                 'offset': offset,
                 'limit': limit,
@@ -188,48 +191,48 @@ select?: string,
      * @throws ApiError
      */
     public static getVehicleList({
-acceptLanguage,
-count,
-offset,
-limit,
-page,
-filter,
-select,
-}: {
-/**
- * Accept-Language
- * Example : en_US, jp_JP
- */
-acceptLanguage?: string,
-/**
- * count
- */
-count?: string,
-/**
- * offset
- */
-offset?: string,
-/**
- * limit
- */
-limit?: string,
-/**
- * When number of user is greater than 10 in data, it divides into pages each page contain 10 in data.
- * Example : 2
- */
-page?: string,
-/**
- * filter
- * This will filter all fields about this word
- * Example : name, description, language
- */
-filter?: string,
-/**
- * Select only fields you want.
- * Example : make, mileage, model
- */
-select?: string,
-}): CancelablePromise<VehicleResponse | errorResponse> {
+                                     acceptLanguage,
+                                     count,
+                                     offset,
+                                     limit,
+                                     page,
+                                     filter,
+                                     select,
+                                 }: {
+        /**
+         * Accept-Language
+         * Example : en_US, jp_JP
+         */
+        acceptLanguage?: string,
+        /**
+         * if count = 1 get total items
+         */
+        count?: string,
+        /**
+         * offset
+         */
+        offset?: string,
+        /**
+         * limit
+         */
+        limit?: string,
+        /**
+         * When number of user is greater than 10 in data, it divides into pages each page contain 10 in data.
+         * Example : 2
+         */
+        page?: string,
+        /**
+         * filter
+         * This will filter all fields about this word
+         * Example : name, description, language
+         */
+        filter?: string,
+        /**
+         * Select only fields you want.
+         * Example : make, mileage, model
+         */
+        select?: string,
+    }): CancelablePromise<VehicleResponse | errorResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/list',
@@ -258,10 +261,10 @@ select?: string,
      * @throws ApiError
      */
     public static getVehicleApi({
-id,
-}: {
-id: string,
-}): CancelablePromise<AddVehicleResponse | errorResponse> {
+                                    id,
+                                }: {
+        id: string,
+    }): CancelablePromise<AddVehicleResponse | errorResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/vehicleId',
@@ -283,10 +286,10 @@ id: string,
      * @throws ApiError
      */
     public static deleteVehicle({
-id,
-}: {
-id: string,
-}): CancelablePromise<VehicleDeleteViewModel> {
+                                    id,
+                                }: {
+        id: string,
+    }): CancelablePromise<VehicleDeleteViewModel> {
         return __request(OpenAPI, {
             method: 'DELETE',
             url: '/vehicle/vehicleId',
@@ -308,10 +311,10 @@ id: string,
      * @throws ApiError
      */
     public static updateVehicleStatusApi({
-requestBody,
-}: {
-requestBody: VehicleStatusParams,
-}): CancelablePromise<AddVehicleResponse | errorResponse> {
+                                             requestBody,
+                                         }: {
+        requestBody: VehicleStatusParams,
+    }): CancelablePromise<AddVehicleResponse | errorResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/vehicle/status',
@@ -333,19 +336,151 @@ requestBody: VehicleStatusParams,
      * @throws ApiError
      */
     public static getMakers({
-acceptLanguage,
-}: {
-/**
- * Accept-Language
- * Example : en_US, jp_JP
- */
-acceptLanguage?: string,
-}): CancelablePromise<{
-results: Array<string>;
-} | errorResponse> {
+                                acceptLanguage,
+                            }: {
+        /**
+         * Accept-Language
+         * Example : en_US, jp_JP
+         */
+        acceptLanguage?: string,
+    }): CancelablePromise<{
+        results: Array<{
+            make: string;
+            total: number;
+        }>;
+    } | errorResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/makers',
+            query: {
+                'accept-language': acceptLanguage,
+            },
+            errors: {
+                400: `400 response`,
+                404: `404 response`,
+                500: `500 response`,
+            },
+        });
+    }
+
+    /**
+     * vehicles locations data API
+     * This route allow you to get vehicles locations data
+     * @returns any 200 response
+     * @returns errorResponse default response
+     * @throws ApiError
+     */
+    public static getLocations({
+                                   acceptLanguage,
+                               }: {
+        /**
+         * Accept-Language
+         * Example : en_US, jp_JP
+         */
+        acceptLanguage?: string,
+    }): CancelablePromise<{
+        results: Array<{
+            location: string;
+            make: string;
+            totalVehicles: number;
+        }>;
+    } | errorResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/vehicle/locations',
+            query: {
+                'accept-language': acceptLanguage,
+            },
+            errors: {
+                400: `400 response`,
+                404: `404 response`,
+                500: `500 response`,
+            },
+        });
+    }
+
+    /**
+     * vehicles fuels data API
+     * This route allow you to get vehicles fuels data
+     * @returns errorResponse default response
+     * @throws ApiError
+     */
+    public static getFuels({
+                               acceptLanguage,
+                           }: {
+        /**
+         * Accept-Language
+         * Example : en_US, jp_JP
+         */
+        acceptLanguage?: string,
+    }): CancelablePromise<errorResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/vehicle/fuels',
+            query: {
+                'accept-language': acceptLanguage,
+            },
+            errors: {
+                400: `400 response`,
+                404: `404 response`,
+                500: `500 response`,
+            },
+        });
+    }
+
+    /**
+     * vehicles transmissions data API
+     * This route allow you to get vehicles transmissions data
+     * @returns any 200 response
+     * @returns errorResponse default response
+     * @throws ApiError
+     */
+    public static getTransmissions({
+                                       acceptLanguage,
+                                   }: {
+        /**
+         * Accept-Language
+         * Example : en_US, jp_JP
+         */
+        acceptLanguage?: string,
+    }): CancelablePromise<{
+        results: Array<string>;
+    } | errorResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/vehicle/transmissions',
+            query: {
+                'accept-language': acceptLanguage,
+            },
+            errors: {
+                400: `400 response`,
+                404: `404 response`,
+                500: `500 response`,
+            },
+        });
+    }
+
+    /**
+     * vehicles colors data API
+     * This route allow you to get vehicles colors data
+     * @returns any 200 response
+     * @returns errorResponse default response
+     * @throws ApiError
+     */
+    public static getColors({
+                                acceptLanguage,
+                            }: {
+        /**
+         * Accept-Language
+         * Example : en_US, jp_JP
+         */
+        acceptLanguage?: string,
+    }): CancelablePromise<{
+        results: Array<string>;
+    } | errorResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/vehicle/colors',
             query: {
                 'accept-language': acceptLanguage,
             },
@@ -365,16 +500,16 @@ results: Array<string>;
      * @throws ApiError
      */
     public static getModels({
-acceptLanguage,
-}: {
-/**
- * Accept-Language
- * Example : en_US, jp_JP
- */
-acceptLanguage?: string,
-}): CancelablePromise<{
-results: Array<string>;
-} | errorResponse> {
+                                acceptLanguage,
+                            }: {
+        /**
+         * Accept-Language
+         * Example : en_US, jp_JP
+         */
+        acceptLanguage?: string,
+    }): CancelablePromise<{
+        results: Array<string>;
+    } | errorResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/models',
@@ -397,16 +532,16 @@ results: Array<string>;
      * @throws ApiError
      */
     public static getYears({
-acceptLanguage,
-}: {
-/**
- * Accept-Language
- * Example : en_US, jp_JP
- */
-acceptLanguage?: string,
-}): CancelablePromise<{
-results: Array<number>;
-} | errorResponse> {
+                               acceptLanguage,
+                           }: {
+        /**
+         * Accept-Language
+         * Example : en_US, jp_JP
+         */
+        acceptLanguage?: string,
+    }): CancelablePromise<{
+        results: Array<number>;
+    } | errorResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/years',
@@ -429,16 +564,16 @@ results: Array<number>;
      * @throws ApiError
      */
     public static getEngineTypes({
-acceptLanguage,
-}: {
-/**
- * Accept-Language
- * Example : en_US, jp_JP
- */
-acceptLanguage?: string,
-}): CancelablePromise<{
-results: Array<string>;
-} | errorResponse> {
+                                     acceptLanguage,
+                                 }: {
+        /**
+         * Accept-Language
+         * Example : en_US, jp_JP
+         */
+        acceptLanguage?: string,
+    }): CancelablePromise<{
+        results: Array<string>;
+    } | errorResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/engine-types',
@@ -461,16 +596,19 @@ results: Array<string>;
      * @throws ApiError
      */
     public static getBodyTypes({
-acceptLanguage,
-}: {
-/**
- * Accept-Language
- * Example : en_US, jp_JP
- */
-acceptLanguage?: string,
-}): CancelablePromise<{
-results: Array<string>;
-} | errorResponse> {
+                                   acceptLanguage,
+                               }: {
+        /**
+         * Accept-Language
+         * Example : en_US, jp_JP
+         */
+        acceptLanguage?: string,
+    }): CancelablePromise<{
+        results: {
+            bodyTypes: Array<string>;
+            total: number;
+        };
+    } | errorResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/body-types',
@@ -493,12 +631,15 @@ results: Array<string>;
      * @throws ApiError
      */
     public static getModelsMake({
-maker,
-}: {
-maker: string,
-}): CancelablePromise<{
-results: Array<string>;
-} | errorResponse> {
+                                    maker,
+                                }: {
+        maker: string,
+    }): CancelablePromise<{
+        results: Array<{
+            make: string;
+            total: number;
+        }>;
+    } | errorResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/models-by-maker',
@@ -521,12 +662,12 @@ results: Array<string>;
      * @throws ApiError
      */
     public static getModelsByYear({
-year,
-}: {
-year: number,
-}): CancelablePromise<{
-results: Array<string>;
-} | errorResponse> {
+                                      year,
+                                  }: {
+        year: number,
+    }): CancelablePromise<{
+        results: Array<string>;
+    } | errorResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/models-by-year',
@@ -549,14 +690,14 @@ results: Array<string>;
      * @throws ApiError
      */
     public static getModelsByYearMaker({
-year,
-maker,
-}: {
-year: number,
-maker: string,
-}): CancelablePromise<{
-results: Array<string>;
-} | errorResponse> {
+                                           year,
+                                           maker,
+                                       }: {
+        year: number,
+        maker: string,
+    }): CancelablePromise<{
+        results: Array<string>;
+    } | errorResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/models-by-year-maker',
@@ -580,12 +721,12 @@ results: Array<string>;
      * @throws ApiError
      */
     public static getMakeModels({
-model,
-}: {
-model: string,
-}): CancelablePromise<{
-results: Array<string>;
-} | errorResponse> {
+                                    model,
+                                }: {
+        model: string,
+    }): CancelablePromise<{
+        results: Array<string>;
+    } | errorResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/makers-by-model',
@@ -608,14 +749,14 @@ results: Array<string>;
      * @throws ApiError
      */
     public static getByYearMakerModel({
-year,
-maker,
-model,
-}: {
-year: number,
-maker: string,
-model: string,
-}): CancelablePromise<VehicleResponse | errorResponse> {
+                                          year,
+                                          maker,
+                                          model,
+                                      }: {
+        year: number,
+        maker: string,
+        model: string,
+    }): CancelablePromise<VehicleResponse | errorResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/by-year-maker-model',
@@ -640,36 +781,70 @@ model: string,
      * @throws ApiError
      */
     public static filterVehicle({
-year,
-price,
-mileage,
-maker,
-model,
-bodyType,
-engineType,
-transmission,
-condition,
-location,
-refNo,
-fuel,
-status,
-color,
-}: {
-year?: string,
-price?: string,
-mileage?: string,
-maker?: string,
-model?: string,
-bodyType?: string,
-engineType?: string,
-transmission?: string,
-condition?: string,
-location?: string,
-refNo?: string,
-fuel?: string,
-status?: string,
-color?: string,
-}): CancelablePromise<VehicleResponse | errorResponse> {
+                                    year,
+                                    price,
+                                    mileage,
+                                    maker,
+                                    model,
+                                    bodyType,
+                                    engineType,
+                                    transmission,
+                                    condition,
+                                    location,
+                                    refNo,
+                                    fuel,
+                                    status,
+                                    color,
+                                    count,
+                                    offset,
+                                    limit,
+                                    page,
+                                    filter,
+                                    select,
+                                }: {
+        year?: string,
+        price?: string,
+        mileage?: string,
+        maker?: string,
+        model?: string,
+        bodyType?: string,
+        engineType?: string,
+        transmission?: string,
+        condition?: string,
+        location?: string,
+        refNo?: string,
+        fuel?: string,
+        status?: string,
+        color?: string,
+        /**
+         * if count = 1 get total items
+         */
+        count?: string,
+        /**
+         * offset
+         */
+        offset?: string,
+        /**
+         * limit
+         */
+        limit?: string,
+        /**
+         * When number of user is greater than 10 in data, it divides into pages each page contain 10 in data.
+         * Example : 2
+         */
+        page?: string,
+        /**
+         * filter
+         * This will filter all fields about this word
+         * Example : name, description, language
+         */
+        filter?: string,
+        /**
+         * Select only fields you want.
+         * Example : make, mileage, model
+         */
+        select?: string,
+    }): CancelablePromise<VehicleResponse | errorResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/vehicle/filter',
@@ -688,6 +863,12 @@ color?: string,
                 'fuel': fuel,
                 'status': status,
                 'color': color,
+                'count': count,
+                'offset': offset,
+                'limit': limit,
+                'page': page,
+                'filter': filter,
+                'select': select,
             },
             errors: {
                 400: `400 response`,
@@ -705,10 +886,10 @@ color?: string,
      * @throws ApiError
      */
     public static vehicleRange({
-requestBody,
-}: {
-requestBody: RangeList,
-}): CancelablePromise<VehicleResponse | errorResponse> {
+                                   requestBody,
+                               }: {
+        requestBody: RangeList,
+    }): CancelablePromise<VehicleResponse | errorResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/vehicle/range',

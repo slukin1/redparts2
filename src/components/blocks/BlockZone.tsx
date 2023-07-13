@@ -169,14 +169,14 @@ function BlockZone(props: Props) {
                                     <ul className="category-card__children">
                                         {subs.map((sub, subIdx) => (
                                             <li key={subIdx}>
-                                                <AppLink href={url.category(sub)}>
+                                                <AppLink href={url.productsCustom(sub)}>
                                                     {sub.name}
                                                 </AppLink>
                                             </li>
                                         ))}
                                     </ul>
                                     <div className="category-card__actions">
-                                        <AppLink href={url.category(category)} className="btn btn-primary btn-sm">
+                                        <AppLink href={url.prodcutsCustomShopAll()} className="btn btn-primary btn-sm">
                                             <FormattedMessage id="BUTTON_SHOP_ALL" />
                                         </AppLink>
                                     </div>

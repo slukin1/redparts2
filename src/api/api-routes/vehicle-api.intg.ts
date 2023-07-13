@@ -10,8 +10,9 @@ import {
     getUserVehicles,
     getVehicleByVin,
     getVehicles,
-    getYearsTo, getYearsFrom,
-    removeUserVehicles, getMileage, getEngine,
+    getYearsTo, getYearsFrom, getFuel, getTransmission,
+    getBodyType,
+    removeUserVehicles, getMileage, getEngine, getColor,
 } from '~/routes/endpoints';
 
 export class VehicleApiIntg extends VehicleApi {
@@ -19,17 +20,23 @@ export class VehicleApiIntg extends VehicleApi {
         return getEngine(make, model, yearFrom, yearTo, mileage);
     }
 
-    getTransmission(make: string, model: string, yearFrom: number, yearTo: number, mileage:string, engine:string): Promise<string[]> {
-        return getEngine(make, model, yearFrom, yearTo, mileage);
+    getBodyType(make: string, model: string, yearFrom: number, yearTo: number, mileage:string, engine:string,
+        transmission:string): Promise<string[]> {
+        return getBodyType(make, model, yearFrom, yearTo, mileage, engine, transmission);
     }
 
-    getFuel(make: string, model: string, yearFrom: number, yearTo: number, mileage:string, engine:string, transmission:string): Promise<string[]> {
-        return getEngine(make, model, yearFrom, yearTo, mileage);
+    getTransmission(make: string, model: string, yearFrom: number, yearTo: number, mileage:string, engine:string): Promise<string[]> {
+        return getTransmission(make, model, yearFrom, yearTo, mileage, engine);
+    }
+
+    getFuel(make: string, model: string, yearFrom: number, yearTo: number, mileage:string, engine:string,
+        transmission:string, bodyType:string): Promise<string[]> {
+        return getFuel(make, model, yearFrom, yearTo, mileage, engine, transmission, bodyType);
     }
 
     getColor(make: string, model: string, yearFrom: number, yearTo: number, mileage:string, engine:string,
-        transmission:string, fuel:string): Promise<string[]> {
-        return getEngine(make, model, yearFrom, yearTo, mileage);
+        transmission:string, bodyType:string, fuel:string): Promise<string[]> {
+        return getColor(make, model, yearFrom, yearTo, mileage, engine, transmission, bodyType, fuel);
     }
 
     getMileage(make: string, model: string, yearFrom: number, yearTo: number): Promise<string[]> {

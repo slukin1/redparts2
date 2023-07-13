@@ -131,24 +131,24 @@ function Page() {
                 <td className="compare-table__column compare-table__column--fake" />
             </tr>
             <tr className="compare-table__row">
-                <th className="compare-table__column compare-table__column--header">
-                    <FormattedMessage id="TABLE_RATING" />
-                </th>
-                {compare.items.map((product) => (
-                    <td key={product.id} className="compare-table__column compare-table__column--product">
-                        <div className="compare-table__rating">
-                            <div className="compare-table__rating-stars">
-                                <Rating value={product.rating || 0} />
-                            </div>
-                            <div className="compare-table__rating-title">
-                                <FormattedMessage
-                                    id="TEXT_RATING_LABEL"
-                                    values={{ rating: product.rating, reviews: product.reviews }}
-                                />
-                            </div>
-                        </div>
-                    </td>
-                ))}
+                {/*<th className="compare-table__column compare-table__column--header">*/}
+                {/*    <FormattedMessage id="TABLE_RATING" />*/}
+                {/*</th>*/}
+                {/*{compare.items.map((product) => (*/}
+                {/*    <td key={product.id} className="compare-table__column compare-table__column--product">*/}
+                {/*        <div className="compare-table__rating">*/}
+                {/*            <div className="compare-table__rating-stars">*/}
+                {/*                <Rating value={product.rating || 0} />*/}
+                {/*            </div>*/}
+                {/*            <div className="compare-table__rating-title">*/}
+                {/*                <FormattedMessage*/}
+                {/*                    id="TEXT_RATING_LABEL"*/}
+                {/*                    values={{ rating: product.rating, reviews: product.reviews }}*/}
+                {/*                />*/}
+                {/*            </div>*/}
+                {/*        </div>*/}
+                {/*    </td>*/}
+                {/*))}*/}
                 <td className="compare-table__column compare-table__column--fake" />
             </tr>
             <tr className="compare-table__row">
