@@ -17,20 +17,29 @@ export type OpenAPIConfig = {
     PASSWORD?: string | Resolver<string>;
     HEADERS?: Headers | Resolver<Headers>;
     ENCODE_PATH?: (path: string) => string;
+    ACCESS_TOKEN?: string | Resolver<string>;
+    API_KEY?: string | Resolver<string>;
 };
+
 
 export const OpenAPI: OpenAPIConfig = {
     BASE: environment.apiBaseURL,
     VERSION: '1',
     WITH_CREDENTIALS: false,
     CREDENTIALS: 'include',
-    HEADERS: {
-        'Content-Type': 'application/json',
-        'Origin': 'x-requested-with',
-        'Access-Control-Allow-Origin': '*',
-    },
     TOKEN: undefined,
+    API_KEY: environment.xApiToken,
+    ACCESS_TOKEN: undefined,
     USERNAME: undefined,
     PASSWORD: undefined,
-    ENCODE_PATH: undefined,
+    HEADERS: {
+        'Content-Type': 'application/json',
+        'Origin': 'X-Requested-With',
+
+    },
+    ENCODE_PATH: (path: string) => {
+// Encode the path using encodeURIComponent
+    const encodedPath = encodeURIComponent(path);
+    return encodedPath;
+},
 };

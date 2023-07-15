@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { Modal } from 'reactstrap';
-import ReCAPTCHA from 'react-google-recaptcha';
+// import ReCAPTCHA from 'react-google-recaptcha';
 import AsyncAction from '~/components/shared/AsyncAction';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
 import { Compare16Svg, Cross12Svg, Wishlist16Svg } from '~/svg';
@@ -273,7 +273,6 @@ function InquiryModal() {
                     </div>
                     {errors.phoneNumber && <div className="invalid-feedback">{errors.phoneNumber.message}</div>}
                 </div>
-
                 {/* Comments Text Area */}
                 <div className="form-group">
                     <label htmlFor="comments">Comments</label>
@@ -286,15 +285,15 @@ function InquiryModal() {
                 </div>
 
                 <div className="form-group">
-                    <ReCAPTCHA
-                        sitekey="YOUR_RECAPTCHA_SITE_KEY"
-                        {...register('recaptcha', {
-                            required: 'reCAPTCHA validation is required',
-                        })}
-                    />
-                    {errors.recaptcha && <div className="invalid-feedback">{errors.recaptcha.message}</div>}
+                    {/* <ReCAPTCHA */}
+                    {/*    sitekey="YOUR_RECAPTCHA_SITE_KEY" */}
+                    {/*    {...register('recaptcha', { */}
+                    {/*        required: 'reCAPTCHA validation is required', */}
+                    {/*    })} */}
+                    {/* /> */}
+                    {/* {errors.recaptcha && <div className="invalid-feedback">{errors.recaptcha.message}</div>} */}
+                    1 + 2 = ?
                 </div>
-
                 {/* Submit Button */}
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
