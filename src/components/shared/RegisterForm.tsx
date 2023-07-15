@@ -5,8 +5,8 @@ import classNames from 'classnames';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useFormContext } from 'react-hook-form';
 // application
-import { useDetachableForm } from '~/services/hooks';
-import { validateEmail } from '~/services/validators';
+import { useDetachableForm } from '~/api/services/hooks';
+import { validateEmail } from '~/api/services/validators';
 
 export interface IRegisterForm {
     email: string;

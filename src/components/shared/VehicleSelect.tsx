@@ -3,7 +3,7 @@ import React from 'react';
 // third-party
 import classNames from 'classnames';
 // application
-import useVehicleForm from '~/services/forms/vehicle';
+import useVehicleForm from '~/api/services/forms/vehicle';
 import { IVehicle } from '~/interfaces/vehicle';
 
 interface Props extends React.HTMLAttributes<HTMLElement> {

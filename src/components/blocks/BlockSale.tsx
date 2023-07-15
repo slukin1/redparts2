@@ -11,7 +11,7 @@ import Arrow from '~/components/shared/Arrow';
 import Decor from '~/components/shared/Decor';
 import ProductCard from '~/components/shared/ProductCard';
 import Timer from '~/components/shared/Timer';
-import { baseUrl } from '~/services/utils';
+import { baseUrl } from '~/api/services/utils';
 import { IProduct } from '~/interfaces/product';
 
 interface Props {

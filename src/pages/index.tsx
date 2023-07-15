@@ -13,9 +13,9 @@ import BlockProductsColumns from '~/components/blocks/BlockProductsColumns';
 import BlockSale from '~/components/blocks/BlockSale';
 import BlockSpace from '~/components/blocks/BlockSpace';
 import BlockZone from '~/components/blocks/BlockZone';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { shopApi, blogApi } from '~/api';
-import { useDeferredData, useProductColumns, useProductTabs } from '~/services/hooks';
+import { useDeferredData, useProductColumns, useProductTabs } from '~/api/services/hooks';
 
 function Page() {
     const intl = useIntl();

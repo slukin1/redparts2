@@ -5,10 +5,10 @@ import { FormattedMessage } from 'react-intl';
 import { useRouter } from 'next/router';
 // application
 import Decor from '~/components/shared/Decor';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import VehicleSelect from '~/components/shared/VehicleSelect';
-import { baseUrl } from '~/services/utils';
-import { hrefToRouterArgs } from '~/services/router';
+import { baseUrl } from '~/api/services/utils';
+import { hrefToRouterArgs } from '~/api/services/router';
 import { IVehicle } from '~/interfaces/vehicle';
 
 function BlockFinder() {

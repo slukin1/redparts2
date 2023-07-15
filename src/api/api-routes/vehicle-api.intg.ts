@@ -12,8 +12,8 @@ import {
     getVehicles,
     getYearsTo, getYearsFrom, getFuel, getTransmission,
     getBodyType,
-    removeUserVehicles, getMileage, getEngine, getColor,
-} from '~/routes/endpoints';
+    removeUserVehicles, getMileage, getEngine, getColor, getAllData,
+} from '~/api/routes/endpoints';
 
 export class VehicleApiIntg extends VehicleApi {
     getEngine(make: string, model: string, yearFrom: number, yearTo: number, mileage:string): Promise<string[]> {
@@ -77,5 +77,9 @@ export class VehicleApiIntg extends VehicleApi {
 
     removeUserVehicle(vehicleId: number): Promise<void> {
         return removeUserVehicles(vehicleId);
+    }
+
+    getAllData(): Promise<any> {
+        return getAllData();
     }
 }

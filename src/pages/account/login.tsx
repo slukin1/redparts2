@@ -9,11 +9,11 @@ import BlockSpace from '~/components/blocks/BlockSpace';
 import Checkbox from '~/components/shared/Checkbox';
 import PageTitle from '~/components/shared/PageTitle';
 import Redirect from '~/components/shared/Redirect';
-import url from '~/services/url';
-import { useSignInForm } from '~/services/forms/sign-in';
-import { useSignUpForm } from '~/services/forms/sign-up';
+import url from '~/api/services/url';
+import { useSignInForm } from '~/api/services/forms/sign-in';
+import { useSignUpForm } from '~/api/services/forms/sign-up';
 import { useUser } from '~/store/user/userHooks';
-import { validateEmail, validateUserName } from '~/services/validators';
+import { validateEmail, validateUserName } from '~/api/services/validators';
 
 function Page() {
     const intl = useIntl();

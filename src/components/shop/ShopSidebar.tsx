@@ -16,7 +16,7 @@ import WidgetProducts from '~/components/widgets/WidgetProducts';
 import { Cross12Svg } from '~/svg';
 import { IProduct } from '~/interfaces/product';
 import { shopApi } from '~/api';
-import { SidebarContext } from '~/services/sidebar';
+import { SidebarContext } from '~/api/services/sidebar';
 import { useMedia } from '~/store/hooks';
 import { IShopPageOffCanvasSidebar } from '~/interfaces/pages';
 

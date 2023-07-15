@@ -7,7 +7,7 @@ import { FormattedMessage } from 'react-intl';
 import AppLink from '~/components/shared/AppLink';
 import DropdownCurrency from '~/components/header/DropdownCurrency';
 import DropdownLanguage from '~/components/header/DropdownLanguage';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { useCompare } from '~/store/compare/compareHooks';
 
 type Layout = 'spaceship-start' | 'spaceship-end' | 'classic';

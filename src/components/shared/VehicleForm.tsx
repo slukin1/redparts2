@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react';
 import classNames from 'classnames';
 import { FormattedMessage, useIntl } from 'react-intl';
 // application
-import useVehicleForm from '~/services/forms/vehicle';
+import useVehicleForm from '~/api/services/forms/vehicle';
 import { IVehicle } from '~/interfaces/vehicle';
 import { vehicleApi } from '~/api';
 

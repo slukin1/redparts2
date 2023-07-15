@@ -9,7 +9,7 @@ import React, {
 import classNames from 'classnames';
 import Slick, { Settings } from 'react-slick';
 // application
-import { useDirection } from '~/services/i18n/hooks';
+import { useDirection } from '~/api/services/i18n/hooks';
 
 export type ISlickProps = Settings;
 

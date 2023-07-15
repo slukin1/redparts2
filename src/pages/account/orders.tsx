@@ -8,9 +8,9 @@ import AppLink from '~/components/shared/AppLink';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
 import Navigation from '~/components/shared/Navigation';
 import PageTitle from '~/components/shared/PageTitle';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { accountApi } from '~/api';
-import { useList } from '~/services/hooks';
+import { useList } from '~/api/services/hooks';
 
 function Page() {
     const intl = useIntl();

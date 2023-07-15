@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { ArrowRoundedDown12x7Svg } from '~/svg';
 import FilterCategory from '~/components/filters/FilterCategory';
 import FilterVehicle from '~/components/filters/FilterVehicle';
-import { getFilterValue, isDefaultFilterValue, serializeFilterValue } from '~/services/filters';
+import { getFilterValue, isDefaultFilterValue, serializeFilterValue } from '~/api/services/filters';
 import FilterRange from '~/components/filters/FilterRange';
 import FilterCheck from '~/components/filters/FilterCheck';
 import FilterRadio from '~/components/filters/FilterRadio';
@@ -36,7 +36,7 @@ function Filter(props: Props) {
     }, [shopSetFilterValue]);
 
     const renderFn: RenderFilterFn = ({ toggle, setItemRef, setContentRef }) => (
-        <div className="filter" ref={setItemRef}>
+        <div className="filter filter--opened" ref={setItemRef}>
             <button type="button" className="filter__title" onClick={toggle}>
                 {filter.name}
                 <span className="filter__arrow">

@@ -5,7 +5,7 @@ import classNames from 'classnames';
 // application
 import AppImage from '~/components/shared/AppImage';
 import AppLink from '~/components/shared/AppLink';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { IPost } from '~/interfaces/post';
 
 export type IPostCardLayout = 'list' | 'grid' | 'grid-sm';

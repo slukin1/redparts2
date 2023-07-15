@@ -6,7 +6,7 @@ import { useIntl } from 'react-intl';
 import StatusBadge, { IStatusBadgeIcon, IStatusBadgeType } from '~/components/shared/StatusBadge';
 import { IProduct, IProductCompatibilityResult } from '~/interfaces/product';
 import { IVehicle } from '~/interfaces/vehicle';
-import { useCurrentVehicle } from '~/services/current-vehicle';
+import { useCurrentVehicle } from '~/api/services/current-vehicle';
 
 interface Props extends React.HTMLAttributes<HTMLElement> {
     product: IProduct;

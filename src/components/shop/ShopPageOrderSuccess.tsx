@@ -9,7 +9,7 @@ import AppLink from '~/components/shared/AppLink';
 import BlockSpace from '~/components/blocks/BlockSpace';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
 import PageTitle from '~/components/shared/PageTitle';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { Check100Svg } from '~/svg';
 import { IOrder } from '~/interfaces/order';
 

@@ -8,7 +8,7 @@ import AppImage from '~/components/shared/AppImage';
 import AppLink from '~/components/shared/AppLink';
 import AsyncAction from '~/components/shared/AsyncAction';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { Cross10Svg } from '~/svg';
 import { useCart, useCartRemoveItem } from '~/store/cart/cartHooks';
 

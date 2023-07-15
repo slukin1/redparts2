@@ -3,7 +3,7 @@ import React from 'react';
 // application
 import AppImage from '~/components/shared/AppImage';
 import AppLink from '~/components/shared/AppLink';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { IPost } from '~/interfaces/post';
 
 interface Props {

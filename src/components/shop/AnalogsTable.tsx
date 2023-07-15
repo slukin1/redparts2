@@ -6,7 +6,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import AppLink from '~/components/shared/AppLink';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
 import Rating from '~/components/shared/Rating';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { IProduct } from '~/interfaces/product';
 import { shopApi } from '~/api';
 

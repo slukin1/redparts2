@@ -10,7 +10,7 @@ import AccountLayout from '~/components/account/AccountLayout';
 import AddressForm, { getAddressFormDefaultValue, IAddressForm } from '~/components/shared/AddressForm';
 import Checkbox from '~/components/shared/Checkbox';
 import PageTitle from '~/components/shared/PageTitle';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { accountApi } from '~/api';
 import { IAddress } from '~/interfaces/address';
 import { IEditAddressData } from '~/api/base';

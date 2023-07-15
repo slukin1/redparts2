@@ -11,6 +11,7 @@ import wishlistReducer, { WISHLIST_NAMESPACE } from '~/store/wishlist/wishlistRe
 import { AppReducerStateType } from '~/store/types';
 import { SHOP_NAMESPACE } from '~/store/shop/shopTypes';
 import inquireReducer, { INQUIRE_NAMESPACE } from '~/store/inquire/inquireReducer';
+import dataReducer, { DATA_NAMESPACE } from '~/store/data/dataReducer';
 
 export interface IRootState {
     [CART_NAMESPACE]: AppReducerStateType<typeof cartReducer>;
@@ -24,4 +25,5 @@ export interface IRootState {
     [USER_NAMESPACE]: AppReducerStateType<typeof userReducer>;
     [WISHLIST_NAMESPACE]: AppReducerStateType<typeof wishlistReducer>;
     [INQUIRE_NAMESPACE]: AppReducerStateType<typeof inquireReducer>;
+    [DATA_NAMESPACE]: AppReducerStateType<typeof dataReducer>;
 }

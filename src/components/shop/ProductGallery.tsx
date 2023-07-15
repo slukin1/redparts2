@@ -14,8 +14,8 @@ import Slick from 'react-slick';
 import AppImage from '~/components/shared/AppImage';
 import AppLink from '~/components/shared/AppLink';
 import AppSlick, { ISlickProps } from '~/components/shared/AppSlick';
-import { baseUrl } from '~/services/utils';
-import { useDirection } from '~/services/i18n/hooks';
+import { baseUrl } from '~/api/services/utils';
+import { useDirection } from '~/api/services/i18n/hooks';
 import { ZoomIn24Svg } from '~/svg';
 
 type CreateGalleryFn = (
@@ -239,7 +239,7 @@ function ProductGallery(props: Props) {
 
     // componentDidMount
     useEffect(() => {
-        createGalleryRef.current = import('~/services/photoswipe').then((module) => module.default);
+        createGalleryRef.current = import('~/api/services/photoswipe').then((module) => module.default);
     }, []);
 
     // componentWillUnmount

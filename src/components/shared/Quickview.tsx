@@ -2,24 +2,22 @@
 import React, { useCallback, useMemo } from 'react';
 // third-party
 import classNames from 'classnames';
-import { Controller, FormProvider } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { Modal } from 'reactstrap';
 // application
 import AppLink from '~/components/shared/AppLink';
 import AsyncAction from '~/components/shared/AsyncAction';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
-import InputNumber from '~/components/shared/InputNumber';
-import ProductForm from '~/components/shop/ProductForm';
 import ProductGallery from '~/components/shop/ProductGallery';
-import Rating from '~/components/shared/Rating';
 import StockStatusBadge from '~/components/shared/StockStatusBadge';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { Compare16Svg, Cross12Svg, Wishlist16Svg } from '~/svg';
 import { useCompareAddItem } from '~/store/compare/compareHooks';
-import { useProductForm } from '~/services/forms/product';
+import { useProductForm } from '~/api/services/forms/product';
 import { useQuickview, useQuickviewClose } from '~/store/quickview/quickviewHooks';
 import { useWishlistAddItem } from '~/store/wishlist/wishlistHooks';
+import { useInquireOpen } from '~/store/inquire/inquireHooks';
 
 function Quickview() {
     const quickview = useQuickview();
@@ -29,7 +27,12 @@ function Quickview() {
     const { product } = quickview;
     const image = useMemo(() => product?.images || [], [product]);
     const productForm = useProductForm(product);
-
+    const inquire = useInquireOpen();
+    const showInquire = () => {
+        quickviewClose();
+        // @ts-ignore
+        return inquire(product.slug);
+    };
     const toggle = useCallback(() => {
         if (quickview.open) {
             quickviewClose();
@@ -45,20 +48,6 @@ function Quickview() {
             <div className="quickview__product-name">
                 {product.name}
             </div>
-            {/* <div className="quickview__product-rating"> */}
-            {/*    <div className="quickview__product-rating-stars"> */}
-            {/*        <Rating value={product.rating || 0} /> */}
-            {/*    </div> */}
-            {/*    <div className="quickview__product-rating-title"> */}
-            {/*        <FormattedMessage */}
-            {/*            id="TEXT_RATING_LABEL" */}
-            {/*            values={{ */}
-            {/*                rating: product.rating, */}
-            {/*                reviews: product.reviews, */}
-            {/*            }} */}
-            {/*        /> */}
-            {/*    </div> */}
-            {/* </div> */}
             <div className="quickview__product-meta">
                 <table>
                     <tbody>
@@ -126,37 +115,23 @@ function Quickview() {
                 </div>
                 <StockStatusBadge className="quickview__product-stock" stock={product.stock} />
             </div>
-
-            {/* <ProductForm */}
-            {/*    options={product.options} */}
-            {/*    className="quickview__product-form" */}
-            {/*    namespace="options" */}
-            {/* /> */}
-
             <div className="quickview__product-actions">
-                {/* <div className="quickview__product-actions-item quickview__product-actions-item--quantity"> */}
-                {/*    <Controller */}
-                {/*        name="quantity" */}
-                {/*        rules={{ required: true }} */}
-                {/*        render={({ field: { ref: fieldRef, ...fieldProps } }) => ( */}
-                {/*            <InputNumber */}
-                {/*                min={1} */}
-                {/*                inputRef={fieldRef} */}
-                {/*                {...fieldProps} */}
-                {/*            /> */}
-                {/*        )} */}
-                {/*    /> */}
-                {/* </div> */}
-                <div className="quickview__product-actions-item quickview__product-actions-item--addtocart">
-                    <button
-                        type="submit"
-                        className={classNames('btn', 'btn-primary', 'btn-block', {
-                            'btn-loading': productForm.submitInProgress,
-                        })}
-                    >
-                        <FormattedMessage id="BUTTON_INQUIRY" />
-                    </button>
-                </div>
+                <AsyncAction
+                    action={() => showInquire()}
+                    render={({ run, loading }) => (
+                        <div className="quickview__product-actions-item quickview__product-actions-item--addtocart">
+                            <button
+                                type="button"
+                                className={classNames('btn', 'btn-primary', 'btn-block', {
+                                    'btn-loading': loading,
+                                })}
+                                onClick={run}
+                            >
+                                <FormattedMessage id="BUTTON_INQUIRY" />
+                            </button>
+                        </div>
+                    )}
+                />
 
                 <AsyncAction
                     action={() => wishlistAddItem(product)}

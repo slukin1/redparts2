@@ -11,16 +11,16 @@ import BlockHeader from '~/components/blocks/BlockHeader';
 import BlockProductsCarousel from '~/components/blocks/BlockProductsCarousel';
 import BlockSpace from '~/components/blocks/BlockSpace';
 import PageTitle from '~/components/shared/PageTitle';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import WidgetCategoriesList from '~/components/widgets/WidgetCategoriesList';
 import WidgetProducts from '~/components/widgets/WidgetProducts';
-import { getCategoryPath } from '~/services/utils';
+import { getCategoryPath } from '~/api/services/utils';
 import { IBrand } from '~/interfaces/brand';
 import { IShopCategoryPageLayout, IShopCategoryPageSidebarPosition } from '~/interfaces/pages';
 import { IProduct } from '~/interfaces/product';
 import { IShopCategory } from '~/interfaces/category';
 import { shopApi } from '~/api';
-import { useDeferredData } from '~/services/hooks';
+import { useDeferredData } from '~/api/services/hooks';
 
 interface Props {
     layout: IShopCategoryPageLayout;

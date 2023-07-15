@@ -11,12 +11,11 @@ import BlockHeader from '~/components/blocks/BlockHeader';
 import BlockSpace from '~/components/blocks/BlockSpace';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
 import PageTitle from '~/components/shared/PageTitle';
-import Rating from '~/components/shared/Rating';
 import StockStatusBadge from '~/components/shared/StockStatusBadge';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { IProductAttributeValue } from '~/interfaces/product';
-import { useCartAddItem } from '~/store/cart/cartHooks';
 import { useCompare, useCompareClear, useCompareRemoveItem } from '~/store/compare/compareHooks';
+import { useInquireOpen } from '~/store/inquire/inquireHooks';
 
 interface Attribute {
     slug: string;
@@ -29,10 +28,10 @@ function Page() {
     const intl = useIntl();
     const compare = useCompare();
     const compareClear = useCompareClear();
-    const cartAddItem = useCartAddItem();
     const compareRemoveItem = useCompareRemoveItem();
     const products = compare.items;
     const [show, setShow] = useState('all');
+    const inquire = useInquireOpen();
 
     const attributes: Attribute[] = useMemo(() => {
         const attributes: Attribute[] = [];
@@ -131,24 +130,6 @@ function Page() {
                 <td className="compare-table__column compare-table__column--fake" />
             </tr>
             <tr className="compare-table__row">
-                {/*<th className="compare-table__column compare-table__column--header">*/}
-                {/*    <FormattedMessage id="TABLE_RATING" />*/}
-                {/*</th>*/}
-                {/*{compare.items.map((product) => (*/}
-                {/*    <td key={product.id} className="compare-table__column compare-table__column--product">*/}
-                {/*        <div className="compare-table__rating">*/}
-                {/*            <div className="compare-table__rating-stars">*/}
-                {/*                <Rating value={product.rating || 0} />*/}
-                {/*            </div>*/}
-                {/*            <div className="compare-table__rating-title">*/}
-                {/*                <FormattedMessage*/}
-                {/*                    id="TEXT_RATING_LABEL"*/}
-                {/*                    values={{ rating: product.rating, reviews: product.reviews }}*/}
-                {/*                />*/}
-                {/*            </div>*/}
-                {/*        </div>*/}
-                {/*    </td>*/}
-                {/*))}*/}
                 <td className="compare-table__column compare-table__column--fake" />
             </tr>
             <tr className="compare-table__row">
@@ -185,7 +166,7 @@ function Page() {
                 {compare.items.map((product) => (
                     <td key={product.id} className="compare-table__column compare-table__column--product">
                         <AsyncAction
-                            action={() => cartAddItem(product)}
+                            action={() => inquire(product.slug)}
                             render={({ run, loading }) => (
                                 <button
                                     type="button"

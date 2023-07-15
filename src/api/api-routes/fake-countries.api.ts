@@ -2,7 +2,7 @@
 
 // application
 import { CountriesApi } from '~/api/base';
-import { getCountries } from '~/routes/endpoints';
+import { getCountries } from '~/api/routes/endpoints';
 import { ICountry } from '~/interfaces/country';
 
 export class FakeCountriesApi extends CountriesApi {

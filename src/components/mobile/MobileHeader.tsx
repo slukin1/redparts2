@@ -6,12 +6,12 @@ import { FormattedMessage, useIntl } from 'react-intl';
 // application
 import AppLink from '~/components/shared/AppLink';
 import MobileLogo from '~/components/mobile/MobileLogo';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import VehiclePickerModal from '~/components/shared/VehiclePickerModal';
 import { IVehicle } from '~/interfaces/vehicle';
 import { useCart } from '~/store/cart/cartHooks';
 import { useGarageCurrent, useGarageSetCurrent } from '~/store/garage/garageHooks';
-import { useGlobalMousedown } from '~/services/hooks';
+import { useGlobalMousedown } from '~/api/services/hooks';
 import { useMobileMenuOpen } from '~/store/mobile-menu/mobileMenuHooks';
 import { useWishlist } from '~/store/wishlist/wishlistHooks';
 import {
@@ -128,16 +128,16 @@ function MobileHeader() {
                                 className="mobile-search__input"
                                 placeholder={searchPlaceholder}
                             />
-                            <button
+                            <AppLink
                                 type="button"
                                 className="mobile-search__vehicle-picker"
-                                onClick={openVehiclePicker}
+                                href={url.prodcutsCustomShopAll()}
                             >
                                 <Car20Svg />
-                                <span className="mobile-search__vehicle-picker-label">
-                                    <FormattedMessage id="BUTTON_SEARCH_SELECT_VEHICLE_MOBILE" />
-                                </span>
-                            </button>
+                                {/* <span className="mobile-search__vehicle-picker-label"> */}
+                                {/*    <FormattedMessage id="BUTTON_SEARCH_SELECT_VEHICLE_MOBILE" /> */}
+                                {/* </span> */}
+                            </AppLink>
                             <button type="submit" className="mobile-search__button mobile-search__button--search">
                                 <Search20Svg />
                             </button>

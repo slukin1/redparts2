@@ -10,7 +10,7 @@ import AccountLayout from '~/components/account/AccountLayout';
 import PageTitle from '~/components/shared/PageTitle';
 import { useAsyncAction } from '~/store/hooks';
 import { useUser, useUserEditProfile } from '~/store/user/userHooks';
-import { validateEmail } from '~/services/validators';
+import { validateEmail } from '~/api/services/validators';
 
 interface IForm {
     firstName: string;

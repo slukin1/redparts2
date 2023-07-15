@@ -1,7 +1,7 @@
 // third-party
 import { toast } from 'react-toastify';
 // application
-import { globalIntl } from '~/services/i18n/global-intl';
+import { globalIntl } from '~/api/services/i18n/global-intl';
 import { ICartItemOption } from '~/store/cart/cartTypes';
 import { IProduct } from '~/interfaces/product';
 import {

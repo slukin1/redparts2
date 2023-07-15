@@ -7,7 +7,7 @@ import AppLink from '~/components/shared/AppLink';
 import Megamenu from '~/components/header/Megamenu';
 import { ArrowRoundedDown9x6Svg, ArrowRoundedRight7x11Svg, Menu16x12Svg } from '~/svg';
 import { IDepartmentsLink } from '~/interfaces/departments-link';
-import { useGlobalMousedown } from '~/services/hooks';
+import { useGlobalMousedown } from '~/api/services/hooks';
 // data
 import dataHeaderDepartments from '~/data/headerDepartments';
 

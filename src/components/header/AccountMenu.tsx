@@ -6,10 +6,10 @@ import { FormattedMessage, useIntl } from 'react-intl';
 // application
 import AppImage from '~/components/shared/AppImage';
 import AppLink from '~/components/shared/AppLink';
-import url from '~/services/url';
-import { useSignInForm } from '~/services/forms/sign-in';
+import url from '~/api/services/url';
+import { useSignInForm } from '~/api/services/forms/sign-in';
 import { useUser, useUserSignOut } from '~/store/user/userHooks';
-import { validateEmail } from '~/services/validators';
+import { validateEmail } from '~/api/services/validators';
 
 interface Props {
     onCloseMenu: () => void;
@@ -137,11 +137,6 @@ function AccountMenu(props: Props) {
                         <li>
                             <AppLink href={url.accountDashboard()} onClick={onCloseMenu}>
                                 <FormattedMessage id="LINK_ACCOUNT_DASHBOARD" />
-                            </AppLink>
-                        </li>
-                        <li>
-                            <AppLink href={url.accountGarage()} onClick={onCloseMenu}>
-                                <FormattedMessage id="LINK_ACCOUNT_GARAGE" />
                             </AppLink>
                         </li>
                         <li>

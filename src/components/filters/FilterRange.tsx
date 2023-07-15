@@ -10,7 +10,7 @@ import InputRange from 'react-input-range';
 // application
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
 import { IRangeFilter, IRangeFilterValue } from '~/interfaces/filter';
-import { useDirection } from '~/services/i18n/hooks';
+import { useDirection } from '~/api/services/i18n/hooks';
 
 function getFirstValidValue(...values: Array<number | null>): number | null {
     return values.reduce((acc, value) => (

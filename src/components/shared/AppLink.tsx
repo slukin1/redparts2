@@ -10,7 +10,7 @@ import {
     UrlObject,
 } from 'url';
 // application
-import { baseUrl } from '~/services/utils';
+import { baseUrl } from '~/api/services/utils';
 
 export type IAppLinkHref = string | LinkProps;
 

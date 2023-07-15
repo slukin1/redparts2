@@ -1,5 +1,5 @@
 // application
-import { getActiveFilters, getResetValue, hasHandler } from '~/services/filters';
+import { getActiveFilters, getResetValue, hasHandler } from '~/api/services/filters';
 import { IActiveFilter } from '~/interfaces/filter';
 import { IFilterValues } from '~/interfaces/list';
 import { SHOP_NAMESPACE, IShopState } from '~/store/shop/shopTypes';

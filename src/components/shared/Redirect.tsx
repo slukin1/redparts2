@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 // third-party
 import { useRouter } from 'next/router';
 // application
-import { hrefToRouterArgs } from '~/services/router';
+import { hrefToRouterArgs } from '~/api/services/router';
 import { IAppLinkHref } from '~/components/shared/AppLink';
 
 interface Props {

@@ -12,9 +12,9 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
 import Navigation, { INavigationEvent } from '~/components/shared/Navigation';
 import ProductCard from '~/components/shared/ProductCard';
-import { isEmptyList } from '~/services/utils';
+import { isEmptyList } from '~/api/services/utils';
 import { IShopPageGridLayout, IShopPageLayout, IShopPageOffCanvasSidebar } from '~/interfaces/pages';
-import { SidebarContext } from '~/services/sidebar';
+import { SidebarContext } from '~/api/services/sidebar';
 import {
     Cross9LightSvg,
     Filters16Svg,

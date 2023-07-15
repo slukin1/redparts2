@@ -6,10 +6,12 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 // application
+import { useDispatch } from 'react-redux';
 import AccountLayout from '~/components/account/AccountLayout';
 import PageTitle from '~/components/shared/PageTitle';
 import { accountApi } from '~/api';
 import { useAsyncAction } from '~/store/hooks';
+import { userSetCurrent } from '~/store/user/userAction';
 
 interface IForm {
     currentPassword: string;
@@ -19,6 +21,7 @@ interface IForm {
 
 function Page() {
     const intl = useIntl();
+    const dispatch = useDispatch();
     const [serverError, setServerError] = useState<string | null>(null);
     const {
         register,
@@ -33,6 +36,9 @@ function Page() {
         return accountApi.changePassword(data.currentPassword, data.newPassword).then(
             () => {
                 toast.success(intl.formatMessage({ id: 'TEXT_TOAST_PASSWORD_CHANGED' }), { theme: 'colored' });
+                setTimeout(() => {
+                    dispatch(userSetCurrent(null));
+                }, 1000);
             },
             (error: Error) => {
                 setServerError(`ERROR_API_${error.message}`);

@@ -4,7 +4,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 // application
 import AppLink from '~/components/shared/AppLink';
-import url from '~/services/url';
+import url from '~/api/services/url';
 
 interface Props extends React.HTMLAttributes<HTMLElement> {}
 

@@ -36,4 +36,6 @@ export abstract class VehicleApi {
     abstract addUserVehicle(vehicleId: number): Promise<void>;
 
     abstract removeUserVehicle(vehicleId: number): Promise<void>;
+
+    abstract getAllData(): Promise<any>;
 }

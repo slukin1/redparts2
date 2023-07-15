@@ -5,7 +5,7 @@ import classNames from 'classnames';
 // application
 import AppLink from '~/components/shared/AppLink';
 import AppSlick, { ISlickProps } from '~/components/shared/AppSlick';
-import { baseUrl } from '~/services/utils';
+import { baseUrl } from '~/api/services/utils';
 
 export interface IBlockSlideshowSlide {
     url: string;

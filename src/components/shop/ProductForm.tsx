@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { UncontrolledTooltip } from 'reactstrap';
 import { useFormContext } from 'react-hook-form';
 // application
-import { colorType } from '~/services/color';
+import { colorType } from '~/api/services/color';
 import { IProductOption } from '~/interfaces/product';
 
 interface Props extends React.HTMLAttributes<HTMLElement> {

@@ -7,7 +7,7 @@ import BlockSpace from '~/components/blocks/BlockSpace';
 import BlockTeammates from '~/components/blocks/BlockTeammates';
 import Decor from '~/components/shared/Decor';
 import PageTitle from '~/components/shared/PageTitle';
-import { baseUrl } from '~/services/utils';
+import { baseUrl } from '~/api/services/utils';
 
 function Page() {
     return (

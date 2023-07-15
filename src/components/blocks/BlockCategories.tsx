@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import AppImage from '~/components/shared/AppImage';
 import AppLink from '~/components/shared/AppLink';
 import Decor from '~/components/shared/Decor';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { ICategory } from '~/interfaces/category';
 
 interface Props {

@@ -9,7 +9,7 @@ import React, {
 import classNames from 'classnames';
 // application
 import AppLink, { IAppLinkHref } from '~/components/shared/AppLink';
-import { useGlobalMousedown } from '~/services/hooks';
+import { useGlobalMousedown } from '~/api/services/hooks';
 
 type Trigger = 'none' | 'click' | 'hover';
 

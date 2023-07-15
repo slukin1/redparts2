@@ -4,7 +4,7 @@ import React from 'react';
 import classNames from 'classnames';
 // application
 import { Check12x9Svg } from '~/svg';
-import { colorType } from '~/services/color';
+import { colorType } from '~/api/services/color';
 import { IColorFilter, IColorFilterValue } from '~/interfaces/filter';
 
 interface Props {

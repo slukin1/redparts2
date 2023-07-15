@@ -7,7 +7,7 @@ import AppImage from '~/components/shared/AppImage';
 import Navigation, { INavigationEvent } from '~/components/shared/Navigation';
 import Rating from '~/components/shared/Rating';
 import { IReviewsList } from '~/interfaces/list';
-import { isEmptyList } from '~/services/utils';
+import { isEmptyList } from '~/api/services/utils';
 
 interface Props {
     list: IReviewsList;

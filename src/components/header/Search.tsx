@@ -11,14 +11,14 @@ import AsyncAction from '~/components/shared/AsyncAction';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
 import RadioButton from '~/components/shared/RadioButton';
 import Rating from '~/components/shared/Rating';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import VehicleForm from '~/components/shared/VehicleForm';
 import { Car20Svg, RecycleBin16Svg, Search20Svg } from '~/svg';
 import { IProduct } from '~/interfaces/product';
 import { IShopCategory } from '~/interfaces/category';
 import { IVehicle } from '~/interfaces/vehicle';
 import { shopApi } from '~/api';
-import { useGlobalMousedown } from '~/services/hooks';
+import { useGlobalMousedown } from '~/api/services/hooks';
 import {
     useGarageAddItem,
     useGarageCurrent,

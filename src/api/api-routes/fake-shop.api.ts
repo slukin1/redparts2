@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export,class-methods-use-this */
 
 // application
-import { getBrands } from '~/routes/endpoints/brands';
+import { getBrands } from '~/api/routes/endpoints/brands';
 import { IBrand } from '~/interfaces/brand';
 import { IFilterValues, IListOptions, IReviewsList } from '~/interfaces/list';
 import { IOrder } from '~/interfaces/order';
@@ -34,7 +34,7 @@ import {
     getSearchSuggestions,
     getSpecialOffers,
     getTopRatedProducts,
-} from '~/routes/endpoints';
+} from '~/api/routes/endpoints';
 
 export class FakeShopApi implements ShopApi {
     getCategoryBySlug(slug: string, options?: IGetCategoryBySlugOptions): Promise<IShopCategory> {

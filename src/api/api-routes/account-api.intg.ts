@@ -25,7 +25,7 @@ import {
     getOrderById,
     getOrderByToken,
     getOrdersList,
-} from '~/routes/endpoints';
+} from '~/api/routes/endpoints';
 
 export class AccountApiIntg extends AccountApi {
     signIn(email: string, password: string): Promise<IUser> {

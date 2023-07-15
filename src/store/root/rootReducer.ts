@@ -14,6 +14,7 @@ import userReducer, { USER_NAMESPACE } from '~/store/user/userReducer';
 import wishlistReducer, { WISHLIST_NAMESPACE } from '~/store/wishlist/wishlistReducer';
 import { SHOP_NAMESPACE } from '~/store/shop/shopTypes';
 import inquireReducer, { INQUIRE_NAMESPACE } from '~/store/inquire/inquireReducer';
+import dataReducer, { DATA_NAMESPACE } from '~/store/data/dataReducer';
 
 export default combineReducers({
     version: (state: number = version) => state,
@@ -28,4 +29,5 @@ export default combineReducers({
     [USER_NAMESPACE]: userReducer,
     [WISHLIST_NAMESPACE]: wishlistReducer,
     [INQUIRE_NAMESPACE]: inquireReducer,
+    [DATA_NAMESPACE]: dataReducer,
 });

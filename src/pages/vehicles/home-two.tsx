@@ -13,11 +13,11 @@ import BlockProductsColumns from '~/components/blocks/BlockProductsColumns';
 import BlockSale from '~/components/blocks/BlockSale';
 import BlockSlideshow from '~/components/blocks/BlockSlideshow';
 import BlockSpace from '~/components/blocks/BlockSpace';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { AppDispatch } from '~/store/types';
 import { optionsSetAll } from '~/store/options/optionsActions';
 import { shopApi, blogApi } from '~/api';
-import { useDeferredData, useProductColumns, useProductTabs } from '~/services/hooks';
+import { useDeferredData, useProductColumns, useProductTabs } from '~/api/services/hooks';
 import { wrapper } from '~/store/store';
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {

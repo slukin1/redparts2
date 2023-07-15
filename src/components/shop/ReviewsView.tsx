@@ -10,8 +10,8 @@ import ReviewsList from '~/components/shop/ReviewsList';
 import { IProductPageLayout } from '~/interfaces/pages';
 import { shopApi } from '~/api';
 import { useAsyncAction, useIsUnmountedRef } from '~/store/hooks';
-import { useList } from '~/services/hooks';
-import { validateEmail } from '~/services/validators';
+import { useList } from '~/api/services/hooks';
+import { validateEmail } from '~/api/services/validators';
 
 interface IForm {
     rating: string;

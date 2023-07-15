@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import AppLink from '~/components/shared/AppLink';
 import BlockSpace from '~/components/blocks/BlockSpace';
 import Redirect from '~/components/shared/Redirect';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { ILink } from '~/interfaces/link';
 import { useAsyncAction } from '~/store/hooks';
 import { useUser, useUserSignOut } from '~/store/user/userHooks';
@@ -25,7 +25,7 @@ function AccountLayout(props: Props) {
 
     const navigation: ILink[] = [
         { title: intl.formatMessage({ id: 'LINK_ACCOUNT_DASHBOARD' }), url: url.accountDashboard() },
-        { title: intl.formatMessage({ id: 'LINK_ACCOUNT_GARAGE' }), url: url.accountGarage() },
+        // { title: intl.formatMessage({ id: 'LINK_ACCOUNT_GARAGE' }), url: url.accountGarage() },
         { title: intl.formatMessage({ id: 'LINK_ACCOUNT_PROFILE' }), url: url.accountProfile() },
         { title: intl.formatMessage({ id: 'LINK_ACCOUNT_ORDERS' }), url: url.accountOrders() },
         { title: intl.formatMessage({ id: 'LINK_ACCOUNT_ADDRESSES' }), url: url.accountAddresses() },

@@ -10,7 +10,7 @@ import AsyncAction from '~/components/shared/AsyncAction';
 import CompatibilityStatusBadge from '~/components/shared/CompatibilityStatusBadge';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
 import Rating from '~/components/shared/Rating';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { IProduct } from '~/interfaces/product';
 import { useCartAddItem } from '~/store/cart/cartHooks';
 import { useCompareAddItem } from '~/store/compare/compareHooks';
@@ -214,7 +214,7 @@ function ProductCard(props: Props) {
                         {!exclude.includes('list-buttons') && (
                             <React.Fragment>
                                 <AsyncAction
-                                    action={() => cartAddItem(product)}
+                                    action={() => showInquire()}
                                     render={({ run, loading }) => (
                                         <button
                                             type="button"

@@ -11,20 +11,18 @@ import BlockHeader from '~/components/blocks/BlockHeader';
 import BlockSpace from '~/components/blocks/BlockSpace';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
 import PageTitle from '~/components/shared/PageTitle';
-import Rating from '~/components/shared/Rating';
 import StockStatusBadge from '~/components/shared/StockStatusBadge';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { Cross12Svg } from '~/svg';
-import { useCartAddItem } from '~/store/cart/cartHooks';
+import { useInquireOpen } from '~/store/inquire/inquireHooks';
 import { useWishlist, useWishlistRemoveItem } from '~/store/wishlist/wishlistHooks';
 
 function Page() {
     const intl = useIntl();
     const wishlist = useWishlist();
-    const cartAddItem = useCartAddItem();
     const wishlistRemoveItem = useWishlistRemoveItem();
     const { items } = wishlist;
-
+    const inquire = useInquireOpen();
     if (items.length === 0) {
         return (
             <React.Fragment>
@@ -87,9 +85,9 @@ function Page() {
                                     <th className="wishlist__column wishlist__column--head wishlist__column--product">
                                         <FormattedMessage id="TABLE_PRODUCT" />
                                     </th>
-                                    <th className="wishlist__column wishlist__column--head wishlist__column--stock">
-                                        <FormattedMessage id="TABLE_STOCK_STATUS" />
-                                    </th>
+                                    {/*<th className="wishlist__column wishlist__column--head wishlist__column--stock">*/}
+                                    {/*    <FormattedMessage id="TABLE_STOCK_STATUS" />*/}
+                                    {/*</th>*/}
                                     <th className="wishlist__column wishlist__column--head wishlist__column--price">
                                         <FormattedMessage id="TABLE_PRICE" />
                                     </th>
@@ -128,30 +126,16 @@ function Page() {
                                             <div className="wishlist__product-name">
                                                 <AppLink href={url.product(product)}>{product.name}</AppLink>
                                             </div>
-                                            {/*<div className="wishlist__product-rating">*/}
-                                            {/*    <div className="wishlist__product-rating-stars">*/}
-                                            {/*        <Rating value={product.rating || 0} />*/}
-                                            {/*    </div>*/}
-                                            {/*    <div className="wishlist__product-rating-title">*/}
-                                            {/*        <FormattedMessage*/}
-                                            {/*            id="TEXT_RATING_LABEL"*/}
-                                            {/*            values={{*/}
-                                            {/*                rating: product.rating,*/}
-                                            {/*                reviews: product.reviews,*/}
-                                            {/*            }}*/}
-                                            {/*        />*/}
-                                            {/*    </div>*/}
-                                            {/*</div>*/}
                                         </td>
-                                        <td
-                                            className={classNames(
-                                                'wishlist__column',
-                                                'wishlist__column--body',
-                                                'wishlist__column--stock',
-                                            )}
-                                        >
-                                            <StockStatusBadge stock={product.stock} />
-                                        </td>
+                                        {/*<td*/}
+                                        {/*    className={classNames(*/}
+                                        {/*        'wishlist__column',*/}
+                                        {/*        'wishlist__column--body',*/}
+                                        {/*        'wishlist__column--stock',*/}
+                                        {/*    )}*/}
+                                        {/*>*/}
+                                        {/*    <StockStatusBadge stock={product.stock} />*/}
+                                        {/*</td>*/}
                                         <td
                                             className={classNames(
                                                 'wishlist__column',
@@ -169,7 +153,7 @@ function Page() {
                                             )}
                                         >
                                             <AsyncAction
-                                                action={() => cartAddItem(product)}
+                                                action={() => inquire(product.slug)}
                                                 render={({ run, loading }) => (
                                                     <button
                                                         type="button"

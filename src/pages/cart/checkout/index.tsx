@@ -16,10 +16,10 @@ import CheckoutCart from '~/components/shop/CheckoutCart';
 import CheckoutForm from '~/components/shop/CheckoutForm';
 import CheckoutPayments from '~/components/shop/CheckoutPayments';
 import PageTitle from '~/components/shared/PageTitle';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { getAddressFormDefaultValue, IAddressForm } from '~/components/shared/AddressForm';
 import { getRegisterFormDefaultValue, IRegisterForm } from '~/components/shared/RegisterForm';
-import { hrefToRouterArgs } from '~/services/router';
+import { hrefToRouterArgs } from '~/api/services/router';
 import { ICheckoutData } from '~/api/base';
 import { shopApi } from '~/api';
 import { useAsyncAction } from '~/store/hooks';
@@ -100,7 +100,6 @@ function Page() {
     if (cart.items.length < 1) {
         return null;
     }
-
     const { ref: agreeRef, ...agreeProps } = register('agree', { required: true });
 
     return (
