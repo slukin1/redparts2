@@ -6788,7 +6788,7 @@ components:
     SecurityHeader:
       type: apiKey
       in: header
-      name: Authorization
+      name: X-API-Key
       description: Authorization  (http, Bearer)
 security:
   - SecurityHeader: []
@@ -6800,10 +6800,8 @@ servers:
         default: '8000'
       basePath:
         default: api/v1
-  - url: https://api.jacokin.com:{port}/{basePath}
+  - url: https://devapi.muepu-devapi.com/{basePath}
     description: The production API server
     variables:
-      port:
-        default: '8000'
       basePath:
         default: api/v1
