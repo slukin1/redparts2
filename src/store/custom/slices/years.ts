@@ -13,6 +13,7 @@ const yearsSlice = createSlice({
     initialState,
     reducers: {
         updateResults: (state, action: PayloadAction<any[]>) => {
+            // eslint-disable-next-line no-param-reassign
             state.resultsYear = action.payload;
         },
     },

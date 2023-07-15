@@ -19,7 +19,7 @@ const dataShopCurrencies: ICurrency[] = [
         symbol: '€',
         name: 'Euro',
         rate: 0.92,
-    }
+    },
 ];
 
 const dataShopDefaultCurrencyCode = 'USD';

@@ -33,6 +33,7 @@ function BlockFinder() {
                     filter_maker: query.make,
                     filter_model: query.model,
                     filter_engineType: query.engineType,
+                    filter_price: `${query.priceFrom}-${query.priceTo}`,
                     filter_mileage: query.mileage,
                     filter_transmission: query.transmission,
                     filter_fuel: query.fuel,

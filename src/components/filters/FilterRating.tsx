@@ -54,7 +54,7 @@ function FilterRating(props: Props) {
                                 onChange={handleChange}
                             />
                             <span className="filter-rating__item-stars">
-                                {/*<Rating value={item.rating} />*/}
+                                {/* <Rating value={item.rating} /> */}
                             </span>
                             <span className="filter-rating__item-title sr-only">
                                 <FormattedMessage id="TEXT_STARS" values={{ stars: item.rating }} />

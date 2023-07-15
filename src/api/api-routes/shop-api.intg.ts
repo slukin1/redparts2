@@ -36,7 +36,7 @@ import {
     getTopRatedProducts,
 } from '~/api/routes/endpoints';
 
-export class FakeShopApi implements ShopApi {
+export class ShopApiIntg implements ShopApi {
     getCategoryBySlug(slug: string, options?: IGetCategoryBySlugOptions): Promise<IShopCategory> {
         return getCategoryBySlug(slug, options);
     }

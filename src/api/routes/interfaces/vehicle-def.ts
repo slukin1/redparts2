@@ -4,7 +4,6 @@ export interface IVehicleDef {
     // model: string;
     // engine: string;
 
-
     _id: string;
     site: number;
     status: string;
@@ -25,7 +24,7 @@ export interface IVehicleDef {
     url: string;
     inspectionMonth?: number;
     inspectionYear?: number;
-    modelYear: number;//| [number, number];
+    modelYear: number;// | [number, number];
     pageNo: number;
     mfgData: string;
     mfgYear: number;

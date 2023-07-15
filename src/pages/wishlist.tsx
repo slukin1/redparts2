@@ -85,9 +85,9 @@ function Page() {
                                     <th className="wishlist__column wishlist__column--head wishlist__column--product">
                                         <FormattedMessage id="TABLE_PRODUCT" />
                                     </th>
-                                    {/*<th className="wishlist__column wishlist__column--head wishlist__column--stock">*/}
-                                    {/*    <FormattedMessage id="TABLE_STOCK_STATUS" />*/}
-                                    {/*</th>*/}
+                                    {/* <th className="wishlist__column wishlist__column--head wishlist__column--stock"> */}
+                                    {/*    <FormattedMessage id="TABLE_STOCK_STATUS" /> */}
+                                    {/* </th> */}
                                     <th className="wishlist__column wishlist__column--head wishlist__column--price">
                                         <FormattedMessage id="TABLE_PRICE" />
                                     </th>
@@ -127,15 +127,15 @@ function Page() {
                                                 <AppLink href={url.product(product)}>{product.name}</AppLink>
                                             </div>
                                         </td>
-                                        {/*<td*/}
-                                        {/*    className={classNames(*/}
-                                        {/*        'wishlist__column',*/}
-                                        {/*        'wishlist__column--body',*/}
-                                        {/*        'wishlist__column--stock',*/}
-                                        {/*    )}*/}
-                                        {/*>*/}
-                                        {/*    <StockStatusBadge stock={product.stock} />*/}
-                                        {/*</td>*/}
+                                        {/* <td */}
+                                        {/*    className={classNames( */}
+                                        {/*        'wishlist__column', */}
+                                        {/*        'wishlist__column--body', */}
+                                        {/*        'wishlist__column--stock', */}
+                                        {/*    )} */}
+                                        {/* > */}
+                                        {/*    <StockStatusBadge stock={product.stock} /> */}
+                                        {/* </td> */}
                                         <td
                                             className={classNames(
                                                 'wishlist__column',

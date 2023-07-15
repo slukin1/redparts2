@@ -19,6 +19,7 @@ export async function accountSignIn(email: string, password: string): Promise<IU
             requestBody: { identifier: email, password },
         });
         if (response.type === 'Success') {
+            // @ts-ignore
             const data = response?.results.user;
             const user: IUser = {
                 email: data.email,
@@ -27,6 +28,7 @@ export async function accountSignIn(email: string, password: string): Promise<IU
                 lastName: data.lastName,
                 avatar: data.profileImage,
             };
+            // @ts-ignore
             const tokenData = response?.results.tokens;
             const apiResponse: IApiResponse = {
                 // eslint-disable-next-line no-underscore-dangle
@@ -75,6 +77,7 @@ export async function accountSignUp(email: string, password: string, userName: s
                         country: 'USA',
                         createdAt: `${new Date().toISOString()}`,
                         updatedAt: `${new Date().toISOString()}`,
+                        // @ts-ignore
                         deletedAt: null,
                     },
                 ],

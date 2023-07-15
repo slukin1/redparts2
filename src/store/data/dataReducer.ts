@@ -1,7 +1,7 @@
 // application
 import { DATA_CURRENT, DataAction } from '~/store/data/dataActionTypes';
-import {withClientState} from "~/store/client";
-import {USER_NAMESPACE} from "~/store/user/userReducer";
+import { withClientState } from '~/store/client';
+import { USER_NAMESPACE } from '~/store/user/userReducer';
 
 const initialState: any = {
     current: null,

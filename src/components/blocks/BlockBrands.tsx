@@ -4,6 +4,7 @@ import React from 'react';
 import AppImage from '~/components/shared/AppImage';
 import AppLink from '~/components/shared/AppLink';
 import { IBrand } from '~/interfaces/brand';
+import url from '~/api/services/url';
 
 export type IBlockBrandsLayout = 'columns-8-full' | 'columns-7-sidebar';
 
@@ -22,7 +23,7 @@ function BlockBrands(props: Props) {
                     {brands.map((brand, brandIdx) => (
                         <React.Fragment key={brandIdx}>
                             <li className="block-brands__item">
-                                <AppLink href="/" className="block-brands__item-link">
+                                <AppLink href={url.productsCustom(brand)} className="block-brands__item-link">
                                     <AppImage src={brand.image} />
                                     <span className="block-brands__item-name">{brand.name}</span>
                                 </AppLink>

@@ -148,18 +148,18 @@ function ProductCard(props: Props) {
                     <AppLink href={url.product(product)}>{product.name}</AppLink>
                 </div>
 
-                {/*<div className="product-card__rating">*/}
-                {/*    /!*<Rating className="product-card__rating-stars" value={product.rating || 0} />*!/*/}
-                {/*    <div className=" product-card__rating-label">*/}
-                {/*        <FormattedMessage*/}
-                {/*            id="TEXT_RATING_LABEL"*/}
-                {/*            values={{*/}
-                {/*                rating: product.rating,*/}
-                {/*                reviews: product.reviews,*/}
-                {/*            }}*/}
-                {/*        />*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+                {/* <div className="product-card__rating"> */}
+                {/*    /!*<Rating className="product-card__rating-stars" value={product.rating || 0} />*!/ */}
+                {/*    <div className=" product-card__rating-label"> */}
+                {/*        <FormattedMessage */}
+                {/*            id="TEXT_RATING_LABEL" */}
+                {/*            values={{ */}
+                {/*                rating: product.rating, */}
+                {/*                reviews: product.reviews, */}
+                {/*            }} */}
+                {/*        /> */}
+                {/*    </div> */}
+                {/* </div> */}
 
                 {!exclude.includes('features') && featuredAttributes.length > 0 && (
                     <div className="product-card__features">

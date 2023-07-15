@@ -121,7 +121,7 @@ export function Search() {
     const handleButtonClick = () => {
         // toggleVehiclePicker();
         // navigate to catalog/products
-        router.push('/catalog').then();
+        router.push('/catalog/products').then();
     };
 
     const handleChangeCurrentVehicle = (event: React.FormEvent<HTMLInputElement>) => {
@@ -253,20 +253,20 @@ export function Search() {
                                             <div className="suggestions__product-name">
                                                 {product.name}
                                             </div>
-                                            {/*<div className="suggestions__product-rating">*/}
-                                            {/*    <div className="suggestions__product-rating-stars">*/}
-                                            {/*        <Rating value={product.rating || 0} />*/}
-                                            {/*    </div>*/}
-                                            {/*    <div className="suggestions__product-rating-label">*/}
-                                            {/*        <FormattedMessage*/}
-                                            {/*            id="TEXT_RATING_LABEL"*/}
-                                            {/*            values={{*/}
-                                            {/*                rating: product.rating,*/}
-                                            {/*                reviews: product.reviews,*/}
-                                            {/*            }}*/}
-                                            {/*        />*/}
-                                            {/*    </div>*/}
-                                            {/*</div>*/}
+                                            {/* <div className="suggestions__product-rating"> */}
+                                            {/*    <div className="suggestions__product-rating-stars"> */}
+                                            {/*        <Rating value={product.rating || 0} /> */}
+                                            {/*    </div> */}
+                                            {/*    <div className="suggestions__product-rating-label"> */}
+                                            {/*        <FormattedMessage */}
+                                            {/*            id="TEXT_RATING_LABEL" */}
+                                            {/*            values={{ */}
+                                            {/*                rating: product.rating, */}
+                                            {/*                reviews: product.reviews, */}
+                                            {/*            }} */}
+                                            {/*        /> */}
+                                            {/*    </div> */}
+                                            {/* </div> */}
                                         </div>
                                         <div className=" suggestions__product-price">
                                             <CurrencyFormat value={product.price} />

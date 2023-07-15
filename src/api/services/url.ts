@@ -39,7 +39,7 @@ const url = {
             pathname: '/catalog/products',
         },
     }),
-    productsCustom: (category:ICategory): IAppLinkHref => ({
+    productsCustom: (category:any): IAppLinkHref => ({
         href: {
             pathname: '/catalog/products',
             query: {

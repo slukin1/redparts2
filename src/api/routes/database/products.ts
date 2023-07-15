@@ -212,8 +212,10 @@ function randomIntFromInterval(min: number, max: number) {
 export function makeProductsDef(items: IVehicleDef[]): IProductDef[] {
     const itemList = items.length ? items.map((x) => ({
         name: `${x.make} ${x.model} ${x.modelYear}`,
+        // eslint-disable-next-line no-underscore-dangle
         slug: x._id,
         sku: `JPNC0O${x.itemId}`,
+        // eslint-disable-next-line no-underscore-dangle
         partNumber: x._id,
         price: x.salePrice,
         images: x.picture,
@@ -229,6 +231,7 @@ export function makeProductsDef(items: IVehicleDef[]): IProductDef[] {
         },
 
         // added
+        // eslint-disable-next-line no-underscore-dangle
         idRef: x._id,
         make: x.make,
         model: x.model,

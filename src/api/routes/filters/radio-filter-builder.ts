@@ -31,7 +31,8 @@ export class RadioFilterBuilder extends AbstractFilterBuilder {
             if (typeof window !== 'undefined') {
                 // Perform localStorage action
                 response = await getDataFromLocalStorage('makes');
-            } else {
+            }
+            if (!response || response === 'Failed') {
                 response = await VehicleService.getMakers({ acceptLanguage: 'en-US' });
             }
             filterFunction = (x: { make: string }) => filterOutUndefinedNullEmpty(x.make);
@@ -47,7 +48,8 @@ export class RadioFilterBuilder extends AbstractFilterBuilder {
             if (typeof window !== 'undefined') {
                 // Perform localStorage action
                 response = await getDataFromLocalStorage('bodyTypes');
-            } else {
+            }
+            if (!response || response === 'Failed') {
                 response = await VehicleService.getBodyTypes({ acceptLanguage: 'en-US' });
             }
             filterFunction = (x: { bodyType: string }) => filterOutUndefinedNullEmpty(x.bodyType);
@@ -63,7 +65,8 @@ export class RadioFilterBuilder extends AbstractFilterBuilder {
             if (typeof window !== 'undefined') {
                 // Perform localStorage action
                 response = await getDataFromLocalStorage('engine');
-            } else {
+            }
+            if (!response || response === 'Failed') {
                 response = await VehicleService.getEngineTypes({ acceptLanguage: 'en-US' });
             }
             filterFunction = filterOutUndefinedNullEmpty;
@@ -79,7 +82,8 @@ export class RadioFilterBuilder extends AbstractFilterBuilder {
             if (typeof window !== 'undefined') {
                 // Perform localStorage action
                 response = await getDataFromLocalStorage('transmissions');
-            } else {
+            }
+            if (!response || response === 'Failed') {
                 response = await VehicleService.getTransmissions({ acceptLanguage: 'en-US' });
             }
             filterFunction = filterOutUndefinedNullEmpty;
@@ -95,7 +99,8 @@ export class RadioFilterBuilder extends AbstractFilterBuilder {
             if (typeof window !== 'undefined') {
                 // Perform localStorage action
                 response = await getDataFromLocalStorage('fuels');
-            } else {
+            }
+            if (!response || response === 'Failed') {
                 response = await VehicleService.getFuels({ acceptLanguage: 'en-US' });
             }
             filterFunction = filterOutUndefinedNullEmpty;

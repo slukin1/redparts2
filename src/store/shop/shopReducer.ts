@@ -87,7 +87,7 @@ function shopReducerSetFilterValue(state: IShopState, action: ShopSetFilterValue
             // Index based navigation
             page: 1,
             // Cursor based navigation
-            before: undefined ,
+            before: undefined,
             after: undefined,
         },
         filters,

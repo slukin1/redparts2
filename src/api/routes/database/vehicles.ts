@@ -6,7 +6,7 @@ import { data } from './data';
 
 const getNextId = makeIdGenerator();
 
-function makeVehicles(defs: IVehicleDef[]): IVehicle[] {
+function makeVehicles(defs: IVehicleDef[]): any {
     return defs.length ? defs.map((def) => {
         const range = typeof def.modelYear === 'number' ? [def.modelYear, def.modelYear] : def.modelYear;
         const years = [];

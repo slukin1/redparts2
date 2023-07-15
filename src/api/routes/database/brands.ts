@@ -5,567 +5,557 @@ import { IBrand } from '~/interfaces/brand';
 
 export const brands: IBrand[] = [
     {
-        name: "TOYOTA",
-        slug: 'TOYATA',
+        name: 'TOYOTA',
+        slug: JSON.stringify({ filter_maker: 'TOYOTA' }),
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/toyota-logo.png"
+        image: 'https://www.carlogos.org/car-logos/toyota-logo.png',
     },
     {
-        name: "NISSAN",
-        slug: 'NISSAN',
+        name: 'NISSAN',
+        slug: JSON.stringify({ filter_maker: 'NISSAN' }),
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/nissan-logo.png"
+        image: 'https://www.carlogos.org/car-logos/nissan-logo.png',
     },
     {
-        name: "HONDA",
-        slug: 'HONDA',
+        name: 'HONDA',
+        slug: JSON.stringify({ filter_maker: 'HONDA' }),
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/honda-logo.png"
+        image: 'https://www.carlogos.org/car-logos/honda-logo.png',
     },
     {
-        name: "MAZDA",
-        slug: 'MAZDA',
+        name: 'MAZDA',
+        slug: JSON.stringify({ filter_maker: 'MAZDA' }),
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/mazda-logo.png"
+        image: 'https://www.carlogos.org/car-logos/mazda-logo.png',
     },
     {
-        name: "MITSUBISHI",
-        slug: 'MITSUBISHI',
+        name: 'MITSUBISHI',
+        slug: JSON.stringify({ filter_maker: 'MITSUBISHI' }),
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/mitsubishi-logo.png"
+        image: 'https://www.carlogos.org/car-logos/mitsubishi-logo.png',
     },
     {
-        name: "SUBARU",
-        slug: 'SUBARU',
+        name: 'SUBARU',
+        slug: JSON.stringify({ filter_maker: 'SUBARU' }),
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/subaru-logo.png"
-    },
-
-    {
-        name: "SUZUKI",
-
-        slug: 'SUZUKI',
-
-        country: 'JP',
-
-        image: "https://www.carlogos.org/car-logos/suzuki-logo.png"
+        image: 'https://www.carlogos.org/car-logos/subaru-logo.png',
     },
 
     {
-        name: "ISUZU",
+        name: 'SUZUKI',
 
-        slug: 'ISUZU',
-
-        country: 'JP',
-
-        image: "https://www.carlogos.org/car-logos/isuzu-logo.png"
-    },
-
-    {
-        name: "DAIHATSU",
-
-        slug: 'DAIHATSU',
+        slug: JSON.stringify({ filter_maker: 'SUZUKI' }),
 
         country: 'JP',
 
-        image: "https://www.carlogos.org/car-logos/daihatsu-logo.png"
+        image: 'https://www.carlogos.org/car-logos/suzuki-logo.png',
     },
 
     {
-        name: "LEXUS",
+        name: 'ISUZU',
 
-        slug: 'LEXUS',
+        slug: JSON.stringify({ filter_maker: 'ISUZU' }),
 
         country: 'JP',
 
-        image: "https://www.carlogos.org/car-logos/lexus-logo.png"
+        image: 'https://www.carlogos.org/car-logos/isuzu-logo.png',
     },
 
     {
-        name: "AUDI",
+        name: 'DAIHATSU',
 
-        slug: 'AUDI',
+        slug: JSON.stringify({ filter_maker: 'DAIHATSU' }),
 
         country: 'JP',
 
-        image: "https://www.carlogos.org/car-logos/audi-logo.png"
+        image: 'https://www.carlogos.org/car-logos/daihatsu-logo.png',
     },
 
     {
-        name: "BMW",
+        name: 'LEXUS',
 
-        slug: 'BMW',
+        slug: JSON.stringify({ filter_maker: 'LEXUS' }),
 
         country: 'JP',
 
-        image: "https://www.carlogos.org/car-logos/bmw-logo.png"
+        image: 'https://www.carlogos.org/car-logos/lexus-logo.png',
     },
 
     {
-        name: "HYUNDAI",
+        name: 'AUDI',
 
-        slug: 'HYUNDAI',
+        slug: JSON.stringify({ filter_maker: 'AUDI' }),
 
         country: 'JP',
 
-        image: "https://www.carlogos.org/car-logos/hyundai-logo.png"
+        image: 'https://www.carlogos.org/car-logos/audi-logo.png',
     },
 
     {
-        name: "Acura",
+        name: 'BMW',
 
-        slug: 'Acura',
+        slug: JSON.stringify({ filter_maker: 'BMW' }),
 
         country: 'JP',
 
-        image: "https://www.carlogos.org/car-logos/acura-logo.png"
+        image: 'https://www.carlogos.org/car-logos/bmw-logo.png',
     },
 
     {
-        name: "JEEP",
+        name: 'HYUNDAI',
 
-        slug: 'JEEP',
+        slug: JSON.stringify({ filter_maker: 'HYUNDAI' }),
 
         country: 'JP',
 
-        image: "https://www.carlogos.org/car-logos/jeep-logo.png"
+        image: 'https://www.carlogos.org/car-logos/hyundai-logo.png',
     },
 
     {
-        name: "VOLKSWAGEN",
+        name: 'Acura',
 
-        slug: 'VOLKSWAGEN',
+        slug: JSON.stringify({ filter_maker: 'Acura' }),
 
         country: 'JP',
 
-        image: "https://www.carlogos.org/car-logos/volkswagen-logo.png"
+        image: 'https://www.carlogos.org/car-logos/acura-logo.png',
     },
 
     {
-        name: "FORD",
+        name: 'JEEP',
 
-        slug: 'FORD',
+        slug: JSON.stringify({ filter_maker: 'JEEP' }),
 
         country: 'JP',
 
-        image: "https://www.carlogos.org/car-logos/ford-logo.png"
+        image: 'https://www.carlogos.org/car-logos/jeep-logo.png',
     },
 
     {
-        name: "TESLA MOTORS",
+        name: 'VOLKSWAGEN',
 
-        slug: 'TESLA MOTORS',
+        slug: JSON.stringify({ filter_maker: 'VOLKSWAGEN' }),
 
         country: 'JP',
 
-        image: "https://www.carlogos.org/car-logos/tesla-logo.png"
+        image: 'https://www.carlogos.org/car-logos/volkswagen-logo.png',
     },
 
-
     {
-        name: "FERRARI",
+        name: 'FORD',
 
-        slug: 'FERRARI',
+        slug: JSON.stringify({ filter_maker: 'FORD' }),
 
         country: 'JP',
 
-        image: "https://www.carlogos.org/car-logos/ferrari-logo.png"
+        image: 'https://www.carlogos.org/car-logos/ford-logo.png',
     },
 
     {
-        name: "SEAT",
+        name: 'TESLA MOTORS',
 
-        slug: 'SEAT',
+        slug: JSON.stringify({ filter_maker: 'TESLA MOTORS' }),
 
         country: 'JP',
 
-        image: "https://www.carlogos.org/car-logos/seat-logo.png"
+        image: 'https://www.carlogos.org/car-logos/tesla-logo.png',
     },
 
     {
-        name: "LANCIA",
+        name: 'FERRARI',
 
-        slug: 'LANCIA',
+        slug: JSON.stringify({ filter_maker: 'FERRARI' }),
 
         country: 'JP',
 
-        image: "https://www.carlogos.org/car-logos/lancia-logo.png"
+        image: 'https://www.carlogos.org/car-logos/ferrari-logo.png',
     },
 
     {
-        name: "Opel",
+        name: 'SEAT',
 
-        slug: 'OPEL',
+        slug: JSON.stringify({ filter_maker: 'SEAT' }),
 
         country: 'JP',
 
-        image: "https://www.carlogos.org/car-logos/opel-logo.png"
+        image: 'https://www.carlogos.org/car-logos/seat-logo.png',
     },
 
     {
-        name: "Renault",
+        name: 'LANCIA',
 
-        slug: 'RENAULT',
+        slug: JSON.stringify({ filter_maker: 'LANCIA' }),
 
         country: 'JP',
 
-        image: "https://www.carlogos.org/car-logos/renault-logo.png"
+        image: 'https://www.carlogos.org/car-logos/lancia-logo.png',
     },
 
     {
-        name: "FIAT",
+        name: 'Opel',
 
-        slug: 'FIAT',
+        slug: JSON.stringify({ filter_maker: 'Opel' }),
 
         country: 'JP',
 
-        image: "https://www.carlogos.org/car-logos/fiat-logo.png"
+        image: 'https://www.carlogos.org/car-logos/opel-logo.png',
     },
 
     {
-        name: "PEUGEOT",
+        name: 'Renault',
 
-        slug: 'PEUGEOT',
+        slug: JSON.stringify({ filter_maker: 'Renault' }),
 
         country: 'JP',
 
-        image: "https://www.carlogos.org/car-logos/peugeot-logo.png"
+        image: 'https://www.carlogos.org/car-logos/renault-logo.png',
     },
 
     {
-        name: "Volvo",
+        name: 'FIAT',
 
-        slug: 'VOLVO',
+        slug: JSON.stringify({ filter_maker: 'FIAT' }),
 
         country: 'JP',
 
-        image: "https://www.carlogos.org/car-logos/volvo-logo.png"
+        image: 'https://www.carlogos.org/car-logos/fiat-logo.png',
     },
 
-
     {
-        name: "Autobianchi",
+        name: 'PEUGEOT',
 
-        slug: 'AUTOBIANCHI',
+        slug: JSON.stringify({ filter_maker: 'PEUGEOT' }),
 
         country: 'JP',
 
-        image: "https://www.carlogos.org/car-logos/autobianchi-logo.png"
+        image: 'https://www.carlogos.org/car-logos/peugeot-logo.png',
     },
 
     {
-        name: "SSANGYONG",
+        name: 'Volvo',
 
-        slug: 'SSANGYONG',
+        slug: JSON.stringify({ filter_maker: 'Volvo' }),
+
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/ssangyong-logo.png"
+
+        image: 'https://www.carlogos.org/car-logos/volvo-logo.png',
     },
 
     {
-        name: "TATA",
+        name: 'Autobianchi',
+
+        slug: JSON.stringify({ filter_maker: 'Autobianchi' }),
+
+        country: 'JP',
+
+        image: 'https://www.carlogos.org/car-logos/autobianchi-logo.png',
+    },
+
+    {
+        name: 'SSANGYONG',
+
+        slug: JSON.stringify({ filter_maker: 'SSANGYONG' }),
+        country: 'JP',
+        image: 'https://www.carlogos.org/car-logos/ssangyong-logo.png',
+    },
+
+    {
+        name: 'TATA',
 
         slug: 'TATA',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/tata-logo.png"
+        image: 'https://www.carlogos.org/car-logos/tata-logo.png',
     },
 
-
     {
-        name: "SKODA",
+        name: 'SKODA',
 
         slug: 'SKODA',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/skoda-logo.png"
+        image: 'https://www.carlogos.org/car-logos/skoda-logo.png',
     },
 
     {
-        name: "INNOCENTI",
+        name: 'INNOCENTI',
 
         slug: 'SKODA',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/innocenti-logo.png"
+        image: 'https://www.carlogos.org/car-logos/innocenti-logo.png',
     },
 
     {
-        name: "JAGUAR",
+        name: 'JAGUAR',
 
         slug: 'JAGUAR',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/jaguar-logo.png"
+        image: 'https://www.carlogos.org/car-logos/jaguar-logo.png',
     },
 
     {
-        name: "CHEVROLET",
+        name: 'CHEVROLET',
 
         slug: 'CHEVROLET',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/chevrolet-logo.png"
+        image: 'https://www.carlogos.org/car-logos/chevrolet-logo.png',
     },
 
-
     {
-        name: "CITROEN",
+        name: 'CITROEN',
 
         slug: 'CITROEN',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/citroen-logo.png"
+        image: 'https://www.carlogos.org/car-logos/citroen-logo.png',
     },
 
-
     {
-        name: "SMART",
+        name: 'SMART',
 
         slug: 'SMART',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/smart-logo.png"
+        image: 'https://www.carlogos.org/car-logos/smart-logo.png',
     },
 
     {
-        name: "AIXAM",
+        name: 'AIXAM',
 
         slug: 'AIXAM',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/aixam-logo.png"
+        image: 'https://www.carlogos.org/car-logos/aixam-logo.png',
     },
 
-
     {
-        name: "INFINITI",
+        name: 'INFINITI',
 
         slug: 'INFINITI',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/infiniti-logo.png"
+        image: 'https://www.carlogos.org/car-logos/infiniti-logo.png',
     },
 
     {
-        name: "Saab",
+        name: 'Saab',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/saab-logo.png"
+        image: 'https://www.carlogos.org/car-logos/saab-logo.png',
     },
 
     {
-        name: "Porsche",
+        name: 'Porsche',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/porsche-logo.png"
+        image: 'https://www.carlogos.org/car-logos/porsche-logo.png',
     },
 
     {
-        name: "Kia",
+        name: 'Kia',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/kia-logo.png"
+        image: 'https://www.carlogos.org/car-logos/kia-logo.png',
     },
 
     {
-        name: "Daewoo",
+        name: 'Daewoo',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/daewoo-logo.png"
+        image: 'https://www.carlogos.org/car-logos/daewoo-logo.png',
     },
 
     {
-        name: "MINI",
+        name: 'MINI',
 
         slug: 'MINI',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/mini-logo.png"
+        image: 'https://www.carlogos.org/car-logos/mini-logo.png',
     },
 
     {
-        name: "Land Rover",
+        name: 'Land Rover',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/land-rover-logo.png"
+        image: 'https://www.carlogos.org/car-logos/land-rover-logo.png',
     },
 
     {
-        name: "Alfa Romeo",
+        name: 'Alfa Romeo',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/alfa-romeo-logo.png"
-    },
-
-
-    {
-        name: "Bentley",
-
-        slug: '',
-        country: 'JP',
-        image: "https://www.carlogos.org/car-logos/bentley-logo.png"
+        image: 'https://www.carlogos.org/car-logos/alfa-romeo-logo.png',
     },
 
     {
-        name: "Chery",
+        name: 'Bentley',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/chery-logo.png"
+        image: 'https://www.carlogos.org/car-logos/bentley-logo.png',
     },
 
     {
-        name: "Diatto",
+        name: 'Chery',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/diatto-logo.png"
+        image: 'https://www.carlogos.org/car-logos/chery-logo.png',
     },
 
     {
-        name: "Pagani",
+        name: 'Diatto',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/pagani-logo.png"
-    },
-
-
-    {
-        name: "Lotus",
-
-        slug: '',
-        country: 'JP',
-        image: "https://www.carlogos.org/car-logos/lotus-logo.png"
+        image: 'https://www.carlogos.org/car-logos/diatto-logo.png',
     },
 
     {
-        name: "Daihatsu",
+        name: 'Pagani',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/daihatsu-logo.png"
+        image: 'https://www.carlogos.org/car-logos/pagani-logo.png',
     },
 
     {
-        name: "Mercedes Benz",
+        name: 'Lotus',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/mercedes-benz-logo.png"
+        image: 'https://www.carlogos.org/car-logos/lotus-logo.png',
     },
 
     {
-        name: "Maserati",
+        name: 'Daihatsu',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/maserati-logo.png"
+        image: 'https://www.carlogos.org/car-logos/daihatsu-logo.png',
     },
 
     {
-        name: "Abarth",
+        name: 'Mercedes Benz',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/abarth-logo.png"
+        image: 'https://www.carlogos.org/car-logos/mercedes-benz-logo.png',
     },
 
     {
-        name: "Mazzanti",
+        name: 'Maserati',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/mazzanti-logo.png"
+        image: 'https://www.carlogos.org/car-logos/maserati-logo.png',
     },
 
     {
-        name: "Lamborghini",
+        name: 'Abarth',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/lamborghini-logo.png"
+        image: 'https://www.carlogos.org/car-logos/abarth-logo.png',
     },
 
     {
-        name: "McLaren",
+        name: 'Mazzanti',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/mclaren-logo.png"
+        image: 'https://www.carlogos.org/car-logos/mazzanti-logo.png',
     },
 
     {
-        name: "Vauxhall",
+        name: 'Lamborghini',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/vauxhall-logo.png"
+        image: 'https://www.carlogos.org/car-logos/lamborghini-logo.png',
     },
 
     {
-        name: "MG",
+        name: 'McLaren',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/mg-logo.png"
+        image: 'https://www.carlogos.org/car-logos/mclaren-logo.png',
     },
 
     {
-        name: "Rolls-Royce",
+        name: 'Vauxhall',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/rolls-royce-logo.png"
+        image: 'https://www.carlogos.org/car-logos/vauxhall-logo.png',
     },
 
     {
-        name: "Bugatti",
+        name: 'MG',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/bugatti-logo.png"
+        image: 'https://www.carlogos.org/car-logos/mg-logo.png',
     },
 
     {
-        name: "Ligier",
+        name: 'Rolls-Royce',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/ligier-logo.png"
+        image: 'https://www.carlogos.org/car-logos/rolls-royce-logo.png',
     },
 
     {
-        name: "Alpine",
+        name: 'Bugatti',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/alpine-logo.png"
+        image: 'https://www.carlogos.org/car-logos/bugatti-logo.png',
     },
 
     {
-        name: "Dacia",
+        name: 'Ligier',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/dacia-logo.png"
+        image: 'https://www.carlogos.org/car-logos/ligier-logo.png',
     },
 
     {
-        name: "Aston Martin",
+        name: 'Alpine',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/aston-martin-logo.png"
+        image: 'https://www.carlogos.org/car-logos/alpine-logo.png',
     },
 
     {
-        name: "DeLorean",
+        name: 'Dacia',
 
         slug: '',
         country: 'JP',
-        image: "https://www.carlogos.org/car-logos/delorean-logo.png"
-    }
+        image: 'https://www.carlogos.org/car-logos/dacia-logo.png',
+    },
+
+    {
+        name: 'Aston Martin',
+
+        slug: '',
+        country: 'JP',
+        image: 'https://www.carlogos.org/car-logos/aston-martin-logo.png',
+    },
+
+    {
+        name: 'DeLorean',
+
+        slug: '',
+        country: 'JP',
+        image: 'https://www.carlogos.org/car-logos/delorean-logo.png',
+    },
 
 ];
-
-
 
 // export const brands: IBrand[] = [
 //     {
@@ -755,4 +745,4 @@ export const brands: IBrand[] = [
 
 //     },
 
-//]
+// ]

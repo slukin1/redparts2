@@ -33,17 +33,17 @@ function BlockReviews() {
                                 <div className="block-reviews__item-avatar">
                                     <AppImage src={testimonial.avatar} />
                                 </div>
-                                {/*<div className="block-reviews__item-content">*/}
-                                {/*    <div className="block-reviews__item-text">{testimonial.review}</div>*/}
-                                {/*    <div className="block-reviews__item-meta">*/}
-                                {/*        <div className="block-reviews__item-rating">*/}
-                                {/*            /!*<Rating value={testimonial.rating} />*!/*/}
-                                {/*        </div>*/}
-                                {/*        <div className="block-reviews__item-author">*/}
-                                {/*            {`${testimonial.name}, ${testimonial.position}`}*/}
-                                {/*        </div>*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
+                                {/* <div className="block-reviews__item-content"> */}
+                                {/*    <div className="block-reviews__item-text">{testimonial.review}</div> */}
+                                {/*    <div className="block-reviews__item-meta"> */}
+                                {/*        <div className="block-reviews__item-rating"> */}
+                                {/*            /!*<Rating value={testimonial.rating} />*!/ */}
+                                {/*        </div> */}
+                                {/*        <div className="block-reviews__item-author"> */}
+                                {/*            {`${testimonial.name}, ${testimonial.position}`} */}
+                                {/*        </div> */}
+                                {/*    </div> */}
+                                {/* </div> */}
                             </div>
                         ))}
                     </AppSlick>

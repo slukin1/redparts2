@@ -63,10 +63,12 @@ function InquiryModal() {
     if (!product) {
         return null;
     }
+    console.log(product);
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const onSubmit = (data: FormData) => {
         // Handle form submission
+        console.log(product);
         reset();
     };
 

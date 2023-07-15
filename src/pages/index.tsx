@@ -94,6 +94,10 @@ function Page() {
         <React.Fragment>
             <BlockFinder />
             <BlockFeatures layout="top-strip" />
+            <BlockBrands
+                layout="columns-8-full"
+                brands={brands.data}
+            />
             <BlockSpace layout="divider-nl" />
             <BlockProductsCarousel
                 blockTitle={intl.formatMessage({ id: 'HEADER_FEATURED_PRODUCTS' })}
@@ -144,10 +148,7 @@ function Page() {
                 links={latestPostsLinks}
             />
             <BlockSpace layout="divider-nl" />
-            <BlockBrands
-                layout="columns-8-full"
-                brands={brands.data}
-            />
+
             <BlockSpace layout="divider-nl" className="d-xl-block d-none" />
             <BlockProductsColumns columns={columns} />
             <BlockSpace layout="before-footer" />

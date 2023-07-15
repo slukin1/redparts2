@@ -176,7 +176,7 @@ function translateJSON(json2: JSON2): JSON1 {
         stock: json2.status || '',
         price: json2.price || '',
         compareAtPrice: null,
-        images: json2.picture || '',
+        images: json2.picture || [],
         badges: ['sale'],
         rating: 5,
         reviews: 0,
@@ -315,11 +315,9 @@ function translateJSON(json2: JSON2): JSON1 {
         categories: [],
         customFields: {},
     };
-
     // @ts-ignore
     return json1;
 }
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getProducts(shift: number, categorySlug: string | null = null): IProduct[] {
     let shiftValue = shift;
@@ -369,7 +367,6 @@ export async function getProductsList(
         new RadioFilterBuilder('fuel', 'Fuel'),
         new ColorFilterBuilder('color', 'Color'),
     ];
-    let products = dbProducts.slice(0);
     const validFilters = filters.filter((filter) => filterValues[filter.slug] !== undefined && filterValues[filter.slug].length > 0);
     const filterValuesToPrint: any = {};
     validFilters.forEach((filter) => {
@@ -388,21 +385,13 @@ export async function getProductsList(
     filterValuesToPrint.offset = options?.page ? (options.page - 1) * filterValuesToPrint.limit : 0;
 
     const response = await VehicleService.filterVehicle(filterValuesToPrint);
-    // await Promise.all(filters.map(async (filter) => {
-    //     await filter.makeItems(products, filterValues[filter.slug]);
-    // }));
-    async function processFilters() {
-        // eslint-disable-next-line no-restricted-syntax
-        for (const filter of filters) {
-            // eslint-disable-next-line no-await-in-loop
-            await filter.makeItems(products, filterValues[filter.slug]);
-        }
-    }
-
-    await processFilters();
-
-    filters.forEach((filter) => filter.calc(filters));
-    products = products.filter((product) => filters.reduce<boolean>((mr, filter) => mr && filter.test(product), true));
+    // @ts-ignore
+    let products: IProduct[] = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
+    await Promise.all(filters.map(async (filter) => {
+        await filter.makeItems(products, filterValues[filter.slug]);
+    }));
+    // filters.forEach((filter) => filter.calc(filters));
+    // products = products.filter((product) => filters.reduce<boolean>((mr, filter) => mr && filter.test(product), true));
     const sort = options?.sort || 'default';
     // @ts-ignore
     products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
@@ -432,7 +421,7 @@ export async function getProductsList(
     const [_, navigation] = result;
     // @ts-ignore
     return delayResponse(Promise.resolve({
-        items: products,
+        items: (products === null || products === undefined) ? [] : products,
         sort,
         navigation,
         filters: filters.map((x) => x.build()),
@@ -466,16 +455,6 @@ export function getProductReviews(productId: number, options?: IListOptions): Pr
 
     const limit = options?.limit || 8;
     const sort = options?.sort || 'default';
-
-    // Cursor based navigation
-    // const [chunk, navigation] = makeCursorBasedNavigation(
-    //     items,
-    //     limit,
-    //     options?.after,
-    //     options?.before,
-    //     (review) => review.id.toString(),
-    // );
-    // Index based navigation
     const [chunk, navigation] = makePageBasedNavigation(items, limit, options?.page || 1);
 
     items = chunk;

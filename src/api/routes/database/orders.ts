@@ -106,7 +106,7 @@ const ordersDef: IOrderDef[] = [
                 product: '6411e1e5de0a743c1d360db0',
                 options: [],
                 quantity: 1,
-            }
+            },
         ],
     },
     {
@@ -134,9 +134,9 @@ const ordersDef: IOrderDef[] = [
                 product: '6411e1e5de0a743c1d360db0',
                 options: [],
                 quantity: 1,
-            }
+            },
         ],
-    }
+    },
 ];
 
 export const orders: IOrder[] = makeOrders(ordersDef);

@@ -100,7 +100,8 @@ $local-control-gutter: 14px;
     $local-control-width: 260px;
 
     .block-finder {
-        padding-bottom: 36px;
+        height: auto;
+        padding: 64px 0 76px;
     }
     .block-finder__subtitle {
         margin-bottom: 48px;

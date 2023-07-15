@@ -1,7 +1,6 @@
 /* eslint-disable import/prefer-default-export,class-methods-use-this */
 
 // application
-import { IAddress } from '~/interfaces/address';
 import { IListOptions, IOrdersList } from '~/interfaces/list';
 import { IOrder } from '~/interfaces/order';
 import { IUser } from '~/interfaces/user';
@@ -48,11 +47,11 @@ export class AccountApiIntg extends AccountApi {
         return accountChangePassword(oldPassword, newPassword);
     }
 
-    addAddress(data: IEditAddressData): Promise<IAddress> {
+    addAddress(data: IEditAddressData): Promise<any> {
         return addAddress(data);
     }
 
-    editAddress(addressId: number, data: IEditAddressData): Promise<IAddress> {
+    editAddress(addressId: number, data: IEditAddressData): Promise<any> {
         return editAddress(addressId, data);
     }
 
@@ -60,15 +59,15 @@ export class AccountApiIntg extends AccountApi {
         return delAddress(addressId);
     }
 
-    getDefaultAddress(): Promise<IAddress | null> {
+    getDefaultAddress(): Promise<any | null> {
         return getDefaultAddress();
     }
 
-    getAddress(addressId: number): Promise<IAddress> {
+    getAddress(addressId: number): Promise<any> {
         return getAddress(addressId);
     }
 
-    getAddresses(): Promise<IAddress[]> {
+    getAddresses(): Promise<any[]> {
         return getAddresses();
     }
 

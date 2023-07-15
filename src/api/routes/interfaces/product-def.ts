@@ -18,7 +18,6 @@ export interface IProductDef {
     attributes?: IProductAttributesDef;
     compatibility?: 'all' | 'unknown' | number[];
 
-
     idRef: string,
     make: string;
     model: string;

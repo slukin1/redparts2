@@ -30,7 +30,7 @@ import '../scss/style.header-classic-variant-five.scss';
 import '../scss/style.mobile-header-variant-one.scss';
 import '../scss/style.mobile-header-variant-two.scss';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { getAllData } from '~/store/data/dataAction';
+import { getAllData } from '../store/data/dataAction';
 
 interface Props extends AppProps {
     languageInitialProps: ILanguageProviderProps;

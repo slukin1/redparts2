@@ -101,6 +101,21 @@ export default function useVehicleForm(options: IOptions = {}) {
             deserializeOptionFn: (option: string) => parseFloat(option),
         },
         {
+            key: 'priceFrom',
+            label: 'Price from',
+            placeholder: 'Select Price from',
+            optionsSource: vehicleApi.getPriceFrom.bind(vehicleApi),
+            serializeOptionFn: (option: number) => option.toString(),
+            deserializeOptionFn: (option: string) => parseFloat(option),
+        },
+        {
+            key: 'priceTo',
+            label: 'Price to',
+            placeholder: 'Select Price to',
+            optionsSource: vehicleApi.getPriceTo.bind(vehicleApi),
+            serializeOptionFn: (option: number) => option.toString(),
+        },
+        {
             key: 'mileage',
             label: 'Mileage',
             placeholder: 'Select Mileage',
