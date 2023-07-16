@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import RadioButton from '~/components/shared/RadioButton';
 import { ArrowRoundedDown9x6Svg } from '~/svg';
 import { IRadioFilter, IRadioFilterValue } from '~/interfaces/filter';
@@ -12,7 +12,6 @@ interface Props {
 function FilterRadio(props: Props) {
     const { options, value, onChangeValue } = props;
     const [isExpanded, setIsExpanded] = useState(false);
-
     const updateValue = (newValue: IRadioFilterValue) => {
         if (onChangeValue) {
             onChangeValue({ filter: options, value: newValue });
@@ -34,7 +33,6 @@ function FilterRadio(props: Props) {
     };
 
     const displayedItems = isExpanded ? options.items : options.items.slice(0, 10);
-
     return (
         <div className="filter-list">
             <div className="filter-list__list">

@@ -422,13 +422,29 @@ export async function getProductsList(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const [_, navigation] = result;
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        console.log(products);
+
+        // if type is radio check slug of all the items, if the any slug doesnt match with the value then change value to any
+        let tempFilters = filters.map((x) => x.build());
+        // options.items.some((item) => item.slug === value
+        // @ts-ignore
+        tempFilters.map((filter) => {
+            if (filter.type === 'radio') {
+                const temp = filter;
+                // @ts-ignore
+                if (!temp.items.some((item) => item.slug === temp.value)) {
+                    // @ts-ignore
+                    temp.value = 'any';
+                }
+            }
+            return temp;
+        });
+        console.log(tempFilters);
         // @ts-ignore
         return delayResponse(Promise.resolve({
             items: (products === null || products === undefined) ? [] : products,
             sort,
             navigation,
-            filters: filters.map((x) => x.build()),
+            filters: tempFilters,
         }), 350);
     } catch (e) {
         console.error(e);
