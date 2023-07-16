@@ -197,14 +197,14 @@
         border: none;
         padding: 8px;
         border-radius: 2px;
-        background: transparent;
+        background: white;
         color: map_get($addtocart-button-scheme, default-font-color);
         z-index: 0;
         transition: color .2s;
 
         svg {
             display: block;
-            fill: currentColor;
+            fill: white;
         }
 
         &:before {

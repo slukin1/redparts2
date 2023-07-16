@@ -20,7 +20,7 @@ import { useWishlistAddItem } from '~/store/wishlist/wishlistHooks';
 import {
     Cart20Svg,
     Compare16Svg,
-    Quickview16Svg,
+    Quickview16Svg, WhatsApp20Svg,
     Wishlist16Svg,
 } from '~/svg';
 
@@ -207,7 +207,8 @@ function ProductCard(props: Props) {
                                     aria-label={intl.formatMessage({ id: 'BUTTON_INQUIRY' })}
                                     onClick={run}
                                 >
-                                    <Cart20Svg />
+                                    {/* <Cart20Svg /> */}
+                                    <WhatsApp20Svg />
                                 </button>
                             )}
                         />
