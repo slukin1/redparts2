@@ -31,10 +31,11 @@ import {
     Fi24Hours48Svg,
     FiFreeDelivery48Svg,
     FiPaymentSecurity48Svg,
-    FiTag48Svg,
+    FiTag48Svg, WhatsApp20Svg,
     Wishlist16Svg,
 } from '~/svg';
 import { useInquireOpen } from '~/store/inquire/inquireHooks';
+import ButtonWhatsApp from '~/components/ButtonWhatsapp';
 
 interface Props {
     product: IProduct;
@@ -257,9 +258,11 @@ function ShopPageProduct(props: Props) {
                                 >
                                     <FormattedMessage id="BUTTON_INQUIRY" />
                                 </button>
+                                <ButtonWhatsApp className="w-100 mt-2" />
                             </div>
                         )}
                     />
+
                     <div className="product__actions-divider" />
                 </React.Fragment>
             )}

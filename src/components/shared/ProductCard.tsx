@@ -23,6 +23,7 @@ import {
     Quickview16Svg, WhatsApp20Svg,
     Wishlist16Svg,
 } from '~/svg';
+import ButtonWhatsApp from '~/components/ButtonWhatsapp';
 
 export type IProductCardElement = 'actions' | 'status-badge' | 'meta' | 'features' | 'buttons' | 'list-buttons';
 
@@ -217,17 +218,21 @@ function ProductCard(props: Props) {
                                 <AsyncAction
                                     action={() => showInquire()}
                                     render={({ run, loading }) => (
-                                        <button
-                                            type="button"
-                                            className={classNames('product-card__addtocart-full', {
-                                                'product-card__addtocart-full--loading': loading,
-                                            })}
-                                            onClick={run}
-                                        >
-                                            <FormattedMessage id="BUTTON_INQUIRY" />
-                                        </button>
+                                        <React.Fragment>
+                                            <button
+                                                type="button"
+                                                className={classNames('product-card__addtocart-full', {
+                                                    'product-card__addtocart-full--loading': loading,
+                                                })}
+                                                onClick={run}
+                                            >
+                                                <FormattedMessage id="BUTTON_INQUIRY" />
+                                            </button>
+                                            {/* <ButtonWhatsApp className="w-100" /> */}
+                                        </React.Fragment>
                                     )}
                                 />
+                                {/* <ButtonWhatsApp /> */}
                                 <AsyncAction
                                     action={() => addToWishlist()}
                                     render={({ run, loading }) => (

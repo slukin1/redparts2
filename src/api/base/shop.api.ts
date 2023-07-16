@@ -58,6 +58,8 @@ export interface ICheckoutData {
 }
 
 export abstract class ShopApi {
+    abstract getEngineCategories(slug:string|null, limit:number): Promise<IShopCategory[]>;
+
     abstract getCategoryBySlug(slug: string, options?: IGetCategoryBySlugOptions): Promise<IShopCategory>;
 
     abstract getCategories(options?: IGetCategoriesOptions): Promise<IShopCategory[]>;

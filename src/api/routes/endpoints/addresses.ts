@@ -3,6 +3,7 @@ import { addresses, getNextAddressId } from '~/api/routes/database/addresses';
 import { clone, delayResponse } from '~/api/routes/utils';
 import { IAddress } from '~/interfaces/address';
 import { IEditAddressData } from '~/api/base';
+import { UserService } from '~/api/services/allapi';
 
 export function getDefaultAddress(): Promise<IAddress> {
     return Promise.resolve(clone(addresses.find((x) => x.default) || null));
@@ -45,6 +46,28 @@ export function addAddress(data: Partial<IEditAddressData>): Promise<IAddress> {
     }
 
     addresses.push(address);
+    // @ts-ignore
+    // UserService.getUserApi({ id: JSON.parse(localStorage.getItem('Token')).id });
+    // UserService.putUserUpdateProfile({
+    //     requestBody: {
+    //         adddress:
+    // [
+    //     {
+    //         street: 'string',
+    //         address1: 'string',
+    //         address2: 'string',
+    //         city: 'string',
+    //         state: 'string',
+    //         postcode: 'string',
+    //         addressType: 'string',
+    //         country: 'string',
+    //         createdAt: 'string',
+    //         updatedAt: 'string',
+    //         deletedAt: 'string',
+    //     },
+    // ],
+    //     },
+    // });
 
     return delayResponse(Promise.resolve(address));
 }

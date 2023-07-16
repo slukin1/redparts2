@@ -4,6 +4,7 @@ import React, { useCallback } from 'react';
 import classNames from 'classnames';
 import { FormattedMessage, useIntl } from 'react-intl';
 // application
+import { toast } from 'react-toastify';
 import AppImage from '~/components/shared/AppImage';
 import AppLink from '~/components/shared/AppLink';
 import url from '~/api/services/url';
@@ -36,6 +37,11 @@ function AccountMenu(props: Props) {
             }
         });
     };
+    function handleForgotPassword() {
+        toast.success('Please contact admin to reset your password', {
+            theme: 'colored',
+        });
+    }
 
     return (
         <div className="account-menu" onSubmit={signInForm.submit}>
@@ -89,9 +95,9 @@ function AccountMenu(props: Props) {
                                 placeholder={intl.formatMessage({ id: 'INPUT_PASSWORD_PLACEHOLDER' })}
                                 {...signInForm.register('password', { required: true })}
                             />
-                            <AppLink href={url.passwordRecovery()} className="account-menu__form-forgot-link">
+                            <button onClick={handleForgotPassword} type="button" className="account-menu__form-forgot-link btn btn-link">
                                 <FormattedMessage id="LINK_FORGOT" />
-                            </AppLink>
+                            </button>
                         </div>
                         <div className="invalid-feedback">
                             {signInForm.errors.password?.type === 'required' && (

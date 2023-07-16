@@ -356,7 +356,6 @@ export async function getProductsList(
     }) | (IBaseFilter<'color', IColorFilterValue> & { items: IColorFilterItem[] }))[];
     products: IProduct[]
 }> {
-    console.log(filterValues);
     try {
         const filters: AbstractFilterBuilder[] = [
             new RangeFilterBuilder('year', 'Year'),
@@ -385,15 +384,33 @@ export async function getProductsList(
         filterValuesToPrint.color = replaceUnderscoreWithSpace(filterValuesToPrint.color);
         filterValuesToPrint.limit = options?.limit || 16;
         filterValuesToPrint.offset = options?.page ? (options.page - 1) * filterValuesToPrint.limit : 0;
-
-        const response = await VehicleService.filterVehicle(filterValuesToPrint);
+        filterValuesToPrint.search = filterValues.search || undefined;
+        // the filterValues only contain search and no other filter then use the search API else use this API
+        let response: any;
+        // change the below to only select those which are not undefined
+        if ((Object.keys(filterValues).length === 1) && filterValues.search) {
+            response = await VehicleService.searchVehicles(
+                {
+                    keyWord: filterValuesToPrint.search,
+                    limit: filterValuesToPrint.limit,
+                    offset: filterValuesToPrint.offset,
+                },
+            );
+            response = response.results;
+        } else {
+            delete filterValuesToPrint.search;
+            // remove the filter_search from the url directly and then use the filter API
+            response = await VehicleService.filterVehicle(filterValuesToPrint);
+        }
+        // console.log(response);
+        // console.log('filtering');
+        // response = await VehicleService.filterVehicle(filterValuesToPrint);
+        // }
         // @ts-ignore
         let products: IProduct[] = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
         await Promise.all(filters.map(async (filter) => {
             await filter.makeItems(products, filterValues[filter.slug]);
         }));
-        // filters.forEach((filter) => filter.calc(filters));
-        // products = products.filter((product) => filters.reduce<boolean>((mr, filter) => mr && filter.test(product), true));
         const sort = options?.sort || 'default';
         // @ts-ignore
         products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
@@ -422,10 +439,7 @@ export async function getProductsList(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const [_, navigation] = result;
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-
-        // if type is radio check slug of all the items, if the any slug doesnt match with the value then change value to any
-        let tempFilters = filters.map((x) => x.build());
-        // options.items.some((item) => item.slug === value
+        const tempFilters = filters.map((x) => x.build());
         // @ts-ignore
         tempFilters.map((filter) => {
             if (filter.type === 'radio') {
@@ -438,14 +452,13 @@ export async function getProductsList(
             }
             return temp;
         });
-        console.log(tempFilters);
         // @ts-ignore
-        return delayResponse(Promise.resolve({
+        return Promise.resolve({
             items: (products === null || products === undefined) ? [] : products,
             sort,
             navigation,
             filters: tempFilters,
-        }), 350);
+        });
     } catch (e) {
         console.error(e);
         throw new Error('Please try again later');
@@ -538,12 +551,48 @@ export async function getRelatedProducts(productId: number, limit: number): Prom
 
 export async function getFeaturedProducts(categorySlug: string | null, limit: number): Promise<IProduct[]> {
     try {
+        if (categorySlug) {
+            const response = await VehicleService.filterVehicle(
+                {
+                    bodyType: categorySlug,
+                },
+            );
+            // @ts-ignore
+            const products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
+            // @ts-ignore
+            return Promise.resolve(clone(products.slice(0, limit)));
+        }
         const response = await VehicleService.getVehicles({});
         // @ts-ignore
         const products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
         // @ts-ignore
         return Promise.resolve(clone(products.slice(0, limit)));
     // return delayResponse(Promise.resolve(clone(getProducts(0, categorySlug).slice(0, limit))), 1000);
+    } catch (e) {
+        console.error(e);
+        throw new Error('Please try again later');
+    }
+}
+
+export async function getEngineCategories(slug:string|null, limit:number): Promise<IShopCategory[]> {
+    try {
+        if (slug) {
+            const response = await VehicleService.filterVehicle(
+                {
+                    fuel: slug,
+                },
+            );
+            // @ts-ignore
+            const products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
+            // @ts-ignore
+            return Promise.resolve(clone(products.slice(0, limit)));
+        }
+        const response = await VehicleService.getVehicles({});
+        // @ts-ignore
+        const products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
+        // @ts-ignore
+        return Promise.resolve(clone(products.slice(0, limit)));
+        // return delayResponse(Promise.resolve(clone(getProducts(0, categorySlug).slice(0, limit))), 1000);
     } catch (e) {
         console.error(e);
         throw new Error('Please try again later');

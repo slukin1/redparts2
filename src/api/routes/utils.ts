@@ -11,11 +11,9 @@ export function makeIdGenerator() {
     })();
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function delayResponse<T>(input: Promise<T> | (() => Promise<T>), time = 0): Promise<T> {
-    const timeOverRide = 0;
+export function delayResponse<T>(input: Promise<T> | (() => Promise<T>), time = 300): Promise<T> {
     return new Promise<T>((resolve) => {
-        setTimeout(resolve, timeOverRide);
+        setTimeout(resolve, time);
     }).then(() => (input instanceof Promise ? input : input()));
 }
 

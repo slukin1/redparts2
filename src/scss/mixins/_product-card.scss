@@ -262,6 +262,12 @@
         &:after {
             @include loader(22px, 2px, map_get($addtocart-button-scheme, normal-font-color));
         }
+        svg {
+            fill: transparent;
+        path {
+            stroke: transparent;
+        }
+        }
     }
     &,
     &:hover,

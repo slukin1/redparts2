@@ -23,6 +23,7 @@ import {
     checkout,
     getCategories,
     getCategoryBySlug,
+    getEngineCategories,
     getFeaturedProducts,
     getLatestProducts,
     getPopularProducts,
@@ -37,6 +38,10 @@ import {
 } from '~/api/routes/endpoints';
 
 export class ShopApiIntg implements ShopApi {
+    getEngineCategories(slug:string|null, limit:number): Promise<IShopCategory[]> {
+        return getEngineCategories(slug, limit);
+    }
+
     getCategoryBySlug(slug: string, options?: IGetCategoryBySlugOptions): Promise<IShopCategory> {
         return getCategoryBySlug(slug, options);
     }

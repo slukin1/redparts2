@@ -3,6 +3,7 @@ import { blogCategoriesTree, shopCategoriesList, shopCategoriesTree } from '~/ap
 import { clone, error } from '~/api/routes/utils';
 import { IBaseCategory, IBlogCategory, IShopCategory } from '~/interfaces/category';
 import { IGetBlogCategoriesOptions, IGetCategoriesOptions, IGetCategoryBySlugOptions } from '~/api/base';
+import { VehicleService } from '~/api/services/allapi';
 
 export function prepareCategory<T extends IBaseCategory>(category: T, depth?: number): T {
     let children;

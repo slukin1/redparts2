@@ -71,18 +71,26 @@ function BlockZone(props: Props) {
         }
     };
 
-    const tabs: IBlockZoneTab[] = useMemo(() => [
+    const tabs: any = useMemo(() => [
         {
-            name: intl.formatMessage({ id: 'TEXT_TAB_FEATURED' }),
-            source: () => shopApi.getFeaturedProducts(categorySlug, 6),
+            name: 'All',
+            source: () => shopApi.getEngineCategories(null, 6),
         },
         {
-            name: intl.formatMessage({ id: 'TEXT_TAB_BESTSELLERS' }),
-            source: () => shopApi.getPopularProducts(categorySlug, 6),
+            name: 'Diesel',
+            source: () => shopApi.getEngineCategories('Diesel', 6),
         },
         {
-            name: intl.formatMessage({ id: 'TEXT_TAB_TOP_RATED' }),
-            source: () => shopApi.getTopRatedProducts(categorySlug, 6),
+            name: 'Electricity',
+            source: () => shopApi.getEngineCategories('Electricity', 6),
+        },
+        {
+            name: 'Gas',
+            source: () => shopApi.getEngineCategories('Gas', 6),
+        },
+        {
+            name: 'Petrol',
+            source: () => shopApi.getEngineCategories('Petrol', 6),
         },
     ], [intl, categorySlug]);
 
@@ -187,7 +195,7 @@ function BlockZone(props: Props) {
                     <div className="block-zone__widget">
                         <div className="block-zone__widget-header">
                             <div className="block-zone__tabs">
-                                {tabs.map((tab, tabIdx) => (
+                                {tabs.map((tab:any, tabIdx:any) => (
                                     <button
                                         key={tabIdx}
                                         type="button"
