@@ -76,7 +76,7 @@ const url = {
 
     // auth pages
     signIn: () => '/account/login',
-    signUp: () => '/',
+    signUp: () => '/account/login',
     passwordRecovery: () => '/',
 
     // account pages

@@ -97,19 +97,19 @@ function Page() {
                                                 </AppLink>
                                             </small>
                                         </div>
-                                        <div className="form-group">
-                                            <div className="form-check">
-                                                <Checkbox
-                                                    className="form-check-input"
-                                                    id="sign-in-remember"
-                                                    inputRef={signInFormRememberMeRef}
-                                                    {...signInFormRememberMeRefProps}
-                                                />
-                                                <label className="form-check-label" htmlFor="sign-in-remember">
-                                                    <FormattedMessage id="INPUT_REMEMBER_ME_LABEL" />
-                                                </label>
-                                            </div>
-                                        </div>
+                                        {/* <div className="form-group"> */}
+                                        {/*     <div className="form-check"> */}
+                                        {/*         <Checkbox */}
+                                        {/*             className="form-check-input" */}
+                                        {/*             id="sign-in-remember" */}
+                                        {/*             inputRef={signInFormRememberMeRef} */}
+                                        {/*             {...signInFormRememberMeRefProps} */}
+                                        {/*         /> */}
+                                        {/*         <label className="form-check-label" htmlFor="sign-in-remember"> */}
+                                        {/*             <FormattedMessage id="INPUT_REMEMBER_ME_LABEL" /> */}
+                                        {/*         </label> */}
+                                        {/*     </div> */}
+                                        {/* </div> */}
                                         <div className="form-group mb-0">
                                             <button
                                                 type="submit"

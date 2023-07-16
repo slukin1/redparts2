@@ -422,6 +422,7 @@ export async function getProductsList(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const [_, navigation] = result;
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        console.log(products);
         // @ts-ignore
         return delayResponse(Promise.resolve({
             items: (products === null || products === undefined) ? [] : products,
