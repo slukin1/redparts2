@@ -5,39 +5,81 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import type { Observable } from 'rxjs';
 
-import type { commonGetResponse } from '../models/commonGetResponse';
+import type { AddInquiryResponse } from '../models/AddInquiryResponse';
 import type { errorResponse } from '../models/errorResponse';
-import type { FavoriteResponse } from '../models/FavoriteResponse';
+import type { InquiryDeleteViewModel } from '../models/InquiryDeleteViewModel';
+import type { InquiryModel } from '../models/InquiryModel';
+import type { InquiryResponse } from '../models/InquiryResponse';
 
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
 @Injectable()
-export class FavoriteService {
+export class InquiryService {
 
     constructor(public readonly http: HttpClient) {}
 
     /**
-     * get favorite products list API
-     * This route allow logged in user/seller/admin to get his favorite products list
-     * @returns FavoriteResponse 200 response
+     * get all inquiries data API
+     * This route allow logged in admin get all inquiries
+     * @returns InquiryResponse 200 response
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public getFavoriteApi({
+    public getInquiries({
 acceptLanguage,
+count,
+offset,
+limit,
+page,
+filter,
+select,
 }: {
 /**
  * Accept-Language
  * Example : en_US, jp_JP
  */
 acceptLanguage?: string,
-}): Observable<FavoriteResponse | errorResponse> {
+/**
+ * if count = 1 get total items
+ */
+count?: string,
+/**
+ * offset
+ */
+offset?: string,
+/**
+ * limit
+ */
+limit?: string,
+/**
+ * When number of user is greater than 10 in data, it divides into pages each page contain 10 in data.
+ * Example : 2
+ */
+page?: string,
+/**
+ * filter
+ * This will filter all fields about this word
+ * Example : name, description, language
+ */
+filter?: string,
+/**
+ * Select only fields you want.
+ * Example : make, mileage, model
+ */
+select?: string,
+}): Observable<InquiryResponse | errorResponse> {
         return __request(OpenAPI, this.http, {
             method: 'GET',
-            url: '/favorite',
+            url: '/inquiry',
             query: {
                 'accept-language': acceptLanguage,
+                'count': count,
+                'offset': offset,
+                'limit': limit,
+                'page': page,
+                'filter': filter,
+                'select': select,
             },
             errors: {
                 400: `400 response`,
@@ -48,22 +90,20 @@ acceptLanguage?: string,
     }
 
     /**
-     * add product to favorite list API
-     * This route allow logged in user/seller/admin to add product to his favorite list
-     * @returns commonGetResponse 200 response
+     * Add new inquiry API
+     * This route allow  client create new inquiry
+     * @returns AddInquiryResponse 200 response
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public addFavorite({
+    public addInquiry({
 requestBody,
 }: {
-requestBody: {
-productId: string;
-},
-}): Observable<commonGetResponse | errorResponse> {
+requestBody: InquiryModel,
+}): Observable<AddInquiryResponse | errorResponse> {
         return __request(OpenAPI, this.http, {
             method: 'POST',
-            url: '/favorite',
+            url: '/inquiry',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
@@ -75,28 +115,21 @@ productId: string;
     }
 
     /**
-     * check if product in favorite list API
-     * This route allow logged in user/seller/admin to check if product in favorite list
-     * @returns commonGetResponse 200 response
+     * get single data API
+     * This route allow logged in user you to get single inquiry data
+     * @returns AddInquiryResponse 200 response
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public checkFavoriteApi({
+    public getInquiryApi({
 id,
-acceptLanguage,
 }: {
 id: string,
-/**
- * Accept-Language
- * Example : en_US, jp_JP
- */
-acceptLanguage?: string,
-}): Observable<commonGetResponse | errorResponse> {
+}): Observable<AddInquiryResponse | errorResponse> {
         return __request(OpenAPI, this.http, {
             method: 'GET',
-            url: '/favorite/check/productId',
+            url: '/inquiry/inquiryId',
             query: {
-                'accept-language': acceptLanguage,
                 'id': id,
             },
             errors: {
@@ -108,19 +141,19 @@ acceptLanguage?: string,
     }
 
     /**
-     * delete product from favorite list API
-     * This route allow logged in user/seller/admin to delete product from favorite list
-     * @returns commonGetResponse 200 response
+     * Delete LoggedIn API
+     * Delete Inquiry's Data
+     * @returns InquiryDeleteViewModel 200 response
      * @throws ApiError
      */
-    public favoriteDelete({
+    public deleteInquiry({
 id,
 }: {
 id: string,
-}): Observable<commonGetResponse> {
+}): Observable<InquiryDeleteViewModel> {
         return __request(OpenAPI, this.http, {
             method: 'DELETE',
-            url: '/favorite/productId',
+            url: '/inquiry/inquiryId',
             query: {
                 'id': id,
             },

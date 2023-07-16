@@ -1,6 +1,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import type { Observable } from 'rxjs';
+
 import type { AddUserResponse } from '../models/AddUserResponse';
 import type { errorResponse } from '../models/errorResponse';
 import type { UpdateProfileImageResponse } from '../models/UpdateProfileImageResponse';
@@ -10,11 +14,13 @@ import type { UserPutRequest } from '../models/UserPutRequest';
 import type { UserPutResponse } from '../models/UserPutResponse';
 import type { UserResponse } from '../models/UserResponse';
 
-import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
+@Injectable()
 export class UserService {
+
+    constructor(public readonly http: HttpClient) {}
 
     /**
      * get all users data API
@@ -23,7 +29,7 @@ export class UserService {
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public static getUsers({
+    public getUsers({
 acceptLanguage,
 count,
 offset,
@@ -65,8 +71,8 @@ filter?: string,
  * Example : make, mileage, model
  */
 select?: string,
-}): CancelablePromise<UserResponse | errorResponse> {
-        return __request(OpenAPI, {
+}): Observable<UserResponse | errorResponse> {
+        return __request(OpenAPI, this.http, {
             method: 'GET',
             url: '/user/all-users',
             query: {
@@ -93,12 +99,12 @@ select?: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public static getUserApi({
+    public getUserApi({
 id,
 }: {
 id: string,
-}): CancelablePromise<AddUserResponse | errorResponse> {
-        return __request(OpenAPI, {
+}): Observable<AddUserResponse | errorResponse> {
+        return __request(OpenAPI, this.http, {
             method: 'GET',
             url: '/user/userId',
             query: {
@@ -118,12 +124,12 @@ id: string,
      * @returns UserDeleteViewModel 200 response
      * @throws ApiError
      */
-    public static deleteUser({
+    public deleteUser({
 id,
 }: {
 id: string,
-}): CancelablePromise<UserDeleteViewModel> {
-        return __request(OpenAPI, {
+}): Observable<UserDeleteViewModel> {
+        return __request(OpenAPI, this.http, {
             method: 'DELETE',
             url: '/user/userId',
             query: {
@@ -143,12 +149,12 @@ id: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public static addUser({
+    public addUser({
 requestBody,
 }: {
 requestBody: UserModel,
-}): CancelablePromise<AddUserResponse | errorResponse> {
-        return __request(OpenAPI, {
+}): Observable<AddUserResponse | errorResponse> {
+        return __request(OpenAPI, this.http, {
             method: 'POST',
             url: '/user',
             body: requestBody,
@@ -168,12 +174,12 @@ requestBody: UserModel,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public static updateProfileUser({
+    public updateProfileUser({
 image,
 }: {
 image: string,
-}): CancelablePromise<UpdateProfileImageResponse | errorResponse> {
-        return __request(OpenAPI, {
+}): Observable<UpdateProfileImageResponse | errorResponse> {
+        return __request(OpenAPI, this.http, {
             method: 'PATCH',
             url: '/user/update-profile-image',
             query: {
@@ -194,12 +200,12 @@ image: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public static putUserUpdateProfile({
+    public putUserUpdateProfile({
 requestBody,
 }: {
 requestBody: UserPutRequest,
-}): CancelablePromise<UserPutResponse | errorResponse> {
-        return __request(OpenAPI, {
+}): Observable<UserPutResponse | errorResponse> {
+        return __request(OpenAPI, this.http, {
             method: 'PATCH',
             url: '/user/update-details',
             body: requestBody,
@@ -218,14 +224,14 @@ requestBody: UserPutRequest,
      * @returns UserDeleteViewModel 200 response
      * @throws ApiError
      */
-    public static userSelfDelete({
+    public userSelfDelete({
 id,
 profileImageId,
 }: {
 id: string,
 profileImageId: string,
-}): CancelablePromise<UserDeleteViewModel> {
-        return __request(OpenAPI, {
+}): Observable<UserDeleteViewModel> {
+        return __request(OpenAPI, this.http, {
             method: 'DELETE',
             url: '/user/me',
             query: {

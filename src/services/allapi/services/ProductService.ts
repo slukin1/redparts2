@@ -1,6 +1,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import type { Observable } from 'rxjs';
+
 import type { AddProductResponse } from '../models/AddProductResponse';
 import type { errorResponse } from '../models/errorResponse';
 import type { ProductDeleteViewModel } from '../models/ProductDeleteViewModel';
@@ -11,11 +15,13 @@ import type { ProductPutResponse } from '../models/ProductPutResponse';
 import type { ProductResponse } from '../models/ProductResponse';
 import type { UpdateImagesResponse } from '../models/UpdateImagesResponse';
 
-import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
+@Injectable()
 export class ProductService {
+
+    constructor(public readonly http: HttpClient) {}
 
     /**
      * get all products data API
@@ -24,7 +30,7 @@ export class ProductService {
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public static getProducts({
+    public getProducts({
 acceptLanguage,
 count,
 offset,
@@ -66,8 +72,8 @@ filter?: string,
  * Example : make, mileage, model
  */
 select?: string,
-}): CancelablePromise<ProductResponse | errorResponse> {
-        return __request(OpenAPI, {
+}): Observable<ProductResponse | errorResponse> {
+        return __request(OpenAPI, this.http, {
             method: 'GET',
             url: '/product',
             query: {
@@ -94,12 +100,12 @@ select?: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public static addProduct({
+    public addProduct({
 requestBody,
 }: {
 requestBody: ProductModel,
-}): CancelablePromise<AddProductResponse | errorResponse> {
-        return __request(OpenAPI, {
+}): Observable<AddProductResponse | errorResponse> {
+        return __request(OpenAPI, this.http, {
             method: 'POST',
             url: '/product',
             body: requestBody,
@@ -119,12 +125,12 @@ requestBody: ProductModel,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public static getProduct({
+    public getProduct({
 id,
 }: {
 id: string,
-}): CancelablePromise<AddProductResponse | errorResponse> {
-        return __request(OpenAPI, {
+}): Observable<AddProductResponse | errorResponse> {
+        return __request(OpenAPI, this.http, {
             method: 'GET',
             url: '/product/id',
             query: {
@@ -144,12 +150,12 @@ id: string,
      * @returns ProductDeleteViewModel 200 response
      * @throws ApiError
      */
-    public static deleteProduct({
+    public deleteProduct({
 id,
 }: {
 id: string,
-}): CancelablePromise<ProductDeleteViewModel> {
-        return __request(OpenAPI, {
+}): Observable<ProductDeleteViewModel> {
+        return __request(OpenAPI, this.http, {
             method: 'DELETE',
             url: '/product/id',
             query: {
@@ -169,12 +175,12 @@ id: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public static updateImagesProduct({
+    public updateImagesProduct({
 requestBody,
 }: {
 requestBody: ProductImageUrl,
-}): CancelablePromise<UpdateImagesResponse | errorResponse> {
-        return __request(OpenAPI, {
+}): Observable<UpdateImagesResponse | errorResponse> {
+        return __request(OpenAPI, this.http, {
             method: 'PATCH',
             url: '/product/main-image',
             body: requestBody,
@@ -194,12 +200,12 @@ requestBody: ProductImageUrl,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public static putProductUpdateProfile({
+    public putProductUpdateProfile({
 requestBody,
 }: {
 requestBody: ProductPutRequest,
-}): CancelablePromise<ProductPutResponse | errorResponse> {
-        return __request(OpenAPI, {
+}): Observable<ProductPutResponse | errorResponse> {
+        return __request(OpenAPI, this.http, {
             method: 'PATCH',
             url: '/product/details',
             body: requestBody,

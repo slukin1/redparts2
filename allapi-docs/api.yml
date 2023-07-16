@@ -1100,6 +1100,67 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errorResponse'
+  /track-order:
+    get:
+      tags:
+        - Order
+      description: This route allow  client to track order
+      summary: tracking order API
+      operationId: orderTracking
+      parameters:
+        - name: orderId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  message:
+                    type: string
+                  statusCode:
+                    type: number
+                    format: float
+                required:
+                  - type
+                  - message
+                  - statusCode
+        '400':
+          description: 400 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response400'
+        '404':
+          description: 404 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response404'
+        '500':
+          description: 500 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response500'
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
   /order/orderId:
     get:
       tags:
@@ -4042,6 +4103,217 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/response500'
+  /inquiry:
+    get:
+      tags:
+        - Inquiry
+      description: This route allow logged in admin get all inquiries
+      summary: get all inquiries data API
+      operationId: getInquiries
+      parameters:
+        - name: accept-language
+          in: query
+          description: |-
+            Accept-Language
+            Example : en_US, jp_JP
+          required: false
+          schema:
+            type: string
+        - name: count
+          in: query
+          description: if count = 1 get total items
+          required: false
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: offset
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: limit
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: >-
+            When number of user is greater than 10 in data, it divides into
+            pages each page contain 10 in data.
+
+            Example : 2
+          required: false
+          schema:
+            type: string
+        - name: filter
+          in: query
+          description: |-
+            filter
+            This will filter all fields about this word
+            Example : name, description, language
+          required: false
+          schema:
+            type: string
+        - name: select
+          in: query
+          description: |-
+            Select only fields you want.  
+            Example : make, mileage, model
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryResponse'
+        '400':
+          description: 400 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response400'
+        '404':
+          description: 404 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response404'
+        '500':
+          description: 500 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response500'
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+    post:
+      tags:
+        - Inquiry
+      description: This route allow  client create new inquiry
+      summary: Add new inquiry API
+      operationId: addInquiry
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddInquiryRequest'
+        required: true
+      responses:
+        '200':
+          description: 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddInquiryResponse'
+        '400':
+          description: 400 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response400'
+        '404':
+          description: 404 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response404'
+        '500':
+          description: 500 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response500'
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /inquiry/inquiryId:
+    get:
+      tags:
+        - Inquiry
+      description: This route allow logged in user you to get single inquiry data
+      summary: get single data API
+      operationId: getInquiryApi
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddInquiryResponse'
+        '400':
+          description: 400 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response400'
+        '404':
+          description: 404 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response404'
+        '500':
+          description: 500 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response500'
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+    delete:
+      tags:
+        - Inquiry
+      description: Delete Inquiry's Data
+      summary: Delete LoggedIn API
+      operationId: deleteInquiry
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryDeleteViewModel'
+        '404':
+          description: 404 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response404'
+        '500':
+          description: 500 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response500'
 components:
   schemas:
     LoginRequestBody:
@@ -5680,6 +5952,8 @@ components:
           type: string
         message:
           type: string
+        trackingUrl:
+          type: string
       required:
         - _id
         - orderNumber
@@ -5699,6 +5973,7 @@ components:
         - phone
         - email
         - message
+        - trackingUrl
     orderResponseData:
       type: object
       properties:
@@ -5771,6 +6046,8 @@ components:
           type: string
         message:
           type: string
+        trackingUrl:
+          type: string
         address:
           type: string
       required:
@@ -5785,6 +6062,7 @@ components:
         - phone
         - email
         - message
+        - trackingUrl
         - address
     AddOrderRequest:
       $ref: '#/components/schemas/OrderModel'
@@ -5864,6 +6142,8 @@ components:
           type: string
         message:
           type: string
+        trackingUrl:
+          type: string
         updatedAt:
           type: string
         deletedAt:
@@ -5885,6 +6165,7 @@ components:
         - phone
         - email
         - message
+        - trackingUrl
         - updatedAt
         - deletedAt
     OrderDeleteViewModel:
@@ -6784,6 +7065,339 @@ components:
       allOf:
         - $ref: '#/components/schemas/headerParams'
         - $ref: '#/components/schemas/OneReviewParam'
+    InquiryVehicleData:
+      type: object
+      properties:
+        _id:
+          type: string
+        site:
+          type: number
+          format: float
+        itemId:
+          type: string
+        price:
+          type: number
+          format: float
+        make:
+          type: string
+        makeEn:
+          type: string
+        picture:
+          type: array
+          items:
+            type: string
+        mileage:
+          type: number
+          format: float
+        model:
+          type: string
+        planA:
+          type: number
+          format: float
+        planB:
+          type: number
+          format: float
+        repairHistory:
+          type: string
+        specification:
+          type: array
+          items:
+            type: string
+        title:
+          type: string
+        offerPrice:
+          type: string
+        salePrice:
+          type: number
+          format: float
+        status:
+          type: string
+        url:
+          type: string
+        inspectionMonth:
+          type: number
+          format: float
+        inspectionYear:
+          type: number
+          format: float
+        modelYear:
+          type: number
+          format: float
+        pageNo:
+          type: number
+          format: float
+        mfgData:
+          type: string
+        mfgYear:
+          type: number
+          format: float
+        regYear:
+          type: number
+          format: float
+        regMonth:
+          type: number
+          format: float
+        chassisNo:
+          type: string
+        width:
+          type: string
+        height:
+          type: string
+        length:
+          type: string
+        m3:
+          type: string
+        doors:
+          type: string
+        seatCapacity:
+          type: number
+          format: float
+        location:
+          type: string
+        fuel:
+          type: string
+        color:
+          type: string
+        wheelDrive:
+          type: string
+        bodyType:
+          type: string
+        engineType:
+          type: string
+        transmission:
+          type: string
+        wheelbase:
+          type: string
+        vehicleWeight:
+          type: string
+        indoor:
+          type: string
+        JC08FuelEconomy:
+          type: string
+        WLTCFuelEconomy:
+          type: string
+        minimumTurningRadius:
+          type: string
+        numberOfSheetRows:
+          type: string
+        steering:
+          type: string
+        condition:
+          type: string
+        updatedAt:
+          type: string
+        deletedAt:
+          type: string
+        createdAt:
+          type: string
+        ___v:
+          type: number
+          format: float
+        id:
+          type: string
+      required:
+        - _id
+        - site
+        - itemId
+        - price
+        - make
+        - makeEn
+        - picture
+        - mileage
+        - model
+        - planA
+        - planB
+        - repairHistory
+        - specification
+        - title
+        - offerPrice
+        - salePrice
+        - status
+        - url
+        - inspectionMonth
+        - inspectionYear
+        - modelYear
+        - pageNo
+        - mfgData
+        - mfgYear
+        - regYear
+        - regMonth
+        - chassisNo
+        - width
+        - height
+        - length
+        - m3
+        - doors
+        - seatCapacity
+        - location
+        - fuel
+        - color
+        - wheelDrive
+        - bodyType
+        - engineType
+        - transmission
+        - wheelbase
+        - vehicleWeight
+        - indoor
+        - JC08FuelEconomy
+        - WLTCFuelEconomy
+        - minimumTurningRadius
+        - numberOfSheetRows
+        - steering
+        - condition
+        - updatedAt
+        - deletedAt
+        - createdAt
+        - ___v
+        - id
+    InquiryStatus:
+      type: string
+      enum:
+        - Not Processed
+        - Contacted
+        - Negotiating
+        - Approved
+        - Rejected
+    IInquiry:
+      type: object
+      properties:
+        inquiryNo:
+          type: string
+        inquiry:
+          type: string
+        message:
+          type: string
+        promotionCode:
+          type: string
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/InquiryVehicleData'
+        contactType:
+          type: string
+          enum:
+            - PhoneCall
+            - WhatsApp
+            - Viber
+            - Line
+        inquiryStatus:
+          $ref: '#/components/schemas/InquiryStatus'
+        fullName:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        country:
+          type: string
+        destinationPort:
+          type: string
+        insuranceFee:
+          type: boolean
+        inspectionFee:
+          type: boolean
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        deletedAt:
+          type: string
+      required:
+        - products
+        - contactType
+        - inquiryStatus
+        - fullName
+        - phone
+        - email
+        - country
+        - destinationPort
+        - insuranceFee
+        - inspectionFee
+    inquiryResponseData:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/IInquiry'
+      required:
+        - results
+    InquiryResponse:
+      allOf:
+        - $ref: '#/components/schemas/commonGetResponse'
+        - $ref: '#/components/schemas/inquiryResponseData'
+    addInquiryResponseData:
+      type: object
+      properties:
+        results:
+          $ref: '#/components/schemas/IInquiry'
+      required:
+        - results
+    AddInquiryResponse:
+      allOf:
+        - $ref: '#/components/schemas/commonGetResponse'
+        - $ref: '#/components/schemas/addInquiryResponseData'
+    InquiryModel:
+      type: object
+      properties:
+        inquiryNo:
+          type: string
+        inquiry:
+          type: string
+        message:
+          type: string
+        promotionCode:
+          type: string
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/InquiryVehicleData'
+        contactType:
+          type: string
+          enum:
+            - PhoneCall
+            - WhatsApp
+            - Viber
+            - Line
+        inquiryStatus:
+          $ref: '#/components/schemas/InquiryStatus'
+        fullName:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        country:
+          type: string
+        destinationPort:
+          type: string
+        insuranceFee:
+          type: boolean
+        inspectionFee:
+          type: boolean
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        deletedAt:
+          type: string
+      required:
+        - products
+        - contactType
+        - inquiryStatus
+        - fullName
+        - phone
+        - email
+        - country
+        - destinationPort
+        - insuranceFee
+        - inspectionFee
+    AddInquiryRequest:
+      $ref: '#/components/schemas/InquiryModel'
+    InquiryDeleteViewModel:
+      allOf:
+        - $ref: '#/components/schemas/commonPostResponse'
+        - $ref: '#/components/schemas/IInquiry'
   securitySchemes:
     SecurityHeader:
       type: apiKey

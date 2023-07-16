@@ -1,6 +1,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import type { Observable } from 'rxjs';
+
 import type { AddCategoryBody } from '../models/AddCategoryBody';
 import type { CategoriesGetResponse } from '../models/CategoriesGetResponse';
 import type { CategoryDeleteResponse } from '../models/CategoryDeleteResponse';
@@ -12,11 +16,13 @@ import type { errorResponse } from '../models/errorResponse';
 import type { UpdateCategoryBody } from '../models/UpdateCategoryBody';
 import type { UpdateCategoryImageBody } from '../models/UpdateCategoryImageBody';
 
-import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
+@Injectable()
 export class CategoryService {
+
+    constructor(public readonly http: HttpClient) {}
 
     /**
      * get all categories data API
@@ -25,7 +31,7 @@ export class CategoryService {
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public static getCategories({
+    public getCategories({
 acceptLanguage,
 count,
 offset,
@@ -67,8 +73,8 @@ filter?: string,
  * Example : make, mileage, model
  */
 select?: string,
-}): CancelablePromise<CategoriesGetResponse | errorResponse> {
-        return __request(OpenAPI, {
+}): Observable<CategoriesGetResponse | errorResponse> {
+        return __request(OpenAPI, this.http, {
             method: 'GET',
             url: '/category',
             query: {
@@ -95,12 +101,12 @@ select?: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public static addCategory({
+    public addCategory({
 requestBody,
 }: {
 requestBody: AddCategoryBody,
-}): CancelablePromise<CategoryPostResponse | errorResponse> {
-        return __request(OpenAPI, {
+}): Observable<CategoryPostResponse | errorResponse> {
+        return __request(OpenAPI, this.http, {
             method: 'POST',
             url: '/category',
             body: requestBody,
@@ -120,12 +126,12 @@ requestBody: AddCategoryBody,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public static getCategory({
+    public getCategory({
 id,
 }: {
 id: string,
-}): CancelablePromise<CategoryGetResponse | errorResponse> {
-        return __request(OpenAPI, {
+}): Observable<CategoryGetResponse | errorResponse> {
+        return __request(OpenAPI, this.http, {
             method: 'GET',
             url: '/category/categoryId',
             query: {
@@ -146,12 +152,12 @@ id: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public static putCategory({
+    public putCategory({
 requestBody,
 }: {
 requestBody: UpdateCategoryBody,
-}): CancelablePromise<CategoryPutResponse | errorResponse> {
-        return __request(OpenAPI, {
+}): Observable<CategoryPutResponse | errorResponse> {
+        return __request(OpenAPI, this.http, {
             method: 'PATCH',
             url: '/category/categoryId',
             body: requestBody,
@@ -170,12 +176,12 @@ requestBody: UpdateCategoryBody,
      * @returns CategoryDeleteResponse 200 response
      * @throws ApiError
      */
-    public static deleteCategory({
+    public deleteCategory({
 id,
 }: {
 id: string,
-}): CancelablePromise<CategoryDeleteResponse> {
-        return __request(OpenAPI, {
+}): Observable<CategoryDeleteResponse> {
+        return __request(OpenAPI, this.http, {
             method: 'DELETE',
             url: '/category/categoryId',
             query: {
@@ -195,12 +201,12 @@ id: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public static putCategoryImage({
+    public putCategoryImage({
 requestBody,
 }: {
 requestBody: UpdateCategoryImageBody,
-}): CancelablePromise<CategoryImageUdateResponse | errorResponse> {
-        return __request(OpenAPI, {
+}): Observable<CategoryImageUdateResponse | errorResponse> {
+        return __request(OpenAPI, this.http, {
             method: 'PATCH',
             url: '/categoryId/image',
             body: requestBody,

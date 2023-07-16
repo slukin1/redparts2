@@ -1,6 +1,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import type { Observable } from 'rxjs';
+
 import type { commonPostResponse } from '../models/commonPostResponse';
 import type { DiscountGetResponse } from '../models/DiscountGetResponse';
 import type { DiscountPostResponse } from '../models/DiscountPostResponse';
@@ -8,11 +12,13 @@ import type { DiscountsGetResponse } from '../models/DiscountsGetResponse';
 import type { errorResponse } from '../models/errorResponse';
 import type { NewDiscount } from '../models/NewDiscount';
 
-import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
+@Injectable()
 export class DiscountService {
+
+    constructor(public readonly http: HttpClient) {}
 
     /**
      * get all discount codes API
@@ -21,7 +27,7 @@ export class DiscountService {
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public static getDiscounts({
+    public getDiscounts({
 acceptLanguage,
 count,
 offset,
@@ -63,8 +69,8 @@ filter?: string,
  * Example : make, mileage, model
  */
 select?: string,
-}): CancelablePromise<DiscountsGetResponse | errorResponse> {
-        return __request(OpenAPI, {
+}): Observable<DiscountsGetResponse | errorResponse> {
+        return __request(OpenAPI, this.http, {
             method: 'GET',
             url: '/discount',
             query: {
@@ -91,7 +97,7 @@ select?: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public static getDiscount({
+    public getDiscount({
 acceptLanguage,
 }: {
 /**
@@ -99,8 +105,8 @@ acceptLanguage,
  * Example : en_US, jp_JP
  */
 acceptLanguage?: string,
-}): CancelablePromise<DiscountGetResponse | errorResponse> {
-        return __request(OpenAPI, {
+}): Observable<DiscountGetResponse | errorResponse> {
+        return __request(OpenAPI, this.http, {
             method: 'GET',
             url: '/discount/find',
             query: {
@@ -121,14 +127,14 @@ acceptLanguage?: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public static verifyDiscount({
+    public verifyDiscount({
 requestBody,
 }: {
 requestBody: {
 discountCode: string;
 },
-}): CancelablePromise<DiscountPostResponse | errorResponse> {
-        return __request(OpenAPI, {
+}): Observable<DiscountPostResponse | errorResponse> {
+        return __request(OpenAPI, this.http, {
             method: 'POST',
             url: '/discount/verify',
             body: requestBody,
@@ -148,12 +154,12 @@ discountCode: string;
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public static generateDiscount({
+    public generateDiscount({
 requestBody,
 }: {
 requestBody: NewDiscount,
-}): CancelablePromise<DiscountPostResponse | errorResponse> {
-        return __request(OpenAPI, {
+}): Observable<DiscountPostResponse | errorResponse> {
+        return __request(OpenAPI, this.http, {
             method: 'POST',
             url: '/discount/generate',
             body: requestBody,
@@ -172,7 +178,7 @@ requestBody: NewDiscount,
      * @returns commonPostResponse 200 response
      * @throws ApiError
      */
-    public static cancelDiscount({
+    public cancelDiscount({
 acceptLanguage,
 }: {
 /**
@@ -180,8 +186,8 @@ acceptLanguage,
  * Example : en_US, jp_JP
  */
 acceptLanguage?: string,
-}): CancelablePromise<commonPostResponse> {
-        return __request(OpenAPI, {
+}): Observable<commonPostResponse> {
+        return __request(OpenAPI, this.http, {
             method: 'DELETE',
             url: '/discount/cancel',
             query: {
@@ -200,7 +206,7 @@ acceptLanguage?: string,
      * @returns commonPostResponse 200 response
      * @throws ApiError
      */
-    public static deleteDiscount({
+    public deleteDiscount({
 id,
 acceptLanguage,
 }: {
@@ -210,8 +216,8 @@ id: string,
  * Example : en_US, jp_JP
  */
 acceptLanguage?: string,
-}): CancelablePromise<commonPostResponse> {
-        return __request(OpenAPI, {
+}): Observable<commonPostResponse> {
+        return __request(OpenAPI, this.http, {
             method: 'DELETE',
             url: '/discount/discountId',
             query: {
