@@ -31,6 +31,7 @@ import '../scss/style.mobile-header-variant-one.scss';
 import '../scss/style.mobile-header-variant-two.scss';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { getAllData } from '../store/data/dataAction';
+import { VehicleService } from '~/api/services/allapi';
 
 interface Props extends AppProps {
     languageInitialProps: ILanguageProviderProps;
@@ -48,6 +49,9 @@ function App(props: Props) {
     // Loading and saving state on the client side (cart, wishlist, etc.).
     useEffect(() => {
         dispatch(getAllData());
+        VehicleService.searchVehicles({ keyWord: 'ACURA' }).then((res) => {
+            console.log(res);
+        });
     }, [dispatch]);
 
     useEffect(() => {

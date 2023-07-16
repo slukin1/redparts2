@@ -60,23 +60,23 @@ export function Search() {
             canceled = true;
         };
 
-        shopApi.getSearchSuggestions(value, {
-            limitProducts: 3,
-            limitCategories: 4,
-        }).then((result) => {
-            if (canceled) {
-                return;
-            }
-
-            if (result.products.length === 0 && result.categories.length === 0) {
-                setHasSuggestions(false);
-                return;
-            }
-
-            setHasSuggestions(true);
-            setProducts(result.products);
-            setCategories(result.categories);
-        });
+        // shopApi.getSearchSuggestions(value, {
+        //     limitProducts: 3,
+        //     limitCategories: 4,
+        // }).then((result) => {
+        //     if (canceled) {
+        //         return;
+        //     }
+        //
+        //     if (result.products.length === 0 && result.categories.length === 0) {
+        //         setHasSuggestions(false);
+        //         return;
+        //     }
+        //
+        //     setHasSuggestions(true);
+        //     setProducts(result.products);
+        //     setCategories(result.categories);
+        // });
 
         setQuery(value);
     };
@@ -121,7 +121,7 @@ export function Search() {
     const handleButtonClick = () => {
         // toggleVehiclePicker();
         // navigate to catalog/products
-        router.push('/catalog/products').then();
+        router.replace('/catalog/products').then();
     };
 
     const handleChangeCurrentVehicle = (event: React.FormEvent<HTMLInputElement>) => {
@@ -145,6 +145,13 @@ export function Search() {
                 toggleSuggestions(false);
             }
         }, 10);
+    };
+
+    const handleSearch = () => {
+        if (!query || query === '') {
+            return;
+        }
+        router.replace(`/catalog/products?filter_search=${query}`).then();
     };
 
     useGlobalMousedown((event) => {
@@ -216,7 +223,7 @@ export function Search() {
                     </span>
                 </button>
 
-                <button className="search__button search__button--end" type="submit">
+                <button className="search__button search__button--end" type="button" onClick={handleSearch}>
                     <span className="search__button-icon">
                         <Search20Svg />
                     </span>

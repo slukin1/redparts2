@@ -114,7 +114,7 @@ export const brands: IBrand[] = [
     {
         name: 'Acura',
 
-        slug: JSON.stringify({ filter_maker: 'Acura' }),
+        slug: JSON.stringify({ filter_maker: 'ACURA' }),
 
         country: 'JP',
 

@@ -21,7 +21,6 @@ export class RadioFilterBuilder extends AbstractFilterBuilder {
         let filterFunction;
         let mappingFunction;
         let sortingFunction;
-        const limitFunction = (x: any, index: number) => index < 10;
         const filterOutUndefinedNullEmpty = (value: any) => value !== undefined && value !== null && value !== '';
 
         const replaceSpacesWithUnderscore = (value: string) => (value.includes(' ') ? value.split(' ').join('_') : value);
@@ -120,10 +119,8 @@ export class RadioFilterBuilder extends AbstractFilterBuilder {
         this.items = response.results
             .filter(filterFunction)
             .map(mappingFunction)
-            .sort(sortingFunction)
-            .filter(limitFunction);
+            .sort(sortingFunction);
         // a limit function that no matter how many items in the array, it will only return the first 10
-        this.items = this.items.filter(limitFunction);
         this.items.unshift({ slug: 'any', name: 'Any', count: 1 });
         this.value = value || this.items[0].slug;
     }

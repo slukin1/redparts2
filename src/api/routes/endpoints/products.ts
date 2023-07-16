@@ -356,87 +356,100 @@ export async function getProductsList(
     }) | (IBaseFilter<'color', IColorFilterValue> & { items: IColorFilterItem[] }))[];
     products: IProduct[]
 }> {
-    const filters: AbstractFilterBuilder[] = [
-        new RangeFilterBuilder('year', 'Year'),
-        new RangeFilterBuilder('price', 'Price'),
-        new RangeFilterBuilder('mileage', 'Mileage'),
-        new RadioFilterBuilder('bodyType', 'Body Type'),
-        new RadioFilterBuilder('maker', 'Maker'),
-        new RadioFilterBuilder('engineType', 'Engine'),
-        new RadioFilterBuilder('transmission', 'Transmission'),
-        new RadioFilterBuilder('fuel', 'Fuel'),
-        new ColorFilterBuilder('color', 'Color'),
-    ];
-    const validFilters = filters.filter((filter) => filterValues[filter.slug] !== undefined && filterValues[filter.slug].length > 0);
-    const filterValuesToPrint: any = {};
-    validFilters.forEach((filter) => {
-        if (filter.slug in filterValues) {
-            filterValuesToPrint[filter.slug] = filterValues[filter.slug];
-        }
-    });
-    const replaceUnderscoreWithSpace = (value: string | undefined): string | undefined => (value?.includes('_') ? value.split('_').join(' ') : value);
-    filterValuesToPrint.maker = replaceUnderscoreWithSpace(filterValuesToPrint.maker);
-    filterValuesToPrint.bodyType = replaceUnderscoreWithSpace(filterValuesToPrint.bodyType);
-    filterValuesToPrint.engineType = replaceUnderscoreWithSpace(filterValuesToPrint.engineType);
-    filterValuesToPrint.transmission = replaceUnderscoreWithSpace(filterValuesToPrint.transmission);
-    filterValuesToPrint.fuel = replaceUnderscoreWithSpace(filterValuesToPrint.fuel);
-    filterValuesToPrint.color = replaceUnderscoreWithSpace(filterValuesToPrint.color);
-    filterValuesToPrint.limit = options?.limit || 16;
-    filterValuesToPrint.offset = options?.page ? (options.page - 1) * filterValuesToPrint.limit : 0;
+    console.log(filterValues);
+    try {
+        const filters: AbstractFilterBuilder[] = [
+            new RangeFilterBuilder('year', 'Year'),
+            new RangeFilterBuilder('price', 'Price'),
+            new RangeFilterBuilder('mileage', 'Mileage'),
+            new RadioFilterBuilder('bodyType', 'Body Type'),
+            new RadioFilterBuilder('maker', 'Maker'),
+            new RadioFilterBuilder('engineType', 'Engine'),
+            new RadioFilterBuilder('transmission', 'Transmission'),
+            new RadioFilterBuilder('fuel', 'Fuel'),
+            new ColorFilterBuilder('color', 'Color'),
+        ];
+        const validFilters = filters.filter((filter) => filterValues[filter.slug] !== undefined && filterValues[filter.slug].length > 0);
+        const filterValuesToPrint: any = {};
+        validFilters.forEach((filter) => {
+            if (filter.slug in filterValues) {
+                filterValuesToPrint[filter.slug] = filterValues[filter.slug];
+            }
+        });
+        const replaceUnderscoreWithSpace = (value: string | undefined): string | undefined => (value?.includes('_') ? value.split('_').join(' ') : value);
+        filterValuesToPrint.maker = replaceUnderscoreWithSpace(filterValuesToPrint.maker);
+        filterValuesToPrint.bodyType = replaceUnderscoreWithSpace(filterValuesToPrint.bodyType);
+        filterValuesToPrint.engineType = replaceUnderscoreWithSpace(filterValuesToPrint.engineType);
+        filterValuesToPrint.transmission = replaceUnderscoreWithSpace(filterValuesToPrint.transmission);
+        filterValuesToPrint.fuel = replaceUnderscoreWithSpace(filterValuesToPrint.fuel);
+        filterValuesToPrint.color = replaceUnderscoreWithSpace(filterValuesToPrint.color);
+        filterValuesToPrint.limit = options?.limit || 16;
+        filterValuesToPrint.offset = options?.page ? (options.page - 1) * filterValuesToPrint.limit : 0;
 
-    const response = await VehicleService.filterVehicle(filterValuesToPrint);
-    // @ts-ignore
-    let products: IProduct[] = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
-    await Promise.all(filters.map(async (filter) => {
-        await filter.makeItems(products, filterValues[filter.slug]);
-    }));
-    // filters.forEach((filter) => filter.calc(filters));
-    // products = products.filter((product) => filters.reduce<boolean>((mr, filter) => mr && filter.test(product), true));
-    const sort = options?.sort || 'default';
-    // @ts-ignore
-    products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
-    // @ts-ignore
-    const total = response.total.totalItems;
-    products = products.sort((a, b) => {
-        if (['name_asc', 'name_desc'].includes(sort)) {
-            if (a.name === b.name) {
-                return 0;
+        const response = await VehicleService.filterVehicle(filterValuesToPrint);
+        // @ts-ignore
+        let products: IProduct[] = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
+        await Promise.all(filters.map(async (filter) => {
+            await filter.makeItems(products, filterValues[filter.slug]);
+        }));
+        // filters.forEach((filter) => filter.calc(filters));
+        // products = products.filter((product) => filters.reduce<boolean>((mr, filter) => mr && filter.test(product), true));
+        const sort = options?.sort || 'default';
+        // @ts-ignore
+        products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
+        // @ts-ignore
+        const total = response.total.totalItems;
+        products = products.sort((a, b) => {
+            if (['name_asc', 'name_desc'].includes(sort)) {
+                if (a.name === b.name) {
+                    return 0;
+                }
+
+                return (a.name > b.name ? 1 : -1) * (sort === 'name_asc' ? 1 : -1);
             }
 
-            return (a.name > b.name ? 1 : -1) * (sort === 'name_asc' ? 1 : -1);
-        }
+            return 0;
+        });
 
-        return 0;
-    });
-
-    // General
-    const limit = options?.limit || 16;
-    let result: [IProduct[], INavigation];
-    const temp = Array.from({ length: total }, (_, i) => i + 1);
-    // eslint-disable-next-line prefer-const
+        // General
+        const limit = options?.limit || 16;
+        let result: [IProduct[], INavigation];
+        const temp = Array.from({ length: total }, (_, i) => i + 1);
+        // eslint-disable-next-line prefer-const
+        // @ts-ignore
+        // eslint-disable-next-line prefer-const
+        result = makePageBasedNavigation(temp, limit, options?.page || 1);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const [_, navigation] = result;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        // @ts-ignore
+        return delayResponse(Promise.resolve({
+            items: (products === null || products === undefined) ? [] : products,
+            sort,
+            navigation,
+            filters: filters.map((x) => x.build()),
+        }), 350);
+    } catch (e) {
+        console.error(e);
+        throw new Error('Please try again later');
+    }
     // @ts-ignore
-    // eslint-disable-next-line prefer-const
-    result = makePageBasedNavigation(temp, limit, options?.page || 1);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_, navigation] = result;
-    // @ts-ignore
-    return delayResponse(Promise.resolve({
-        items: (products === null || products === undefined) ? [] : products,
-        sort,
-        navigation,
-        filters: filters.map((x) => x.build()),
-    }), 350);
 }
 
 export async function getProductBySlug(slug: string): Promise<IProduct> {
-    let product = await VehicleService.getVehicleApi({ id: slug });
-    // @ts-ignore
-    product = translateJSON(product.vehicle);
-    if (!product) {
-        return error('Index Not Found');
-    }
+    try {
+        let product = await VehicleService.getVehicleApi({ id: slug });
+        // @ts-ignore
+        product = translateJSON(product.vehicle);
+        if (!product) {
+            return error('Index Not Found');
+        }
 
-    return Promise.resolve(clone(product));
+        return Promise.resolve(clone(product));
+    } catch (e) {
+        console.error(e);
+        throw new Error('Please try again later');
+    }
 }
 
 export function getProductReviews(productId: number, options?: IListOptions): Promise<IReviewsList> {
@@ -494,38 +507,58 @@ export function getProductAnalogs(productId: number): Promise<IProduct[]> {
 }
 
 export async function getRelatedProducts(productId: number, limit: number): Promise<IProduct[]> {
-    const response = await VehicleService.getVehicles({});
-    // @ts-ignore
-    const products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
-    // @ts-ignore
-    return Promise.resolve(clone(products.slice(0, limit)));
+    try {
+        const response = await VehicleService.getVehicles({});
+        // @ts-ignore
+        const products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
+        // @ts-ignore
+        return Promise.resolve(clone(products.slice(0, limit)));
+    } catch (e) {
+        console.error(e);
+        throw new Error('Please try again later');
+    }
 }
 
 export async function getFeaturedProducts(categorySlug: string | null, limit: number): Promise<IProduct[]> {
-    const response = await VehicleService.getVehicles({});
-    // @ts-ignore
-    const products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
-    // @ts-ignore
-    return Promise.resolve(clone(products.slice(0, limit)));
+    try {
+        const response = await VehicleService.getVehicles({});
+        // @ts-ignore
+        const products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
+        // @ts-ignore
+        return Promise.resolve(clone(products.slice(0, limit)));
     // return delayResponse(Promise.resolve(clone(getProducts(0, categorySlug).slice(0, limit))), 1000);
+    } catch (e) {
+        console.error(e);
+        throw new Error('Please try again later');
+    }
 }
 
 export async function getPopularProducts(categorySlug: string | null, limit: number): Promise<IProduct[]> {
-    const response = await VehicleService.getVehicles({});
-    // @ts-ignore
-    const products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
-    // @ts-ignore
-    return Promise.resolve(clone(products.slice(0, limit)));
-    // return delayResponse(Promise.resolve(clone(getProducts(6, categorySlug).slice(0, limit))), 1000);
+    try {
+        const response = await VehicleService.getVehicles({});
+        // @ts-ignore
+        const products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
+        // @ts-ignore
+        return Promise.resolve(clone(products.slice(0, limit)));
+        // return delayResponse(Promise.resolve(clone(getProducts(6, categorySlug).slice(0, limit))), 1000);
+    } catch (e) {
+        console.error(e);
+        throw new Error('Please try again later');
+    }
 }
 
 export async function getTopRatedProducts(categorySlug: string | null, limit: number): Promise<IProduct[]> {
-    const response = await VehicleService.getVehicles({});
-    // @ts-ignore
-    const products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
-    // @ts-ignore
-    return Promise.resolve(clone(products.slice(0, limit)));
+    try {
+        const response = await VehicleService.getVehicles({});
+        // @ts-ignore
+        const products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
+        // @ts-ignore
+        return Promise.resolve(clone(products.slice(0, limit)));
     // return delayResponse(Promise.resolve(clone(getProducts(12, categorySlug).slice(0, limit))), 1000);
+    } catch (e) {
+        console.error(e);
+        throw new Error('Please try again later');
+    }
 }
 
 export async function getSpecialOffers(limit: number): Promise<IProduct[]> {
@@ -538,12 +571,17 @@ export async function getSpecialOffers(limit: number): Promise<IProduct[]> {
 }
 
 export async function getLatestProducts(limit: number): Promise<IProduct[]> {
-    const response = await VehicleService.getVehicles({});
-    // @ts-ignore
-    const products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
-    // @ts-ignore
-    return Promise.resolve(clone(products.slice(0, limit)));
-    // return Promise.resolve(clone(dbProducts.slice(0, limit)));
+    try {
+        const response = await VehicleService.getVehicles({});
+        // @ts-ignore
+        const products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
+        // @ts-ignore
+        return Promise.resolve(clone(products.slice(0, limit)));
+        // return Promise.resolve(clone(dbProducts.slice(0, limit)));
+    } catch (e) {
+        console.error(e);
+        throw new Error('Please try again later');
+    }
 }
 
 export function getSearchSuggestions(

@@ -47,6 +47,14 @@ const url = {
             },
         },
     }),
+    productsSearch: (query:any): IAppLinkHref => ({
+        href: {
+            pathname: '/catalog/products',
+            query: {
+                filter_search: query,
+            },
+        },
+    }),
     product: (product: IProduct): IAppLinkHref => ({
         href: `/products/[slug]?slug=${product.slug}`,
         as: `/products/${product.slug}`,

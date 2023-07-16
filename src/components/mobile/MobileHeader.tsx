@@ -178,18 +178,18 @@ function MobileHeader() {
                                 </span>
                             </AppLink>
                         </div>
-                        <div className="mobile-indicator">
-                            <AppLink href={url.cart()} className="mobile-indicator__button">
-                                <span className="mobile-indicator__icon">
-                                    <Cart20Svg />
-                                    {cart.quantity > 0 && (
-                                        <span className="mobile-indicator__counter">
-                                            {cart.quantity}
-                                        </span>
-                                    )}
-                                </span>
-                            </AppLink>
-                        </div>
+                        {/* <div className="mobile-indicator"> */}
+                        {/*    <AppLink href={url.cart()} className="mobile-indicator__button"> */}
+                        {/*        <span className="mobile-indicator__icon"> */}
+                        {/*            <Cart20Svg /> */}
+                        {/*            {cart.quantity > 0 && ( */}
+                        {/*                <span className="mobile-indicator__counter"> */}
+                        {/*                    {cart.quantity} */}
+                        {/*                </span> */}
+                        {/*            )} */}
+                        {/*        </span> */}
+                        {/*    </AppLink> */}
+                        {/* </div> */}
                     </div>
                 </div>
             </div>
