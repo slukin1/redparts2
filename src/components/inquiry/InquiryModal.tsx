@@ -1,15 +1,25 @@
-import React, { useState, useEffect, useCallback } from 'react';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+// @ts-nocheck
+// Path: src/components/inquiry/InquiryModal.tsx
+
+import React, {
+    useState, useEffect, useCallback, useMemo,
+} from 'react';
 import classNames from 'classnames';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { Modal } from 'reactstrap';
 // import ReCAPTCHA from 'react-google-recaptcha';
+import ReCAPTCHA from 'react-google-recaptcha';
 import AsyncAction from '~/components/shared/AsyncAction';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
 import { Compare16Svg, Cross12Svg, Wishlist16Svg } from '~/svg';
 import { useCompareAddItem } from '~/store/compare/compareHooks';
 import { useInquire, useInquireClose } from '~/store/inquire/inquireHooks';
 import { useWishlistAddItem } from '~/store/wishlist/wishlistHooks';
+import ProductGallery from '~/components/shop/ProductGallery';
 
 interface Country {
     name: string;
@@ -32,6 +42,7 @@ function InquiryModal() {
     const wishlistAddItem = useWishlistAddItem();
     const compareAddItem = useCompareAddItem();
     const { product } = inquire;
+    const image = useMemo(() => product?.images || [], [product]);
     const {
         register,
         handleSubmit,
@@ -47,7 +58,6 @@ function InquiryModal() {
                 const formattedCountries = data.map((country: any) => ({
                     name: country.name.common,
                     code: country.cca2,
-                    // callingCode: country.callingCodes[0],
                 }));
                 formattedCountries.sort((a: Country, b: Country) => a.name.localeCompare(b.name));
                 setCountries(formattedCountries);
@@ -63,129 +73,135 @@ function InquiryModal() {
     if (!product) {
         return null;
     }
-    console.log(product);
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const onSubmit = (data: FormData) => {
         // Handle form submission
-        console.log(product);
+        // console.log(data);
         reset();
     };
 
     const productTemplate = (
-        <div className="quickview__product w-100">
-            <div className="quickview__product-name w-100 text-center">
-                {product.name}
+        <div className="quickview__product d-flex flex-column flex-lg-row">
+            <div className="quickview__body">
+                <ProductGallery className="quickview__gallery" layout="quickview" images={image} />
             </div>
-            <div className="quickview__product-meta w-100 d-flex justify-content-center align-items-center">
-                <table>
-                    <tbody>
-                        <tr>
-                            <th>
-                                <FormattedMessage id="TABLE_SKU" />
-                            </th>
-                            <td>{product.sku}</td>
-                        </tr>
-                        {product.brand && (
-                            <React.Fragment>
-                                <tr>
-                                    <th>
-                                        <FormattedMessage id="TABLE_BRAND" />
-                                    </th>
-                                    <td>
-                                        {product.brand.name}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        <FormattedMessage id="TABLE_COUNTRY" />
-                                    </th>
-                                    <td>
-                                        <FormattedMessage
-                                            id={`COUNTRY_NAME_${product.brand.country}`}
-                                        />
-                                    </td>
-                                </tr>
-                            </React.Fragment>
-                        )}
-                        <tr>
-                            <th>
-                                <FormattedMessage id="TABLE_PART_NUMBER" />
-                            </th>
-                            <td>{product.partNumber}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            {product.excerpt && (
-                <div className="quickview__product-description">
-                    {product.excerpt}
+            <div className="w-100 flex mt-lg-5">
+                <div className="quickview__product-name text-center">
+                    {product.name}
                 </div>
-            )}
-            <div className="d-flex w-100 justify-content-around px-5 flex-row align-items-center">
-                <div className="quickview__product-actions">
-                    <AsyncAction
-                        action={() => wishlistAddItem(product)}
-                        render={({ run, loading }) => (
-                            <div
-                                className="quickview__product-actions-item quickview__product-actions-item--wishlist"
-                            >
-                                <button
-                                    type="button"
-                                    className={classNames('btn btn-muted btn-icon', {
-                                        'btn-loading': loading,
-                                    })}
-                                    onClick={run}
-                                >
-                                    <Wishlist16Svg />
-                                </button>
-                            </div>
-                        )}
-                    />
+                <div className="quickview__product-meta d-flex justify-content-center align-items-center mb-lg-5">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <FormattedMessage id="TABLE_SKU" />
+                                </th>
+                                <td>{product.sku}</td>
+                            </tr>
+                            {product.brand && (
+                                <React.Fragment>
+                                    <tr>
+                                        <th>
+                                            <FormattedMessage id="TABLE_BRAND" />
+                                        </th>
+                                        <td>
+                                            {product.brand.name}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <FormattedMessage id="TABLE_COUNTRY" />
+                                        </th>
+                                        <td>
+                                            <FormattedMessage
+                                                id={`COUNTRY_NAME_${product.brand.country}`}
+                                            />
+                                        </td>
+                                    </tr>
+                                </React.Fragment>
+                            )}
+                            <tr>
+                                <th>
+                                    <FormattedMessage id="TABLE_PART_NUMBER" />
+                                </th>
+                                <td>{product.partNumber}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                    <AsyncAction
-                        action={() => compareAddItem(product)}
-                        render={({ run, loading }) => (
-                            <div
-                                className="quickview__product-actions-item quickview__product-actions-item--compare"
-                            >
-                                <button
-                                    type="button"
-                                    className={classNames('btn btn-muted btn-icon', {
-                                        'btn-loading': loading,
-                                    })}
-                                    onClick={run}
+                {product.excerpt && (
+                    <div className="quickview__product-description">
+                        {product.excerpt}
+                    </div>
+                )}
+                <div className="d-flex justify-content-lg-between align-items-center w-100 justify-content-around flex-row mt-lg-5 pb-lg-5">
+                    <div className="quickview__product-actions d-flex flex-row">
+                        <AsyncAction
+                            action={() => wishlistAddItem(product)}
+                            render={({ run, loading }) => (
+                                <div
+                                    className="quickview__product-actions-item quickview__product-actions-item--wishlist"
                                 >
-                                    <Compare16Svg />
-                                </button>
-                            </div>
-                        )}
-                    />
-                </div>
-                <div className="quickview__product-prices-stock ">
-                    <div className="quickview__product-prices">
-                        {product.compareAtPrice !== null && (
-                            <React.Fragment>
-                                <div className="quickview__product-price quickview__product-price--old">
-                                    <CurrencyFormat value={product.compareAtPrice} />
+                                    <button
+                                        type="button"
+                                        className={classNames('btn btn-muted btn-icon', {
+                                            'btn-loading': loading,
+                                        })}
+                                        onClick={run}
+                                    >
+                                        <Wishlist16Svg />
+                                    </button>
                                 </div>
-                                <div className="quickview__product-price quickview__product-price--new">
+                            )}
+                        />
+
+                        <AsyncAction
+                            action={() => compareAddItem(product)}
+                            render={({ run, loading }) => (
+                                <div
+                                    className="quickview__product-actions-item quickview__product-actions-item--compare"
+                                >
+                                    <button
+                                        type="button"
+                                        className={classNames('btn btn-muted btn-icon', {
+                                            'btn-loading': loading,
+                                        })}
+                                        onClick={run}
+                                    >
+                                        <Compare16Svg />
+                                    </button>
+                                </div>
+                            )}
+                        />
+                    </div>
+                    <div className="quickview__product-prices-stock mt-3 pt-0 pt-lg-3 mt-lg-0">
+                        <div className="quickview__product-prices">
+                            {product.compareAtPrice !== null && (
+                                <React.Fragment>
+                                    <div className="quickview__product-price quickview__product-price--old">
+                                        <CurrencyFormat value={product.compareAtPrice} />
+                                    </div>
+                                    <div className="quickview__product-price quickview__product-price--new">
+                                        <CurrencyFormat value={product.price} />
+                                    </div>
+                                </React.Fragment>
+                            )}
+                            {product.compareAtPrice === null && (
+                                <div className="quickview__product-price quickview__product-price--current">
                                     <CurrencyFormat value={product.price} />
                                 </div>
-                            </React.Fragment>
-                        )}
-                        {product.compareAtPrice === null && (
-                            <div className="quickview__product-price quickview__product-price--current">
-                                <CurrencyFormat value={product.price} />
-                            </div>
-                        )}
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
     );
 
+    // @ts-ignore
+    // @ts-ignore
     return (
         <Modal isOpen={inquire.open} toggle={toggle} centered className="quickview">
             <button type="button" className="quickview__close" onClick={inquireClose}>
@@ -283,16 +299,48 @@ function InquiryModal() {
                     />
                     {errors.comments && <div className="invalid-feedback">{errors.comments.message}</div>}
                 </div>
+                <div className="d-flex flex-lg-row flex-column w-100">
+                    <div className="form-group w-100">
+                        <ReCAPTCHA
+                            sitekey="YOUR_RECAPTCHA_SITE_KEY"
+                            {...register('recaptcha', {
+                                required: 'reCAPTCHA validation is required',
+                            })}
+                        />
+                        {errors.recaptcha && <div className="invalid-feedback">{errors.recaptcha.message}</div>}
+                    </div>
+                    {/* check boxes two */}
+                    <div className="w-100">
+                        <div className="form-group">
+                            <div className="custom-control custom-checkbox">
+                                <input
+                                    type="checkbox"
+                                    className="custom-control-input"
+                                    id="prexInspection"
+                                    {...register('prexInspection', { required: 'Please check the box' })}
+                                />
+                                <label className="custom-control-label" htmlFor="prexInspection">
+                                    Pre-export Inspection
+                                </label>
+                                {errors.prexInspection && <div className="invalid-feedback">{errors.prexInspection.message}</div>}
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <div className="custom-control custom-checkbox">
+                                <input
+                                    type="checkbox"
+                                    className="custom-control-input"
+                                    id="marineInsurance"
+                                    {...register('marineInsurance', { required: 'Please check the box' })}
+                                />
+                                <label className="custom-control-label" htmlFor="marineInsurance">
+                                    Marine Insurance Fee
+                                </label>
+                                {errors.marineInsurance && <div className="invalid-feedback">{errors.marineInsurance.message}</div>}
+                            </div>
+                        </div>
+                    </div>
 
-                <div className="form-group">
-                    {/* <ReCAPTCHA */}
-                    {/*    sitekey="YOUR_RECAPTCHA_SITE_KEY" */}
-                    {/*    {...register('recaptcha', { */}
-                    {/*        required: 'reCAPTCHA validation is required', */}
-                    {/*    })} */}
-                    {/* /> */}
-                    {/* {errors.recaptcha && <div className="invalid-feedback">{errors.recaptcha.message}</div>} */}
-                    1 + 2 = ?
                 </div>
                 {/* Submit Button */}
                 <button type="submit" className="btn btn-primary">Submit</button>

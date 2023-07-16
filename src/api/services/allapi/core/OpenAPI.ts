@@ -38,7 +38,7 @@ export const OpenAPI: OpenAPIConfig = {
 
     },
     ENCODE_PATH: (path: string) => {
-// Encode the path using encodeURIComponent
+    // Encode the path using encodeURIComponent
     const encodedPath = encodeURIComponent(path);
     return encodedPath;
 },

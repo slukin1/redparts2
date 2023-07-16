@@ -1,9 +1,10 @@
 // react
-import React from 'react';
+import React, { useEffect } from 'react';
 // third-party
 import classNames from 'classnames';
 import { FormattedMessage, useIntl } from 'react-intl';
 // application
+import { toast } from 'react-toastify';
 import AppLink from '~/components/shared/AppLink';
 import BlockSpace from '~/components/blocks/BlockSpace';
 import Checkbox from '~/components/shared/Checkbox';
@@ -14,12 +15,19 @@ import { useSignInForm } from '~/api/services/forms/sign-in';
 import { useSignUpForm } from '~/api/services/forms/sign-up';
 import { useUser } from '~/store/user/userHooks';
 import { validateEmail, validateUserName } from '~/api/services/validators';
+import { globalIntl } from '~/api/services/i18n/global-intl';
+import { AuthService, VehicleService } from '~/api/services/allapi';
 
 function Page() {
     const intl = useIntl();
     const user = useUser();
     const signInForm = useSignInForm();
     const signUpForm = useSignUpForm();
+    function handleForgotPassowrd() {
+        // AuthService.passwordForgot()
+        toast.success('yay',
+            { theme: 'colored' });
+    }
 
     if (user) {
         return <Redirect href={url.accountDashboard()} />;
@@ -92,9 +100,9 @@ function Page() {
                                                 )}
                                             </div>
                                             <small className="form-text text-muted">
-                                                <AppLink href="/">
+                                                <button className="p-0 btn-link btn" type="button" onClick={handleForgotPassowrd}>
                                                     <FormattedMessage id="LINK_FORGOT_PASSWORD" />
-                                                </AppLink>
+                                                </button>
                                             </small>
                                         </div>
                                         {/* <div className="form-group"> */}
