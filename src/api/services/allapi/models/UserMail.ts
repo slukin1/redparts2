@@ -3,5 +3,5 @@
 /* eslint-disable */
 
 export type UserMail = {
-    accessToken: string;
+    email: string;
 };

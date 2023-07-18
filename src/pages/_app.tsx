@@ -47,12 +47,6 @@ function App(props: Props) {
     const loadUserVehicles = useLoadUserVehicles();
     const dispatch = useDispatch();
     // Loading and saving state on the client side (cart, wishlist, etc.).
-    useEffect(() => {
-        dispatch(getAllData());
-        VehicleService.searchVehicles({ keyWord: 'ACURA' }).then((res) => {
-            console.log(res);
-        });
-    }, [dispatch]);
 
     useEffect(() => {
         const state = load();

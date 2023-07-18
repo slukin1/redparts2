@@ -31,7 +31,6 @@ limit,
 page,
 filter,
 select,
-        accessToken,
 }: {
 /**
  * Accept-Language
@@ -66,9 +65,8 @@ filter?: string,
  * Example : make, mileage, model
  */
 select?: string,
-        accessToken?: string,
 }): CancelablePromise<OrderResponse | errorResponse> {
-        return __request({...OpenAPI, TOKEN:accessToken}, {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/order',
             query: {
@@ -96,16 +94,48 @@ select?: string,
      * @throws ApiError
      */
     public static addOrder({
-requestBody,accessToken,
+requestBody,
 }: {
 requestBody: OrderModel,
-accessToken?: string,
 }): CancelablePromise<AddOrderResponse | errorResponse> {
-        return __request({...OpenAPI, TOKEN:accessToken}, {
+        return __request(OpenAPI, {
             method: 'POST',
             url: '/order',
             body: requestBody,
             mediaType: 'application/json',
+            errors: {
+                400: `400 response`,
+                404: `404 response`,
+                500: `500 response`,
+            },
+        });
+    }
+
+    /**
+     * tracking order API
+     * This route allow  client to track order
+     * @returns any 200 response
+     * @returns errorResponse default response
+     * @throws ApiError
+     */
+    public static orderTracking({
+orderId,
+email,
+}: {
+orderId: string,
+email: string,
+}): CancelablePromise<{
+type: string;
+message: string;
+statusCode: number;
+} | errorResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/track-order',
+            query: {
+                'orderId': orderId,
+                'email': email,
+            },
             errors: {
                 400: `400 response`,
                 404: `404 response`,
@@ -164,41 +194,6 @@ id: string,
         });
     }
 
-
-    /**
-     * tracking order API
-     * This route allow  client to track order
-     * @returns any 200 response
-     * @returns errorResponse default response
-     * @throws ApiError
-     */
-    public static orderTracking({
-                             orderId,
-                             email,
-                         }: {
-        orderId: string,
-        email: string,
-    }): CancelablePromise<{
-        type: string;
-        message: string;
-        statusCode: number;
-    } | errorResponse> {
-        return __request(OpenAPI,  {
-            method: 'GET',
-            url: '/track-order',
-            query: {
-                'orderId': orderId,
-                'email': email,
-            },
-            errors: {
-                400: `400 response`,
-                404: `404 response`,
-                500: `500 response`,
-            },
-        });
-    }
-
-
     /**
      * update Oder status API
      * This route allow logged in seller update order status
@@ -248,4 +243,5 @@ requestBody: OrderPutRequest,
             },
         });
     }
+
 }

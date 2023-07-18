@@ -30,4 +30,5 @@ export type IOrder = {
     phone: string;
     email: string;
     message: string;
+    trackingUrl: string;
 };

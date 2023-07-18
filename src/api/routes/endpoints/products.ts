@@ -384,28 +384,8 @@ export async function getProductsList(
         filterValuesToPrint.color = replaceUnderscoreWithSpace(filterValuesToPrint.color);
         filterValuesToPrint.limit = options?.limit || 16;
         filterValuesToPrint.offset = options?.page ? (options.page - 1) * filterValuesToPrint.limit : 0;
-        filterValuesToPrint.search = filterValues.search || undefined;
-        // the filterValues only contain search and no other filter then use the search API else use this API
-        let response: any;
-        // change the below to only select those which are not undefined
-        if ((Object.keys(filterValues).length === 1) && filterValues.search) {
-            response = await VehicleService.searchVehicles(
-                {
-                    keyWord: filterValuesToPrint.search,
-                    limit: filterValuesToPrint.limit,
-                    offset: filterValuesToPrint.offset,
-                },
-            );
-            response = response.results;
-        } else {
-            delete filterValuesToPrint.search;
-            // remove the filter_search from the url directly and then use the filter API
-            response = await VehicleService.filterVehicle(filterValuesToPrint);
-        }
-        // console.log(response);
-        // console.log('filtering');
-        // response = await VehicleService.filterVehicle(filterValuesToPrint);
-        // }
+        filterValuesToPrint.keyWord = filterValues.search || undefined;
+        const response = await VehicleService.filterVehicle(filterValuesToPrint);
         // @ts-ignore
         let products: IProduct[] = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
         await Promise.all(filters.map(async (filter) => {

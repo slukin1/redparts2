@@ -41,99 +41,28 @@ async function filterUndefinedNullEmpty<T>(promise: Promise<T[]>): Promise<T[]> 
     // @ts-ignore
     return results.filter((item) => item !== undefined && item !== null && item !== '');
 }
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function getEngine(_make: string, _model: string, _yearFrom: number, _yearTo: number, _mileage: string): Promise<string[]> {
+
+/** ***************************************************************************************************************** */
+
+export async function getMakes(): Promise<string[]> {
     let response: any;
     if (typeof window !== 'undefined') {
-        response = await getDataFromLocalStorage('engine');
+        response = await getDataFromLocalStorage('makes');
     }
     if (!response || response === 'Failed') {
-        response = await VehicleService.getEngineTypes({ acceptLanguage: 'en-US' });
+        response = await VehicleService.getMakers({ acceptLanguage: 'en-US' });
     }
-    return delayResponse(Promise.resolve(filterUndefinedNullEmpty(response?.results)), 750);
-}
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function getPriceFrom(_make: string, _model: string, _yearFrom: number, _yearTo: number): Promise<number[]> {
-    // and array from 0-50000 with step 1000
-    const result = Array.from(Array(51).keys()).map((x) => x * 1000);
-    return delayResponse(Promise.resolve(result), 750);
+    const responseMake = response.results.map((x: any) => x.make);
+    return delayResponse(Promise.resolve(filterUndefinedNullEmpty(responseMake.sort())), 750);
 }
 
-export function getPriceTo(_make: string, _model: string, _yearFrom: number, _yearTo: number, priceFrom:number): Promise<number[]> {
-    const result = Array.from(Array(51).keys()).map((x) => x * 1000).filter((x) => x > priceFrom);
-    return delayResponse(Promise.resolve(result), 750);
-}
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function getTransmission(_make: string, _model: string, _yearFrom: number, _yearTo: number, _mileage: string,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _engine: string): Promise<string[]> {
-    let response: any;
-    if (typeof window !== 'undefined') {
-        response = await getDataFromLocalStorage('transmissions');
-    }
-    if (!response || response === 'Failed') {
-        response = await VehicleService.getTransmissions({ acceptLanguage: 'en-US' });
-    }
-
-    return delayResponse(Promise.resolve(filterUndefinedNullEmpty(response?.results)), 750);
+export async function getModels(maker: string): Promise<string[]> {
+    const response = await VehicleService.getModelsMake({ maker });
+    // @ts-ignore
+    return delayResponse(Promise.resolve(filterUndefinedNullEmpty(response?.results.sort())), 750);
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function getBodyType(_make: string, _model: string, _yearFrom: number, _yearTo: number, _mileage: string,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _engine: string, _transmission: string): Promise<string[]> {
-    let response: any;
-    if (typeof window !== 'undefined') {
-        response = await getDataFromLocalStorage('bodyTypes');
-    }
-    if (!response || response === 'Failed') {
-        response = await VehicleService.getBodyTypes({ acceptLanguage: 'en-US' });
-    }
-    const responseMake = response.results.map((x: any) => x.bodyType);
-    return delayResponse(Promise.resolve(filterUndefinedNullEmpty(responseMake)), 750);
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function getFuel(_make: string, _model: string, _yearFrom: number, _yearTo: number, _mileage: string,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _engine: string, _transmission: string, _bodyType: string): Promise<string[]> {
-    let response: any;
-    if (typeof window !== 'undefined') {
-        response = await getDataFromLocalStorage('fuels');
-    }
-    if (!response || response === 'Failed') {
-        response = await VehicleService.getFuels({ acceptLanguage: 'en-US' });
-    }
-    return delayResponse(Promise.resolve(filterUndefinedNullEmpty(response?.results)), 750);
-}
-
-export async function getColor(make: string, model: string, yearFrom: number, yearTo: number, priceFrom:number, priceTo:number, mileage: string,
-    engine: string, transmission: string, bodyType: string, fuel: string): Promise<string[]> {
-    localStorage.setItem('query', JSON.stringify({
-        make: make.includes(' ') ? make.split(' ').join('_') : make,
-        model: model.includes(' ') ? model.split(' ').join('_') : model,
-        yearFrom,
-        yearTo,
-        priceFrom,
-        priceTo,
-        mileage,
-        engineType: engine.includes(' ') ? engine.split(' ').join('_') : engine,
-        transmission: transmission.includes(' ') ? transmission.split(' ').join('_') : transmission,
-        bodyType: bodyType.includes(' ') ? bodyType.split(' ').join('_') : bodyType,
-        fuel: fuel.includes(' ') ? fuel.split(' ').join('_') : fuel,
-    }));
-    let response: any;
-    if (typeof window !== 'undefined') {
-        response = await getDataFromLocalStorage('colors');
-    }
-    if (!response || response === 'Failed') {
-        response = await VehicleService.getColors({ acceptLanguage: 'en-US' });
-    }
-    return delayResponse(Promise.resolve(filterUndefinedNullEmpty(response?.results)), 750);
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function getYearsFrom(_make: string, _model: string): Promise<number[]> {
+export async function getYearsFrom(make: string, model: string): Promise<number[]> {
     let response: any;
     if (typeof window !== 'undefined') {
         response = await getDataFromLocalStorage('years');
@@ -161,20 +90,30 @@ export async function getYearsTo(make: string, model: string, yearFrom: number):
     return delayResponse(Promise.resolve(result.sort()), 750);
 }
 
-export async function getMakes(): Promise<string[]> {
-    let response: any;
-    if (typeof window !== 'undefined') {
-        response = await getDataFromLocalStorage('makes');
-    }
-    if (!response || response === 'Failed') {
-        response = await VehicleService.getMakers({ acceptLanguage: 'en-US' });
-    }
-    const responseMake = response.results.map((x: any) => x.make);
-    return delayResponse(Promise.resolve(filterUndefinedNullEmpty(responseMake.sort())), 750);
+export function getPriceFrom(make: string, model: string, yearFrom: number, yearTo: number): Promise<number[]> {
+    const result = Array.from(Array(51).keys()).map((x) => x * 1000);
+    localStorage.setItem('query', JSON.stringify({
+        make: make.includes(' ') ? make.split(' ').join('_') : make,
+        model: model.includes(' ') ? model.split(' ').join('_') : model,
+        yearFrom,
+        yearTo,
+    }));
+    return delayResponse(Promise.resolve(result), 750);
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function getMileage(_make: string, _model:string, _yearFrom:number, _yearTo:number): Promise<string[]> {
+export function getPriceTo(make: string, model: string, yearFrom: number, yearTo: number, priceFrom:number): Promise<number[]> {
+    const result = Array.from(Array(51).keys()).map((x) => x * 1000).filter((x) => x > priceFrom);
+    localStorage.setItem('query', JSON.stringify({
+        make: make.includes(' ') ? make.split(' ').join('_') : make,
+        model: model.includes(' ') ? model.split(' ').join('_') : model,
+        yearFrom,
+        yearTo,
+        priceFrom,
+    }));
+    return delayResponse(Promise.resolve(result), 750);
+}
+
+export function getMileage(make: string, model:string, yearFrom:number, yearTo:number, priceFrom: number, priceTo:number): Promise<string[]> {
     const result: string[] = [
         '0-10000',
         '10000-20000',
@@ -190,13 +129,136 @@ export function getMileage(_make: string, _model:string, _yearFrom:number, _year
         '110000-120000',
         '120000-130000',
     ];
+    localStorage.setItem('query', JSON.stringify({
+        make: make.includes(' ') ? make.split(' ').join('_') : make,
+        model: model.includes(' ') ? model.split(' ').join('_') : model,
+        yearFrom,
+        yearTo,
+        priceFrom,
+        priceTo,
+    }));
     return delayResponse(Promise.resolve(result), 750);
 }
 
-export async function getModels(maker: string): Promise<string[]> {
-    const response = await VehicleService.getModelsMake({ maker });
-    // @ts-ignore
-    return delayResponse(Promise.resolve(filterUndefinedNullEmpty(response?.results.sort())), 750);
+export async function getEngine(make: string,
+    model: string, yearFrom: number, yearTo: number,
+    priceFrom: number, priceTo:number, mileage: string): Promise<string[]> {
+    let response: any;
+    if (typeof window !== 'undefined') {
+        response = await getDataFromLocalStorage('engine');
+    }
+    if (!response || response === 'Failed') {
+        response = await VehicleService.getEngineTypes({ acceptLanguage: 'en-US' });
+    }
+    localStorage.setItem('query', JSON.stringify({
+        make: make.includes(' ') ? make.split(' ').join('_') : make,
+        model: model.includes(' ') ? model.split(' ').join('_') : model,
+        yearFrom,
+        yearTo,
+        priceFrom,
+        priceTo,
+        mileage,
+    }));
+    return delayResponse(Promise.resolve(filterUndefinedNullEmpty(response?.results)), 750);
+}
+
+export async function getTransmission(make: string, model: string, yearFrom: number, yearTo: number, priceFrom:number,
+    priceTo:number, mileage: string,
+    engine: string): Promise<string[]> {
+    let response: any;
+    if (typeof window !== 'undefined') {
+        response = await getDataFromLocalStorage('transmissions');
+    }
+    if (!response || response === 'Failed') {
+        response = await VehicleService.getTransmissions({ acceptLanguage: 'en-US' });
+    }
+    localStorage.setItem('query', JSON.stringify({
+        make: make.includes(' ') ? make.split(' ').join('_') : make,
+        model: model.includes(' ') ? model.split(' ').join('_') : model,
+        yearFrom,
+        yearTo,
+        priceFrom,
+        priceTo,
+        mileage,
+        engine,
+    }));
+    return delayResponse(Promise.resolve(filterUndefinedNullEmpty(response?.results)), 750);
+}
+
+export async function getBodyType(make: string, model: string, yearFrom: number, yearTo: number, priceFrom: number, priceTo:number, mileage: string,
+    engine: string, transmission: string): Promise<string[]> {
+    let response: any;
+    if (typeof window !== 'undefined') {
+        response = await getDataFromLocalStorage('bodyTypes');
+    }
+    if (!response || response === 'Failed') {
+        response = await VehicleService.getBodyTypes({ acceptLanguage: 'en-US' });
+    }
+    const responseMake = response.results.map((x: any) => x.bodyType);
+    localStorage.setItem('query', JSON.stringify({
+        make: make.includes(' ') ? make.split(' ').join('_') : make,
+        model: model.includes(' ') ? model.split(' ').join('_') : model,
+        yearFrom,
+        yearTo,
+        priceFrom,
+        priceTo,
+        mileage,
+        engine,
+        transmission,
+    }));
+    return delayResponse(Promise.resolve(filterUndefinedNullEmpty(responseMake)), 750);
+}
+
+export async function getFuel(make: string, model: string, yearFrom: number,
+    yearTo: number, priceFrom: number, priceTo:number,
+    mileage: string,
+    engine: string, transmission: string, bodyType: string): Promise<string[]> {
+    let response: any;
+    if (typeof window !== 'undefined') {
+        response = await getDataFromLocalStorage('fuels');
+    }
+    if (!response || response === 'Failed') {
+        response = await VehicleService.getFuels({ acceptLanguage: 'en-US' });
+    }
+    localStorage.setItem('query', JSON.stringify({
+        make: make.includes(' ') ? make.split(' ').join('_') : make,
+        model: model.includes(' ') ? model.split(' ').join('_') : model,
+        yearFrom,
+        yearTo,
+        priceFrom,
+        priceTo,
+        mileage,
+        engine,
+        transmission,
+        bodyType,
+    }));
+    return delayResponse(Promise.resolve(filterUndefinedNullEmpty(response?.results)), 750);
+}
+
+export async function getColor(make: string, model: string, yearFrom: number, yearTo: number,
+    priceFrom:number, priceTo:number, mileage: string, engine: string,
+    transmission: string, bodyType: string, fuel: string): Promise<string[]> {
+    let response: any;
+    if (typeof window !== 'undefined') {
+        response = await getDataFromLocalStorage('colors');
+    }
+    if (!response || response === 'Failed') {
+        response = await VehicleService.getColors({ acceptLanguage: 'en-US' });
+    }
+    localStorage.setItem('query', JSON.stringify({
+        make: make.includes(' ') ? make.split(' ').join('_') : make,
+        model: model.includes(' ') ? model.split(' ').join('_') : model,
+        yearFrom,
+        yearTo,
+        priceFrom,
+        priceTo,
+        mileage,
+        engine,
+        transmission,
+        bodyType,
+        fuel,
+    }));
+    return delayResponse(Promise.resolve(filterUndefinedNullEmpty(response?.results)), 750);
 }
 
 export function getVehicles(year: number, make: string, model: string): Promise<IVehicle[]> {

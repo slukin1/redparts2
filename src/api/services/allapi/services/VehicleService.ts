@@ -795,6 +795,7 @@ refNo,
 fuel,
 status,
 color,
+keyWord,
 count,
 offset,
 limit,
@@ -816,6 +817,7 @@ refNo?: string,
 fuel?: string,
 status?: string,
 color?: string,
+keyWord?: string,
 /**
  * if count = 1 get total items
  */
@@ -863,6 +865,7 @@ select?: string,
                 'fuel': fuel,
                 'status': status,
                 'color': color,
+                'keyWord': keyWord,
                 'count': count,
                 'offset': offset,
                 'limit': limit,
@@ -886,12 +889,11 @@ select?: string,
      * @throws ApiError
      */
     public static vehicleRange({
-requestBody, accessToken,
+requestBody,
 }: {
-        accessToken?: string,
 requestBody: RangeList,
 }): CancelablePromise<VehicleResponse | errorResponse> {
-        return __request({...OpenAPI, TOKEN : accessToken}, {
+        return __request(OpenAPI, {
             method: 'POST',
             url: '/vehicle/range',
             body: requestBody,

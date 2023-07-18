@@ -77,38 +77,7 @@ function InquiryModal() {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async function onSubmit(data: FormData) {
-        // if ()
-        let user = await UserService.getUserApi({ id: JSON.parse(localStorage.getItem('Tokens')).id });
-        user = user.results;
-        const response = await OrderService.addOrder({
-            requestBody: {
-                productId: product.id,
-                totalPrice: product.price,
-                isPaid: false,
-                isDelivered: false,
-                taxPrice: 0,
-                shippingPrice: 0,
-                destinationPort: '',
-                originPort: '',
-                preExportInspectionFee: data.prexInspection,
-                marineInsuranceFee: data.marineInsurance,
-                status: 'NotProcessed',
-                paidAt: '',
-                paymentMethod: '',
-                paymentStripeId: '',
-                paymentPayaplId: '',
-                createdAt: '',
-                phone: data.phoneNumber,
-                email: data.email,
-                message: data.comments,
-                trackingUrl: '',
-                address: [
-                    ...user.address,
-                ],
-                user,
-            },
-            accessToken: JSON.parse(localStorage.getItem('Tokens')).accessToken,
-        });
+
         reset();
     }
 
@@ -121,7 +90,7 @@ function InquiryModal() {
                 <div className="quickview__product-name text-center">
                     {product.name}
                 </div>
-                <div className="quickview__product-meta d-flex justify-content-center align-items-center mb-lg-5">
+                <div className="quickview__product-meta d-flex justify-content-center align-items-center mb-2">
                     <table>
                         <tbody>
                             <tr>
@@ -130,28 +99,6 @@ function InquiryModal() {
                                 </th>
                                 <td>{product.sku}</td>
                             </tr>
-                            {/* {product.brand && ( */}
-                            {/*    <React.Fragment> */}
-                            {/*        <tr> */}
-                            {/*            <th> */}
-                            {/*                <FormattedMessage id="TABLE_BRAND" /> */}
-                            {/*            </th> */}
-                            {/*            <td> */}
-                            {/*                {product.brand.name} */}
-                            {/*            </td> */}
-                            {/*        </tr> */}
-                            {/*        <tr> */}
-                            {/*            <th> */}
-                            {/*                <FormattedMessage id="TABLE_COUNTRY" /> */}
-                            {/*            </th> */}
-                            {/*            <td> */}
-                            {/*                <FormattedMessage */}
-                            {/*                    id={`COUNTRY_NAME_${product.brand.country}`} */}
-                            {/*                /> */}
-                            {/*            </td> */}
-                            {/*        </tr> */}
-                            {/*    </React.Fragment> */}
-                            {/* )} */}
                             <tr>
                                 <th>
                                     <FormattedMessage id="TABLE_PART_NUMBER" />
@@ -167,7 +114,7 @@ function InquiryModal() {
                         {product.excerpt}
                     </div>
                 )}
-                <div className="d-flex justify-content-lg-between align-items-center w-100 justify-content-around flex-row mt-lg-5 pb-lg-5">
+                <div className="">
                     {/* Country Selector */}
                     <div className="form-group">
                         <label htmlFor="country">Country</label>
@@ -210,6 +157,15 @@ function InquiryModal() {
                                 Marine Insurance Fee
                             </label>
                         </div>
+                    </div>
+                    <div className="form-group w-100">
+                        <ReCAPTCHA
+                            sitekey="YOUR_RECAPTCHA_SITE_KEY"
+                            {...register('recaptcha', {
+                                required: 'reCAPTCHA validation is required',
+                            })}
+                        />
+                        {errors.recaptcha && <div className="invalid-feedback">{errors.recaptcha.message}</div>}
                     </div>
                     {/* <div className="quickview__product-actions d-flex flex-row"> */}
                     {/*    <AsyncAction */}
@@ -283,9 +239,9 @@ function InquiryModal() {
             </button>
             <form onSubmit={handleSubmit(onSubmit)} className="quickview__body d-flex flex-column">
                 {productTemplate}
-                <div className="flex flex-row w-100">
+                <div className="d-flex flex-row w-100">
                     {/* First Name */}
-                    <div className="form-group">
+                    <div className="form-group w-100 pr-2">
                         <label htmlFor="firstName">First Name</label>
                         <input
                             type="text"
@@ -297,7 +253,7 @@ function InquiryModal() {
                     </div>
 
                     {/* Last Name */}
-                    <div className="form-group">
+                    <div className="form-group w-100 pl-2">
                         <label htmlFor="lastName">Last Name</label>
                         <input
                             type="text"
@@ -309,43 +265,44 @@ function InquiryModal() {
                     </div>
 
                 </div>
-
-                {/* Email */}
-                <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input
-                        type="email"
-                        className={`form-control ${errors.email ? 'is-invalid' : ''}`}
-                        id="email"
-                        {...register('email', {
-                            required: 'Email is required',
-                            pattern: {
-                                value: /^\S+@\S+$/i,
-                                message: 'Invalid email address',
-                            },
-                        })}
-                    />
-                    {errors.email && <div className="invalid-feedback">{errors.email.message}</div>}
-                </div>
-
-                {/* Phone Number with Country Code Selector */}
-                <div className="form-group">
-                    <label htmlFor="phoneNumber">Phone Number</label>
-                    <div className="input-group">
+                <div className="d-flex flex-row w-100">
+                    {/* Email */}
+                    <div className="form-group w-100 pr-2">
+                        <label htmlFor="email">Email</label>
                         <input
-                            type="text"
-                            className={`form-control ${errors.phoneNumber ? 'is-invalid' : ''}`}
-                            id="phoneNumber"
-                            {...register('phoneNumber', {
-                                required: 'Phone Number is required',
+                            type="email"
+                            className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                            id="email"
+                            {...register('email', {
+                                required: 'Email is required',
                                 pattern: {
-                                    value: /^[+]*[(]?[0-9]{1,3}[)]?[-\s./0-9]*$/g,
-                                    message: 'Invalid phone number',
+                                    value: /^\S+@\S+$/i,
+                                    message: 'Invalid email address',
                                 },
                             })}
                         />
+                        {errors.email && <div className="invalid-feedback">{errors.email.message}</div>}
                     </div>
-                    {errors.phoneNumber && <div className="invalid-feedback">{errors.phoneNumber.message}</div>}
+
+                    {/* Phone Number with Country Code Selector */}
+                    <div className="form-group w-100 pl-2">
+                        <label htmlFor="phoneNumber">Phone Number</label>
+                        <div className="input-group">
+                            <input
+                                type="text"
+                                className={`form-control ${errors.phoneNumber ? 'is-invalid' : ''}`}
+                                id="phoneNumber"
+                                {...register('phoneNumber', {
+                                    required: 'Phone Number is required',
+                                    pattern: {
+                                        value: /^[+]*[(]?[0-9]{1,3}[)]?[-\s./0-9]*$/g,
+                                        message: 'Invalid phone number',
+                                    },
+                                })}
+                            />
+                        </div>
+                        {errors.phoneNumber && <div className="invalid-feedback">{errors.phoneNumber.message}</div>}
+                    </div>
                 </div>
                 {/* Comments Text Area */}
                 <div className="form-group">
@@ -356,20 +313,6 @@ function InquiryModal() {
                         {...register('comments', { required: 'Comments are required' })}
                     />
                     {errors.comments && <div className="invalid-feedback">{errors.comments.message}</div>}
-                </div>
-                <div className="d-flex flex-lg-row flex-column w-100">
-                    <div className="form-group w-100">
-                        {/* <ReCAPTCHA */}
-                        {/*    sitekey="YOUR_RECAPTCHA_SITE_KEY" */}
-                        {/*    {...register('recaptcha', { */}
-                        {/*        required: 'reCAPTCHA validation is required', */}
-                        {/*    })} */}
-                        {/* /> */}
-                        {/* {errors.recaptcha && <div className="invalid-feedback">{errors.recaptcha.message}</div>} */}
-                    </div>
-                    {/* check boxes two */}
-                    <div className="w-100" />
-
                 </div>
                 {/* Submit Button */}
                 <button type="submit" className="btn btn-primary">Submit</button>

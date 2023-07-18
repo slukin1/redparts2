@@ -9,6 +9,7 @@ import React, {
 import classNames from 'classnames';
 import { FormattedMessage, useIntl } from 'react-intl';
 // application
+import { useRouter } from 'next/router';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
 import Navigation, { INavigationEvent } from '~/components/shared/Navigation';
 import ProductCard from '~/components/shared/ProductCard';
@@ -56,6 +57,7 @@ function ProductsView(props: Props) {
     const shopResetFilter = useShopResetFilterThunk();
     const [, setSidebarIsOpen] = useContext(SidebarContext);
     const [layout, setLayout] = useState(layoutProps);
+    const router = useRouter();
 
     const handleSortChange = useSetOption('sort', (event) => event.target.value);
     const handleLimitChange = useSetOption('limit', (event) => parseFloat(event.target.value));
@@ -134,7 +136,14 @@ function ProductsView(props: Props) {
                             <FormattedMessage id="TEXT_NO_MATCHING_ITEMS_SUBTITLE" />
                         </div>
                         <div className="products-view__empty-actions">
-                            <button type="button" className="btn btn-primary btn-sm" onClick={shopResetFilters}>
+                            <button
+                                type="button"
+                                className="btn btn-primary btn-sm"
+                                onClick={() => {
+                                    router.replace({ pathname: '/catalog/products' }, undefined, { shallow: true }).then();
+                                    return shopResetFilters();
+                                }}
+                            >
                                 <FormattedMessage id="BUTTON_RESET_FILTERS" />
                             </button>
                         </div>

@@ -21,7 +21,6 @@ function MainMenu() {
     const handleItemMouseEnter = (item: IMainMenuLink) => {
         setCurrentItem(item);
     };
-
     const handleItemMouseLeave = (item: IMainMenuLink) => {
         if (currentItem === item) {
             setCurrentItem(null);

@@ -136,12 +136,12 @@ const resolve = async <T>(options: ApiRequestOptions, resolver?: T | Resolver<T>
 };
 
 const getHeaders = async (config: OpenAPIConfig, options: ApiRequestOptions): Promise<Headers> => {
-    const username = await resolve(options, config.USERNAME);
-    const password = await resolve(options, config.PASSWORD);
-    const additionalHeaders = await resolve(options, config.HEADERS);
     const token = await resolve(options, config.TOKEN);
     const apiKey = await resolve(options, config.API_KEY);
     const accessToken = await resolve(options, config.ACCESS_TOKEN);
+    const username = await resolve(options, config.USERNAME);
+    const password = await resolve(options, config.PASSWORD);
+    const additionalHeaders = await resolve(options, config.HEADERS);
 
     const headers = Object.entries({
         Accept: 'application/json',
@@ -158,16 +158,17 @@ const getHeaders = async (config: OpenAPIConfig, options: ApiRequestOptions): Pr
         headers['Authorization'] = `Bearer ${token}`;
     }
 
-    if (isStringWithValue(username) && isStringWithValue(password)) {
-        const credentials = base64(`${username}:${password}`);
-        headers['Authorization'] = `Basic ${credentials}`;
-    }
     if (isStringWithValue(apiKey)) {
         headers['X-API-Key'] = base64(apiKey);
     }
 
     if (isStringWithValue(accessToken)) {
         headers['X-Access-Token'] = base64(accessToken);
+    }
+
+    if (isStringWithValue(username) && isStringWithValue(password)) {
+        const credentials = base64(`${username}:${password}`);
+        headers['Authorization'] = `Basic ${credentials}`;
     }
 
     if (options.body) {
@@ -184,6 +185,7 @@ const getHeaders = async (config: OpenAPIConfig, options: ApiRequestOptions): Pr
 
     return new Headers(headers);
 };
+
 
 const getRequestBody = (options: ApiRequestOptions): any => {
     if (options.body) {
@@ -268,12 +270,10 @@ const catchErrorCodes = (options: ApiRequestOptions, result: ApiResult): void =>
 
     const error = errors[result.status];
     if (error) {
-        console.log(result)
         throw new ApiError(options, result, error);
     }
 
     if (!result.ok) {
-        console.log(result)
         throw new ApiError(options, result, 'Generic Error');
     }
 };

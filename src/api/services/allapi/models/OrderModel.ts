@@ -26,5 +26,6 @@ export type OrderModel = {
     phone: string;
     email: string;
     message: string;
+    trackingUrl: string;
     address: string;
 };

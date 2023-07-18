@@ -118,12 +118,6 @@ export function Search() {
         search(input.value);
     };
 
-    const handleButtonClick = () => {
-        // toggleVehiclePicker();
-        // navigate to catalog/products
-        router.replace('/catalog/products').then();
-    };
-
     const handleChangeCurrentVehicle = (event: React.FormEvent<HTMLInputElement>) => {
         const vehicleId = event.currentTarget.value === '' ? null : parseFloat(event.currentTarget.value);
 
@@ -207,16 +201,15 @@ export function Search() {
                     onChange={handleInputChange}
                 />
 
-                <button
+                <AppLink
                     type="button"
                     className="search__button search__button--start"
-                    onClick={handleButtonClick}
-                    // ref={selectVehicleButtonRef}
+                    href="/catalog/products"
                 >
                     <span className="search__button-icon">
                         <Car20Svg />
                     </span>
-                </button>
+                </AppLink>
 
                 <button className="search__button search__button--end" type="button" onClick={handleSearch}>
                     <span className="search__button-icon">

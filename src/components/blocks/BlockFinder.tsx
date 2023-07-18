@@ -14,36 +14,56 @@ import { IVehicle } from '~/interfaces/vehicle';
 function BlockFinder() {
     const router = useRouter();
     const [vehicle, setVehicle] = useState<IVehicle | null>(null);
-
+    const [loading, setLoading] = useState(false);
     const onSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        // @ts-ignore
-        const query: any = JSON.parse(localStorage.getItem('query'));
-        localStorage.removeItem('query');
-        if (!vehicle) {
+        if (loading) {
             return;
         }
-        let color = vehicle.toString();
-        color = color.includes(' ') ? color.split(' ').join('_') : color;
+        const queryFromLocalStorage = JSON.parse(localStorage.getItem('query') || '{}');
+        localStorage.removeItem('query');
+        const {
+            yearFrom,
+            yearTo,
+            make,
+            model,
+            engineType,
+            priceFrom,
+            priceTo,
+            mileage,
+            transmission,
+            fuel,
+            bodyType,
+            vehicle,
+        } = queryFromLocalStorage;
 
-        router.push(
-            ...hrefToRouterArgs(url.products({
-                filters: {
-                    filter_year: `${query.yearFrom}-${query.yearTo}`,
-                    filter_maker: query.make,
-                    filter_model: query.model,
-                    filter_engineType: query.engineType,
-                    filter_price: `${query.priceFrom}-${query.priceTo}`,
-                    filter_mileage: query.mileage,
-                    filter_transmission: query.transmission,
-                    filter_fuel: query.fuel,
-                    filter_bodyType: query.bodyType,
-                    filter_color: color,
-                },
-            })),
-        ).then();
+        // Early return if required query parameters are missing
+        if (!yearFrom || !yearTo || !make || !model) {
+            return;
+        }
+        if (priceFrom && !priceTo) {
+            return;
+        }
+        setLoading(true);
+        // Transform the vehicle string (if available)
+        const color = vehicle ? vehicle.replace(/ /g, '_') : '';
+
+        // Build the filters object with only the available properties
+        const filters = {
+            ...(yearFrom && { filter_year: `${yearFrom}-${yearTo}` }),
+            ...(make && { filter_maker: make }),
+            ...(model && { filter_model: model }),
+            ...(engineType && { filter_engineType: engineType }),
+            ...(priceFrom && priceTo && { filter_price: `${priceFrom}-${priceTo}` }),
+            ...(mileage && { filter_mileage: mileage }),
+            ...(transmission && { filter_transmission: transmission }),
+            ...(fuel && { filter_fuel: fuel }),
+            ...(bodyType && { filter_bodyType: bodyType }),
+            ...(color && { filter_color: color }),
+        };
+        // Navigate to the URL using the router
+        router.push(...hrefToRouterArgs(url.products({ filters }))).then();
     };
-
     return (
         <div className="block block-finder">
             <Decor className="block-finder__decor" type="bottom" />
@@ -58,12 +78,17 @@ function BlockFinder() {
                 <div className="block-finder__subtitle">
                     <FormattedMessage id="TEXT_BLOCK_FINDER_SUBTITLE" />
                 </div>
-                <form className="block-finder__form" onSubmit={onSubmit}>
+                <form className="block-finder__form">
                     <VehicleSelect className="block-finder__select" onVehicleChange={setVehicle} />
-
-                    <button className="block-finder__button" type="submit">
-                        <FormattedMessage id="BUTTON_BLOCK_FINDER_SEARCH" />
-                    </button>
+                    {loading ? (
+                        <button className="btn-primary btn-lg btn btn-loading" type="submit" onClick={onSubmit}>
+                            <FormattedMessage id="BUTTON_BLOCK_FINDER_SEARCH" />
+                        </button>
+                    ) : (
+                        <button className="btn-primary btn-lg btn" type="submit" onClick={onSubmit}>
+                            <FormattedMessage id="BUTTON_BLOCK_FINDER_SEARCH" />
+                        </button>
+                    )}
                 </form>
             </div>
         </div>

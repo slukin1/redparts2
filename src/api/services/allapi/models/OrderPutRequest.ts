@@ -28,6 +28,7 @@ export type OrderPutRequest = {
     phone: string;
     email: string;
     message: string;
+    trackingUrl: string;
     updatedAt: string;
     deletedAt: string;
 };

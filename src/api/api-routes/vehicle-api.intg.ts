@@ -16,13 +16,13 @@ import {
 } from '~/api/routes/endpoints';
 
 export class VehicleApiIntg extends VehicleApi {
-    getEngine(make: string, model: string, yearFrom: number, yearTo: number, priceTo: number, priceFrom:number, mileage:string): Promise<string[]> {
-        return getEngine(make, model, yearFrom, yearTo, mileage);
+    getEngine(make: string, model: string, yearFrom: number, yearTo: number, priceFrom: number, priceTo:number, mileage:string): Promise<string[]> {
+        return getEngine(make, model, yearFrom, yearTo, priceFrom, priceTo, mileage);
     }
 
-    getBodyType(make: string, model: string, yearFrom: number, yearTo: number, priceTo:number, priceFrom:number, mileage:string, engine:string,
+    getBodyType(make: string, model: string, yearFrom: number, yearTo: number, priceFrom:number, priceTo:number, mileage:string, engine:string,
         transmission:string): Promise<string[]> {
-        return getBodyType(make, model, yearFrom, yearTo, mileage, engine, transmission);
+        return getBodyType(make, model, yearFrom, yearTo, priceFrom, priceTo, mileage, engine, transmission);
     }
 
     getPriceTo(make: string, model: string, yearFrom: number, yearTo: number, priceFrom:number): Promise<number[]> {
@@ -33,24 +33,23 @@ export class VehicleApiIntg extends VehicleApi {
         return getPriceFrom(make, model, yearFrom, yearTo);
     }
 
-    getTransmission(make: string, model: string, yearFrom: number, yearTo: number, priceTo:number, priceFrom:number,
+    getTransmission(make: string, model: string, yearFrom: number, yearTo: number, priceFrom:number, priceTo:number,
         mileage:string, engine:string): Promise<string[]> {
-        return getTransmission(make, model, yearFrom, yearTo, mileage, engine);
+        return getTransmission(make, model, yearFrom, yearTo, priceFrom, priceTo, mileage, engine);
     }
 
-    getFuel(make: string, model: string, yearFrom: number, yearTo: number, priceTo:number, priceFrom:number, mileage:string, engine:string,
+    getFuel(make: string, model: string, yearFrom: number, yearTo: number, priceFrom:number, priceTo:number, mileage:string, engine:string,
         transmission:string, bodyType:string): Promise<string[]> {
-        return getFuel(make, model, yearFrom, yearTo, mileage, engine, transmission, bodyType);
+        return getFuel(make, model, yearFrom, yearTo, priceFrom, priceTo, mileage, engine, transmission, bodyType);
     }
 
-    getColor(make: string, model: string, yearFrom: number, yearTo: number, priceTo:number, priceFrom:number, mileage:string, engine:string,
+    getColor(make: string, model: string, yearFrom: number, yearTo: number, priceFrom:number, priceTo:number, mileage:string, engine:string,
         transmission:string, bodyType:string, fuel:string): Promise<string[]> {
         return getColor(make, model, yearFrom, yearTo, priceTo, priceFrom, mileage, engine, transmission, bodyType, fuel);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    getMileage(make: string, model: string, yearFrom: number, yearTo: number, priceTo:number, priceFrom:number): Promise<string[]> {
-        return getMileage(make, model, yearFrom, yearTo);
+    getMileage(make: string, model: string, yearFrom: number, yearTo: number, priceFrom:number, priceTo:number): Promise<string[]> {
+        return getMileage(make, model, yearFrom, yearTo, priceFrom, priceTo);
     }
 
     getYearsFrom(make: string, model: string): Promise<number[]> {
