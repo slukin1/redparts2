@@ -15,7 +15,7 @@ export type RegisterData = {
     passwordConfirmation: string;
     role?: UserRole;
     status?: UserStatus;
-    adddress?: Array<Address>;
+    address?: Array<Address>;
     companyName?: string;
     phone?: string;
     profileImage?: string;

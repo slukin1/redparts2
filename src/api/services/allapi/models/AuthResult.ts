@@ -18,7 +18,7 @@ export type AuthResult = {
     status: UserStatus;
     isEmailVerified: boolean;
     passwordChangedAt: string;
-    adddress?: Array<Address>;
+    address?: Array<Address>;
     companyName?: string;
     phone?: string;
     profileImage: string;

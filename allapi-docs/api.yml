@@ -3839,7 +3839,7 @@ components:
           type: boolean
         passwordChangedAt:
           type: string
-        adddress:
+        address:
           type: array
           items:
             $ref: '#/components/schemas/Address'
@@ -4027,7 +4027,7 @@ components:
           $ref: '#/components/schemas/UserRole'
         status:
           $ref: '#/components/schemas/UserStatus'
-        adddress:
+        address:
           type: array
           items:
             $ref: '#/components/schemas/Address'
@@ -4151,7 +4151,7 @@ components:
           type: boolean
         passwordChangedAt:
           type: string
-        adddress:
+        address:
           type: array
           items:
             $ref: '#/components/schemas/Address'
@@ -4226,7 +4226,7 @@ components:
           type: boolean
         passwordChangedAt:
           type: string
-        adddress:
+        address:
           type: array
           items:
             $ref: '#/components/schemas/Address'
@@ -4295,7 +4295,7 @@ components:
           $ref: '#/components/schemas/UserStatus'
         isEmailVerified:
           type: boolean
-        adddress:
+        address:
           type: array
           items:
             $ref: '#/components/schemas/Address'
@@ -4356,7 +4356,7 @@ components:
           type: boolean
         passwordChangedAt:
           type: string
-        adddress:
+        address:
           type: array
           items:
             $ref: '#/components/schemas/Address'
@@ -4412,7 +4412,7 @@ components:
           type: boolean
         passwordChangedAt:
           type: string
-        adddress:
+        address:
           type: array
           items:
             $ref: '#/components/schemas/Address'

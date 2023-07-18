@@ -65,7 +65,7 @@ export async function accountSignUp(email: string, password: string, userName: s
                 passwordConfirmation: password,
                 role: 'user',
                 status: 'active',
-                adddress: [
+                address: [
                     {
                         street: 'Main Street',
                         address1: '123',
