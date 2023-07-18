@@ -209,17 +209,12 @@ export function Search() {
 
                 <button
                     type="button"
-                    className={classNames('search__button search__button--start', {
-                        'search__button--hover': vehiclePickerIsOpen,
-                    })}
+                    className="search__button search__button--start"
                     onClick={handleButtonClick}
-                    ref={selectVehicleButtonRef}
+                    // ref={selectVehicleButtonRef}
                 >
                     <span className="search__button-icon">
                         <Car20Svg />
-                    </span>
-                    <span className="search__button-title">
-                        <FormattedMessage id="BUTTON_SEARCH_SELECT_VEHICLE_DESKTOP" />
                     </span>
                 </button>
 

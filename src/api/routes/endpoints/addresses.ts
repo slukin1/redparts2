@@ -9,32 +9,67 @@ export function getDefaultAddress(): Promise<IAddress> {
     return Promise.resolve(clone(addresses.find((x) => x.default) || null));
 }
 
-export function getAddress(addressId: number): Promise<IAddress> {
-    return Promise.resolve(clone(addresses.find((x) => x.id === addressId) || null));
-}
-
-export function getAddresses(): Promise<IAddress[]> {
-    return Promise.resolve(clone(addresses));
-}
-
-export function addAddress(data: Partial<IEditAddressData>): Promise<IAddress> {
-    const address: IAddress = {
-        id: getNextAddressId(),
-        firstName: '',
-        lastName: '',
+export async function getAddress(addressId: number): Promise<IAddress> {
+    let user = await UserService.getUserApi({ id: JSON.parse(localStorage.getItem('Tokens')).id });
+    user = user.results;
+    user = user.address.map((x, i) => ({
+        id: i,
+        firstName: user.firstName,
+        lastName: user.lastName,
         company: '',
-        country: '',
-        address1: '',
-        address2: '',
-        city: '',
-        state: '',
-        postcode: '',
-        email: '',
-        phone: '',
-        default: false,
-        ...data,
-    };
+        country: x.country,
+        address1: x.address1,
+        address2: x.address2,
+        city: x.city,
+        state: x.state,
+        postcode: x.postcode,
+        email: user.email,
+        phone: user.phone,
+        default: i === 0,
+    }));
 
+    return Promise.resolve(clone(user[addressId]));
+}
+
+export async function getAddresses(): Promise<IAddress[]> {
+    let user = await UserService.getUserApi({ id: JSON.parse(localStorage.getItem('Tokens')).id });
+    console.log(user);
+    user = user.results;
+    user = user.address.map((x, i) => ({
+        id: i,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        company: '',
+        country: x.country,
+        address1: x.address1,
+        address2: x.address2,
+        city: x.city,
+        state: x.state,
+        postcode: x.postcode,
+        email: user.email,
+        phone: user.phone,
+        default: i === 0,
+    }));
+    return Promise.resolve(clone(user));
+}
+
+export async function addAddress(data: Partial<IEditAddressData>): Promise<IAddress> {
+    const address:any = {
+        street: data.address1,
+        address1: data.address1,
+        address2: data.address2,
+        city: data.city,
+        state: data.state,
+        postcode: data.postcode,
+        addressType: 'string',
+        country: data.country,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        deletedAt: '',
+    };
+    let user = await UserService.getUserApi({ id: JSON.parse(localStorage.getItem('Tokens')).id });
+    user = user.results;
+    const response = await UserService.putUserUpdateProfile({ requestBody: { favoriteProducts: [], ...user, address: [...user.address, address] } });
     if (addresses.length < 1) {
         address.default = true;
     }
@@ -46,29 +81,6 @@ export function addAddress(data: Partial<IEditAddressData>): Promise<IAddress> {
     }
 
     addresses.push(address);
-    // @ts-ignore
-    // UserService.getUserApi({ id: JSON.parse(localStorage.getItem('Token')).id });
-    // UserService.putUserUpdateProfile({
-    //     requestBody: {
-    //         adddress:
-    // [
-    //     {
-    //         street: 'string',
-    //         address1: 'string',
-    //         address2: 'string',
-    //         city: 'string',
-    //         state: 'string',
-    //         postcode: 'string',
-    //         addressType: 'string',
-    //         country: 'string',
-    //         createdAt: 'string',
-    //         updatedAt: 'string',
-    //         deletedAt: 'string',
-    //     },
-    // ],
-    //     },
-    // });
-
     return delayResponse(Promise.resolve(address));
 }
 

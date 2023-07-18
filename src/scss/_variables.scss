@@ -1106,8 +1106,8 @@
          default-bg-color:   transparent,
          default-font-color: #ccc,
          // normal
-         normal-bg-color:    map_get($theme-scheme, main),
-         normal-font-color:  map_get($theme-scheme, opposite),
+         normal-bg-color:    green,
+         normal-font-color:  green,
          // hover
          hover-bg-color:     map_get($dark-scheme, main),
          hover-font-color:   map_get($dark-scheme, opposite),

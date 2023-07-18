@@ -1,14 +1,15 @@
 // react
-import React, { useEffect, useMemo } from 'react';
+import React, {
+    lazy, Suspense, useEffect, useMemo, useState,
+} from 'react';
 // third-party
 import classNames from 'classnames';
 import { useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
 // application
+import dynamic from 'next/dynamic';
 import BlockHeader from '~/components/blocks/BlockHeader';
 import BlockSpace from '~/components/blocks/BlockSpace';
-import ProductsView from '~/components/shop/ProductsView';
-import ShopSidebar from '~/components/shop/ShopSidebar';
 import url from '~/api/services/url';
 import { getCategoryParents } from '~/api/services/utils';
 import { buildQuery } from '~/store/shop/shopHelpers';
@@ -22,6 +23,14 @@ import {
     IShopPageOffCanvasSidebar,
     IShopPageSidebarPosition,
 } from '~/interfaces/pages';
+
+const ShopSidebar = dynamic(() => import('~/components/shop/ShopSidebar'), {
+    ssr: false,
+});
+
+const ProductsView = dynamic(() => import('~/components/shop/ProductsView'), {
+    ssr: false,
+});
 
 interface Props {
     layout: IShopPageLayout;
@@ -38,7 +47,19 @@ function ShopPageShop(props: Props) {
     const intl = useIntl();
     const router = useRouter();
     const shopState = useShop();
+    const [isLocalStorageEnabled, setIsLocalStorageEnabled] = useState(false);
 
+    useEffect(() => {
+        // Check if local storage is enabled
+        const testKey = 'test-key';
+        try {
+            localStorage.setItem(testKey, testKey);
+            localStorage.removeItem(testKey);
+            setIsLocalStorageEnabled(true);
+        } catch (e) {
+            setIsLocalStorageEnabled(false);
+        }
+    }, []);
     // Replace current url.
     useEffect(() => {
         if (!shopState.init) {
@@ -82,7 +103,7 @@ function ShopPageShop(props: Props) {
     }
 
     const sidebar = (
-        <ShopSidebar offcanvas={offCanvasSidebar} />
+        isLocalStorageEnabled && <ShopSidebar offcanvas={offCanvasSidebar} />
     );
 
     const blockSplitClasses = classNames('block-split', {
@@ -108,11 +129,14 @@ function ShopPageShop(props: Props) {
 
                                 <div className="block-split__item block-split__item-content col-auto flex-grow-1">
                                     <div className="block">
-                                        <ProductsView
-                                            layout={layout}
-                                            gridLayout={gridLayout}
-                                            offCanvasSidebar={offCanvasSidebar}
-                                        />
+                                        { isLocalStorageEnabled
+                                        && (
+                                            <ProductsView
+                                                layout={layout}
+                                                gridLayout={gridLayout}
+                                                offCanvasSidebar={offCanvasSidebar}
+                                            />
+                                        )}
                                     </div>
                                 </div>
 

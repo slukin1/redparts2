@@ -20,6 +20,7 @@ import { useCompareAddItem } from '~/store/compare/compareHooks';
 import { useInquire, useInquireClose } from '~/store/inquire/inquireHooks';
 import { useWishlistAddItem } from '~/store/wishlist/wishlistHooks';
 import ProductGallery from '~/components/shop/ProductGallery';
+import { OrderService, UserService } from '~/api/services/allapi';
 
 interface Country {
     name: string;
@@ -75,11 +76,41 @@ function InquiryModal() {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const onSubmit = (data: FormData) => {
-        // Handle form submission
-        // console.log(data);
+    async function onSubmit(data: FormData) {
+        // if ()
+        let user = await UserService.getUserApi({ id: JSON.parse(localStorage.getItem('Tokens')).id });
+        user = user.results;
+        const response = await OrderService.addOrder({
+            requestBody: {
+                productId: product.id,
+                totalPrice: product.price,
+                isPaid: false,
+                isDelivered: false,
+                taxPrice: 0,
+                shippingPrice: 0,
+                destinationPort: '',
+                originPort: '',
+                preExportInspectionFee: data.prexInspection,
+                marineInsuranceFee: data.marineInsurance,
+                status: 'NotProcessed',
+                paidAt: '',
+                paymentMethod: '',
+                paymentStripeId: '',
+                paymentPayaplId: '',
+                createdAt: '',
+                phone: data.phoneNumber,
+                email: data.email,
+                message: data.comments,
+                trackingUrl: '',
+                address: [
+                    ...user.address,
+                ],
+                user,
+            },
+            accessToken: JSON.parse(localStorage.getItem('Tokens')).accessToken,
+        });
         reset();
-    };
+    }
 
     const productTemplate = (
         <div className="quickview__product d-flex flex-column flex-lg-row">
@@ -99,28 +130,28 @@ function InquiryModal() {
                                 </th>
                                 <td>{product.sku}</td>
                             </tr>
-                            {product.brand && (
-                                <React.Fragment>
-                                    <tr>
-                                        <th>
-                                            <FormattedMessage id="TABLE_BRAND" />
-                                        </th>
-                                        <td>
-                                            {product.brand.name}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            <FormattedMessage id="TABLE_COUNTRY" />
-                                        </th>
-                                        <td>
-                                            <FormattedMessage
-                                                id={`COUNTRY_NAME_${product.brand.country}`}
-                                            />
-                                        </td>
-                                    </tr>
-                                </React.Fragment>
-                            )}
+                            {/* {product.brand && ( */}
+                            {/*    <React.Fragment> */}
+                            {/*        <tr> */}
+                            {/*            <th> */}
+                            {/*                <FormattedMessage id="TABLE_BRAND" /> */}
+                            {/*            </th> */}
+                            {/*            <td> */}
+                            {/*                {product.brand.name} */}
+                            {/*            </td> */}
+                            {/*        </tr> */}
+                            {/*        <tr> */}
+                            {/*            <th> */}
+                            {/*                <FormattedMessage id="TABLE_COUNTRY" /> */}
+                            {/*            </th> */}
+                            {/*            <td> */}
+                            {/*                <FormattedMessage */}
+                            {/*                    id={`COUNTRY_NAME_${product.brand.country}`} */}
+                            {/*                /> */}
+                            {/*            </td> */}
+                            {/*        </tr> */}
+                            {/*    </React.Fragment> */}
+                            {/* )} */}
                             <tr>
                                 <th>
                                     <FormattedMessage id="TABLE_PART_NUMBER" />
@@ -137,64 +168,107 @@ function InquiryModal() {
                     </div>
                 )}
                 <div className="d-flex justify-content-lg-between align-items-center w-100 justify-content-around flex-row mt-lg-5 pb-lg-5">
-                    <div className="quickview__product-actions d-flex flex-row">
-                        <AsyncAction
-                            action={() => wishlistAddItem(product)}
-                            render={({ run, loading }) => (
-                                <div
-                                    className="quickview__product-actions-item quickview__product-actions-item--wishlist"
-                                >
-                                    <button
-                                        type="button"
-                                        className={classNames('btn btn-muted btn-icon', {
-                                            'btn-loading': loading,
-                                        })}
-                                        onClick={run}
-                                    >
-                                        <Wishlist16Svg />
-                                    </button>
-                                </div>
-                            )}
-                        />
-
-                        <AsyncAction
-                            action={() => compareAddItem(product)}
-                            render={({ run, loading }) => (
-                                <div
-                                    className="quickview__product-actions-item quickview__product-actions-item--compare"
-                                >
-                                    <button
-                                        type="button"
-                                        className={classNames('btn btn-muted btn-icon', {
-                                            'btn-loading': loading,
-                                        })}
-                                        onClick={run}
-                                    >
-                                        <Compare16Svg />
-                                    </button>
-                                </div>
-                            )}
-                        />
+                    {/* Country Selector */}
+                    <div className="form-group">
+                        <label htmlFor="country">Country</label>
+                        <select
+                            className={`form-control ${errors.country ? 'is-invalid' : ''}`}
+                            id="country"
+                            {...register('country', { required: 'Country is required' })}
+                        >
+                            <option value="">Select a country</option>
+                            {countries.map((country) => (
+                                <option key={country.code} value={country.code}>
+                                    {country.name}
+                                </option>
+                            ))}
+                        </select>
+                        {errors.country && <div className="invalid-feedback">{errors.country.message}</div>}
                     </div>
-                    <div className="quickview__product-prices-stock mt-3 pt-0 pt-lg-3 mt-lg-0">
-                        <div className="quickview__product-prices">
-                            {product.compareAtPrice !== null && (
-                                <React.Fragment>
-                                    <div className="quickview__product-price quickview__product-price--old">
-                                        <CurrencyFormat value={product.compareAtPrice} />
-                                    </div>
-                                    <div className="quickview__product-price quickview__product-price--new">
-                                        <CurrencyFormat value={product.price} />
-                                    </div>
-                                </React.Fragment>
-                            )}
-                            {product.compareAtPrice === null && (
-                                <div className="quickview__product-price quickview__product-price--current">
-                                    <CurrencyFormat value={product.price} />
-                                </div>
-                            )}
+                    <div className="form-group">
+                        <div className="custom-control custom-checkbox">
+                            <input
+                                type="checkbox"
+                                className="custom-control-input"
+                                id="prexInspection"
+                                {...register('prexInspection')}
+                            />
+                            <label className="custom-control-label" htmlFor="prexInspection">
+                                Pre-export Inspection
+                            </label>
                         </div>
                     </div>
+                    <div className="form-group">
+                        <div className="custom-control custom-checkbox">
+                            <input
+                                type="checkbox"
+                                className="custom-control-input"
+                                id="marineInsurance"
+                                {...register('marineInsurance')}
+                            />
+                            <label className="custom-control-label" htmlFor="marineInsurance">
+                                Marine Insurance Fee
+                            </label>
+                        </div>
+                    </div>
+                    {/* <div className="quickview__product-actions d-flex flex-row"> */}
+                    {/*    <AsyncAction */}
+                    {/*        action={() => wishlistAddItem(product)} */}
+                    {/*        render={({ run, loading }) => ( */}
+                    {/*            <div */}
+                    {/*                className="quickview__product-actions-item quickview__product-actions-item--wishlist" */}
+                    {/*            > */}
+                    {/*                <button */}
+                    {/*                    type="button" */}
+                    {/*                    className={classNames('btn btn-muted btn-icon', { */}
+                    {/*                        'btn-loading': loading, */}
+                    {/*                    })} */}
+                    {/*                    onClick={run} */}
+                    {/*                > */}
+                    {/*                    <Wishlist16Svg /> */}
+                    {/*                </button> */}
+                    {/*            </div> */}
+                    {/*        )} */}
+                    {/*    /> */}
+
+                    {/*    <AsyncAction */}
+                    {/*        action={() => compareAddItem(product)} */}
+                    {/*        render={({ run, loading }) => ( */}
+                    {/*            <div */}
+                    {/*                className="quickview__product-actions-item quickview__product-actions-item--compare" */}
+                    {/*            > */}
+                    {/*                <button */}
+                    {/*                    type="button" */}
+                    {/*                    className={classNames('btn btn-muted btn-icon', { */}
+                    {/*                        'btn-loading': loading, */}
+                    {/*                    })} */}
+                    {/*                    onClick={run} */}
+                    {/*                > */}
+                    {/*                    <Compare16Svg /> */}
+                    {/*                </button> */}
+                    {/*            </div> */}
+                    {/*        )} */}
+                    {/*    /> */}
+                    {/* </div> */}
+                    {/* <div className="quickview__product-prices-stock mt-3 pt-0 pt-lg-3 mt-lg-0"> */}
+                    {/*    <div className="quickview__product-prices"> */}
+                    {/*        {product.compareAtPrice !== null && ( */}
+                    {/*            <React.Fragment> */}
+                    {/*                <div className="quickview__product-price quickview__product-price--old"> */}
+                    {/*                    <CurrencyFormat value={product.compareAtPrice} /> */}
+                    {/*                </div> */}
+                    {/*                <div className="quickview__product-price quickview__product-price--new"> */}
+                    {/*                    <CurrencyFormat value={product.price} /> */}
+                    {/*                </div> */}
+                    {/*            </React.Fragment> */}
+                    {/*        )} */}
+                    {/*        {product.compareAtPrice === null && ( */}
+                    {/*            <div className="quickview__product-price quickview__product-price--current"> */}
+                    {/*                <CurrencyFormat value={product.price} /> */}
+                    {/*            </div> */}
+                    {/*        )} */}
+                    {/*    </div> */}
+                    {/* </div> */}
                 </div>
             </div>
         </div>
@@ -209,47 +283,31 @@ function InquiryModal() {
             </button>
             <form onSubmit={handleSubmit(onSubmit)} className="quickview__body d-flex flex-column">
                 {productTemplate}
+                <div className="flex flex-row w-100">
+                    {/* First Name */}
+                    <div className="form-group">
+                        <label htmlFor="firstName">First Name</label>
+                        <input
+                            type="text"
+                            className={`form-control ${errors.firstName ? 'is-invalid' : ''}`}
+                            id="firstName"
+                            {...register('firstName', { required: 'First Name is required' })}
+                        />
+                        {errors.firstName && <div className="invalid-feedback">{errors.firstName.message}</div>}
+                    </div>
 
-                {/* First Name */}
-                <div className="form-group">
-                    <label htmlFor="firstName">First Name</label>
-                    <input
-                        type="text"
-                        className={`form-control ${errors.firstName ? 'is-invalid' : ''}`}
-                        id="firstName"
-                        {...register('firstName', { required: 'First Name is required' })}
-                    />
-                    {errors.firstName && <div className="invalid-feedback">{errors.firstName.message}</div>}
-                </div>
+                    {/* Last Name */}
+                    <div className="form-group">
+                        <label htmlFor="lastName">Last Name</label>
+                        <input
+                            type="text"
+                            className={`form-control ${errors.lastName ? 'is-invalid' : ''}`}
+                            id="lastName"
+                            {...register('lastName', { required: 'Last Name is required' })}
+                        />
+                        {errors.lastName && <div className="invalid-feedback">{errors.lastName.message}</div>}
+                    </div>
 
-                {/* Last Name */}
-                <div className="form-group">
-                    <label htmlFor="lastName">Last Name</label>
-                    <input
-                        type="text"
-                        className={`form-control ${errors.lastName ? 'is-invalid' : ''}`}
-                        id="lastName"
-                        {...register('lastName', { required: 'Last Name is required' })}
-                    />
-                    {errors.lastName && <div className="invalid-feedback">{errors.lastName.message}</div>}
-                </div>
-
-                {/* Country Selector */}
-                <div className="form-group">
-                    <label htmlFor="country">Country</label>
-                    <select
-                        className={`form-control ${errors.country ? 'is-invalid' : ''}`}
-                        id="country"
-                        {...register('country', { required: 'Country is required' })}
-                    >
-                        <option value="">Select a country</option>
-                        {countries.map((country) => (
-                            <option key={country.code} value={country.code}>
-                                {country.name}
-                            </option>
-                        ))}
-                    </select>
-                    {errors.country && <div className="invalid-feedback">{errors.country.message}</div>}
                 </div>
 
                 {/* Email */}
@@ -301,45 +359,16 @@ function InquiryModal() {
                 </div>
                 <div className="d-flex flex-lg-row flex-column w-100">
                     <div className="form-group w-100">
-                        <ReCAPTCHA
-                            sitekey="YOUR_RECAPTCHA_SITE_KEY"
-                            {...register('recaptcha', {
-                                required: 'reCAPTCHA validation is required',
-                            })}
-                        />
-                        {errors.recaptcha && <div className="invalid-feedback">{errors.recaptcha.message}</div>}
+                        {/* <ReCAPTCHA */}
+                        {/*    sitekey="YOUR_RECAPTCHA_SITE_KEY" */}
+                        {/*    {...register('recaptcha', { */}
+                        {/*        required: 'reCAPTCHA validation is required', */}
+                        {/*    })} */}
+                        {/* /> */}
+                        {/* {errors.recaptcha && <div className="invalid-feedback">{errors.recaptcha.message}</div>} */}
                     </div>
                     {/* check boxes two */}
-                    <div className="w-100">
-                        <div className="form-group">
-                            <div className="custom-control custom-checkbox">
-                                <input
-                                    type="checkbox"
-                                    className="custom-control-input"
-                                    id="prexInspection"
-                                    {...register('prexInspection', { required: 'Please check the box' })}
-                                />
-                                <label className="custom-control-label" htmlFor="prexInspection">
-                                    Pre-export Inspection
-                                </label>
-                                {errors.prexInspection && <div className="invalid-feedback">{errors.prexInspection.message}</div>}
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <div className="custom-control custom-checkbox">
-                                <input
-                                    type="checkbox"
-                                    className="custom-control-input"
-                                    id="marineInsurance"
-                                    {...register('marineInsurance', { required: 'Please check the box' })}
-                                />
-                                <label className="custom-control-label" htmlFor="marineInsurance">
-                                    Marine Insurance Fee
-                                </label>
-                                {errors.marineInsurance && <div className="invalid-feedback">{errors.marineInsurance.message}</div>}
-                            </div>
-                        </div>
-                    </div>
+                    <div className="w-100" />
 
                 </div>
                 {/* Submit Button */}

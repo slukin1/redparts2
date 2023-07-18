@@ -124,25 +124,40 @@ export async function accountSignOut(): Promise<void> {
 }
 
 export async function accountEditProfile(data: IEditProfileData): Promise<IUser> {
-    const userData = await UserService.getUserApi({
-        id: JSON.parse(localStorage.getItem('Tokens') || '{}').id,
+    let userData:any;
+    if (!localStorage.getItem('userData')) {
+        userData = await UserService.getUserApi({
+            id: JSON.parse(localStorage.getItem('Tokens') || '{}').id,
+            // @ts-ignore
+            token: JSON.parse(localStorage.getItem('Tokens') || '{}').accessToken,
+        });
+        localStorage.setItem('userData', JSON.stringify(userData.results));
+        userData = userData?.results;
+    } else {
+        userData = localStorage.getItem('userData');
+    }
+    // @ts-ignore
+    let response = await UserService.putUserUpdateProfile({
+        requestBody: {
+            // @ts-ignore
+            // eslint-disable-next-line no-underscore-dangle
+            favoriteProducts: [], ...userData, ...data,
+        },
         // @ts-ignore
         token: JSON.parse(localStorage.getItem('Tokens') || '{}').accessToken,
     });
     // @ts-ignore
-    const response = await UserService.putUserUpdateProfile({
-        // @ts-ignore
-        // eslint-disable-next-line no-underscore-dangle
-        requestBody: { ...userData?.results, ...data, id: userData?.results._id },
-        // @ts-ignore
-        token: JSON.parse(localStorage.getItem('Tokens') || '{}').accessToken,
-    });
+    response = response.results;
     const user: IUser = {
-        email: data.email,
-        phone: data.phone,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        avatar: '//www.gravatar.com/avatar/bde30b7dd579b3c9773f80132523b4c3?d=mp&s=88',
+        // @ts-ignore
+        email: response.email,
+        // @ts-ignore
+        phone: response.phone,
+        // @ts-ignore
+        firstName: response.firstName,
+        // @ts-ignore
+        lastName: response.lastName,
+        avatar: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
     };
     return delayResponse(Promise.resolve(user));
 }

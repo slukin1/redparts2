@@ -40,7 +40,7 @@ import {
 import { IShopCategory } from '~/interfaces/category';
 import { IVehicle } from '~/interfaces/vehicle';
 
-interface JSON1 {
+export interface JSON1 {
     id: number;
     name: string;
     excerpt: string;
@@ -160,7 +160,7 @@ interface JSON2 {
     __v: number;
     id: string;
 }
-function translateJSON(json2: JSON2): JSON1 {
+export function translateJSON(json2: JSON2): JSON1 {
     const json1 = {
         // eslint-disable-next-line no-underscore-dangle
         id: json2._id || '',

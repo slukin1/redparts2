@@ -16,6 +16,7 @@ export async function getDataFromLocalStorage(key: string): Promise<any> {
         try {
             const allData = localStorage.getItem('allData');
             if (allData) {
+                console.log('→ getDataFromLocalStorage');
                 const parsedData = JSON.parse(allData);
                 const data = parsedData[key];
                 if (data) {

@@ -1,13 +1,21 @@
-// react
 import React from 'react';
-// third-party
+import { useForm, Controller } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
-// application
 import BlockSpace from '~/components/blocks/BlockSpace';
 import PageTitle from '~/components/shared/PageTitle';
+import { OrderService } from '~/api/services/allapi';
 
 function Page() {
+    const { control, handleSubmit } = useForm();
     const intl = useIntl();
+
+    async function handleFormSubmit(data: any) {
+        console.log(data);
+
+        let response = await OrderService.orderTracking({ ...data });
+        console.log(response);
+        // Handle the response as needed
+    }
 
     return (
         <React.Fragment>
@@ -28,31 +36,54 @@ function Page() {
                                     <p className="mb-4">
                                         <FormattedMessage id="TEXT_TRACK_ORDER_HELP" />
                                     </p>
-                                    <form>
+                                    <form onSubmit={handleSubmit(handleFormSubmit)}>
                                         <div className="form-group">
                                             <label htmlFor="track-order-id">
                                                 <FormattedMessage id="INPUT_ORDER_ID_LABEL" />
                                             </label>
-                                            <input
-                                                id="track-order-id"
-                                                type="text"
-                                                className="form-control"
-                                                placeholder={intl.formatMessage({ id: 'INPUT_ORDER_ID_PLACEHOLDER' })}
+                                            <Controller
+                                                name="orderId"
+                                                control={control}
+                                                defaultValue=""
+                                                render={({ field }) => (
+                                                    <input
+                                                        {...field}
+                                                        id="track-order-id"
+                                                        type="text"
+                                                        className="form-control"
+                                                        placeholder={intl.formatMessage({
+                                                            id: 'INPUT_ORDER_ID_PLACEHOLDER',
+                                                        })}
+                                                    />
+                                                )}
                                             />
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="track-email">
                                                 <FormattedMessage id="INPUT_EMAIL_ADDRESS_LABEL" />
                                             </label>
-                                            <input
-                                                id="track-email"
-                                                type="email"
-                                                className="form-control"
-                                                placeholder={intl.formatMessage({ id: 'INPUT_EMAIL_ADDRESS_PLACEHOLDER' })}
+                                            <Controller
+                                                name="email"
+                                                control={control}
+                                                defaultValue=""
+                                                render={({ field }) => (
+                                                    <input
+                                                        {...field}
+                                                        id="track-email"
+                                                        type="email"
+                                                        className="form-control"
+                                                        placeholder={intl.formatMessage({
+                                                            id: 'INPUT_EMAIL_ADDRESS_PLACEHOLDER',
+                                                        })}
+                                                    />
+                                                )}
                                             />
                                         </div>
                                         <div className="form-group pt-4 mb-1">
-                                            <button type="submit" className="btn btn-primary btn-lg btn-block">
+                                            <button
+                                                type="submit"
+                                                className="btn btn-primary btn-lg btn-block"
+                                            >
                                                 <FormattedMessage id="BUTTON_TRACK" />
                                             </button>
                                         </div>

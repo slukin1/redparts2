@@ -23,6 +23,7 @@ import {
     Person20Svg,
     Search20Svg,
 } from '~/svg';
+import {useRouter} from "next/router";
 
 function MobileHeader() {
     const intl = useIntl();
@@ -36,6 +37,7 @@ function MobileHeader() {
     const searchIndicatorRef = useRef<HTMLDivElement | null>(null);
     const [searchIsOpen, setSearchIsOpen] = useState(false);
     const [vehiclePickerIsOpen, setVehiclePickerIsOpen] = useState(false);
+    const router = useRouter();
 
     const openSearch = () => {
         setSearchIsOpen(true);
@@ -67,6 +69,11 @@ function MobileHeader() {
 
     const onSearchSubmit = (event: React.FormEvent) => {
         event.preventDefault();
+        const query = searchInputRef.current?.value;
+        if (!query || query === '') {
+            return;
+        }
+        router.replace(`/catalog/products?filter_search=${query}`).then();
     };
 
     useGlobalMousedown((event) => {

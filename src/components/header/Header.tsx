@@ -31,7 +31,8 @@ function Header() {
     const departmentsLabel = useMemo(() => (
         desktopLayout === 'spaceship'
             ? <FormattedMessage id="BUTTON_DEPARTMENTS" />
-            : <FormattedMessage id="BUTTON_DEPARTMENTS_LONG" />
+            : <FormattedMessage id="BUTTON_DEPARTMENTS" />
+
     ), [desktopLayout]);
 
     const accountIndicatorLabel = user ? user.email : <FormattedMessage id="TEXT_INDICATOR_ACCOUNT_LABEL" />;

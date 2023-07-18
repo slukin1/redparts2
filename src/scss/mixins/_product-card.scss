@@ -197,14 +197,17 @@
         border: none;
         padding: 8px;
         border-radius: 2px;
-        background: white;
+        background: transparent;
         color: map_get($addtocart-button-scheme, default-font-color);
         z-index: 0;
         transition: color .2s;
 
         svg {
             display: block;
-            fill: white;
+            fill: transparent;
+            path {
+                stroke: black;
+            }
         }
 
         &:before {
@@ -233,7 +236,11 @@
     &:active {
         .product-card__addtocart-icon {
             color: map_get($addtocart-button-scheme, normal-font-color);
-
+        svg {
+            path {
+                stroke: white;
+            }
+        }
             &:before {
                 transform: scale(1);
                 background: map_get($addtocart-button-scheme, normal-bg-color);

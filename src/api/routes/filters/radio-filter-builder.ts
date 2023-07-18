@@ -7,6 +7,8 @@ import { IProduct } from '~/interfaces/product';
 import { VehicleService } from '~/api/services/allapi';
 import { getDataFromLocalStorage } from '~/api/routes/endpoints';
 
+console.log('request');
+
 export class RadioFilterBuilder extends AbstractFilterBuilder {
     private items: IBaseFilterItem[] = [];
 
@@ -32,11 +34,8 @@ export class RadioFilterBuilder extends AbstractFilterBuilder {
                 response = await getDataFromLocalStorage('makes');
             }
             if (!response || response === 'Failed') {
-                response = await new Promise((resolve) => {
-                    setTimeout(() => {
-                        resolve(VehicleService.getMakers({ acceptLanguage: 'en-US' }));
-                    }, 100);
-                });
+                response = await VehicleService.getMakers({ acceptLanguage: 'en-US' });
+                console.log('request');
             }
             filterFunction = (x: { make: string }) => filterOutUndefinedNullEmpty(x.make);
             mappingFunction = (x: { make: string; total: any }) => ({
@@ -53,11 +52,8 @@ export class RadioFilterBuilder extends AbstractFilterBuilder {
                 response = await getDataFromLocalStorage('bodyTypes');
             }
             if (!response || response === 'Failed') {
-                response = await new Promise((resolve) => {
-                    setTimeout(() => {
-                        resolve(VehicleService.getBodyTypes({ acceptLanguage: 'en-US' }));
-                    }, 200);
-                });
+                response = await VehicleService.getBodyTypes({ acceptLanguage: 'en-US' });
+                console.log('request');
             }
             filterFunction = (x: { bodyType: string }) => filterOutUndefinedNullEmpty(x.bodyType);
             mappingFunction = (x: { bodyType: string; total: any }) => ({
@@ -74,11 +70,8 @@ export class RadioFilterBuilder extends AbstractFilterBuilder {
                 response = await getDataFromLocalStorage('engine');
             }
             if (!response || response === 'Failed') {
-                response = await new Promise((resolve) => {
-                    setTimeout(() => {
-                        resolve(VehicleService.getEngineTypes({ acceptLanguage: 'en-US' }));
-                    }, 50);
-                });
+                response = await VehicleService.getEngineTypes({ acceptLanguage: 'en-US' });
+                console.log('request');
             }
             filterFunction = filterOutUndefinedNullEmpty;
             mappingFunction = (x: string) => ({
@@ -95,11 +88,8 @@ export class RadioFilterBuilder extends AbstractFilterBuilder {
                 response = await getDataFromLocalStorage('transmissions');
             }
             if (!response || response === 'Failed') {
-                response = await new Promise((resolve) => {
-                    setTimeout(() => {
-                        resolve(VehicleService.getTransmissions({ acceptLanguage: 'en-US' }));
-                    }, 120);
-                });
+                response = await VehicleService.getTransmissions({ acceptLanguage: 'en-US' });
+                console.log('request');
             }
             filterFunction = filterOutUndefinedNullEmpty;
             mappingFunction = (x: string) => ({
@@ -116,11 +106,8 @@ export class RadioFilterBuilder extends AbstractFilterBuilder {
                 response = await getDataFromLocalStorage('fuels');
             }
             if (!response || response === 'Failed') {
-                response = await new Promise((resolve) => {
-                    setTimeout(() => {
-                        resolve(VehicleService.getFuels({ acceptLanguage: 'en-US' }));
-                    }, 150);
-                });
+                response = await VehicleService.getFuels({ acceptLanguage: 'en-US' });
+                console.log('request');
             }
             filterFunction = filterOutUndefinedNullEmpty;
             mappingFunction = (x: string) => ({
