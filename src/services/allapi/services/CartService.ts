@@ -1,10 +1,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import type { Observable } from 'rxjs';
-
 import type { AddCartBody } from '../models/AddCartBody';
 import type { CartPostResponse } from '../models/CartPostResponse';
 import type { CartPutResponse } from '../models/CartPutResponse';
@@ -13,13 +9,11 @@ import type { commonPostResponse } from '../models/commonPostResponse';
 import type { errorResponse } from '../models/errorResponse';
 import type { UpdateCartBody } from '../models/UpdateCartBody';
 
+import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
-@Injectable()
 export class CartService {
-
-    constructor(public readonly http: HttpClient) {}
 
     /**
      * get cart API
@@ -28,7 +22,7 @@ export class CartService {
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public getCarts({
+    public static getCarts({
 acceptLanguage,
 }: {
 /**
@@ -36,8 +30,8 @@ acceptLanguage,
  * Example : en_US, jp_JP
  */
 acceptLanguage?: string,
-}): Observable<CartsGetResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<CartsGetResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/cart',
             query: {
@@ -58,12 +52,12 @@ acceptLanguage?: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public addCart({
+    public static addCart({
 requestBody,
 }: {
 requestBody: AddCartBody,
-}): Observable<CartPostResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<CartPostResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'POST',
             url: '/cart',
             body: requestBody,
@@ -82,7 +76,7 @@ requestBody: AddCartBody,
      * @returns commonPostResponse 200 response
      * @throws ApiError
      */
-    public deleteCart({
+    public static deleteCart({
 acceptLanguage,
 }: {
 /**
@@ -90,8 +84,8 @@ acceptLanguage,
  * Example : en_US, jp_JP
  */
 acceptLanguage?: string,
-}): Observable<commonPostResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<commonPostResponse> {
+        return __request(OpenAPI, {
             method: 'DELETE',
             url: '/cart',
             query: {
@@ -111,12 +105,12 @@ acceptLanguage?: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public putCart({
+    public static putCart({
 requestBody,
 }: {
 requestBody: UpdateCartBody,
-}): Observable<CartPutResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<CartPutResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'PATCH',
             url: '/cart/increase-one',
             body: requestBody,
@@ -136,12 +130,12 @@ requestBody: UpdateCartBody,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public putCartImage({
+    public static putCartImage({
 requestBody,
 }: {
 requestBody: UpdateCartBody,
-}): Observable<CartPutResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<CartPutResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'PATCH',
             url: '/cartId/reduce-one',
             body: requestBody,
@@ -160,7 +154,7 @@ requestBody: UpdateCartBody,
      * @returns commonPostResponse 200 response
      * @throws ApiError
      */
-    public deleteProductCart({
+    public static deleteProductCart({
 id,
 acceptLanguage,
 }: {
@@ -170,8 +164,8 @@ id: string,
  * Example : en_US, jp_JP
  */
 acceptLanguage?: string,
-}): Observable<commonPostResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<commonPostResponse> {
+        return __request(OpenAPI, {
             method: 'DELETE',
             url: '/cart/productId',
             query: {

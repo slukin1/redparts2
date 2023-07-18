@@ -2930,6 +2930,11 @@ paths:
           required: false
           schema:
             type: string
+        - name: keyWord
+          in: query
+          required: false
+          schema:
+            type: string
         - name: count
           in: query
           description: if count = 1 get total items
@@ -4403,7 +4408,7 @@ components:
           type: boolean
         passwordChangedAt:
           type: string
-        adddress:
+        address:
           type: array
           items:
             $ref: '#/components/schemas/Address'
@@ -4591,7 +4596,7 @@ components:
           $ref: '#/components/schemas/UserRole'
         status:
           $ref: '#/components/schemas/UserStatus'
-        adddress:
+        address:
           type: array
           items:
             $ref: '#/components/schemas/Address'
@@ -4640,10 +4645,10 @@ components:
     UserMail:
       type: object
       properties:
-        accessToken:
+        email:
           type: string
       required:
-        - accessToken
+        - email
     passForgotRequestBody:
       $ref: '#/components/schemas/UserMail'
     UserResetPassword:
@@ -4715,7 +4720,7 @@ components:
           type: boolean
         passwordChangedAt:
           type: string
-        adddress:
+        address:
           type: array
           items:
             $ref: '#/components/schemas/Address'
@@ -4790,7 +4795,7 @@ components:
           type: boolean
         passwordChangedAt:
           type: string
-        adddress:
+        address:
           type: array
           items:
             $ref: '#/components/schemas/Address'
@@ -4859,7 +4864,7 @@ components:
           $ref: '#/components/schemas/UserStatus'
         isEmailVerified:
           type: boolean
-        adddress:
+        address:
           type: array
           items:
             $ref: '#/components/schemas/Address'
@@ -4920,7 +4925,7 @@ components:
           type: boolean
         passwordChangedAt:
           type: string
-        adddress:
+        address:
           type: array
           items:
             $ref: '#/components/schemas/Address'
@@ -4976,7 +4981,7 @@ components:
           type: boolean
         passwordChangedAt:
           type: string
-        adddress:
+        address:
           type: array
           items:
             $ref: '#/components/schemas/Address'

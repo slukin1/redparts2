@@ -4537,6 +4537,14 @@
             }
           },
           {
+            "name": "keyWord",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "count",
             "in": "query",
             "description": "if count = 1 get total items",
@@ -6761,7 +6769,7 @@
           "passwordChangedAt": {
             "type": "string"
           },
-          "adddress": {
+          "address": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Address"
@@ -7018,7 +7026,7 @@
           "status": {
             "$ref": "#/components/schemas/UserStatus"
           },
-          "adddress": {
+          "address": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Address"
@@ -7100,12 +7108,12 @@
       "UserMail": {
         "type": "object",
         "properties": {
-          "accessToken": {
+          "email": {
             "type": "string"
           }
         },
         "required": [
-          "accessToken"
+          "email"
         ]
       },
       "passForgotRequestBody": {
@@ -7210,7 +7218,7 @@
           "passwordChangedAt": {
             "type": "string"
           },
-          "adddress": {
+          "address": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Address"
@@ -7320,7 +7328,7 @@
           "passwordChangedAt": {
             "type": "string"
           },
-          "adddress": {
+          "address": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Address"
@@ -7421,7 +7429,7 @@
           "isEmailVerified": {
             "type": "boolean"
           },
-          "adddress": {
+          "address": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Address"
@@ -7515,7 +7523,7 @@
           "passwordChangedAt": {
             "type": "string"
           },
-          "adddress": {
+          "address": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Address"
@@ -7594,7 +7602,7 @@
           "passwordChangedAt": {
             "type": "string"
           },
-          "adddress": {
+          "address": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Address"

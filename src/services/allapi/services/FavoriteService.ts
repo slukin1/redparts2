@@ -1,21 +1,15 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import type { Observable } from 'rxjs';
-
 import type { commonGetResponse } from '../models/commonGetResponse';
 import type { errorResponse } from '../models/errorResponse';
 import type { FavoriteResponse } from '../models/FavoriteResponse';
 
+import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
-@Injectable()
 export class FavoriteService {
-
-    constructor(public readonly http: HttpClient) {}
 
     /**
      * get favorite products list API
@@ -24,7 +18,7 @@ export class FavoriteService {
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public getFavoriteApi({
+    public static getFavoriteApi({
 acceptLanguage,
 }: {
 /**
@@ -32,8 +26,8 @@ acceptLanguage,
  * Example : en_US, jp_JP
  */
 acceptLanguage?: string,
-}): Observable<FavoriteResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<FavoriteResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/favorite',
             query: {
@@ -54,14 +48,14 @@ acceptLanguage?: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public addFavorite({
+    public static addFavorite({
 requestBody,
 }: {
 requestBody: {
 productId: string;
 },
-}): Observable<commonGetResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<commonGetResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'POST',
             url: '/favorite',
             body: requestBody,
@@ -81,7 +75,7 @@ productId: string;
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public checkFavoriteApi({
+    public static checkFavoriteApi({
 id,
 acceptLanguage,
 }: {
@@ -91,8 +85,8 @@ id: string,
  * Example : en_US, jp_JP
  */
 acceptLanguage?: string,
-}): Observable<commonGetResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<commonGetResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/favorite/check/productId',
             query: {
@@ -113,12 +107,12 @@ acceptLanguage?: string,
      * @returns commonGetResponse 200 response
      * @throws ApiError
      */
-    public favoriteDelete({
+    public static favoriteDelete({
 id,
 }: {
 id: string,
-}): Observable<commonGetResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<commonGetResponse> {
+        return __request(OpenAPI, {
             method: 'DELETE',
             url: '/favorite/productId',
             query: {

@@ -1,23 +1,17 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import type { Observable } from 'rxjs';
-
 import type { AddInquiryResponse } from '../models/AddInquiryResponse';
 import type { errorResponse } from '../models/errorResponse';
 import type { InquiryDeleteViewModel } from '../models/InquiryDeleteViewModel';
 import type { InquiryModel } from '../models/InquiryModel';
 import type { InquiryResponse } from '../models/InquiryResponse';
 
+import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
-@Injectable()
 export class InquiryService {
-
-    constructor(public readonly http: HttpClient) {}
 
     /**
      * get all inquiries data API
@@ -26,7 +20,7 @@ export class InquiryService {
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public getInquiries({
+    public static getInquiries({
 acceptLanguage,
 count,
 offset,
@@ -68,8 +62,8 @@ filter?: string,
  * Example : make, mileage, model
  */
 select?: string,
-}): Observable<InquiryResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<InquiryResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/inquiry',
             query: {
@@ -96,12 +90,12 @@ select?: string,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public addInquiry({
+    public static addInquiry({
 requestBody,
 }: {
 requestBody: InquiryModel,
-}): Observable<AddInquiryResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<AddInquiryResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'POST',
             url: '/inquiry',
             body: requestBody,
@@ -121,12 +115,12 @@ requestBody: InquiryModel,
      * @returns errorResponse default response
      * @throws ApiError
      */
-    public getInquiryApi({
+    public static getInquiryApi({
 id,
 }: {
 id: string,
-}): Observable<AddInquiryResponse | errorResponse> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<AddInquiryResponse | errorResponse> {
+        return __request(OpenAPI, {
             method: 'GET',
             url: '/inquiry/inquiryId',
             query: {
@@ -146,12 +140,12 @@ id: string,
      * @returns InquiryDeleteViewModel 200 response
      * @throws ApiError
      */
-    public deleteInquiry({
+    public static deleteInquiry({
 id,
 }: {
 id: string,
-}): Observable<InquiryDeleteViewModel> {
-        return __request(OpenAPI, this.http, {
+}): CancelablePromise<InquiryDeleteViewModel> {
+        return __request(OpenAPI, {
             method: 'DELETE',
             url: '/inquiry/inquiryId',
             query: {
