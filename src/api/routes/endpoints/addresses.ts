@@ -50,7 +50,7 @@ export function addAddress(data: Partial<IEditAddressData>): Promise<IAddress> {
     // UserService.getUserApi({ id: JSON.parse(localStorage.getItem('Token')).id });
     // UserService.putUserUpdateProfile({
     //     requestBody: {
-    //         adddress:
+    //         address:
     // [
     //     {
     //         street: 'string',

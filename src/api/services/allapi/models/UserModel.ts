@@ -16,7 +16,7 @@ export type UserModel = {
     role: UserRole;
     status: UserStatus;
     isEmailVerified?: boolean;
-    adddress?: Array<Address>;
+    address?: Array<Address>;
     companyName?: string;
     phone?: string;
     profileImage?: string;

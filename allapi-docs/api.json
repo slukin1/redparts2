@@ -5911,7 +5911,7 @@
           "passwordChangedAt": {
             "type": "string"
           },
-          "adddress": {
+          "address": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Address"
@@ -6168,7 +6168,7 @@
           "status": {
             "$ref": "#/components/schemas/UserStatus"
           },
-          "adddress": {
+          "address": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Address"
@@ -6360,7 +6360,7 @@
           "passwordChangedAt": {
             "type": "string"
           },
-          "adddress": {
+          "address": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Address"
@@ -6470,7 +6470,7 @@
           "passwordChangedAt": {
             "type": "string"
           },
-          "adddress": {
+          "address": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Address"
@@ -6571,7 +6571,7 @@
           "isEmailVerified": {
             "type": "boolean"
           },
-          "adddress": {
+          "address": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Address"
@@ -6665,7 +6665,7 @@
           "passwordChangedAt": {
             "type": "string"
           },
-          "adddress": {
+          "address": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Address"
@@ -6744,7 +6744,7 @@
           "passwordChangedAt": {
             "type": "string"
           },
-          "adddress": {
+          "address": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Address"
