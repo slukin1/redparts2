@@ -132,6 +132,7 @@ function Departments(props: Props) {
                                     menu={item.submenu}
                                     key={index}
                                     onItemClick={handleItemClick}
+                                    closeMenu={handleButtonClick}
                                 />
                             );
                         })}

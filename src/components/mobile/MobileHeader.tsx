@@ -4,6 +4,7 @@ import React, { useRef, useState } from 'react';
 import classNames from 'classnames';
 import { FormattedMessage, useIntl } from 'react-intl';
 // application
+import { useRouter } from 'next/router';
 import AppLink from '~/components/shared/AppLink';
 import MobileLogo from '~/components/mobile/MobileLogo';
 import url from '~/api/services/url';
@@ -23,7 +24,6 @@ import {
     Person20Svg,
     Search20Svg,
 } from '~/svg';
-import {useRouter} from "next/router";
 
 function MobileHeader() {
     const intl = useIntl();

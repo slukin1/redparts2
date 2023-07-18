@@ -20,7 +20,9 @@ import { useCompareAddItem } from '~/store/compare/compareHooks';
 import { useInquire, useInquireClose } from '~/store/inquire/inquireHooks';
 import { useWishlistAddItem } from '~/store/wishlist/wishlistHooks';
 import ProductGallery from '~/components/shop/ProductGallery';
-import { OrderService, UserService } from '~/api/services/allapi';
+import {
+    InquiryService, OrderService, UserService, VehicleService,
+} from '~/api/services/allapi';
 
 interface Country {
     name: string;
@@ -43,6 +45,7 @@ function InquiryModal() {
     const wishlistAddItem = useWishlistAddItem();
     const compareAddItem = useCompareAddItem();
     const { product } = inquire;
+    const [loading, setLoading] = useState(false);
     const image = useMemo(() => product?.images || [], [product]);
     const {
         register,
@@ -77,8 +80,34 @@ function InquiryModal() {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async function onSubmit(data: FormData) {
-
+        setLoading(true);
+        let Vehicle = await VehicleService.getVehicleApi({ id: product.id });
+        Vehicle = Vehicle.vehicle;
+        const inquiryService = await InquiryService.addInquiry({
+            requestBody: {
+                inquiryNo: '1',
+                inquiry: '1',
+                message: data.comments,
+                promotionCode: 'string',
+                products: [
+                    { ...Vehicle },
+                ],
+                contactType: 'PhoneCall',
+                inquiryStatus: 'Not Processed',
+                fullName: `${data.firstName} ${data.lastName}`,
+                phone: data.phoneNumber,
+                email: data.email,
+                country: data.country,
+                destinationPort: 'string',
+                insuranceFee: !!data.prexInspection,
+                inspectionFee: true,
+                createdAt: new Date().toDateString(),
+                updatedAt: new Date().toDateString(),
+                deletedAt: 'string',
+            },
+        });
         reset();
+        setLoading(false);
     }
 
     const productTemplate = (
@@ -159,13 +188,13 @@ function InquiryModal() {
                         </div>
                     </div>
                     <div className="form-group w-100">
-                        <ReCAPTCHA
-                            sitekey="YOUR_RECAPTCHA_SITE_KEY"
-                            {...register('recaptcha', {
-                                required: 'reCAPTCHA validation is required',
-                            })}
-                        />
-                        {errors.recaptcha && <div className="invalid-feedback">{errors.recaptcha.message}</div>}
+                        {/* <ReCAPTCHA */}
+                        {/*    sitekey="YOUR_RECAPTCHA_SITE_KEY" */}
+                        {/*    {...register('recaptcha', { */}
+                        {/*        required: 'reCAPTCHA validation is required', */}
+                        {/*    })} */}
+                        {/* /> */}
+                        {/* {errors.recaptcha && <div className="invalid-feedback">{errors.recaptcha.message}</div>} */}
                     </div>
                     {/* <div className="quickview__product-actions d-flex flex-row"> */}
                     {/*    <AsyncAction */}
@@ -315,7 +344,9 @@ function InquiryModal() {
                     {errors.comments && <div className="invalid-feedback">{errors.comments.message}</div>}
                 </div>
                 {/* Submit Button */}
-                <button type="submit" className="btn btn-primary">Submit</button>
+                {loading
+                    ? <button type="submit" className="btn btn-primary btn-loading" disabled>Submit</button>
+                    : <button type="submit" className="btn btn-primary">Submit</button>}
             </form>
         </Modal>
     );

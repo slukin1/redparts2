@@ -23,17 +23,30 @@ function Page() {
     const user = useUser();
     const signInForm = useSignInForm();
     const signUpForm = useSignUpForm();
-    function handleForgotPassowrd() {
-        // AuthService.passwordForgot()
-        toast.success('yay',
-            { theme: 'colored' });
-    }
 
     if (user) {
         return <Redirect href={url.accountDashboard()} />;
     }
 
     const { ref: signInFormRememberMeRef, ...signInFormRememberMeRefProps } = signInForm.register('remember');
+    // setup a watch from react hook form for the email
+    function handleForgotPassowrd() {
+        // if email is empty ask to enter email
+        const email = signInForm.watch('email');
+        // email should follow a regex
+        if (!email || email === 'red-parts@example.com') {
+            toast.error('Please enter email');
+            return;
+        }
+        if (!validateEmail(email)) {
+            toast.error('Please enter valid email');
+            return;
+        }
+        AuthService.passwordForgot({ requestBody: { email: signInForm.watch('email') } })
+            .then((res) => {
+                toast.success('Password Reset Email sent successfully');
+            });
+    }
 
     return (
         <React.Fragment>

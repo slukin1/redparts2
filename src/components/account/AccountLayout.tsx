@@ -25,7 +25,7 @@ function AccountLayout(props: Props) {
 
     const navigation: ILink[] = [
         { title: intl.formatMessage({ id: 'LINK_ACCOUNT_DASHBOARD' }), url: url.accountDashboard() },
-        // { title: intl.formatMessage({ id: 'LINK_ACCOUNT_GARAGE' }), url: url.accountGarage() },
+        { title: intl.formatMessage({ id: 'HEADER_INQUIRY_LIST' }), url: url.accountInquires() },
         { title: intl.formatMessage({ id: 'LINK_ACCOUNT_PROFILE' }), url: url.accountProfile() },
         { title: intl.formatMessage({ id: 'LINK_ACCOUNT_ORDERS' }), url: url.accountOrders() },
         { title: intl.formatMessage({ id: 'LINK_ACCOUNT_ADDRESSES' }), url: url.accountAddresses() },

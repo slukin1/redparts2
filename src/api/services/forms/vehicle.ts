@@ -80,8 +80,8 @@ export default function useVehicleForm(options: IOptions = {}) {
         },
         {
             key: 'model',
-            label: intl.formatMessage({ id: 'INPUT_VEHICLE_MODEL_LABEL' }),
-            placeholder: intl.formatMessage({ id: 'INPUT_VEHICLE_MODEL_PLACEHOLDER' }),
+            label: 'Model',
+            placeholder: 'Select Model',
             optionsSource: vehicleApi.getModels.bind(vehicleApi),
         },
         {

@@ -11,6 +11,7 @@ import url from '~/api/services/url';
 import { useSignInForm } from '~/api/services/forms/sign-in';
 import { useUser, useUserSignOut } from '~/store/user/userHooks';
 import { validateEmail } from '~/api/services/validators';
+import { AuthService } from '~/api/services/allapi';
 
 interface Props {
     onCloseMenu: () => void;
@@ -38,9 +39,19 @@ function AccountMenu(props: Props) {
         });
     };
     function handleForgotPassword() {
-        toast.success('Please contact admin to reset your password', {
-            theme: 'colored',
-        });
+        const email = signInForm.watch('email');
+        if (!email || email === 'red-parts@example.com') {
+            toast.error('Please enter email');
+            return;
+        }
+        if (!validateEmail(email)) {
+            toast.error('Please enter valid email');
+            return;
+        }
+        AuthService.passwordForgot({ requestBody: { email: signInForm.watch('email') } })
+            .then((res) => {
+                toast.success('Password Reset Email sent successfully');
+            });
     }
 
     return (
@@ -148,6 +159,11 @@ function AccountMenu(props: Props) {
                         <li>
                             <AppLink href={url.accountProfile()} onClick={onCloseMenu}>
                                 <FormattedMessage id="LINK_ACCOUNT_PROFILE" />
+                            </AppLink>
+                        </li>
+                        <li>
+                            <AppLink href={url.accountInquires()} onClick={onCloseMenu}>
+                                <FormattedMessage id="LINK_ACCOUNT_INQUIRIES" />
                             </AppLink>
                         </li>
                         <li>

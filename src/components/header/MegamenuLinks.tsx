@@ -3,6 +3,7 @@ import React from 'react';
 // third-party
 import classNames from 'classnames';
 // application
+import { toast } from 'react-toastify';
 import AppLink from '~/components/shared/AppLink';
 import { ILink, INestedLink } from '~/interfaces/link';
 
@@ -10,6 +11,7 @@ interface Props extends React.HTMLAttributes<HTMLElement> {
     links: INestedLink[];
     level?: number;
     onItemClick?: (item: ILink) => void;
+    closeMenu?: () => void;
 }
 
 function MegamenuLinks(props: Props) {
@@ -18,6 +20,7 @@ function MegamenuLinks(props: Props) {
         level = 0,
         onItemClick,
         className,
+        closeMenu,
         ...rootProps
     } = props;
 
@@ -35,7 +38,16 @@ function MegamenuLinks(props: Props) {
                 });
 
                 return (
-                    <li className={linkClasses} key={linkIndex}>
+                    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/click-events-have-key-events
+                    <li
+                        className={linkClasses}
+                        key={linkIndex}
+                        onClick={() => {
+                            if (closeMenu) {
+                                closeMenu();
+                            }
+                        }}
+                    >
                         <AppLink
                             className="megamenu-links__item-link"
                             href={link.url}

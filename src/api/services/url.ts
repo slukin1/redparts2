@@ -80,6 +80,7 @@ const url = {
     passwordRecovery: () => '/',
 
     // account pages
+    accountInquires: () => '/account/inquires',
     accountDashboard: (): IAppLinkHref => '/account/dashboard',
     accountGarage: () => '/account/garage',
     accountProfile: () => '/account/profile',

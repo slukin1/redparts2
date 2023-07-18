@@ -42,7 +42,6 @@ function JsonToOrder(json: Order): {
     items: { product: JSON1; total: number; quantity: number; price: number; options: any[] }[];
     status: string
 } {
-    // @ts-ignore
     return {
         // eslint-disable-next-line no-underscore-dangle
         id: json._id,
@@ -53,6 +52,7 @@ function JsonToOrder(json: Order): {
         payment: json.paymentMethod,
         status: json.status,
         items: json.products.map((product) => ({
+            // @ts-ignore
             product: translateJSON(product),
             options: [],
             price: product.price,
@@ -95,10 +95,9 @@ export async function getOrdersList(options?: IListOptions): Promise<IOrdersList
     // let items: IOrder[] = JSON.parse(JSON.stringify(orders));
     const limit = options?.limit || 8;
     // @ts-ignore
-    let items = await OrderService.getOrders({ accessToken: JSON.parse(localStorage.getItem('Tokens')).accessToken, page: options?.page || 1, limit: limit });
+    let items = await OrderService.getOrders({ accessToken: JSON.parse(localStorage.getItem('Tokens')).accessToken, page: options?.page || 1, limit });
     // @ts-ignore
     items = items?.orders.results.map((item) => JsonToOrder(item));
-    console.log(items);
     const sort = options?.sort || 'default';
     // @ts-ignore
     const [chunk, navigation] = makePageBasedNavigation(items, limit, options?.page || 1);

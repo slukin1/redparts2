@@ -6,14 +6,11 @@ import PageTitle from '~/components/shared/PageTitle';
 import { OrderService } from '~/api/services/allapi';
 
 function Page() {
-    const { control, handleSubmit } = useForm();
+    const { control, handleSubmit, formState: { errors } } = useForm();
     const intl = useIntl();
 
-    async function handleFormSubmit(data: any) {
-        console.log(data);
-
-        let response = await OrderService.orderTracking({ ...data });
-        console.log(response);
+    async function handleFormSubmit(data:any) {
+        const res = await OrderService.orderTracking({ orderId: data.orderId, email: data.email });
         // Handle the response as needed
     }
 
@@ -45,6 +42,10 @@ function Page() {
                                                 name="orderId"
                                                 control={control}
                                                 defaultValue=""
+                                                rules={{
+                                                    required: true,
+                                                    pattern: /^[0-9]+$/, // Only accept numbers
+                                                }}
                                                 render={({ field }) => (
                                                     <input
                                                         {...field}
@@ -57,6 +58,13 @@ function Page() {
                                                     />
                                                 )}
                                             />
+                                            {errors.orderId && (
+                                                <span className="text-danger">
+                                                    <FormattedMessage
+                                                        id={errors.orderId.type === 'required' ? 'ERROR_REQUIRED_FIELD' : 'ERROR_INVALID_ORDER_ID'}
+                                                    />
+                                                </span>
+                                            )}
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="track-email">
@@ -66,6 +74,10 @@ function Page() {
                                                 name="email"
                                                 control={control}
                                                 defaultValue=""
+                                                rules={{
+                                                    required: true,
+                                                    pattern: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/, // Email validation regex
+                                                }}
                                                 render={({ field }) => (
                                                     <input
                                                         {...field}
@@ -78,6 +90,13 @@ function Page() {
                                                     />
                                                 )}
                                             />
+                                            {errors.email && (
+                                                <span className="text-danger">
+                                                    <FormattedMessage
+                                                        id={errors.email.type === 'required' ? 'ERROR_REQUIRED_FIELD' : 'ERROR_INVALID_EMAIL'}
+                                                    />
+                                                </span>
+                                            )}
                                         </div>
                                         <div className="form-group pt-4 mb-1">
                                             <button
