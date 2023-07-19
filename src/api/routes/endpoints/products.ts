@@ -164,6 +164,7 @@ export function translateJSON(json2: JSON2): JSON1 {
     const json1 = {
         // eslint-disable-next-line no-underscore-dangle
         id: json2._id || '',
+        date: json2.createdAt || '',
         name: `${json2.make} ${json2.model} ${json2.modelYear}` || '',
         excerpt: '',
         description: '',
@@ -177,7 +178,7 @@ export function translateJSON(json2: JSON2): JSON1 {
         price: json2.price || '',
         compareAtPrice: null,
         images: json2.picture || [],
-        badges: ['sale', 'new', 'hot'],
+        badges: ['sale', 'used', 'hot'],
         rating: 5,
         reviews: 0,
         availability: json2.status || '',
@@ -185,7 +186,7 @@ export function translateJSON(json2: JSON2): JSON1 {
         brand: {
             name: json2.make || '',
             slug: json2.make || '',
-            country: '',
+            country: json2.location || 'Japan',
             image: '',
         },
         bodyType: {
@@ -585,6 +586,8 @@ export async function getPopularProducts(categorySlug: string | null, limit: num
         // @ts-ignore
         const products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
         // @ts-ignore
+        // the one with the most body types
+        products.sort((a:any, b:any) => ((a.bodyType > b.bodyType) ? 1 : -1));
         return Promise.resolve(clone(products.slice(0, limit)));
         // return delayResponse(Promise.resolve(clone(getProducts(6, categorySlug).slice(0, limit))), 1000);
     } catch (e) {
@@ -599,8 +602,8 @@ export async function getTopRatedProducts(categorySlug: string | null, limit: nu
         // @ts-ignore
         const products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
         // @ts-ignore
+        products.sort((a:any, b:any) => ((a.make > b.make) ? 1 : -1));
         return Promise.resolve(clone(products.slice(0, limit)));
-    // return delayResponse(Promise.resolve(clone(getProducts(12, categorySlug).slice(0, limit))), 1000);
     } catch (e) {
         console.error(e);
         throw new Error('Please try again later');
@@ -612,9 +615,8 @@ export async function getSpecialOffers(limit: number): Promise<IProduct[]> {
     });
     // @ts-ignore
     const products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
-    // @ts-ignore
+    products.sort((a:any, b:any) => (a.price - b.price));
     return Promise.resolve(clone(products.slice(0, limit)));
-    // return delayResponse(Promise.resolve(clone(getProducts(8).slice(0, limit))), 1000);
 }
 
 export async function getLatestProducts(limit: number): Promise<IProduct[]> {
@@ -623,6 +625,8 @@ export async function getLatestProducts(limit: number): Promise<IProduct[]> {
         // @ts-ignore
         const products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
         // @ts-ignore
+        // sort by recent date
+        products.sort((a:any, b:any) => ((a.date > b.date) ? 1 : -1));
         return Promise.resolve(clone(products.slice(0, limit)));
         // return Promise.resolve(clone(dbProducts.slice(0, limit)));
     } catch (e) {

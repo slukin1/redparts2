@@ -41,10 +41,10 @@ export class RangeFilterBuilder extends AbstractFilterBuilder {
         } else if (this.slug === 'price') {
             // maximum price from result list
             // @ts-ignore
-            this.max = 129_870_129;
+            this.max = 40_000_000;
             // minimum price from result list
             // @ts-ignore
-            this.min = 0;
+            this.min = 30_000;
         } else {
             this.max = dbProducts.reduce((acc, product) => Math.max(acc, this.extractValue(product)), 0);
             this.min = dbProducts.reduce((acc, product) => Math.min(acc, this.extractValue(product)), this.max);

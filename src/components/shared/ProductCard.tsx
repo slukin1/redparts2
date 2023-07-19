@@ -4,6 +4,8 @@ import React from 'react';
 import classNames from 'classnames';
 import { FormattedMessage, useIntl } from 'react-intl';
 // application
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 import AppImage from '~/components/shared/AppImage';
 import AppLink from '~/components/shared/AppLink';
 import AsyncAction from '~/components/shared/AsyncAction';
@@ -50,6 +52,7 @@ function ProductCard(props: Props) {
     const compareAddItem = useCompareAddItem();
     const wishlistAddItem = useWishlistAddItem();
     const inquire = useInquireOpen();
+    const router = useRouter();
 
     const showQuickview = () => quickviewOpen(product.slug);
     const addToWishlist = () => wishlistAddItem(product);
@@ -131,10 +134,10 @@ function ProductCard(props: Props) {
                 {!exclude.includes('meta') && (
                     <div className="product-card__meta">
                         <span className="product-card__meta-title">
-                            <FormattedMessage id="TEXT_SKU" />
+                            <FormattedMessage id="TABLE_REFERENCE" />
                             {': '}
                         </span>
-                        {product.sku}
+                        {product.slug}
                     </div>
                 )}
 
@@ -197,22 +200,25 @@ function ProductCard(props: Props) {
                 </div>
                 {!exclude.includes('buttons') && (
                     <React.Fragment>
-                        <AsyncAction
-                            action={() => showInquire()}
-                            render={({ run, loading }) => (
-                                <button
-                                    type="button"
-                                    className={classNames('product-card__addtocart-icon', {
-                                        'product-card__addtocart-icon--loading': loading,
-                                    })}
-                                    aria-label={intl.formatMessage({ id: 'BUTTON_INQUIRY' })}
-                                    onClick={run}
-                                >
-                                    {/* <Cart20Svg /> */}
-                                    <WhatsApp20Svg />
-                                </button>
-                            )}
-                        />
+                        {typeof window !== 'undefined' && (
+                            <button
+                                type="button"
+                                className="product-card__addtocart-icon"
+                                onClick={() => {
+                                    toast.success('Redirecting to WhatsApp', {
+                                        position: toast.POSITION.TOP_CENTER,
+                                        autoClose: 2000,
+                                        theme: 'colored',
+                                    });
+                                    setTimeout(() => {
+                                        window.open(`https://api.whatsapp.com/send/?phone=818074100831&text=Hi, I'm interested your product named as ${product.name} at ${window.location.protocol}//${window.location.host}/product/${product.slug}, please provide me more details.`, '_blank');
+                                    }, 3000);
+                                }}
+                                aria-label={intl.formatMessage({ id: 'BUTTON_INQUIRY' })}
+                            >
+                                <WhatsApp20Svg />
+                            </button>
+                        )}
                         {!exclude.includes('list-buttons') && (
                             <React.Fragment>
                                 <AsyncAction

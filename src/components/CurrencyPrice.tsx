@@ -9,24 +9,19 @@ interface Props {
     currency?: ICurrency;
 }
 
-function CurrencyFormat(props: Props) {
+function CurrencyPrice(props: Props) {
     const { value, currency: propCurrency } = props;
     const siteCurrency = useCurrency();
     const currency = propCurrency || siteCurrency;
-    const nonDiscount = value * 1.2;
 
     return (
+        // Create a react component in which one price larger than the other is slashed and the other is bold
         <React.Fragment>
-            <span style={{ textDecoration: 'line-through', color: 'darkred', fontSize: '65%' }}>
-                {currency.symbol}
-                {(nonDiscount * currency.rate).toFixed(2)}
-            </span>
-            <br />
-            <span style={{ fontWeight: 'bold', color: 'darkred', fontSize: '100%' }}>
+            <span>
                 {currency.symbol}
                 {(value * currency.rate).toFixed(2)}
             </span>
         </React.Fragment>
     );
 }
-export default CurrencyFormat;
+export default CurrencyPrice;

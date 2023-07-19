@@ -24,13 +24,9 @@ import {
     IShopPageSidebarPosition,
 } from '~/interfaces/pages';
 
-const ShopSidebar = dynamic(() => import('~/components/shop/ShopSidebar'), {
-    ssr: false,
-});
+import ShopSidebar from '~/components/shop/ShopSidebar';
 
-const ProductsView = dynamic(() => import('~/components/shop/ProductsView'), {
-    ssr: false,
-});
+import ProductsView from '~/components/shop/ProductsView';
 
 interface Props {
     layout: IShopPageLayout;
@@ -47,19 +43,6 @@ function ShopPageShop(props: Props) {
     const intl = useIntl();
     const router = useRouter();
     const shopState = useShop();
-    const [isLocalStorageEnabled, setIsLocalStorageEnabled] = useState(false);
-
-    useEffect(() => {
-        // Check if local storage is enabled
-        const testKey = 'test-key';
-        try {
-            localStorage.setItem(testKey, testKey);
-            localStorage.removeItem(testKey);
-            setIsLocalStorageEnabled(true);
-        } catch (e) {
-            setIsLocalStorageEnabled(false);
-        }
-    }, []);
     // Replace current url.
     useEffect(() => {
         if (!shopState.init) {
@@ -103,7 +86,7 @@ function ShopPageShop(props: Props) {
     }
 
     const sidebar = (
-        isLocalStorageEnabled && <ShopSidebar offcanvas={offCanvasSidebar} />
+        <ShopSidebar offcanvas={offCanvasSidebar} />
     );
 
     const blockSplitClasses = classNames('block-split', {
@@ -129,14 +112,11 @@ function ShopPageShop(props: Props) {
 
                                 <div className="block-split__item block-split__item-content col-auto flex-grow-1">
                                     <div className="block">
-                                        { isLocalStorageEnabled
-                                        && (
-                                            <ProductsView
-                                                layout={layout}
-                                                gridLayout={gridLayout}
-                                                offCanvasSidebar={offCanvasSidebar}
-                                            />
-                                        )}
+                                        <ProductsView
+                                            layout={layout}
+                                            gridLayout={gridLayout}
+                                            offCanvasSidebar={offCanvasSidebar}
+                                        />
                                     </div>
                                 </div>
 

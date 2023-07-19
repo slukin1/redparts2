@@ -46,8 +46,9 @@ function App(props: Props) {
     const applyClientState = useApplyClientState();
     const loadUserVehicles = useLoadUserVehicles();
     const dispatch = useDispatch();
-    // Loading and saving state on the client side (cart, wishlist, etc.).
-
+    useEffect(() => {
+        dispatch(getAllData());
+    }, []);
     useEffect(() => {
         const state = load();
         applyClientState(state || {});

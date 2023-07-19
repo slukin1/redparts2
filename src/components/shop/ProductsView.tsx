@@ -33,6 +33,7 @@ import {
     useShopResetFiltersThunk,
     useShopResetFilterThunk,
 } from '~/store/shop/shopHooks';
+import CurrencyPrice from '~/components/CurrencyPrice';
 
 interface LayoutButton {
     layout: IShopPageLayout;
@@ -288,9 +289,9 @@ function ProductsView(props: Props) {
                                                         )}
                                                         {filter.type === 'range' && filter.id === 'price' && (
                                                             <React.Fragment>
-                                                                <CurrencyFormat value={filter.original.value[0]} />
+                                                                <CurrencyPrice value={filter.original.value[0]} />
                                                                 {' – '}
-                                                                <CurrencyFormat value={filter.original.value[1]} />
+                                                                <CurrencyPrice value={filter.original.value[1]} />
                                                             </React.Fragment>
                                                         )}
                                                         {filter.type === 'range' && filter.id !== 'price' && (

@@ -11,6 +11,7 @@ import MobileMenu from '~/components/mobile/MobileMenu';
 import Quickview from '~/components/shared/Quickview';
 import { useOptions } from '~/store/options/optionsHooks';
 import InquiryModal from '~/components/inquiry/InquiryModal';
+// import Whatsapp from '~/components/whatsapp';
 
 interface Props extends PropsWithChildren<{}>{ }
 
@@ -53,6 +54,8 @@ function Layout(props: Props) {
             <Quickview />
 
             <InquiryModal />
+
+            {/* <Whatsapp /> */}
         </div>
     );
 }

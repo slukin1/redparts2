@@ -112,30 +112,31 @@ function InquiryModal() {
 
     const productTemplate = (
         <div className="quickview__product d-flex flex-column flex-lg-row">
-            <div className="quickview__body">
-                <ProductGallery className="quickview__gallery" layout="quickview" images={image} />
+            <div className="quickview__body p-0 pr-1">
+                <img src={image[0]} alt="" className="w-100 h-100 d-flex " />
             </div>
-            <div className="w-100 flex mt-lg-5">
-                <div className="quickview__product-name text-center">
+            <div className="w-100 flex">
+                <div className="quickview__product-name text-start">
                     {product.name}
                 </div>
-                <div className="quickview__product-meta d-flex justify-content-center align-items-center mb-2">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <th>
-                                    <FormattedMessage id="TABLE_REFERENCE" />
-                                </th>
-                                <td>{product.sku}</td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <FormattedMessage id="TABLE_REFERENCE" />
-                                </th>
-                                <td>{product.partNumber}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div className="quickview__product-meta d-flex justify-content-start align-items-center flex-col">
+                    {/* <table> */}
+                    {/*     <tbody> */}
+                    {/*         /!* <tr> *!/ */}
+                    {/*         /!*     <th> *!/ */}
+                    {/*         /!*         <FormattedMessage id="TABLE_SKU" /> *!/ */}
+                    {/*         /!*     </th> *!/ */}
+                    {/*         /!*     <td>{product.sku}</td> *!/ */}
+                    {/*         /!* </tr> *!/ */}
+                    {/*         <tr> */}
+                    {/*             <th> */}
+                    {/*                 <FormattedMessage id="TABLE_REFERENCE" /> */}
+                    {/*             </th> */}
+                    {/*             <td>{product.partNumber}</td> */}
+                    {/*         </tr> */}
+                    {/*     </tbody> */}
+                    {/* </table> */}
+                    <CurrencyFormat value={product.price} />
                 </div>
 
                 {product.excerpt && (
@@ -145,7 +146,7 @@ function InquiryModal() {
                 )}
                 <div className="">
                     {/* Country Selector */}
-                    <div className="form-group">
+                    <div className="form-group m-0 p-0">
                         <label htmlFor="country">Country</label>
                         <select
                             className={`form-control ${errors.country ? 'is-invalid' : ''}`}
@@ -161,40 +162,61 @@ function InquiryModal() {
                         </select>
                         {errors.country && <div className="invalid-feedback">{errors.country.message}</div>}
                     </div>
-                    <div className="form-group">
-                        <div className="custom-control custom-checkbox">
-                            <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="prexInspection"
-                                {...register('prexInspection')}
-                            />
-                            <label className="custom-control-label" htmlFor="prexInspection">
-                                Pre-export Inspection
-                            </label>
-                        </div>
+                    <div className="form-group m-0 p-0">
+                        <label htmlFor="port">Port</label>
+                        <select
+                            className={`form-control ${errors.country ? 'is-invalid' : ''}`}
+                            id="port"
+                            {...register('port')}
+                        >
+                            <option value="">Select a port</option>
+                            {countries.map((country) => (
+                                <option key={country.code} value={country.code}>
+                                    {country.name}
+                                </option>
+                            ))}
+                        </select>
                     </div>
-                    <div className="form-group">
-                        <div className="custom-control custom-checkbox">
-                            <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="marineInsurance"
-                                {...register('marineInsurance')}
-                            />
-                            <label className="custom-control-label" htmlFor="marineInsurance">
-                                Marine Insurance Fee
-                            </label>
+                    <div className="d-flex flex-row w-100">
+                        <div className="w-50">
+                            <div className="form-group">
+                                <div className="custom-control custom-checkbox">
+                                    <input
+                                        type="checkbox"
+                                        className="custom-control-input"
+                                        id="prexInspection"
+                                        {...register('prexInspection')}
+                                    />
+                                    <label className="custom-control-label" htmlFor="prexInspection">
+                                        Pre-export Inspection
+                                    </label>
+                                </div>
+                            </div>
+                            <div className="form-group">
+                                <div className="custom-control custom-checkbox">
+                                    <input
+                                        type="checkbox"
+                                        className="custom-control-input"
+                                        id="marineInsurance"
+                                        {...register('marineInsurance')}
+                                    />
+                                    <label className="custom-control-label" htmlFor="marineInsurance">
+                                        Marine Insurance Fee
+                                    </label>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div className="form-group w-100">
-                        {/* <ReCAPTCHA */}
-                        {/*    sitekey="YOUR_RECAPTCHA_SITE_KEY" */}
-                        {/*    {...register('recaptcha', { */}
-                        {/*        required: 'reCAPTCHA validation is required', */}
-                        {/*    })} */}
-                        {/* /> */}
-                        {/* {errors.recaptcha && <div className="invalid-feedback">{errors.recaptcha.message}</div>} */}
+                        {/* <div className="w-50 d-flex"> */}
+                        {/*     <div className="form-group d-flex" style={{ width: '100px' }}> */}
+                        {/*         <ReCAPTCHA */}
+                        {/*             sitekey="YOUR_RECAPTCHA_SITE_KEY" */}
+                        {/*             {...register('recapt</div>cha', { */}
+                        {/*                 required: 'reCAPTCHA validation is required', */}
+                        {/*             })} */}
+                        {/*         /> */}
+                        {/*         {errors.recaptcha && <div className="invalid-feedback">{errors.recaptcha.message}</div>} */}
+                        {/*     </div> */}
+                        {/* </div> */}
                     </div>
                     {/* <div className="quickview__product-actions d-flex flex-row"> */}
                     {/*    <AsyncAction */}
@@ -266,11 +288,11 @@ function InquiryModal() {
             <button type="button" className="quickview__close" onClick={inquireClose}>
                 <Cross12Svg />
             </button>
-            <form onSubmit={handleSubmit(onSubmit)} className="quickview__body d-flex flex-column">
+            <form onSubmit={handleSubmit(onSubmit)} className="quickview__body p-3 d-flex flex-column">
                 {productTemplate}
                 <div className="d-flex flex-row w-100">
                     {/* First Name */}
-                    <div className="form-group w-100 pr-2">
+                    <div className="form-group w-100 pr-2 m-0">
                         <label htmlFor="firstName">First Name</label>
                         <input
                             type="text"
@@ -282,7 +304,7 @@ function InquiryModal() {
                     </div>
 
                     {/* Last Name */}
-                    <div className="form-group w-100 pl-2">
+                    <div className="form-group w-100 pl-2 m-0">
                         <label htmlFor="lastName">Last Name</label>
                         <input
                             type="text"
@@ -296,7 +318,7 @@ function InquiryModal() {
                 </div>
                 <div className="d-flex flex-row w-100">
                     {/* Email */}
-                    <div className="form-group w-100 pr-2">
+                    <div className="form-group w-100 pr-2 m-0">
                         <label htmlFor="email">Email</label>
                         <input
                             type="email"
@@ -314,7 +336,7 @@ function InquiryModal() {
                     </div>
 
                     {/* Phone Number with Country Code Selector */}
-                    <div className="form-group w-100 pl-2">
+                    <div className="form-group w-100 pl-2 m-0">
                         <label htmlFor="phoneNumber">Phone Number</label>
                         <div className="input-group">
                             <input

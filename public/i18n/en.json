@@ -237,7 +237,7 @@
 
   "TABLE_ADD_TO_CART": "Add To Cart",
   "TABLE_BRAND": "Maker",
-  "TABLE_COUNTRY": "Country",
+  "TABLE_COUNTRY": "Location",
   "TABLE_DATE": "Date",
   "TABLE_IMAGE": "Image",
   "TABLE_NAME": "Name",
@@ -249,7 +249,7 @@
   "TABLE_RATING": "Rating",
   "TABLE_REMOVE": "Remove",
   "TABLE_SKU": "SKU",
-"TABLE_REFERENCE": "RefNo.",
+"TABLE_REFERENCE": "RefNo",
   "TABLE_STATUS": "Status",
   "TABLE_STOCK_STATUS": "Stock Status",
   "TABLE_SUBTOTAL": "Subtotal",

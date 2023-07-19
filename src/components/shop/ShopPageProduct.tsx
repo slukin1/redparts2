@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { FormProvider } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 // application
+import { toast } from 'react-toastify';
 import AppLink from '~/components/shared/AppLink';
 import AsyncAction from '~/components/shared/AsyncAction';
 import BlockHeader from '~/components/blocks/BlockHeader';
@@ -35,7 +36,6 @@ import {
     Wishlist16Svg,
 } from '~/svg';
 import { useInquireOpen } from '~/store/inquire/inquireHooks';
-import ButtonWhatsApp from '~/components/ButtonWhatsapp';
 
 interface Props {
     product: IProduct;
@@ -57,7 +57,6 @@ function ShopPageProduct(props: Props) {
     const productForm = useProductForm(product);
     const inquire = useInquireOpen();
     const useInquire = () => inquire(product.slug);
-
     useEffect(() => {
         let canceled = false;
 
@@ -87,7 +86,6 @@ function ShopPageProduct(props: Props) {
         })),
         { title: product.name, url: url.product(product) },
     ];
-
     const featuredAttributes = product.attributes.filter((x) => x.featured);
 
     const shopFeatures = (
@@ -189,7 +187,7 @@ function ShopPageProduct(props: Props) {
                             <th>
                                 <FormattedMessage id="TABLE_REFERENCE" />
                             </th>
-                            <td>{product.sku}</td>
+                            <td>{product.partNumber}</td>
                         </tr>
                         {product.brand && (
                             <React.Fragment>
@@ -208,17 +206,11 @@ function ShopPageProduct(props: Props) {
                                         <FormattedMessage id="TABLE_COUNTRY" />
                                     </th>
                                     <td>
-                                        <FormattedMessage id={`COUNTRY_NAME_${product.brand.country}`} />
+                                        {product.brand.country}
                                     </td>
                                 </tr>
                             </React.Fragment>
                         )}
-                        <tr>
-                            <th>
-                                <FormattedMessage id="TABLE_REFERENCE" />
-                            </th>
-                            <td>{product.partNumber}</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -229,22 +221,6 @@ function ShopPageProduct(props: Props) {
         <div className="product__actions">
             {product.stock !== 'out-of-stock' && (
                 <React.Fragment>
-                    {/* <div className="product__actions-item product__actions-item--quantity"> */}
-                    {/*    <Controller */}
-                    {/*        name="quantity" */}
-                    {/*        rules={{ */}
-                    {/*            required: true, */}
-                    {/*        }} */}
-                    {/*        render={({ field: { ref: fieldRef, ...fieldProps } }) => ( */}
-                    {/*            <InputNumber */}
-                    {/*                size="lg" */}
-                    {/*                min={1} */}
-                    {/*                inputRef={fieldRef} */}
-                    {/*                {...fieldProps} */}
-                    {/*            /> */}
-                    {/*        )} */}
-                    {/*    /> */}
-                    {/* </div> */}
                     <AsyncAction
                         action={() => useInquire()}
                         render={({ run, loading }) => (
@@ -258,7 +234,25 @@ function ShopPageProduct(props: Props) {
                                 >
                                     <FormattedMessage id="BUTTON_INQUIRY" />
                                 </button>
-                                <ButtonWhatsApp className="w-100 mt-2" href="https://api.whatsapp.com/send/?phone=818074100831&text...." />
+                                {typeof window !== 'undefined' && (
+                                    <button
+                                        type="button"
+                                        className="btn btn-success w-100 btn-block"
+                                        onClick={() => {
+                                            toast.success('Redirecting to WhatsApp', {
+                                                position: toast.POSITION.TOP_CENTER,
+                                                autoClose: 2000,
+                                                theme: 'colored',
+                                            });
+                                            setTimeout(() => {
+                                                window.open(`https://api.whatsapp.com/send/?phone=818074100831&text=Hi, I'm interested your product named as ${product.name} at ${window.location.protocol}//${window.location.host}/product/${product.slug}, please provide me more details.`, '_blank');
+                                            }, 3000);
+                                        }}
+                                        aria-label={intl.formatMessage({ id: 'BUTTON_INQUIRY' })}
+                                    >
+                                        Whatsapp
+                                    </button>
+                                )}
                             </div>
                         )}
                     />

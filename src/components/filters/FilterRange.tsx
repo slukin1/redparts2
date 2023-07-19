@@ -11,6 +11,7 @@ import InputRange from 'react-input-range';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
 import { IRangeFilter, IRangeFilterValue } from '~/interfaces/filter';
 import { useDirection } from '~/api/services/i18n/hooks';
+import CurrencyPrice from '~/components/CurrencyPrice';
 
 function getFirstValidValue(...values: Array<number | null>): number | null {
     return values.reduce((acc, value) => (
@@ -113,13 +114,13 @@ function FilterRange(props: Props) {
                     { options.slug === 'price' && (
                         <React.Fragment>
                             <span className="filter-range__min-value">
-                                <CurrencyFormat
+                                <CurrencyPrice
                                     value={fromLabel}
                                 />
                             </span>
                             <span> –</span>
                             <span className="filter-range__max-value">
-                                <CurrencyFormat
+                                <CurrencyPrice
                                     value={toLabel}
                                 />
                             </span>

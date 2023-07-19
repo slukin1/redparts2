@@ -6,6 +6,7 @@ import { FormProvider } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { Modal } from 'reactstrap';
 // application
+import { toast } from 'react-toastify';
 import AppLink from '~/components/shared/AppLink';
 import AsyncAction from '~/components/shared/AsyncAction';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
@@ -55,7 +56,7 @@ function Quickview() {
                             <th>
                                 <FormattedMessage id="TABLE_REFERENCE" />
                             </th>
-                            <td>{product.sku}</td>
+                            <td>{product.partNumber}</td>
                         </tr>
                         {product.brand && (
                             <React.Fragment>
@@ -75,18 +76,12 @@ function Quickview() {
                                     </th>
                                     <td>
                                         <FormattedMessage
-                                            id={`COUNTRY_NAME_${product.brand.country}`}
+                                            id={`${product.brand.country}`}
                                         />
                                     </td>
                                 </tr>
                             </React.Fragment>
                         )}
-                        <tr>
-                            <th>
-                                <FormattedMessage id="TABLE_REFERENCE" />
-                            </th>
-                            <td>{product.partNumber}</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -119,10 +114,10 @@ function Quickview() {
                 <AsyncAction
                     action={() => showInquire()}
                     render={({ run, loading }) => (
-                        <div className="quickview__product-actions-item quickview__product-actions-item--addtocart">
+                        <div className="quickview__product-actions-item quickview__product-actions-item--addtocart w-100 m-0 mb-2">
                             <button
                                 type="button"
-                                className={classNames('btn', 'btn-primary', 'btn-block', {
+                                className={classNames('btn', 'btn-primary', 'btn-block', 'w-100', {
                                     'btn-loading': loading,
                                 })}
                                 onClick={run}
@@ -132,7 +127,24 @@ function Quickview() {
                         </div>
                     )}
                 />
-
+                {typeof window !== 'undefined' && (
+                    <button
+                        type="button"
+                        className="btn btn-success w-100 btn-block"
+                        onClick={() => {
+                            toast.success('Redirecting to WhatsApp', {
+                                position: toast.POSITION.TOP_CENTER,
+                                autoClose: 2000,
+                                theme: 'colored',
+                            });
+                            setTimeout(() => {
+                                window.open(`https://api.whatsapp.com/send/?phone=818074100831&text=Hi, I'm interested your product named as ${product.name} at ${window.location.protocol}//${window.location.host}/product/${product.slug}, please provide me more details.`, '_blank');
+                            }, 3000);
+                        }}
+                    >
+                        Whatsapp
+                    </button>
+                )}
                 <AsyncAction
                     action={() => wishlistAddItem(product)}
                     render={({ run, loading }) => (

@@ -107,7 +107,7 @@ const shopCategoriesDef: ICategoryDef[] = [
         items: 54,
         children: [
             { name: 'Sedan', slug: JSON.stringify({ filter_bodyType: 'Sedan' }) },
-            { name: 'SUV', slug: JSON.stringify({ filter_bodyType: 'SUV' }) },
+            { name: 'Crocan SUV', slug: JSON.stringify({ filter_bodyType: 'Crocan_SUV' }) },
             { name: 'Coupe', slug: JSON.stringify({ filter_bodyType: 'Coupe' }) },
             { name: 'Minivan', slug: JSON.stringify({ filter_bodyType: 'Minivan' }) },
             { name: 'Hatchback', slug: JSON.stringify({ filter_bodyType: 'Hatchback' }) },
