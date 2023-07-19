@@ -34,7 +34,7 @@ export class RangeFilterBuilder extends AbstractFilterBuilder {
         } else if (this.slug === 'mileage') {
             // maximum mileage from result list
             // @ts-ignore
-            this.max = 1000000;
+            this.max = 488_000;
             // minimum mileage from result list
             // @ts-ignore
             this.min = 0;
