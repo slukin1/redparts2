@@ -51,7 +51,8 @@
   "COUNTRY_NAME_RU": "Russia",
   "COUNTRY_NAME_UA": "Ukraine",
   "COUNTRY_NAME_US": "United States",
-
+  "ERROR_REQUIRED_FIELD": "Required field.",
+  "ERROR_INVALID_ORDER_ID": "Invalid order ID.",
   "ERROR_ADD_TO_CART_OPTIONS": "Please select product options before adding this product to your cart.",
   "ERROR_ADD_TO_CART_QUANTITY": "Please enter quantity before adding this product to cart.",
   "ERROR_API_AUTH_EMAIL_ALREADY_IN_USE": "The specified email address is already registered.",
@@ -248,6 +249,7 @@
   "TABLE_RATING": "Rating",
   "TABLE_REMOVE": "Remove",
   "TABLE_SKU": "SKU",
+"TABLE_REFERENCE": "RefNo.",
   "TABLE_STATUS": "Status",
   "TABLE_STOCK_STATUS": "Stock Status",
   "TABLE_SUBTOTAL": "Subtotal",

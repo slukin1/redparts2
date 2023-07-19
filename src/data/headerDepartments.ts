@@ -33,7 +33,7 @@ const dataHeaderDepartments: IDepartmentsLink[] = [
                             title: 'Manufacture Year',
                             url: '/catalog/products',
                             links: [
-                                { title: '1994 and older', url: '/catalog/products?filter_year=1990-1994' },
+                                { title: '1994 and newer', url: '/catalog/products?filter_year=1990-1994' },
                                 { title: '2004 and newer', url: `/catalog/products?filter_year=2004-${new Date().getFullYear()}` },
                                 { title: '2007 and newer', url: `/catalog/products?filter_year=2007-${new Date().getFullYear()}` },
                                 { title: '2010 and newer', url: `/catalog/products?filter_year=2010-${new Date().getFullYear()}` },

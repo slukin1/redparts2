@@ -185,7 +185,7 @@ function Page() {
             </tr>
             <tr className="compare-table__row">
                 <th className="compare-table__column compare-table__column--header">
-                    <FormattedMessage id="TABLE_SKU" />
+                    <FormattedMessage id="TABLE_REFERENCE" />
                 </th>
                 {compare.items.map((product) => (
                     <td key={product.id} className="compare-table__column compare-table__column--product">

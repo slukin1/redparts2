@@ -140,7 +140,7 @@ const shopCategoriesDef: ICategoryDef[] = [
         image: '/images/categories/category-5.jpg',
         items: 508,
         children: [
-            { name: '1994 and older', slug: JSON.stringify({ filter_year: `1994-${new Date().getFullYear()}` }) },
+            { name: '1994 and newer', slug: JSON.stringify({ filter_year: `1994-${new Date().getFullYear()}` }) },
             { name: '2004 and newer', slug: JSON.stringify({ filter_year: `2004-${new Date().getFullYear()}` }) },
             { name: '2007 and newer', slug: JSON.stringify({ filter_year: `2007-${new Date().getFullYear()}` }) },
             { name: '2010 and newer', slug: JSON.stringify({ filter_year: `2010-${new Date().getFullYear()}` }) },

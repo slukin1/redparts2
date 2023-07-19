@@ -13,18 +13,10 @@ const colors = [
     { code: 'yellow', color: '#ffd333' },
     { code: 'green', color: '#8fcc14' },
     { code: 'blue', color: '#40bfff' },
-    { code: 'indigo', color: '#7766cc' },
-    { code: 'violet', color: '#b852cc' },
     { code: 'white', color: '#fff' },
     { code: 'gray', color: '#808080' },
     { code: 'black', color: '#000000' },
-    { code: 'pear-green', color: '#becc1f' },
-    { code: 'emerald', color: '#47cc5e' },
-    { code: 'shamrock', color: '#47cca0' },
-    { code: 'shakespeare', color: '#47cccc' },
-    { code: 'dark-blue', color: '#3d6dcc' },
     { code: 'purple', color: '#b852cc' },
-    { code: 'cerise', color: '#e53981' },
     { code: 'brown', color: '#964B00' },
     { code: 'golden', color: '#DAA520' },
     { code: 'blueNavy', color: '#000080' },
@@ -32,7 +24,6 @@ const colors = [
     { code: 'deep', color: '#2B2281' },
     { code: 'Gray-black', color: '#2F4F4F' },
     { code: 'Gray-green', color: '#808069' },
-    { code: 'GrayM', color: '#808080' },
 ];
 
 export class ColorFilterBuilder extends AbstractFilterBuilder {

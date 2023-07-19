@@ -3,7 +3,7 @@ import { IMainMenuLink } from '~/interfaces/main-menu-link';
 
 const dataHeaderMainMenu: IMainMenuLink[] = [
     { title: 'Shop List', url: '/catalog/products' },
-    { title: 'Popular', url: '/vehicles/home-two' },
+    { title: 'Popular', url: '/vehicles/popular' },
     // { title: 'FAQ', url: '/faq' },
     { title: 'Jacokin Stock', url: '/' },
     // {

@@ -187,7 +187,7 @@ function ShopPageProduct(props: Props) {
                     <tbody>
                         <tr>
                             <th>
-                                <FormattedMessage id="TABLE_SKU" />
+                                <FormattedMessage id="TABLE_REFERENCE" />
                             </th>
                             <td>{product.sku}</td>
                         </tr>
@@ -215,7 +215,7 @@ function ShopPageProduct(props: Props) {
                         )}
                         <tr>
                             <th>
-                                <FormattedMessage id="TABLE_PART_NUMBER" />
+                                <FormattedMessage id="TABLE_REFERENCE" />
                             </th>
                             <td>{product.partNumber}</td>
                         </tr>
@@ -258,7 +258,7 @@ function ShopPageProduct(props: Props) {
                                 >
                                     <FormattedMessage id="BUTTON_INQUIRY" />
                                 </button>
-                                <ButtonWhatsApp className="w-100 mt-2" />
+                                <ButtonWhatsApp className="w-100 mt-2" href="https://api.whatsapp.com/send/?phone=818074100831&text...." />
                             </div>
                         )}
                     />

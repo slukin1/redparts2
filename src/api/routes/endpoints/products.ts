@@ -172,12 +172,12 @@ export function translateJSON(json2: JSON2): JSON1 {
         sku: json2.itemId || '',
         // eslint-disable-next-line no-underscore-dangle
         partNumber: json2._id || '',
-        location: json2.location || '',
+        location: json2.location || 'Japan',
         stock: json2.status || '',
         price: json2.price || '',
         compareAtPrice: null,
         images: json2.picture || [],
-        badges: ['sale'],
+        badges: ['sale', 'new', 'hot'],
         rating: 5,
         reviews: 0,
         availability: json2.status || '',
@@ -361,8 +361,8 @@ export async function getProductsList(
             new RangeFilterBuilder('year', 'Year'),
             new RangeFilterBuilder('price', 'Price'),
             new RangeFilterBuilder('mileage', 'Mileage'),
-            new RadioFilterBuilder('bodyType', 'Body Type'),
             new RadioFilterBuilder('maker', 'Maker'),
+            new RadioFilterBuilder('bodyType', 'Body Type'),
             new RadioFilterBuilder('engineType', 'Engine'),
             new RadioFilterBuilder('transmission', 'Transmission'),
             new RadioFilterBuilder('fuel', 'Fuel'),
@@ -608,7 +608,8 @@ export async function getTopRatedProducts(categorySlug: string | null, limit: nu
 }
 
 export async function getSpecialOffers(limit: number): Promise<IProduct[]> {
-    const response = await VehicleService.getVehicles({});
+    const response = await VehicleService.getVehicles({
+    });
     // @ts-ignore
     const products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
     // @ts-ignore

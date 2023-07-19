@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useRouter } from 'next/router';
 // application
+import { toast } from 'react-toastify';
 import Decor from '~/components/shared/Decor';
 import url from '~/api/services/url';
 import VehicleSelect from '~/components/shared/VehicleSelect';
@@ -36,19 +37,16 @@ function BlockFinder() {
             bodyType,
             vehicle,
         } = queryFromLocalStorage;
-
-        // Early return if required query parameters are missing
         if (!yearFrom || !yearTo || !make || !model) {
+            toast.info('Please select the required fields, Make, Model, Year From and Year To');
             return;
         }
         if (priceFrom && !priceTo) {
+            toast.info('Please select the Price To field');
             return;
         }
         setLoading(true);
-        // Transform the vehicle string (if available)
         const color = vehicle ? vehicle.replace(/ /g, '_') : '';
-
-        // Build the filters object with only the available properties
         const filters = {
             ...(yearFrom && { filter_year: `${yearFrom}-${yearTo}` }),
             ...(make && { filter_maker: make }),
@@ -61,7 +59,6 @@ function BlockFinder() {
             ...(bodyType && { filter_bodyType: bodyType }),
             ...(color && { filter_color: color }),
         };
-        // Navigate to the URL using the router
         router.push(...hrefToRouterArgs(url.products({ filters }))).then();
     };
     return (

@@ -347,7 +347,7 @@ function ProductsView(props: Props) {
                                     <FormattedMessage id="TABLE_IMAGE" />
                                 </div>
                                 <div className="products-list__column products-list__column--meta">
-                                    <FormattedMessage id="TABLE_SKU" />
+                                    <FormattedMessage id="TABLE_REFERENCE" />
                                 </div>
                                 <div className="products-list__column products-list__column--product">
                                     <FormattedMessage id="TABLE_PRODUCT" />

@@ -53,7 +53,7 @@ function Quickview() {
                     <tbody>
                         <tr>
                             <th>
-                                <FormattedMessage id="TABLE_SKU" />
+                                <FormattedMessage id="TABLE_REFERENCE" />
                             </th>
                             <td>{product.sku}</td>
                         </tr>
@@ -83,7 +83,7 @@ function Quickview() {
                         )}
                         <tr>
                             <th>
-                                <FormattedMessage id="TABLE_PART_NUMBER" />
+                                <FormattedMessage id="TABLE_REFERENCE" />
                             </th>
                             <td>{product.partNumber}</td>
                         </tr>
@@ -183,10 +183,12 @@ function Quickview() {
                     {productTemplate}
                 </form>
             </FormProvider>
-
-            <AppLink href={url.product(product)} className="quickview__see-details">
-                <FormattedMessage id="BUTTON_SEE_FULL_DETAILS" />
-            </AppLink>
+            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+            <div onClick={quickviewClose}>
+                <AppLink href={url.product(product)} className="quickview__see-details">
+                    <FormattedMessage id="BUTTON_SEE_FULL_DETAILS" />
+                </AppLink>
+            </div>
         </Modal>
     );
 }

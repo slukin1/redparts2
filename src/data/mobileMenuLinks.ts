@@ -3,7 +3,7 @@ import { IMobileMenuLink } from '~/interfaces/mobile-menu-link';
 
 const dataMobileMenuLinks: IMobileMenuLink[] = [
     { title: 'Shop List', url: '/vehicles/shop/shop-list' },
-    { title: 'Popular Categories', url: '/vehicles/home-two' },
+    { title: 'Popular Categories', url: '/vehicles/popular' },
     { title: 'FAQ', url: '/faq' },
     { title: 'Jacokin Stock', url: '/' },
 ];

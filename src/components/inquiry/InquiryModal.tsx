@@ -124,13 +124,13 @@ function InquiryModal() {
                         <tbody>
                             <tr>
                                 <th>
-                                    <FormattedMessage id="TABLE_SKU" />
+                                    <FormattedMessage id="TABLE_REFERENCE" />
                                 </th>
                                 <td>{product.sku}</td>
                             </tr>
                             <tr>
                                 <th>
-                                    <FormattedMessage id="TABLE_PART_NUMBER" />
+                                    <FormattedMessage id="TABLE_REFERENCE" />
                                 </th>
                                 <td>{product.partNumber}</td>
                             </tr>

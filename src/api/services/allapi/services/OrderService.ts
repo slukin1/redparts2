@@ -131,7 +131,7 @@ statusCode: number;
 } | errorResponse> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/track-order',
+            url: '/order/track-order',
             query: {
                 'orderId': orderId,
                 'email': email,

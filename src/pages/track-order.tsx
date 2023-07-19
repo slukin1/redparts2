@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { toast } from 'react-toastify';
 import BlockSpace from '~/components/blocks/BlockSpace';
 import PageTitle from '~/components/shared/PageTitle';
 import { OrderService } from '~/api/services/allapi';
@@ -10,8 +11,16 @@ function Page() {
     const intl = useIntl();
 
     async function handleFormSubmit(data:any) {
-        const res = await OrderService.orderTracking({ orderId: data.orderId, email: data.email });
-        // Handle the response as needed
+        try {
+            const res = await OrderService.orderTracking({
+                orderId: data.orderId,
+                email: data.email,
+            });
+            toast.success('Please check your email for order details');
+        } catch (error) {
+            console.log(error);
+            toast.error('Order not found');
+        }
     }
 
     return (
