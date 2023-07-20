@@ -23,6 +23,7 @@ function BlockFinder() {
         }
         const queryFromLocalStorage = JSON.parse(localStorage.getItem('query') || '{}');
         localStorage.removeItem('query');
+        console.log('queryFromLocalStorage', queryFromLocalStorage);
         const {
             yearFrom,
             yearTo,
@@ -38,7 +39,7 @@ function BlockFinder() {
             vehicle,
         } = queryFromLocalStorage;
         if (!yearFrom || !yearTo || !make || !model) {
-            toast.info('Please select the required fields, Make, Model, Year From and Year To', {
+            toast.success('Please select the required fields, Make, Model, Year From and Year To', {
                 position: toast.POSITION.TOP_CENTER,
                 autoClose: 2000,
                 theme: 'colored',
@@ -47,7 +48,7 @@ function BlockFinder() {
             return;
         }
         if (priceFrom && !priceTo) {
-            toast.info('Please select the Price To field', {
+            toast.success('Please select the Price To field', {
                 position: toast.POSITION.TOP_CENTER,
                 autoClose: 2000,
                 theme: 'colored',

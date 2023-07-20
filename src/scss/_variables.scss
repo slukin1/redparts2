@@ -1104,7 +1104,7 @@
       $addtocart-button-scheme: () !default;
       $addtocart-button-scheme: map_merge((
          // default
-         default-bg-color:   transparent,
+         default-bg-color:   'green',
          default-font-color: #ccc,
          // normal
          normal-bg-color:    green,

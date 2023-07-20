@@ -18,11 +18,15 @@ function CurrencyFormat(props: Props) {
     return (
         <React.Fragment>
             <span style={{ textDecoration: 'line-through', color: 'darkred', fontSize: '65%' }}>
+                FOB:
+                {' '}
                 {currency.symbol}
                 {(nonDiscount * currency.rate).toFixed(2)}
             </span>
             <br />
             <span style={{ fontWeight: 'bold', color: 'darkred', fontSize: '100%' }}>
+                FOB:
+                {' '}
                 {currency.symbol}
                 {(value * currency.rate).toFixed(2)}
             </span>

@@ -195,9 +195,9 @@
     .product-card__addtocart-icon {
         position: relative;
         border: none;
-        padding: 8px;
-        border-radius: 2px;
-        background: transparent;
+        padding: 12px;
+        border-radius: 50%;
+        background: green;
         color: map_get($addtocart-button-scheme, default-font-color);
         z-index: 0;
         transition: color .2s;
@@ -206,7 +206,7 @@
             display: block;
             fill: transparent;
             path {
-                stroke: black;
+                stroke: white;
             }
         }
 
@@ -218,8 +218,6 @@
             display: block;
             content: '';
             position: absolute;
-            width: calc(100% + #{$local-expand});
-            height: calc(100% + #{$local-expand});
             background: map_get($addtocart-button-scheme, default-bg-color);
             z-index: -1;
             border-radius: 50%;

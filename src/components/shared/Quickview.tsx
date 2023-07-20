@@ -6,7 +6,6 @@ import { FormProvider } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { Modal } from 'reactstrap';
 // application
-import { toast } from 'react-toastify';
 import AppLink from '~/components/shared/AppLink';
 import AsyncAction from '~/components/shared/AsyncAction';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
@@ -19,13 +18,21 @@ import { useProductForm } from '~/api/services/forms/product';
 import { useQuickview, useQuickviewClose } from '~/store/quickview/quickviewHooks';
 import { useWishlistAddItem } from '~/store/wishlist/wishlistHooks';
 import { useInquireOpen } from '~/store/inquire/inquireHooks';
+import { useWhatsappOpen } from '~/store/whatsapp/whatsappHooks';
 
 function Quickview() {
     const quickview = useQuickview();
     const quickviewClose = useQuickviewClose();
     const wishlistAddItem = useWishlistAddItem();
     const compareAddItem = useCompareAddItem();
+    const whatsapp = useWhatsappOpen();
     const { product } = quickview;
+    const showWhatsapp = () => {
+        quickviewClose();
+        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
+        return whatsapp(product.slug);
+    };
     const image = useMemo(() => product?.images || [], [product]);
     const productForm = useProductForm(product);
     const inquire = useInquireOpen();
@@ -56,7 +63,7 @@ function Quickview() {
                             <th>
                                 <FormattedMessage id="TABLE_REFERENCE" />
                             </th>
-                            <td>{product.partNumber}</td>
+                            <td>{product.refNo}</td>
                         </tr>
                         {product.brand && (
                             <React.Fragment>
@@ -128,22 +135,23 @@ function Quickview() {
                     )}
                 />
                 {typeof window !== 'undefined' && (
-                    <button
-                        type="button"
-                        className="btn btn-success w-100 btn-block"
-                        onClick={() => {
-                            toast.success('Redirecting to WhatsApp', {
-                                position: toast.POSITION.TOP_CENTER,
-                                autoClose: 2000,
-                                theme: 'colored',
-                            });
-                            setTimeout(() => {
-                                window.open(`https://api.whatsapp.com/send/?phone=818074100831&text=Hi, I'm interested your product named as ${product.name} at ${window.location.protocol}//${window.location.host}/product/${product.slug}, please provide me more details.`, '_blank');
-                            }, 3000);
-                        }}
-                    >
-                        Whatsapp
-                    </button>
+                    <AsyncAction
+                        action={() => showWhatsapp()}
+                        render={({ run, loading }) => (
+                            <div className="quickview__product-actions-item quickview__product-actions-item--addtocart w-100 m-0 mb-2">
+                                <button
+                                    type="button"
+                                    className={classNames('btn', 'btn-success', 'btn-block', 'w-100', {
+                                        'btn-loading': loading,
+                                    })}
+                                    onClick={run}
+                                    style={{ backgroundColor: 'green' }}
+                                >
+                                    Whatsapp
+                                </button>
+                            </div>
+                        )}
+                    />
                 )}
                 <AsyncAction
                     action={() => wishlistAddItem(product)}

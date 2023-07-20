@@ -26,6 +26,7 @@ import {
     Wishlist16Svg,
 } from '~/svg';
 import ButtonWhatsApp from '~/components/ButtonWhatsapp';
+import { useWhatsappOpen } from '~/store/whatsapp/whatsappHooks';
 
 export type IProductCardElement = 'actions' | 'status-badge' | 'meta' | 'features' | 'buttons' | 'list-buttons';
 
@@ -46,6 +47,8 @@ function ProductCard(props: Props) {
         ...rootProps
     } = props;
     const intl = useIntl();
+    const whatsapp = useWhatsappOpen();
+    const showWhatsapp = () => whatsapp(product.slug);
     const featuredAttributes = product.attributes.filter((x) => x.featured);
     const cartAddItem = useCartAddItem();
     const quickviewOpen = useQuickviewOpen();
@@ -137,7 +140,7 @@ function ProductCard(props: Props) {
                             <FormattedMessage id="TABLE_REFERENCE" />
                             {': '}
                         </span>
-                        {product.slug}
+                        {product.refNo}
                     </div>
                 )}
 
@@ -199,25 +202,27 @@ function ProductCard(props: Props) {
                     )}
                 </div>
                 {!exclude.includes('buttons') && (
+
                     <React.Fragment>
                         {typeof window !== 'undefined' && (
-                            <button
-                                type="button"
-                                className="product-card__addtocart-icon"
-                                onClick={() => {
-                                    toast.success('Redirecting to WhatsApp', {
-                                        position: toast.POSITION.TOP_CENTER,
-                                        autoClose: 2000,
-                                        theme: 'colored',
-                                    });
-                                    setTimeout(() => {
-                                        window.open(`https://api.whatsapp.com/send/?phone=818074100831&text=Hi, I'm interested your product named as ${product.name} at ${window.location.protocol}//${window.location.host}/product/${product.slug}, please provide me more details.`, '_blank');
-                                    }, 3000);
-                                }}
-                                aria-label={intl.formatMessage({ id: 'BUTTON_INQUIRY' })}
-                            >
-                                <WhatsApp20Svg />
-                            </button>
+                            <AsyncAction
+                                action={() => showWhatsapp()}
+                                render={({ run, loading }) => (
+                                    <React.Fragment>
+                                        <button
+                                            type="button"
+                                            className={classNames('product-card__addtocart-icon', {
+                                                'product-card__addtocart-icon--loading': loading,
+                                            })}
+                                            onClick={run}
+                                            aria-label={intl.formatMessage({ id: 'BUTTON_INQUIRY' })}
+                                        >
+                                            <WhatsApp20Svg />
+                                        </button>
+                                    </React.Fragment>
+                                )}
+                            />
+
                         )}
                         {!exclude.includes('list-buttons') && (
                             <React.Fragment>
@@ -234,11 +239,28 @@ function ProductCard(props: Props) {
                                             >
                                                 <FormattedMessage id="BUTTON_INQUIRY" />
                                             </button>
-                                            {/* <ButtonWhatsApp className="w-100" /> */}
                                         </React.Fragment>
                                     )}
                                 />
-                                {/* <ButtonWhatsApp /> */}
+                                <AsyncAction
+                                    action={() => showWhatsapp()}
+                                    render={({ run, loading }) => (
+                                        <React.Fragment>
+                                            <button
+                                                type="button"
+                                                style={{
+                                                    backgroundColor: 'green',
+                                                }}
+                                                className={classNames('product-card__addtocart-full btn btn-success', {
+                                                    'product-card__addtocart-full--loading': loading,
+                                                })}
+                                                onClick={run}
+                                            >
+                                                WhatsApp
+                                            </button>
+                                        </React.Fragment>
+                                    )}
+                                />
                                 <AsyncAction
                                     action={() => addToWishlist()}
                                     render={({ run, loading }) => (

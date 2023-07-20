@@ -189,7 +189,7 @@ function Page() {
                 </th>
                 {compare.items.map((product) => (
                     <td key={product.id} className="compare-table__column compare-table__column--product">
-                        {product.sku}
+                        {product.refNo}
                     </td>
                 ))}
                 <td className="compare-table__column compare-table__column--fake" />

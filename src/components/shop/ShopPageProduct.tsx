@@ -36,6 +36,7 @@ import {
     Wishlist16Svg,
 } from '~/svg';
 import { useInquireOpen } from '~/store/inquire/inquireHooks';
+import { useWhatsappOpen } from '~/store/whatsapp/whatsappHooks';
 
 interface Props {
     product: IProduct;
@@ -56,6 +57,8 @@ function ShopPageProduct(props: Props) {
     const [relatedProducts, setRelatedProducts] = useState<IProduct[]>([]);
     const productForm = useProductForm(product);
     const inquire = useInquireOpen();
+    const whatsapp = useWhatsappOpen();
+    const useWhatsapp = () => whatsapp(product.slug);
     const useInquire = () => inquire(product.slug);
     useEffect(() => {
         let canceled = false;
@@ -187,7 +190,7 @@ function ShopPageProduct(props: Props) {
                             <th>
                                 <FormattedMessage id="TABLE_REFERENCE" />
                             </th>
-                            <td>{product.partNumber}</td>
+                            <td>{product.refNo}</td>
                         </tr>
                         {product.brand && (
                             <React.Fragment>
@@ -235,23 +238,20 @@ function ShopPageProduct(props: Props) {
                                     <FormattedMessage id="BUTTON_INQUIRY" />
                                 </button>
                                 {typeof window !== 'undefined' && (
-                                    <button
-                                        type="button"
-                                        className="btn btn-success w-100 btn-block"
-                                        onClick={() => {
-                                            toast.success('Redirecting to WhatsApp', {
-                                                position: toast.POSITION.TOP_CENTER,
-                                                autoClose: 2000,
-                                                theme: 'colored',
-                                            });
-                                            setTimeout(() => {
-                                                window.open(`https://api.whatsapp.com/send/?phone=818074100831&text=Hi, I'm interested your product named as ${product.name} at ${window.location.protocol}//${window.location.host}/product/${product.slug}, please provide me more details.`, '_blank');
-                                            }, 3000);
-                                        }}
-                                        aria-label={intl.formatMessage({ id: 'BUTTON_INQUIRY' })}
-                                    >
-                                        Whatsapp
-                                    </button>
+                                    <AsyncAction
+                                        action={() => useWhatsapp()}
+                                        render={({ run, loading }) => (
+                                            <React.Fragment>
+                                                <button
+                                                    type="button"
+                                                    className={classNames('btn', 'btn-success', 'btn-lg', 'btn-block')}
+                                                    onClick={run}
+                                                >
+                                                    WhatsApp
+                                                </button>
+                                            </React.Fragment>
+                                        )}
+                                    />
                                 )}
                             </div>
                         )}

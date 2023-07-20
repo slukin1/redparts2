@@ -353,9 +353,6 @@ function ProductsView(props: Props) {
                                 <div className="products-list__column products-list__column--product">
                                     <FormattedMessage id="TABLE_PRODUCT" />
                                 </div>
-                                <div className="products-list__column products-list__column--rating">
-                                    <FormattedMessage id="TABLE_RATING" />
-                                </div>
                                 <div className="products-list__column products-list__column--price">
                                     <FormattedMessage id="TABLE_PRICE" />
                                 </div>

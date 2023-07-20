@@ -170,6 +170,7 @@ export function translateJSON(json2: JSON2): JSON1 {
         description: '',
         // eslint-disable-next-line no-underscore-dangle
         slug: json2._id || '',
+        refNo: json2.refNo || '',
         sku: json2.itemId || '',
         // eslint-disable-next-line no-underscore-dangle
         partNumber: json2._id || '',
@@ -386,6 +387,7 @@ export async function getProductsList(
         filterValuesToPrint.limit = options?.limit || 16;
         filterValuesToPrint.offset = options?.page ? (options.page - 1) * filterValuesToPrint.limit : 0;
         filterValuesToPrint.keyWord = filterValues.search || undefined;
+        filterValuesToPrint.model = replaceUnderscoreWithSpace(filterValues.model) || undefined;
         const response = await VehicleService.filterVehicle(filterValuesToPrint);
         // @ts-ignore
         let products: IProduct[] = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
@@ -582,7 +584,7 @@ export async function getEngineCategories(slug:string|null, limit:number): Promi
 
 export async function getPopularProducts(categorySlug: string | null, limit: number): Promise<IProduct[]> {
     try {
-        const response = await VehicleService.getVehicles({});
+        const response = await VehicleService.getVehicles({ page: '6' });
         // @ts-ignore
         const products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
         // @ts-ignore
@@ -598,7 +600,7 @@ export async function getPopularProducts(categorySlug: string | null, limit: num
 
 export async function getTopRatedProducts(categorySlug: string | null, limit: number): Promise<IProduct[]> {
     try {
-        const response = await VehicleService.getVehicles({});
+        const response = await VehicleService.getVehicles({ offset: '8', page: '4' });
         // @ts-ignore
         const products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
         // @ts-ignore
@@ -621,7 +623,7 @@ export async function getSpecialOffers(limit: number): Promise<IProduct[]> {
 
 export async function getLatestProducts(limit: number): Promise<IProduct[]> {
     try {
-        const response = await VehicleService.getVehicles({});
+        const response = await VehicleService.getVehicles({ offset: '16', page: '2' });
         // @ts-ignore
         const products = response?.results.map((vehicle: JSON2) => translateJSON(vehicle));
         // @ts-ignore
