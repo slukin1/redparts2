@@ -58,7 +58,32 @@ function BlockZone(props: Props) {
     const [isLoading, setIsLoading] = useState(false);
     const [currentTab, setCurrentTab] = useState<IBlockZoneTab | null>(null);
     const subs = category?.children || [];
+    const [error, setError] = React.useState(false);
 
+    const errorTimeoutRef = useRef<number | null>(null);
+
+    useEffect(() => {
+        // Clear the previous timeout if it exists
+        if (errorTimeoutRef.current !== null) {
+            clearTimeout(errorTimeoutRef.current);
+        }
+
+        // Set a new timeout to check if the products array is empty after 4 seconds
+        errorTimeoutRef.current = window.setTimeout(() => {
+            if (products.length === 0) {
+                setError(true);
+            } else {
+                setError(false);
+            }
+        }, 4000);
+
+        // Clean up the timeout when the component unmounts or the products array changes
+        return () => {
+            if (errorTimeoutRef.current !== null) {
+                clearTimeout(errorTimeoutRef.current);
+            }
+        };
+    }, [products]);
     const handleNextClick = () => {
         if (slickRef.current) {
             slickRef.current.slickNext();
@@ -219,26 +244,41 @@ function BlockZone(props: Props) {
                                 onClick={handleNextClick}
                             />
                         </div>
-                        <div className="block-zone__widget-body">
-                            <div
-                                className={classNames('block-zone__carousel', {
-                                    'block-zone__carousel--loading': isLoading,
-                                })}
-                            >
-                                <div className="block-zone__carousel-loader" />
+                        {!error ? (
+                            <div className="block-zone__widget-body">
+                                <div
+                                    className={classNames('block-zone__carousel', {
+                                        'block-zone__carousel--loading': isLoading,
+                                    })}
+                                >
+                                    <div className="block-zone__carousel-loader" />
 
-                                <AppSlick className="block-zone__carousel-slick" ref={slickRef} {...slickSettings}>
-                                    {products.map((product) => (
-                                        <div key={product.id} className="block-zone__carousel-item">
-                                            <ProductCard
-                                                product={product}
-                                                exclude={excludeElements}
-                                            />
-                                        </div>
-                                    ))}
-                                </AppSlick>
+                                    <AppSlick className="block-zone__carousel-slick" ref={slickRef} {...slickSettings}>
+                                        {products.map((product) => (
+                                            <div key={product.id} className="block-zone__carousel-item">
+                                                <ProductCard
+                                                    product={product}
+                                                    exclude={excludeElements}
+                                                />
+                                            </div>
+                                        ))}
+                                    </AppSlick>
+                                </div>
                             </div>
-                        </div>
+                        ) : (
+                            <div className="w-100 justify-content-center align-items-center d-flex flex-column">
+                                <p>A Server Side Error occurred, please try again later</p>
+                                <button
+                                    type="button"
+                                    className="btn btn-danger btn-md"
+                                    onClick={() => {
+                                        window.location.reload();
+                                    }}
+                                >
+                                    Reload
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 'use client';
 
 // application
+import { toast } from 'react-toastify';
 import { AbstractFilterBuilder } from '~/api/routes/filters/abstract-filter-builder';
 import { ColorFilterBuilder } from '~/api/routes/filters/color-filter-builder';
 import { getNextReviewId, reviews } from '~/api/routes/database/reviews';
@@ -444,6 +445,7 @@ export async function getProductsList(
         });
     } catch (e) {
         console.error(e);
+        toast.error('A Server Side error occurred, Please try again later');
         throw new Error('Please try again later');
     }
     // @ts-ignore
@@ -461,6 +463,7 @@ export async function getProductBySlug(slug: string): Promise<IProduct> {
         return Promise.resolve(clone(product));
     } catch (e) {
         console.error(e);
+        toast.error('A Server Side error occurred, Please try again later');
         throw new Error('Please try again later');
     }
 }
@@ -528,6 +531,7 @@ export async function getRelatedProducts(productId: number, limit: number): Prom
         return Promise.resolve(clone(products.slice(0, limit)));
     } catch (e) {
         console.error(e);
+        toast.error('A Server Side error occurred, Please try again later');
         throw new Error('Please try again later');
     }
 }
@@ -553,6 +557,7 @@ export async function getFeaturedProducts(categorySlug: string | null, limit: nu
     // return delayResponse(Promise.resolve(clone(getProducts(0, categorySlug).slice(0, limit))), 1000);
     } catch (e) {
         console.error(e);
+        toast.error('A Server Side error occurred, Please try again later');
         throw new Error('Please try again later');
     }
 }
@@ -578,6 +583,7 @@ export async function getEngineCategories(slug:string|null, limit:number): Promi
         // return delayResponse(Promise.resolve(clone(getProducts(0, categorySlug).slice(0, limit))), 1000);
     } catch (e) {
         console.error(e);
+        toast.error('A Server Side error occurred, Please try again later');
         throw new Error('Please try again later');
     }
 }
@@ -594,6 +600,7 @@ export async function getPopularProducts(categorySlug: string | null, limit: num
         // return delayResponse(Promise.resolve(clone(getProducts(6, categorySlug).slice(0, limit))), 1000);
     } catch (e) {
         console.error(e);
+        toast.error('A Server Side error occurred, Please try again later');
         throw new Error('Please try again later');
     }
 }
@@ -608,6 +615,7 @@ export async function getTopRatedProducts(categorySlug: string | null, limit: nu
         return Promise.resolve(clone(products.slice(0, limit)));
     } catch (e) {
         console.error(e);
+        toast.error('A Server Side error occurred, Please try again later');
         throw new Error('Please try again later');
     }
 }
@@ -633,6 +641,7 @@ export async function getLatestProducts(limit: number): Promise<IProduct[]> {
         // return Promise.resolve(clone(dbProducts.slice(0, limit)));
     } catch (e) {
         console.error(e);
+        toast.error('A Server Side error occurred, Please try again later');
         throw new Error('Please try again later');
     }
 }

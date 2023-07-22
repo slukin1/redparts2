@@ -44,7 +44,7 @@ export class RangeFilterBuilder extends AbstractFilterBuilder {
             this.max = 40_000_000;
             // minimum price from result list
             // @ts-ignore
-            this.min = 30_000;
+            this.min = 0;
         } else {
             this.max = dbProducts.reduce((acc, product) => Math.max(acc, this.extractValue(product)), 0);
             this.min = dbProducts.reduce((acc, product) => Math.min(acc, this.extractValue(product)), this.max);
