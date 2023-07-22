@@ -1,5 +1,5 @@
 // react
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 // application
 import ProductCard from '~/components/shared/ProductCard';
 import { IProduct } from '~/interfaces/product';
