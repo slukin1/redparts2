@@ -4,7 +4,9 @@
 // @ts-nocheck
 // Path: src/components/inquiry/InquiryModal.tsx
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, {
+    useState, useEffect, useCallback, useMemo,
+} from 'react';
 import { useForm } from 'react-hook-form';
 import { Modal } from 'reactstrap';
 import { toast } from 'react-toastify';
@@ -121,42 +123,42 @@ function WhatsAppModal() {
     }
 
     const productTemplate = (
-        <div className='quickview__product d-flex flex-column flex-lg-row'>
-            <div className='quickview__body p-0 pr-1'>
-                <img src={image[0]} alt='' className='w-100 h-100 d-flex ' />
+        <div className="quickview__product d-flex flex-column flex-lg-row">
+            <div className="quickview__body p-0 pr-1">
+                <img src={image[0]} alt="" className="w-100 h-100 d-flex " />
             </div>
-            <div className='w-100 flex'>
-                <div className='quickview__product-name text-start'>{product.name}</div>
-                <div className='quickview__product-meta d-flex justify-content-start align-items-center flex-col'>
+            <div className="w-100 flex">
+                <div className="quickview__product-name text-start">{product.name}</div>
+                <div className="quickview__product-meta d-flex justify-content-start align-items-center flex-col">
                     <CurrencyFormat value={product.price} />
                 </div>
 
-                {product.excerpt && <div className='quickview__product-description'>{product.excerpt}</div>}
-                <div className=''>
-                    <div className='form-group m-0 p-0'>
-                        <label htmlFor='country'>Country</label>
+                {product.excerpt && <div className="quickview__product-description">{product.excerpt}</div>}
+                <div className="">
+                    <div className="form-group m-0 p-0">
+                        <label htmlFor="country">Country</label>
                         <select
                             className={`form-control ${errors.country ? 'is-invalid' : ''}`}
-                            id='country'
+                            id="country"
                             {...register('country', { required: 'Country is required' })}
                         >
-                            <option value=''>Select a country</option>
+                            <option value="">Select a country</option>
                             {countries.map((country) => (
                                 <option key={country.code} value={country.code}>
                                     {country.name}
                                 </option>
                             ))}
                         </select>
-                        {errors.country && <div className='invalid-feedback'>{errors.country.message}</div>}
+                        {errors.country && <div className="invalid-feedback">{errors.country.message}</div>}
                     </div>
-                    <div className='form-group m-0 p-0'>
-                        <label htmlFor='port'>Port</label>
+                    <div className="form-group m-0 p-0">
+                        <label htmlFor="port">Port</label>
                         <select
                             className={`form-control ${errors.country ? 'is-invalid' : ''}`}
-                            id='port'
+                            id="port"
                             {...register('port')}
                         >
-                            <option value=''>Select a port</option>
+                            <option value="">Select a port</option>
                             {countries.map((country) => (
                                 <option key={country.code} value={country.code}>
                                     {country.name}
@@ -164,30 +166,30 @@ function WhatsAppModal() {
                             ))}
                         </select>
                     </div>
-                    <div className='d-flex flex-row w-100'>
-                        <div className='w-50'>
-                            <div className='form-group'>
-                                <div className='custom-control custom-checkbox'>
+                    <div className="d-flex flex-row w-100">
+                        <div className="w-50">
+                            <div className="form-group">
+                                <div className="custom-control custom-checkbox">
                                     <input
-                                        type='checkbox'
-                                        className='custom-control-input'
-                                        id='prexInspection'
+                                        type="checkbox"
+                                        className="custom-control-input"
+                                        id="prexInspection"
                                         {...register('prexInspection')}
                                     />
-                                    <label className='custom-control-label' htmlFor='prexInspection'>
+                                    <label className="custom-control-label" htmlFor="prexInspection">
                                         Pre-export Inspection
                                     </label>
                                 </div>
                             </div>
-                            <div className='form-group'>
-                                <div className='custom-control custom-checkbox'>
+                            <div className="form-group">
+                                <div className="custom-control custom-checkbox">
                                     <input
-                                        type='checkbox'
-                                        className='custom-control-input'
-                                        id='marineInsurance'
+                                        type="checkbox"
+                                        className="custom-control-input"
+                                        id="marineInsurance"
                                         {...register('marineInsurance')}
                                     />
-                                    <label className='custom-control-label' htmlFor='marineInsurance'>
+                                    <label className="custom-control-label" htmlFor="marineInsurance">
                                         Marine Insurance Fee
                                     </label>
                                 </div>
@@ -271,45 +273,45 @@ function WhatsAppModal() {
     // @ts-ignore
     // @ts-ignore
     return (
-        <Modal isOpen={whatsapp.open} toggle={toggle} centered className='quickview'>
-            <button type='button' className='quickview__close' onClick={whatsappClose}>
+        <Modal isOpen={whatsapp.open} toggle={toggle} centered className="quickview">
+            <button type="button" className="quickview__close" onClick={whatsappClose}>
                 <Cross12Svg />
             </button>
-            <form onSubmit={handleSubmit(onSubmit)} className='quickview__body p-3 d-flex flex-column'>
+            <form onSubmit={handleSubmit(onSubmit)} className="quickview__body p-3 d-flex flex-column">
                 {productTemplate}
-                <div className='d-flex flex-row w-100'>
+                <div className="d-flex flex-row w-100">
                     {/* First Name */}
-                    <div className='form-group w-100 pr-2 m-0'>
-                        <label htmlFor='firstName'>First Name</label>
+                    <div className="form-group w-100 pr-2 m-0">
+                        <label htmlFor="firstName">First Name</label>
                         <input
-                            type='text'
+                            type="text"
                             className={`form-control ${errors.firstName ? 'is-invalid' : ''}`}
-                            id='firstName'
+                            id="firstName"
                             {...register('firstName', { required: 'First Name is required' })}
                         />
-                        {errors.firstName && <div className='invalid-feedback'>{errors.firstName.message}</div>}
+                        {errors.firstName && <div className="invalid-feedback">{errors.firstName.message}</div>}
                     </div>
 
                     {/* Last Name */}
-                    <div className='form-group w-100 pl-2 m-0'>
-                        <label htmlFor='lastName'>Last Name</label>
+                    <div className="form-group w-100 pl-2 m-0">
+                        <label htmlFor="lastName">Last Name</label>
                         <input
-                            type='text'
+                            type="text"
                             className={`form-control ${errors.lastName ? 'is-invalid' : ''}`}
-                            id='lastName'
+                            id="lastName"
                             {...register('lastName', { required: 'Last Name is required' })}
                         />
-                        {errors.lastName && <div className='invalid-feedback'>{errors.lastName.message}</div>}
+                        {errors.lastName && <div className="invalid-feedback">{errors.lastName.message}</div>}
                     </div>
                 </div>
-                <div className='d-flex flex-row w-100'>
+                <div className="d-flex flex-row w-100">
                     {/* Email */}
-                    <div className='form-group w-100 pr-2 m-0'>
-                        <label htmlFor='email'>Email</label>
+                    <div className="form-group w-100 pr-2 m-0">
+                        <label htmlFor="email">Email</label>
                         <input
-                            type='email'
+                            type="email"
                             className={`form-control ${errors.email ? 'is-invalid' : ''}`}
-                            id='email'
+                            id="email"
                             {...register('email', {
                                 required: 'Email is required',
                                 pattern: {
@@ -318,17 +320,17 @@ function WhatsAppModal() {
                                 },
                             })}
                         />
-                        {errors.email && <div className='invalid-feedback'>{errors.email.message}</div>}
+                        {errors.email && <div className="invalid-feedback">{errors.email.message}</div>}
                     </div>
 
                     {/* Phone Number with Country Code Selector */}
-                    <div className='form-group w-100 pl-2 m-0'>
-                        <label htmlFor='phoneNumber'>Phone Number</label>
-                        <div className='input-group'>
+                    <div className="form-group w-100 pl-2 m-0">
+                        <label htmlFor="phoneNumber">Phone Number</label>
+                        <div className="input-group">
                             <input
-                                type='text'
+                                type="text"
                                 className={`form-control ${errors.phoneNumber ? 'is-invalid' : ''}`}
-                                id='phoneNumber'
+                                id="phoneNumber"
                                 {...register('phoneNumber', {
                                     required: 'Phone Number is required',
                                     pattern: {
@@ -338,26 +340,26 @@ function WhatsAppModal() {
                                 })}
                             />
                         </div>
-                        {errors.phoneNumber && <div className='invalid-feedback'>{errors.phoneNumber.message}</div>}
+                        {errors.phoneNumber && <div className="invalid-feedback">{errors.phoneNumber.message}</div>}
                     </div>
                 </div>
                 {/* Comments Text Area */}
-                <div className='form-group'>
-                    <label htmlFor='comments'>Comments</label>
+                <div className="form-group">
+                    <label htmlFor="comments">Comments</label>
                     <textarea
                         className={`form-control ${errors.comments ? 'is-invalid' : ''}`}
-                        id='comments'
+                        id="comments"
                         {...register('comments', { required: 'Comments are required' })}
                     />
-                    {errors.comments && <div className='invalid-feedback'>{errors.comments.message}</div>}
+                    {errors.comments && <div className="invalid-feedback">{errors.comments.message}</div>}
                 </div>
                 {/* Submit Button */}
                 {loading ? (
-                    <button type='submit' className='btn btn-primary btn-loading' disabled>
+                    <button type="submit" className="btn btn-primary btn-loading" disabled>
                         Submit
                     </button>
                 ) : (
-                    <button type='submit' className='btn btn-primary'>
+                    <button type="submit" className="btn btn-primary">
                         Submit
                     </button>
                 )}

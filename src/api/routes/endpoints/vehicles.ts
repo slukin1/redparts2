@@ -178,7 +178,7 @@ export async function getTransmission(make: string, model: string, yearFrom: num
         // priceFrom,
         // priceTo,
         mileage,
-        engine,
+        engine: engine.includes(' ') ? engine.split(' ').join('_') : engine,
     }));
     return delayResponse(Promise.resolve(filterUndefinedNullEmpty(response?.results)), 750);
 }
@@ -203,8 +203,8 @@ export async function getBodyType(make: string, model: string, yearFrom: number,
         // priceFrom,
         // priceTo,
         mileage,
-        engine,
-        transmission,
+        engine: engine.includes(' ') ? engine.split(' ').join('_') : engine,
+        transmission: transmission.includes(' ') ? transmission.split(' ').join('_') : transmission,
     }));
     return delayResponse(Promise.resolve(filterUndefinedNullEmpty(responseMake)), 750);
 }

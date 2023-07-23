@@ -361,10 +361,10 @@ export async function getProductsList(
 }> {
     try {
         const filters: AbstractFilterBuilder[] = [
+            new RadioFilterBuilder('maker', 'Maker'),
             new RangeFilterBuilder('year', 'Year'),
             new RangeFilterBuilder('price', 'Price'),
             new RangeFilterBuilder('mileage', 'Mileage'),
-            new RadioFilterBuilder('maker', 'Maker'),
             new RadioFilterBuilder('bodyType', 'Body Type'),
             new RadioFilterBuilder('engineType', 'Engine'),
             new RadioFilterBuilder('transmission', 'Transmission'),

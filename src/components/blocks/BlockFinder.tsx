@@ -23,20 +23,17 @@ function BlockFinder() {
         }
         const queryFromLocalStorage = JSON.parse(localStorage.getItem('query') || '{}');
         localStorage.removeItem('query');
-        console.log('queryFromLocalStorage', queryFromLocalStorage);
         const {
             yearFrom,
             yearTo,
             make,
             model,
-            engineType,
+            engine,
             // priceFrom,
             // priceTo,
             mileage,
             transmission,
             // fuel,
-            bodyType,
-            vehicle,
         } = queryFromLocalStorage;
         if (!yearFrom || !yearTo || !make || !model) {
             toast.success('Please select the required fields, Make, Model, Year From and Year To', {
@@ -47,6 +44,7 @@ function BlockFinder() {
             });
             return;
         }
+        console.log(vehicle);
         // if (priceFrom && !priceTo) {
         //     toast.success('Please select the Price To field', {
         //         position: toast.POSITION.TOP_CENTER,
@@ -56,17 +54,17 @@ function BlockFinder() {
         //     return;
         // }
         setLoading(true);
-        const color = vehicle ? vehicle.replace(/ /g, '_') : '';
+        const bodyType = vehicle?.toString();
         const filters = {
             ...(yearFrom && { filter_year: `${yearFrom}-${yearTo}` }),
             ...(make && { filter_maker: make }),
             ...(model && { filter_model: model }),
-            ...(engineType && { filter_engineType: engineType }),
+            ...(engine && { filter_engineType: engine }),
             // ...(priceFrom && priceTo && { filter_price: `${priceFrom}-${priceTo}` }),
             ...(mileage && { filter_mileage: mileage }),
             ...(transmission && { filter_transmission: transmission }),
             // ...(fuel && { filter_fuel: fuel }),
-            ...(bodyType && { filter_bodyType: bodyType }),
+            ...(bodyType && { filter_bodyType: bodyType.includes(' ') ? bodyType.split(' ').join('_') : bodyType }),
             // ...(color && { filter_color: color }),
         };
         router.push(...hrefToRouterArgs(url.products({ filters }))).then();
@@ -85,7 +83,7 @@ function BlockFinder() {
                 <div className="block-finder__subtitle">
                     <FormattedMessage id="TEXT_BLOCK_FINDER_SUBTITLE" />
                 </div>
-                <form className="block-finder__form">
+                <form className="block-finder__form" onSubmit={onSubmit}>
                     <VehicleSelect className="block-finder__select" onVehicleChange={setVehicle} />
                     {loading ? (
                         <button className="btn-primary btn-lg btn btn-loading" type="submit" onClick={onSubmit}>
