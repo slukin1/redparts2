@@ -15,4 +15,5 @@ module.exports = {
         locales: ['en', 'ru', 'ar', 'jp', 'fr'],
         defaultLocale: 'en',
     },
+    analytics: true,
 };

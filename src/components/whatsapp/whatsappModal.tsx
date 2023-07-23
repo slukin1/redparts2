@@ -4,15 +4,13 @@
 // @ts-nocheck
 // Path: src/components/inquiry/InquiryModal.tsx
 
-import React, {
-    useState, useEffect, useCallback, useMemo,
-} from 'react';
-import { useForm } from 'react-hook-form';
-import { Modal } from 'reactstrap';
-import { toast } from 'react-toastify';
-import CurrencyFormat from '~/components/shared/CurrencyFormat';
-import { Cross12Svg } from '~/svg';
-import { useWhatsapp, useWhatsappClose } from '~/store/whatsapp/whatsappHooks';
+import React, { useState, useEffect, useCallback, useMemo } from "react";
+import { useForm } from "react-hook-form";
+import { Modal } from "reactstrap";
+import { toast } from "react-toastify";
+import CurrencyFormat from "~/components/shared/CurrencyFormat";
+import { Cross12Svg } from "~/svg";
+import { useWhatsapp, useWhatsappClose } from "~/store/whatsapp/whatsappHooks";
 
 interface Country {
     name: string;
@@ -45,7 +43,7 @@ function WhatsAppModal() {
     const [countries, setCountries] = useState<Country[]>([]);
 
     useEffect(() => {
-        fetch('https://restcountries.com/v3.1/all')
+        fetch("https://restcountries.com/v3.1/all")
             .then((response) => response.json())
             .then((data) => {
                 const formattedCountries = data.map((country: any) => ({
@@ -71,51 +69,51 @@ function WhatsAppModal() {
     async function onSubmit(data: FormData) {
         setLoading(true);
         console.log(product);
-        const phoneNumber = '818070858003';
+        const phoneNumber = "818070858003";
         const message = `*Hello Jacokin!*
-I am interested in this car, the *${product.name}*.
+        I am interested in this car, the *${product.name}*.
 
-**Car Details:**
-Product Name: ${product.name}
-Url: ${window.location.protocol}//${window.location.host}/product/${product.slug}
-RefNo: ${product.refNo}
-Make: ${product?.attributes[0].values[0].name}
-Model: ${product?.attributes[1].values[0].name}
-Engine Type: ${product?.attributes[2].values[0].name}
-Body Type: ${product?.attributes[3].values[0].name}
-Transmission: ${product?.attributes[4].values[0].name}
-Fuel: ${product?.attributes[5].values[0].name}
-Mileage: ${product?.attributes[6].values[0].name}
+        **Car Details:**
+        Product Name: ${product.name}
+        Url: ${window.location.protocol}//${window.location.host}/product/${product.slug}
+        RefNo: ${product.refNo}
+        Make: ${product?.attributes[0].values[0].name}
+        Model: ${product?.attributes[1].values[0].name}
+        Engine Type: ${product?.attributes[2].values[0].name}
+        Body Type: ${product?.attributes[3].values[0].name}
+        Transmission: ${product?.attributes[4].values[0].name}
+        Fuel: ${product?.attributes[5].values[0].name}
+        Mileage: ${product?.attributes[6].values[0].name}
 
-**Event Details:**
-Port:
-Pre-export Inspection: ${data.prexInspection}
-Marine Insurance Fee: ${data.marineInsurance}
+        **Event Details:**
+        Port:
+        Pre-export Inspection: ${data.prexInspection}
+        Marine Insurance Fee: ${data.marineInsurance}
 
-Please provide me with more details about the product,
-including pricing, availability, and any other relevant information.
+        Please provide me with more details about the product,
+        including pricing, availability, and any other relevant information.
 
-**My Contact info:**
-First Name: ${data.firstName}
-Last Name: ${data.lastName}
-Phone Number: ${data.phoneNumber}
-Email: ${data.email}
-My country: ${data.country}
-Port: ${data.port}
+        **My Contact info:**
+        First Name: ${data.firstName}
+        Last Name: ${data.lastName}
+        Phone Number: ${data.phoneNumber}
+        Email: ${data.email}
+        My country: ${data.country}
+        Port: ${data.port}
 
-Looking forward to your response.
+        Looking forward to your response.
 
-Best regards,
-${data.firstName} ${data.lastName}`;
+        Best regards,
+        ${data.firstName} ${data.lastName}`;
 
         const url = `https://api.whatsapp.com/send/?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
-        toast.success('Redirecting to WhatsApp', {
+        toast.success("Redirecting to WhatsApp", {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 2000,
-            theme: 'colored',
+            theme: "colored",
         });
         setTimeout(() => {
-            window.open(url, '_blank');
+            window.open(url, "_blank");
         }, 3000);
 
         reset();
@@ -128,25 +126,19 @@ ${data.firstName} ${data.lastName}`;
                 <img src={image[0]} alt="" className="w-100 h-100 d-flex " />
             </div>
             <div className="w-100 flex">
-                <div className="quickview__product-name text-start">
-                    {product.name}
-                </div>
+                <div className="quickview__product-name text-start">{product.name}</div>
                 <div className="quickview__product-meta d-flex justify-content-start align-items-center flex-col">
                     <CurrencyFormat value={product.price} />
                 </div>
 
-                {product.excerpt && (
-                    <div className="quickview__product-description">
-                        {product.excerpt}
-                    </div>
-                )}
+                {product.excerpt && <div className="quickview__product-description">{product.excerpt}</div>}
                 <div className="">
                     <div className="form-group m-0 p-0">
                         <label htmlFor="country">Country</label>
                         <select
-                            className={`form-control ${errors.country ? 'is-invalid' : ''}`}
+                            className={`form-control ${errors.country ? "is-invalid" : ""}`}
                             id="country"
-                            {...register('country', { required: 'Country is required' })}
+                            {...register("country", { required: "Country is required" })}
                         >
                             <option value="">Select a country</option>
                             {countries.map((country) => (
@@ -160,9 +152,9 @@ ${data.firstName} ${data.lastName}`;
                     <div className="form-group m-0 p-0">
                         <label htmlFor="port">Port</label>
                         <select
-                            className={`form-control ${errors.country ? 'is-invalid' : ''}`}
+                            className={`form-control ${errors.country ? "is-invalid" : ""}`}
                             id="port"
-                            {...register('port')}
+                            {...register("port")}
                         >
                             <option value="">Select a port</option>
                             {countries.map((country) => (
@@ -180,7 +172,7 @@ ${data.firstName} ${data.lastName}`;
                                         type="checkbox"
                                         className="custom-control-input"
                                         id="prexInspection"
-                                        {...register('prexInspection')}
+                                        {...register("prexInspection")}
                                     />
                                     <label className="custom-control-label" htmlFor="prexInspection">
                                         Pre-export Inspection
@@ -193,7 +185,7 @@ ${data.firstName} ${data.lastName}`;
                                         type="checkbox"
                                         className="custom-control-input"
                                         id="marineInsurance"
-                                        {...register('marineInsurance')}
+                                        {...register("marineInsurance")}
                                     />
                                     <label className="custom-control-label" htmlFor="marineInsurance">
                                         Marine Insurance Fee
@@ -291,9 +283,9 @@ ${data.firstName} ${data.lastName}`;
                         <label htmlFor="firstName">First Name</label>
                         <input
                             type="text"
-                            className={`form-control ${errors.firstName ? 'is-invalid' : ''}`}
+                            className={`form-control ${errors.firstName ? "is-invalid" : ""}`}
                             id="firstName"
-                            {...register('firstName', { required: 'First Name is required' })}
+                            {...register("firstName", { required: "First Name is required" })}
                         />
                         {errors.firstName && <div className="invalid-feedback">{errors.firstName.message}</div>}
                     </div>
@@ -303,13 +295,12 @@ ${data.firstName} ${data.lastName}`;
                         <label htmlFor="lastName">Last Name</label>
                         <input
                             type="text"
-                            className={`form-control ${errors.lastName ? 'is-invalid' : ''}`}
+                            className={`form-control ${errors.lastName ? "is-invalid" : ""}`}
                             id="lastName"
-                            {...register('lastName', { required: 'Last Name is required' })}
+                            {...register("lastName", { required: "Last Name is required" })}
                         />
                         {errors.lastName && <div className="invalid-feedback">{errors.lastName.message}</div>}
                     </div>
-
                 </div>
                 <div className="d-flex flex-row w-100">
                     {/* Email */}
@@ -317,13 +308,13 @@ ${data.firstName} ${data.lastName}`;
                         <label htmlFor="email">Email</label>
                         <input
                             type="email"
-                            className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                            className={`form-control ${errors.email ? "is-invalid" : ""}`}
                             id="email"
-                            {...register('email', {
-                                required: 'Email is required',
+                            {...register("email", {
+                                required: "Email is required",
                                 pattern: {
                                     value: /^\S+@\S+$/i,
-                                    message: 'Invalid email address',
+                                    message: "Invalid email address",
                                 },
                             })}
                         />
@@ -336,13 +327,13 @@ ${data.firstName} ${data.lastName}`;
                         <div className="input-group">
                             <input
                                 type="text"
-                                className={`form-control ${errors.phoneNumber ? 'is-invalid' : ''}`}
+                                className={`form-control ${errors.phoneNumber ? "is-invalid" : ""}`}
                                 id="phoneNumber"
-                                {...register('phoneNumber', {
-                                    required: 'Phone Number is required',
+                                {...register("phoneNumber", {
+                                    required: "Phone Number is required",
                                     pattern: {
                                         value: /^[+]*[(]?[0-9]{1,3}[)]?[-\s./0-9]*$/g,
-                                        message: 'Invalid phone number',
+                                        message: "Invalid phone number",
                                     },
                                 })}
                             />
@@ -354,16 +345,22 @@ ${data.firstName} ${data.lastName}`;
                 <div className="form-group">
                     <label htmlFor="comments">Comments</label>
                     <textarea
-                        className={`form-control ${errors.comments ? 'is-invalid' : ''}`}
+                        className={`form-control ${errors.comments ? "is-invalid" : ""}`}
                         id="comments"
-                        {...register('comments', { required: 'Comments are required' })}
+                        {...register("comments", { required: "Comments are required" })}
                     />
                     {errors.comments && <div className="invalid-feedback">{errors.comments.message}</div>}
                 </div>
                 {/* Submit Button */}
-                {loading
-                    ? <button type="submit" className="btn btn-primary btn-loading" disabled>Submit</button>
-                    : <button type="submit" className="btn btn-primary">Submit</button>}
+                {loading ? (
+                    <button type="submit" className="btn btn-primary btn-loading" disabled>
+                        Submit
+                    </button>
+                ) : (
+                    <button type="submit" className="btn btn-primary">
+                        Submit
+                    </button>
+                )}
             </form>
         </Modal>
     );

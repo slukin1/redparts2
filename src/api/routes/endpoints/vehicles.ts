@@ -116,18 +116,12 @@ export function getPriceTo(make: string, model: string, yearFrom: number, yearTo
 export function getMileage(make: string, model:string, yearFrom:number, yearTo:number, priceFrom: number, priceTo:number): Promise<string[]> {
     const result: string[] = [
         '0-10000',
-        '10000-20000',
-        '20000-30000',
-        '30000-40000',
-        '40000-50000',
-        '50000-60000',
-        '60000-70000',
-        '70000-80000',
-        '80000-90000',
-        '90000-100000',
-        '100000-110000',
-        '110000-120000',
-        '120000-130000',
+        '10000-50000',
+        '80000-100000',
+        '100000-150000',
+        '150000-200000',
+        '200000-300000',
+        '300000-500000',
     ];
     localStorage.setItem('query', JSON.stringify({
         make: make.includes(' ') ? make.split(' ').join('_') : make,
