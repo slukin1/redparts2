@@ -91,7 +91,7 @@ export async function getYearsTo(make: string, model: string, yearFrom: number):
 }
 
 export function getPriceFrom(make: string, model: string, yearFrom: number, yearTo: number): Promise<number[]> {
-    const result = Array.from(Array(51).keys()).map((x) => x * 1000);
+    const result = Array.from(Array(38).keys()).map((x) => x * 10000);
     localStorage.setItem('query', JSON.stringify({
         make: make.includes(' ') ? make.split(' ').join('_') : make,
         model: model.includes(' ') ? model.split(' ').join('_') : model,
@@ -102,7 +102,7 @@ export function getPriceFrom(make: string, model: string, yearFrom: number, year
 }
 
 export function getPriceTo(make: string, model: string, yearFrom: number, yearTo: number, priceFrom:number): Promise<number[]> {
-    const result = Array.from(Array(51).keys()).map((x) => x * 1000).filter((x) => x > priceFrom);
+    const result = Array.from(Array(39).keys()).map((x) => x * 10000).filter((x) => x > priceFrom);
     localStorage.setItem('query', JSON.stringify({
         make: make.includes(' ') ? make.split(' ').join('_') : make,
         model: model.includes(' ') ? model.split(' ').join('_') : model,
