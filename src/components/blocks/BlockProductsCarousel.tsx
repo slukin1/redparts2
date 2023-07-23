@@ -157,7 +157,7 @@ function BlockProductsCarousel<T extends ISectionHeaderGroup>(props: Props<T>) {
             } else {
                 setError(false);
             }
-        }, 4000);
+        }, 6000);
 
         // Clean up the timeout when the component unmounts or the products array changes
         return () => {
