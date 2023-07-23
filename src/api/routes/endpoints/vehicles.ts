@@ -113,7 +113,8 @@ export function getPriceTo(make: string, model: string, yearFrom: number, yearTo
     return delayResponse(Promise.resolve(result), 750);
 }
 
-export function getMileage(make: string, model:string, yearFrom:number, yearTo:number, priceFrom: number, priceTo:number): Promise<string[]> {
+export function getMileage(make: string, model:string, yearFrom:number, yearTo:number): Promise<string[]> {
+    // priceFrom: number, priceTo:number
     const result: string[] = [
         '0-10000',
         '10000-50000',
@@ -128,15 +129,16 @@ export function getMileage(make: string, model:string, yearFrom:number, yearTo:n
         model: model.includes(' ') ? model.split(' ').join('_') : model,
         yearFrom,
         yearTo,
-        priceFrom,
-        priceTo,
+        // priceFrom,
+        // priceTo,
     }));
     return delayResponse(Promise.resolve(result), 750);
 }
 
 export async function getEngine(make: string,
     model: string, yearFrom: number, yearTo: number,
-    priceFrom: number, priceTo:number, mileage: string): Promise<string[]> {
+    // priceFrom: number, priceTo:number,
+    mileage: string): Promise<string[]> {
     let response: any;
     if (typeof window !== 'undefined') {
         response = await getDataFromLocalStorage('engine');
@@ -149,15 +151,17 @@ export async function getEngine(make: string,
         model: model.includes(' ') ? model.split(' ').join('_') : model,
         yearFrom,
         yearTo,
-        priceFrom,
-        priceTo,
+        // priceFrom,
+        // priceTo,
         mileage,
     }));
     return delayResponse(Promise.resolve(filterUndefinedNullEmpty(response?.results)), 750);
 }
 
-export async function getTransmission(make: string, model: string, yearFrom: number, yearTo: number, priceFrom:number,
-    priceTo:number, mileage: string,
+export async function getTransmission(make: string, model: string, yearFrom: number, yearTo: number,
+    // priceFrom:number,
+    // priceTo:number,
+    mileage: string,
     engine: string): Promise<string[]> {
     let response: any;
     if (typeof window !== 'undefined') {
@@ -171,15 +175,17 @@ export async function getTransmission(make: string, model: string, yearFrom: num
         model: model.includes(' ') ? model.split(' ').join('_') : model,
         yearFrom,
         yearTo,
-        priceFrom,
-        priceTo,
+        // priceFrom,
+        // priceTo,
         mileage,
         engine,
     }));
     return delayResponse(Promise.resolve(filterUndefinedNullEmpty(response?.results)), 750);
 }
 
-export async function getBodyType(make: string, model: string, yearFrom: number, yearTo: number, priceFrom: number, priceTo:number, mileage: string,
+export async function getBodyType(make: string, model: string, yearFrom: number, yearTo: number,
+    // priceFrom: number, priceTo:number,
+    mileage: string,
     engine: string, transmission: string): Promise<string[]> {
     let response: any;
     if (typeof window !== 'undefined') {
@@ -194,8 +200,8 @@ export async function getBodyType(make: string, model: string, yearFrom: number,
         model: model.includes(' ') ? model.split(' ').join('_') : model,
         yearFrom,
         yearTo,
-        priceFrom,
-        priceTo,
+        // priceFrom,
+        // priceTo,
         mileage,
         engine,
         transmission,

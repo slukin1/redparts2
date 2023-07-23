@@ -4,24 +4,30 @@
 import { IVehicle } from '~/interfaces/vehicle';
 
 export abstract class VehicleApi {
-    abstract getEngine(make: string, model: string, yearFrom: number, yearTo: number, priceFrom:number,
-                       priceTo:number, mileage:string): Promise<string[]>;
+    abstract getEngine(make: string, model: string, yearFrom: number, yearTo: number,
+                       // priceFrom:number, priceTo:number,
+                       mileage:string): Promise<string[]>;
 
-    abstract getBodyType(make: string, model: string, yearFrom: number, yearTo: number, priceFrom:number, priceTo:number,
+    abstract getBodyType(make: string, model: string, yearFrom: number, yearTo: number,
+                         // priceFrom:number, priceTo:number,
                          mileage:string, engine:string,
                          transmission:string): Promise<string[]>;
 
-    abstract getTransmission(make: string, model: string, yearFrom: number, yearTo: number, priceFrom:number,
-                             priceTo:number, mileage:string, engine:string): Promise<string[]>;
+    abstract getTransmission(make: string, model: string, yearFrom: number, yearTo: number,
+                             // priceFrom:number, priceTo:number,
+                             mileage:string, engine:string): Promise<string[]>;
 
-    abstract getFuel(make: string, model: string, yearFrom: number, yearTo: number, priceFrom:number,
-                     priceTo:number, mileage:string, engine:string,
-                     transmission:string, bodyType:string): Promise<string[]>;
+    // abstract getFuel(make: string, model: string, yearFrom: number, yearTo: number, priceFrom:number,
+    //                  priceTo:number, mileage:string, engine:string,
+    //                  transmission:string, bodyType:string): Promise<string[]>;
+    //
+    // abstract getColor(make: string, model: string, yearFrom: number, yearTo: number, priceFrom:number,
+    // priceTo:number, mileage:string, engine:string,
+    //     transmission:string, bodyType:string, fuel:string): Promise<string[]>;
 
-    abstract getColor(make: string, model: string, yearFrom: number, yearTo: number, priceFrom:number, priceTo:number, mileage:string, engine:string,
-        transmission:string, bodyType:string, fuel:string): Promise<string[]>;
-
-    abstract getMileage(make: string, model: string, yearFrom: number, yearTo: number, priceFrom:number, priceTo:number,): Promise<string[]>;
+    abstract getMileage(make: string, model: string, yearFrom: number, yearTo: number,
+                        // priceFrom:number, priceTo:number,
+                        ): Promise<string[]>;
 
     abstract getYearsFrom(make: string, model: string): Promise<number[]>;
 
@@ -43,7 +49,7 @@ export abstract class VehicleApi {
 
     abstract getAllData(): Promise<any>;
 
-    abstract getPriceFrom(make: string, model: string, yearFrom: number, yearTo: number): Promise<number[]>;
-
-    abstract getPriceTo(make: string, model: string, yearFrom: number, yearTo: number, priceFrom:number): Promise<number[]>;
+    // abstract getPriceFrom(make: string, model: string, yearFrom: number, yearTo: number): Promise<number[]>;
+    //
+    // abstract getPriceTo(make: string, model: string, yearFrom: number, yearTo: number, priceFrom:number): Promise<number[]>;
 }

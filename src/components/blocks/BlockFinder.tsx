@@ -30,11 +30,11 @@ function BlockFinder() {
             make,
             model,
             engineType,
-            priceFrom,
-            priceTo,
+            // priceFrom,
+            // priceTo,
             mileage,
             transmission,
-            fuel,
+            // fuel,
             bodyType,
             vehicle,
         } = queryFromLocalStorage;
@@ -47,14 +47,14 @@ function BlockFinder() {
             });
             return;
         }
-        if (priceFrom && !priceTo) {
-            toast.success('Please select the Price To field', {
-                position: toast.POSITION.TOP_CENTER,
-                autoClose: 2000,
-                theme: 'colored',
-            });
-            return;
-        }
+        // if (priceFrom && !priceTo) {
+        //     toast.success('Please select the Price To field', {
+        //         position: toast.POSITION.TOP_CENTER,
+        //         autoClose: 2000,
+        //         theme: 'colored',
+        //     });
+        //     return;
+        // }
         setLoading(true);
         const color = vehicle ? vehicle.replace(/ /g, '_') : '';
         const filters = {
@@ -62,12 +62,12 @@ function BlockFinder() {
             ...(make && { filter_maker: make }),
             ...(model && { filter_model: model }),
             ...(engineType && { filter_engineType: engineType }),
-            ...(priceFrom && priceTo && { filter_price: `${priceFrom}-${priceTo}` }),
+            // ...(priceFrom && priceTo && { filter_price: `${priceFrom}-${priceTo}` }),
             ...(mileage && { filter_mileage: mileage }),
             ...(transmission && { filter_transmission: transmission }),
-            ...(fuel && { filter_fuel: fuel }),
+            // ...(fuel && { filter_fuel: fuel }),
             ...(bodyType && { filter_bodyType: bodyType }),
-            ...(color && { filter_color: color }),
+            // ...(color && { filter_color: color }),
         };
         router.push(...hrefToRouterArgs(url.products({ filters }))).then();
     };
