@@ -3,7 +3,7 @@ import React from 'react';
 // third-party
 import classNames from 'classnames';
 // application
-import useVehicleForm from '~/services/forms/vehicle';
+import useVehicleForm from '~/api/services/forms/vehicle';
 import { IVehicle } from '~/interfaces/vehicle';
 
 interface Props extends React.HTMLAttributes<HTMLElement> {
@@ -19,10 +19,9 @@ function VehicleSelect(props: Props) {
 
     return (
         <div className={rootClasses} {...rootProps}>
-            <div className="vehicle-select__list">
+            <div className="vehicle-select__list ">
                 {form.items.map((item, itemIdx) => {
                     const options = item.options as Array<number | string | IVehicle>;
-
                     return (
                         <div
                             key={itemIdx}

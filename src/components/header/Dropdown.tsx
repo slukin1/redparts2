@@ -5,7 +5,7 @@ import classNames from 'classnames';
 // application
 import AppImage from '~/components/shared/AppImage';
 import { ArrowDownSm7x5Svg } from '~/svg';
-import { useGlobalMousedown } from '~/services/hooks';
+import { useGlobalMousedown } from '~/api/services/hooks';
 
 export interface IDropdownItem {
     title: string;

@@ -1,6 +1,7 @@
 // application
 import { IUserState } from '~/store/user/userTypes';
 import { USER_SET_CURRENT, UserAction } from '~/store/user/userActionTypes';
+import { withClientState } from '~/store/client';
 
 const initialState: IUserState = {
     current: null,
@@ -8,7 +9,7 @@ const initialState: IUserState = {
 
 export const USER_NAMESPACE = 'user';
 
-function userReducer(state = initialState, action: UserAction): IUserState {
+function userBaseReducer(state = initialState, action: UserAction): IUserState {
     switch (action.type) {
     case USER_SET_CURRENT:
         return {
@@ -19,5 +20,7 @@ function userReducer(state = initialState, action: UserAction): IUserState {
         return state;
     }
 }
+
+const userReducer = withClientState(userBaseReducer, USER_NAMESPACE);
 
 export default userReducer;

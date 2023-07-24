@@ -5,9 +5,9 @@ import { FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
 // application
 import AppLink from '~/components/shared/AppLink';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { ArrowRoundedLeft6x9Svg } from '~/svg';
-import { getCategoryParents } from '~/services/utils';
+import { getCategoryParents } from '~/api/services/utils';
 import { ICategoryFilter } from '~/interfaces/filter';
 
 interface Props {

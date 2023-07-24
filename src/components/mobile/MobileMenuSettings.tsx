@@ -5,10 +5,10 @@ import AppImage from '~/components/shared/AppImage';
 import MobileMenuLinks from '~/components/mobile/MobileMenuLinks';
 import MobileMenuPanelController from '~/components/mobile/MobileMenuPanelController';
 import { ArrowRoundedRight6x9Svg } from '~/svg';
-import { getAllLanguages } from '~/services/i18n/utils';
+import { getAllLanguages } from '~/api/services/i18n/utils';
 import { IMobileMenuLink } from '~/interfaces/mobile-menu-link';
 import { useCurrency, useCurrencyChange } from '~/store/currency/currencyHooks';
-import { useLanguage, useSetLocale } from '~/services/i18n/hooks';
+import { useLanguage, useSetLocale } from '~/api/services/i18n/hooks';
 import { useMobileMenuClose } from '~/store/mobile-menu/mobileMenuHooks';
 // data
 import dataShopCurrencies from '~/data/shopCurrencies';

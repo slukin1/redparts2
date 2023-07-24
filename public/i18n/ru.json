@@ -99,6 +99,7 @@
   "HEADER_ORDER_HISTORY": "История заказов",
   "HEADER_ORDER_SUCCESS_SUBTITLE": "Мы получили ваш заказ",
   "HEADER_ORDER_SUCCESS_TITLE": "Спасибо!",
+  "HEADER_INQUIRY_LIST": "Список запросов",
   "HEADER_POPULAR_CATEGORIES": "Популярные категории",
   "HEADER_RECENT_ORDERS": "Недавние заказы",
   "HEADER_REGISTER": "Регистрация",
@@ -189,6 +190,7 @@
   "INPUT_YOUR_REVIEW_PLACEHOLDER": " ",
 
   "LINK_ABOUT_US": "О нас",
+  "LINK_ACCOUNT_INQUIRIES": "Запросы",
   "LINK_ACCOUNT_ADDRESSES": "Адресная книга",
   "LINK_ACCOUNT_DASHBOARD": "Мой аккаунт",
   "LINK_ACCOUNT_GARAGE": "Автомобили",
@@ -232,7 +234,7 @@
 
   "TABLE_ADD_TO_CART": "В корзину",
   "TABLE_BRAND": "Бренд",
-  "TABLE_COUNTRY": "Страна",
+  "TABLE_COUNTRY": "Местоположение",
   "TABLE_DATE": "Дата",
   "TABLE_IMAGE": "Картинка",
   "TABLE_NAME": "Название",

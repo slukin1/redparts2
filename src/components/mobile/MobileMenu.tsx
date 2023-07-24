@@ -12,7 +12,7 @@ import MobileMenuIndicators from '~/components/mobile/MobileMenuIndicators';
 import MobileMenuLinks from '~/components/mobile/MobileMenuLinks';
 import MobileMenuPanel from '~/components/mobile/MobileMenuPanel';
 import MobileMenuSettings from '~/components/mobile/MobileMenuSettings';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { Cross12Svg } from '~/svg';
 import { useMobileMenu, useMobileMenuClose } from '~/store/mobile-menu/mobileMenuHooks';
 // data

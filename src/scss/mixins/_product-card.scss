@@ -195,16 +195,19 @@
     .product-card__addtocart-icon {
         position: relative;
         border: none;
-        padding: 8px;
-        border-radius: 2px;
-        background: transparent;
+        padding: 12px;
+        border-radius: 50%;
+        background: green;
         color: map_get($addtocart-button-scheme, default-font-color);
         z-index: 0;
         transition: color .2s;
 
         svg {
             display: block;
-            fill: currentColor;
+            fill: transparent;
+            path {
+                stroke: white;
+            }
         }
 
         &:before {
@@ -215,8 +218,6 @@
             display: block;
             content: '';
             position: absolute;
-            width: calc(100% + #{$local-expand});
-            height: calc(100% + #{$local-expand});
             background: map_get($addtocart-button-scheme, default-bg-color);
             z-index: -1;
             border-radius: 50%;
@@ -233,7 +234,11 @@
     &:active {
         .product-card__addtocart-icon {
             color: map_get($addtocart-button-scheme, normal-font-color);
-
+        svg {
+            path {
+                stroke: white;
+            }
+        }
             &:before {
                 transform: scale(1);
                 background: map_get($addtocart-button-scheme, normal-bg-color);
@@ -261,6 +266,12 @@
 
         &:after {
             @include loader(22px, 2px, map_get($addtocart-button-scheme, normal-font-color));
+        }
+        svg {
+            fill: transparent;
+        path {
+            stroke: transparent;
+        }
         }
     }
     &,

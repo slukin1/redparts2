@@ -9,7 +9,7 @@ import AddressCard from '~/components/shared/AddressCard';
 import AppLink from '~/components/shared/AppLink';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
 import PageTitle from '~/components/shared/PageTitle';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { accountApi } from '~/api';
 import { IOrder } from '~/interfaces/order';
 

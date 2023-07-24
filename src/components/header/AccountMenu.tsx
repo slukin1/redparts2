@@ -4,12 +4,14 @@ import React, { useCallback } from 'react';
 import classNames from 'classnames';
 import { FormattedMessage, useIntl } from 'react-intl';
 // application
+import { toast } from 'react-toastify';
 import AppImage from '~/components/shared/AppImage';
 import AppLink from '~/components/shared/AppLink';
-import url from '~/services/url';
-import { useSignInForm } from '~/services/forms/sign-in';
+import url from '~/api/services/url';
+import { useSignInForm } from '~/api/services/forms/sign-in';
 import { useUser, useUserSignOut } from '~/store/user/userHooks';
-import { validateEmail } from '~/services/validators';
+import { validateEmail } from '~/api/services/validators';
+import { AuthService } from '~/api/services/allapi';
 
 interface Props {
     onCloseMenu: () => void;
@@ -36,6 +38,21 @@ function AccountMenu(props: Props) {
             }
         });
     };
+    function handleForgotPassword() {
+        const email = signInForm.watch('email');
+        if (!email || email === 'red-parts@example.com') {
+            toast.error('Please enter email');
+            return;
+        }
+        if (!validateEmail(email)) {
+            toast.error('Please enter valid email');
+            return;
+        }
+        AuthService.passwordForgot({ requestBody: { email: signInForm.watch('email') } })
+            .then((res) => {
+                toast.success('Password Reset Email sent successfully');
+            });
+    }
 
     return (
         <div className="account-menu" onSubmit={signInForm.submit}>
@@ -89,9 +106,9 @@ function AccountMenu(props: Props) {
                                 placeholder={intl.formatMessage({ id: 'INPUT_PASSWORD_PLACEHOLDER' })}
                                 {...signInForm.register('password', { required: true })}
                             />
-                            <AppLink href={url.passwordRecovery()} className="account-menu__form-forgot-link">
+                            <button onClick={handleForgotPassword} type="button" className="account-menu__form-forgot-link btn btn-link">
                                 <FormattedMessage id="LINK_FORGOT" />
-                            </AppLink>
+                            </button>
                         </div>
                         <div className="invalid-feedback">
                             {signInForm.errors.password?.type === 'required' && (
@@ -140,13 +157,13 @@ function AccountMenu(props: Props) {
                             </AppLink>
                         </li>
                         <li>
-                            <AppLink href={url.accountGarage()} onClick={onCloseMenu}>
-                                <FormattedMessage id="LINK_ACCOUNT_GARAGE" />
+                            <AppLink href={url.accountProfile()} onClick={onCloseMenu}>
+                                <FormattedMessage id="LINK_ACCOUNT_PROFILE" />
                             </AppLink>
                         </li>
                         <li>
-                            <AppLink href={url.accountProfile()} onClick={onCloseMenu}>
-                                <FormattedMessage id="LINK_ACCOUNT_PROFILE" />
+                            <AppLink href={url.accountInquires()} onClick={onCloseMenu}>
+                                <FormattedMessage id="LINK_ACCOUNT_INQUIRIES" />
                             </AppLink>
                         </li>
                         <li>

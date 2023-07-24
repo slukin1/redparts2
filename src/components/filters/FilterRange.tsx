@@ -10,7 +10,8 @@ import InputRange from 'react-input-range';
 // application
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
 import { IRangeFilter, IRangeFilterValue } from '~/interfaces/filter';
-import { useDirection } from '~/services/i18n/hooks';
+import { useDirection } from '~/api/services/i18n/hooks';
+import CurrencyPrice from '~/components/CurrencyPrice';
 
 function getFirstValidValue(...values: Array<number | null>): number | null {
     return values.reduce((acc, value) => (
@@ -92,9 +93,39 @@ function FilterRange(props: Props) {
             </div>
             <div className="filter-range__title-button">
                 <div className="filter-range__title">
-                    <span className="filter-range__min-value"><CurrencyFormat value={fromLabel} /></span>
-                    {' – '}
-                    <span className="filter-range__max-value"><CurrencyFormat value={toLabel} /></span>
+                    { (options.slug === 'mileage' || options.slug === 'year') && (
+                        <React.Fragment>
+                            <span className="filter-range__min-value">
+                                {' '}
+                                {fromLabel}
+                                {' '}
+                            </span>
+                            <span> – </span>
+                            <span
+                                className="filter-range__max-value"
+                            >
+                                {' '}
+                                {toLabel}
+                                {' '}
+
+                            </span>
+                        </React.Fragment>
+                    )}
+                    { options.slug === 'price' && (
+                        <React.Fragment>
+                            <span className="filter-range__min-value">
+                                <CurrencyPrice
+                                    value={fromLabel}
+                                />
+                            </span>
+                            <span> –</span>
+                            <span className="filter-range__max-value">
+                                <CurrencyPrice
+                                    value={toLabel}
+                                />
+                            </span>
+                        </React.Fragment>
+                    )}
                 </div>
             </div>
         </div>

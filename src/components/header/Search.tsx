@@ -4,20 +4,21 @@ import React, { useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import classNames from 'classnames';
 // application
+import { useRouter } from 'next/router';
 import AppImage from '~/components/shared/AppImage';
 import AppLink from '~/components/shared/AppLink';
 import AsyncAction from '~/components/shared/AsyncAction';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
 import RadioButton from '~/components/shared/RadioButton';
 import Rating from '~/components/shared/Rating';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import VehicleForm from '~/components/shared/VehicleForm';
 import { Car20Svg, RecycleBin16Svg, Search20Svg } from '~/svg';
 import { IProduct } from '~/interfaces/product';
 import { IShopCategory } from '~/interfaces/category';
 import { IVehicle } from '~/interfaces/vehicle';
 import { shopApi } from '~/api';
-import { useGlobalMousedown } from '~/services/hooks';
+import { useGlobalMousedown } from '~/api/services/hooks';
 import {
     useGarageAddItem,
     useGarageCurrent,
@@ -28,6 +29,7 @@ import {
 
 export function Search() {
     const intl = useIntl();
+    const router = useRouter();
     const [query, setQuery] = useState('');
     const [suggestionsIsOpen, setSuggestionsIsOpen] = useState(false);
     const [hasSuggestions, setHasSuggestions] = useState(false);
@@ -58,23 +60,23 @@ export function Search() {
             canceled = true;
         };
 
-        shopApi.getSearchSuggestions(value, {
-            limitProducts: 3,
-            limitCategories: 4,
-        }).then((result) => {
-            if (canceled) {
-                return;
-            }
-
-            if (result.products.length === 0 && result.categories.length === 0) {
-                setHasSuggestions(false);
-                return;
-            }
-
-            setHasSuggestions(true);
-            setProducts(result.products);
-            setCategories(result.categories);
-        });
+        // shopApi.getSearchSuggestions(value, {
+        //     limitProducts: 3,
+        //     limitCategories: 4,
+        // }).then((result) => {
+        //     if (canceled) {
+        //         return;
+        //     }
+        //
+        //     if (result.products.length === 0 && result.categories.length === 0) {
+        //         setHasSuggestions(false);
+        //         return;
+        //     }
+        //
+        //     setHasSuggestions(true);
+        //     setProducts(result.products);
+        //     setCategories(result.categories);
+        // });
 
         setQuery(value);
     };
@@ -116,10 +118,6 @@ export function Search() {
         search(input.value);
     };
 
-    const handleButtonClick = () => {
-        toggleVehiclePicker();
-    };
-
     const handleChangeCurrentVehicle = (event: React.FormEvent<HTMLInputElement>) => {
         const vehicleId = event.currentTarget.value === '' ? null : parseFloat(event.currentTarget.value);
 
@@ -141,6 +139,13 @@ export function Search() {
                 toggleSuggestions(false);
             }
         }, 10);
+    };
+
+    const handleSearch = () => {
+        if (!query || query === '') {
+            return;
+        }
+        router.replace(`/catalog/products?filter_search=${query}`).then();
     };
 
     useGlobalMousedown((event) => {
@@ -196,23 +201,17 @@ export function Search() {
                     onChange={handleInputChange}
                 />
 
-                <button
+                <AppLink
                     type="button"
-                    className={classNames('search__button search__button--start', {
-                        'search__button--hover': vehiclePickerIsOpen,
-                    })}
-                    onClick={handleButtonClick}
-                    ref={selectVehicleButtonRef}
+                    className="search__button search__button--start"
+                    href="/catalog/products"
                 >
                     <span className="search__button-icon">
                         <Car20Svg />
                     </span>
-                    <span className="search__button-title">
-                        <FormattedMessage id="BUTTON_SEARCH_SELECT_VEHICLE_DESKTOP" />
-                    </span>
-                </button>
+                </AppLink>
 
-                <button className="search__button search__button--end" type="submit">
+                <button className="search__button search__button--end" type="button" onClick={handleSearch}>
                     <span className="search__button-icon">
                         <Search20Svg />
                     </span>
@@ -249,20 +248,20 @@ export function Search() {
                                             <div className="suggestions__product-name">
                                                 {product.name}
                                             </div>
-                                            <div className="suggestions__product-rating">
-                                                <div className="suggestions__product-rating-stars">
-                                                    <Rating value={product.rating || 0} />
-                                                </div>
-                                                <div className="suggestions__product-rating-label">
-                                                    <FormattedMessage
-                                                        id="TEXT_RATING_LABEL"
-                                                        values={{
-                                                            rating: product.rating,
-                                                            reviews: product.reviews,
-                                                        }}
-                                                    />
-                                                </div>
-                                            </div>
+                                            {/* <div className="suggestions__product-rating"> */}
+                                            {/*    <div className="suggestions__product-rating-stars"> */}
+                                            {/*        <Rating value={product.rating || 0} /> */}
+                                            {/*    </div> */}
+                                            {/*    <div className="suggestions__product-rating-label"> */}
+                                            {/*        <FormattedMessage */}
+                                            {/*            id="TEXT_RATING_LABEL" */}
+                                            {/*            values={{ */}
+                                            {/*                rating: product.rating, */}
+                                            {/*                reviews: product.reviews, */}
+                                            {/*            }} */}
+                                            {/*        /> */}
+                                            {/*    </div> */}
+                                            {/* </div> */}
                                         </div>
                                         <div className=" suggestions__product-price">
                                             <CurrencyFormat value={product.price} />

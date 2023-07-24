@@ -19,7 +19,7 @@ export function parseQueryOptions(query: string) {
         optionValues.sort = queryObject.sort;
     }
 
-    // Page based navigation
+    // Index based navigation
     if (typeof queryObject.page === 'string') {
         optionValues.page = parseFloat(queryObject.page);
     }
@@ -64,7 +64,7 @@ export function buildQuery(options: IListOptions, filters: IFilterValues, defaul
         params.sort = options.sort;
     }
 
-    // Page based navigation
+    // Index based navigation
     if (options.page !== 1) {
         params.page = options.page;
     }
@@ -95,7 +95,6 @@ export default async function getShopPageData(
         const options = parseQueryOptions(query);
         const filters = parseQueryFilters(query);
         const dispatch = store.dispatch as AppDispatch;
-
         await dispatch(shopInitThunk(categorySlug, options, filters));
     }
 }

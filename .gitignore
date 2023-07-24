@@ -4,7 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
-
+.idea
 # testing
 /coverage
 
@@ -17,6 +17,8 @@
 
 # misc
 .DS_Store
+.yarn.lock
+package-lock.json
 
 # debug
 npm-debug.log*

@@ -7,7 +7,7 @@ import Checkbox from '~/components/shared/Checkbox';
 import VehiclePickerModal from '~/components/shared/VehiclePickerModal';
 import { IVehicle } from '~/interfaces/vehicle';
 import { IVehicleFilter, IVehicleFilterValue } from '~/interfaces/filter';
-import { useCurrentVehicle } from '~/services/current-vehicle';
+import { useCurrentVehicle } from '~/api/services/current-vehicle';
 
 interface Props {
     options: IVehicleFilter;

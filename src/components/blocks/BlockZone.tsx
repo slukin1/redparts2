@@ -15,8 +15,8 @@ import AppLink from '~/components/shared/AppLink';
 import AppSlick, { ISlickProps } from '~/components/shared/AppSlick';
 import Arrow from '~/components/shared/Arrow';
 import ProductCard, { IProductCardElement } from '~/components/shared/ProductCard';
-import url from '~/services/url';
-import { baseUrl } from '~/services/utils';
+import url from '~/api/services/url';
+import { baseUrl } from '~/api/services/utils';
 import { IProduct } from '~/interfaces/product';
 import { IShopCategory } from '~/interfaces/category';
 import { shopApi } from '~/api';
@@ -58,7 +58,32 @@ function BlockZone(props: Props) {
     const [isLoading, setIsLoading] = useState(false);
     const [currentTab, setCurrentTab] = useState<IBlockZoneTab | null>(null);
     const subs = category?.children || [];
+    const [error, setError] = React.useState(false);
 
+    const errorTimeoutRef = useRef<number | null>(null);
+
+    useEffect(() => {
+        // Clear the previous timeout if it exists
+        if (errorTimeoutRef.current !== null) {
+            clearTimeout(errorTimeoutRef.current);
+        }
+
+        // Set a new timeout to check if the products array is empty after 4 seconds
+        errorTimeoutRef.current = window.setTimeout(() => {
+            if (products.length === 0) {
+                setError(true);
+            } else {
+                setError(false);
+            }
+        }, 6000);
+
+        // Clean up the timeout when the component unmounts or the products array changes
+        return () => {
+            if (errorTimeoutRef.current !== null) {
+                clearTimeout(errorTimeoutRef.current);
+            }
+        };
+    }, [products]);
     const handleNextClick = () => {
         if (slickRef.current) {
             slickRef.current.slickNext();
@@ -71,18 +96,26 @@ function BlockZone(props: Props) {
         }
     };
 
-    const tabs: IBlockZoneTab[] = useMemo(() => [
+    const tabs: any = useMemo(() => [
         {
-            name: intl.formatMessage({ id: 'TEXT_TAB_FEATURED' }),
-            source: () => shopApi.getFeaturedProducts(categorySlug, 6),
+            name: 'All',
+            source: () => shopApi.getEngineCategories(null, 6),
         },
         {
-            name: intl.formatMessage({ id: 'TEXT_TAB_BESTSELLERS' }),
-            source: () => shopApi.getPopularProducts(categorySlug, 6),
+            name: 'Diesel',
+            source: () => shopApi.getEngineCategories('Diesel', 6),
         },
         {
-            name: intl.formatMessage({ id: 'TEXT_TAB_TOP_RATED' }),
-            source: () => shopApi.getTopRatedProducts(categorySlug, 6),
+            name: 'Electricity',
+            source: () => shopApi.getEngineCategories('Electricity', 6),
+        },
+        {
+            name: 'Gas',
+            source: () => shopApi.getEngineCategories('Gas', 6),
+        },
+        {
+            name: 'Petrol',
+            source: () => shopApi.getEngineCategories('Petrol', 6),
         },
     ], [intl, categorySlug]);
 
@@ -169,14 +202,14 @@ function BlockZone(props: Props) {
                                     <ul className="category-card__children">
                                         {subs.map((sub, subIdx) => (
                                             <li key={subIdx}>
-                                                <AppLink href={url.category(sub)}>
+                                                <AppLink href={url.productsCustom(sub)}>
                                                     {sub.name}
                                                 </AppLink>
                                             </li>
                                         ))}
                                     </ul>
                                     <div className="category-card__actions">
-                                        <AppLink href={url.category(category)} className="btn btn-primary btn-sm">
+                                        <AppLink href={url.prodcutsCustomShopAll()} className="btn btn-primary btn-sm">
                                             <FormattedMessage id="BUTTON_SHOP_ALL" />
                                         </AppLink>
                                     </div>
@@ -187,7 +220,7 @@ function BlockZone(props: Props) {
                     <div className="block-zone__widget">
                         <div className="block-zone__widget-header">
                             <div className="block-zone__tabs">
-                                {tabs.map((tab, tabIdx) => (
+                                {tabs.map((tab:any, tabIdx:any) => (
                                     <button
                                         key={tabIdx}
                                         type="button"
@@ -211,26 +244,41 @@ function BlockZone(props: Props) {
                                 onClick={handleNextClick}
                             />
                         </div>
-                        <div className="block-zone__widget-body">
-                            <div
-                                className={classNames('block-zone__carousel', {
-                                    'block-zone__carousel--loading': isLoading,
-                                })}
-                            >
-                                <div className="block-zone__carousel-loader" />
+                        {!error ? (
+                            <div className="block-zone__widget-body">
+                                <div
+                                    className={classNames('block-zone__carousel', {
+                                        'block-zone__carousel--loading': isLoading,
+                                    })}
+                                >
+                                    <div className="block-zone__carousel-loader" />
 
-                                <AppSlick className="block-zone__carousel-slick" ref={slickRef} {...slickSettings}>
-                                    {products.map((product) => (
-                                        <div key={product.id} className="block-zone__carousel-item">
-                                            <ProductCard
-                                                product={product}
-                                                exclude={excludeElements}
-                                            />
-                                        </div>
-                                    ))}
-                                </AppSlick>
+                                    <AppSlick className="block-zone__carousel-slick" ref={slickRef} {...slickSettings}>
+                                        {products.map((product) => (
+                                            <div key={product.id} className="block-zone__carousel-item">
+                                                <ProductCard
+                                                    product={product}
+                                                    exclude={excludeElements}
+                                                />
+                                            </div>
+                                        ))}
+                                    </AppSlick>
+                                </div>
                             </div>
-                        </div>
+                        ) : (
+                            <div className="w-100 justify-content-center align-items-center d-flex flex-column">
+                                <p>A Server Side Error occurred, please try again later</p>
+                                <button
+                                    type="button"
+                                    className="btn btn-danger btn-md"
+                                    onClick={() => {
+                                        window.location.reload();
+                                    }}
+                                >
+                                    Reload
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

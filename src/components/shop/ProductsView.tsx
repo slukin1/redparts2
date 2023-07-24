@@ -9,12 +9,13 @@ import React, {
 import classNames from 'classnames';
 import { FormattedMessage, useIntl } from 'react-intl';
 // application
+import { useRouter } from 'next/router';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
 import Navigation, { INavigationEvent } from '~/components/shared/Navigation';
 import ProductCard from '~/components/shared/ProductCard';
-import { isEmptyList } from '~/services/utils';
+import { isEmptyList } from '~/api/services/utils';
 import { IShopPageGridLayout, IShopPageLayout, IShopPageOffCanvasSidebar } from '~/interfaces/pages';
-import { SidebarContext } from '~/services/sidebar';
+import { SidebarContext } from '~/api/services/sidebar';
 import {
     Cross9LightSvg,
     Filters16Svg,
@@ -32,6 +33,7 @@ import {
     useShopResetFiltersThunk,
     useShopResetFilterThunk,
 } from '~/store/shop/shopHooks';
+import CurrencyPrice from '~/components/CurrencyPrice';
 
 interface LayoutButton {
     layout: IShopPageLayout;
@@ -56,17 +58,18 @@ function ProductsView(props: Props) {
     const shopResetFilter = useShopResetFilterThunk();
     const [, setSidebarIsOpen] = useContext(SidebarContext);
     const [layout, setLayout] = useState(layoutProps);
+    const router = useRouter();
 
     const handleSortChange = useSetOption('sort', (event) => event.target.value);
     const handleLimitChange = useSetOption('limit', (event) => parseFloat(event.target.value));
-    // Page based navigation
+    // Index based navigation
     const handlePageChange = useSetOption('page', parseFloat);
     // Cursor based navigation
     const handleAfterChange = useSetOption('after');
     const handleBeforeChange = useSetOption('before');
 
     const onNavigate = useCallback((event: INavigationEvent) => {
-        // Page based navigation
+        // Index based navigation
         if (event.type === 'page') {
             handlePageChange(event.page);
         }
@@ -134,7 +137,14 @@ function ProductsView(props: Props) {
                             <FormattedMessage id="TEXT_NO_MATCHING_ITEMS_SUBTITLE" />
                         </div>
                         <div className="products-view__empty-actions">
-                            <button type="button" className="btn btn-primary btn-sm" onClick={shopResetFilters}>
+                            <button
+                                type="button"
+                                className="btn btn-primary btn-sm"
+                                onClick={() => {
+                                    router.replace({ pathname: '/catalog/products' }, undefined, { shallow: true }).then();
+                                    return shopResetFilters();
+                                }}
+                            >
                                 <FormattedMessage id="BUTTON_RESET_FILTERS" />
                             </button>
                         </div>
@@ -277,11 +287,18 @@ function ProductsView(props: Props) {
                                                                 {filter.original.vehicle.model}
                                                             </React.Fragment>
                                                         )}
-                                                        {filter.type === 'range' && (
+                                                        {filter.type === 'range' && filter.id === 'price' && (
                                                             <React.Fragment>
-                                                                <CurrencyFormat value={filter.original.value[0]} />
+                                                                <CurrencyPrice value={filter.original.value[0]} />
                                                                 {' – '}
-                                                                <CurrencyFormat value={filter.original.value[1]} />
+                                                                <CurrencyPrice value={filter.original.value[1]} />
+                                                            </React.Fragment>
+                                                        )}
+                                                        {filter.type === 'range' && filter.id !== 'price' && (
+                                                            <React.Fragment>
+                                                                {filter.original.value[0]}
+                                                                {' – '}
+                                                                {filter.original.value[1]}
                                                             </React.Fragment>
                                                         )}
                                                         {filter.type === 'check' && filter.item.name}
@@ -331,13 +348,10 @@ function ProductsView(props: Props) {
                                     <FormattedMessage id="TABLE_IMAGE" />
                                 </div>
                                 <div className="products-list__column products-list__column--meta">
-                                    <FormattedMessage id="TABLE_SKU" />
+                                    <FormattedMessage id="TABLE_REFERENCE" />
                                 </div>
                                 <div className="products-list__column products-list__column--product">
                                     <FormattedMessage id="TABLE_PRODUCT" />
-                                </div>
-                                <div className="products-list__column products-list__column--rating">
-                                    <FormattedMessage id="TABLE_RATING" />
                                 </div>
                                 <div className="products-list__column products-list__column--price">
                                     <FormattedMessage id="TABLE_PRICE" />
@@ -353,7 +367,7 @@ function ProductsView(props: Props) {
                         </div>
 
                         <div className="products-view__pagination">
-                            <nav aria-label="Page navigation example">
+                            <nav aria-label="Index navigation example">
                                 {navigation && (
                                     <Navigation
                                         data={navigation}

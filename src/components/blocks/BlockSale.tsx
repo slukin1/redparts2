@@ -1,5 +1,5 @@
 // react
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 // third-party
 import classNames from 'classnames';
 import Slick from 'react-slick';
@@ -11,7 +11,7 @@ import Arrow from '~/components/shared/Arrow';
 import Decor from '~/components/shared/Decor';
 import ProductCard from '~/components/shared/ProductCard';
 import Timer from '~/components/shared/Timer';
-import { baseUrl } from '~/services/utils';
+import { baseUrl } from '~/api/services/utils';
 import { IProduct } from '~/interfaces/product';
 
 interface Props {
@@ -37,7 +37,31 @@ const slickSettings: ISlickProps = {
 function BlockSale(props: Props) {
     const { products, loading = false } = props;
     const slickRef = useRef<Slick>(null);
+    const [error, setError] = React.useState(false);
+    const errorTimeoutRef = useRef<number | null>(null);
 
+    useEffect(() => {
+        // Clear the previous timeout if it exists
+        if (errorTimeoutRef.current !== null) {
+            clearTimeout(errorTimeoutRef.current);
+        }
+
+        // Set a new timeout to check if the products array is empty after 4 seconds
+        errorTimeoutRef.current = window.setTimeout(() => {
+            if (products.length === 0) {
+                setError(true);
+            } else {
+                setError(false);
+            }
+        }, 6000);
+
+        // Clean up the timeout when the component unmounts or the products array changes
+        return () => {
+            if (errorTimeoutRef.current !== null) {
+                clearTimeout(errorTimeoutRef.current);
+            }
+        };
+    }, [products]);
     const handleNextClick = () => {
         if (slickRef.current) {
             slickRef.current.slickNext();
@@ -90,21 +114,38 @@ function BlockSale(props: Props) {
                         className="block-sale__image"
                         style={{ backgroundImage: `url(${baseUrl('/images/sale.jpg')})` }}
                     />
-                    <div className="block-sale__loader" />
-                    <div className="container">
-                        <div className="block-sale__carousel">
-                            <AppSlick ref={slickRef} {...slickSettings}>
-                                {products.map((product) => (
-                                    <div key={product.id} className="block-sale__item">
-                                        <ProductCard
-                                            product={product}
-                                            exclude={['features', 'list-buttons']}
-                                        />
-                                    </div>
-                                ))}
-                            </AppSlick>
+                    {!error ? (
+                        <React.Fragment>
+                            <div className="block-sale__loader" />
+                            <div className="container">
+                                <div className="block-sale__carousel">
+                                    <AppSlick ref={slickRef} {...slickSettings}>
+                                        {products.map((product) => (
+                                            <div key={product.id} className="block-sale__item">
+                                                <ProductCard
+                                                    product={product}
+                                                    exclude={['features', 'list-buttons']}
+                                                />
+                                            </div>
+                                        ))}
+                                    </AppSlick>
+                                </div>
+                            </div>
+                        </React.Fragment>
+                    ) : (
+                        <div className="w-100 d-flex justify-content-center align-items-center flex-column">
+                            <p className="text-white">A Server Side Error occurred, please try again later</p>
+                            <button
+                                type="button"
+                                className="btn btn-danger"
+                                onClick={() => {
+                                    window.location.reload();
+                                }}
+                            >
+                                Reload
+                            </button>
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
         </div>

@@ -2,9 +2,10 @@
 import React, { useEffect, useState } from 'react';
 // third-party
 import classNames from 'classnames';
-import { Controller, FormProvider } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 // application
+import { toast } from 'react-toastify';
 import AppLink from '~/components/shared/AppLink';
 import AsyncAction from '~/components/shared/AsyncAction';
 import BlockHeader from '~/components/blocks/BlockHeader';
@@ -12,31 +13,30 @@ import BlockProductsCarousel from '~/components/blocks/BlockProductsCarousel';
 import BlockSpace from '~/components/blocks/BlockSpace';
 import CompatibilityStatusBadge from '~/components/shared/CompatibilityStatusBadge';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
-import InputNumber from '~/components/shared/InputNumber';
 import PageTitle from '~/components/shared/PageTitle';
-import ProductForm from '~/components/shop/ProductForm';
 import ProductGallery, { IProductGalleryLayout } from '~/components/shop/ProductGallery';
 import ProductSidebar from '~/components/shop/ProductSidebar';
 import ProductTabs from '~/components/shop/ProductTabs';
-import Rating from '~/components/shared/Rating';
 import ShareLinks from '~/components/shared/ShareLinks';
 import StockStatusBadge from '~/components/shared/StockStatusBadge';
-import url from '~/services/url';
-import { getCategoryPath } from '~/services/utils';
+import url from '~/api/services/url';
+import { getCategoryPath } from '~/api/services/utils';
 import { IProduct } from '~/interfaces/product';
 import { IProductPageLayout, IProductPageSidebarPosition } from '~/interfaces/pages';
 import { shopApi } from '~/api';
 import { useCompareAddItem } from '~/store/compare/compareHooks';
-import { useProductForm } from '~/services/forms/product';
+import { useProductForm } from '~/api/services/forms/product';
 import { useWishlistAddItem } from '~/store/wishlist/wishlistHooks';
 import {
     Compare16Svg,
     Fi24Hours48Svg,
     FiFreeDelivery48Svg,
     FiPaymentSecurity48Svg,
-    FiTag48Svg,
+    FiTag48Svg, WhatsApp20Svg,
     Wishlist16Svg,
 } from '~/svg';
+import { useInquireOpen } from '~/store/inquire/inquireHooks';
+import { useWhatsappOpen } from '~/store/whatsapp/whatsappHooks';
 
 interface Props {
     product: IProduct;
@@ -56,7 +56,10 @@ function ShopPageProduct(props: Props) {
     const galleryLayout = `product-${layout}` as IProductGalleryLayout;
     const [relatedProducts, setRelatedProducts] = useState<IProduct[]>([]);
     const productForm = useProductForm(product);
-
+    const inquire = useInquireOpen();
+    const whatsapp = useWhatsappOpen();
+    const useWhatsapp = () => whatsapp(product.slug);
+    const useInquire = () => inquire(product.slug);
     useEffect(() => {
         let canceled = false;
 
@@ -86,7 +89,6 @@ function ShopPageProduct(props: Props) {
         })),
         { title: product.name, url: url.product(product) },
     ];
-
     const featuredAttributes = product.attributes.filter((x) => x.featured);
 
     const shopFeatures = (
@@ -186,9 +188,9 @@ function ShopPageProduct(props: Props) {
                     <tbody>
                         <tr>
                             <th>
-                                <FormattedMessage id="TABLE_SKU" />
+                                <FormattedMessage id="TABLE_REFERENCE" />
                             </th>
-                            <td>{product.sku}</td>
+                            <td>{product.refNo}</td>
                         </tr>
                         {product.brand && (
                             <React.Fragment>
@@ -207,17 +209,11 @@ function ShopPageProduct(props: Props) {
                                         <FormattedMessage id="TABLE_COUNTRY" />
                                     </th>
                                     <td>
-                                        <FormattedMessage id={`COUNTRY_NAME_${product.brand.country}`} />
+                                        {product.brand.country}
                                     </td>
                                 </tr>
                             </React.Fragment>
                         )}
-                        <tr>
-                            <th>
-                                <FormattedMessage id="TABLE_PART_NUMBER" />
-                            </th>
-                            <td>{product.partNumber}</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -228,32 +224,39 @@ function ShopPageProduct(props: Props) {
         <div className="product__actions">
             {product.stock !== 'out-of-stock' && (
                 <React.Fragment>
-                    <div className="product__actions-item product__actions-item--quantity">
-                        <Controller
-                            name="quantity"
-                            rules={{
-                                required: true,
-                            }}
-                            render={({ field: { ref: fieldRef, ...fieldProps } }) => (
-                                <InputNumber
-                                    size="lg"
-                                    min={1}
-                                    inputRef={fieldRef}
-                                    {...fieldProps}
-                                />
-                            )}
-                        />
-                    </div>
-                    <div className="product__actions-item product__actions-item--addtocart">
-                        <button
-                            type="submit"
-                            className={classNames('btn', 'btn-primary', 'btn-lg', 'btn-block', {
-                                'btn-loading': productForm.submitInProgress,
-                            })}
-                        >
-                            <FormattedMessage id="BUTTON_ADD_TO_CART" />
-                        </button>
-                    </div>
+                    <AsyncAction
+                        action={() => useInquire()}
+                        render={({ run, loading }) => (
+                            <div className="product__actions-item product__actions-item--addtocart">
+                                <button
+                                    type="button"
+                                    className={classNames('btn', 'btn-primary', 'btn-lg', 'btn-block', {
+                                        'btn-loading': loading,
+                                    })}
+                                    onClick={run}
+                                >
+                                    <FormattedMessage id="BUTTON_INQUIRY" />
+                                </button>
+                                {typeof window !== 'undefined' && (
+                                    <AsyncAction
+                                        action={() => useWhatsapp()}
+                                        render={({ run, loading }) => (
+                                            <React.Fragment>
+                                                <button
+                                                    type="button"
+                                                    className={classNames('btn', 'btn-success', 'btn-lg', 'btn-block')}
+                                                    onClick={run}
+                                                >
+                                                    WhatsApp
+                                                </button>
+                                            </React.Fragment>
+                                        )}
+                                    />
+                                )}
+                            </div>
+                        )}
+                    />
+
                     <div className="product__actions-divider" />
                 </React.Fragment>
             )}
@@ -344,22 +347,22 @@ function ShopPageProduct(props: Props) {
                                         <h1 className="product__title">{product.name}</h1>
 
                                         <div className="product__subtitle">
-                                            <div className="product__rating">
-                                                <div className="product__rating-stars">
-                                                    <Rating value={product.rating || 0} />
-                                                </div>
-                                                <div className="product__rating-label">
-                                                    <AppLink href={{ href: { hash: 'product-tab-reviews' } }}>
-                                                        <FormattedMessage
-                                                            id="TEXT_RATING_LABEL"
-                                                            values={{
-                                                                rating: product.rating,
-                                                                reviews: product.reviews,
-                                                            }}
-                                                        />
-                                                    </AppLink>
-                                                </div>
-                                            </div>
+                                            {/* <div className="product__rating"> */}
+                                            {/*    <div className="product__rating-stars"> */}
+                                            {/*        <Rating value={product.rating || 0} /> */}
+                                            {/*    </div> */}
+                                            {/*    <div className="product__rating-label"> */}
+                                            {/*        <AppLink href={{ href: { hash: 'product-tab-reviews' } }}> */}
+                                            {/*            <FormattedMessage */}
+                                            {/*                id="TEXT_RATING_LABEL" */}
+                                            {/*                values={{ */}
+                                            {/*                    rating: product.rating, */}
+                                            {/*                    reviews: product.reviews, */}
+                                            {/*                }} */}
+                                            {/*            /> */}
+                                            {/*        </AppLink> */}
+                                            {/*    </div> */}
+                                            {/* </div> */}
 
                                             <CompatibilityStatusBadge className="product__fit" product={product} />
                                         </div>
@@ -408,13 +411,13 @@ function ShopPageProduct(props: Props) {
                                             <form onSubmit={productForm.submit} className="product__info-card">
                                                 {productInfoBody}
 
-                                                {product.options.length > 0 && (
-                                                    <ProductForm
-                                                        options={product.options}
-                                                        className="product__form"
-                                                        namespace="options"
-                                                    />
-                                                )}
+                                                {/* {product.options.length > 0 && ( */}
+                                                {/*    <ProductForm */}
+                                                {/*        options={product.options} */}
+                                                {/*        className="product__form" */}
+                                                {/*        namespace="options" */}
+                                                {/*    /> */}
+                                                {/* )} */}
 
                                                 {productActions}
 

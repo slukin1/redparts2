@@ -22,6 +22,8 @@ import {
     ShopSetOptionValueAction,
     ShopThunkAction,
 } from '~/store/shop/shopActionTypes';
+import { useData } from '~/store/data/dataHooks';
+import { DATA_NAMESPACE } from '~/store/data/dataReducer';
 
 let cancelPreviousCategoryRequest = () => {};
 let cancelPreviousProductsListRequest = () => {};
@@ -123,13 +125,13 @@ export function shopFetchProductsListThunk(): ShopThunkAction<Promise<void>> {
         dispatch(shopFetchProductsListStart());
 
         const shopState = getState()[SHOP_NAMESPACE];
+        const dataState = getState()[DATA_NAMESPACE].current;
 
         let { filters } = shopState;
 
         if (shopState.categorySlug !== null) {
             filters = { ...filters, category: shopState.categorySlug };
         }
-
         const productsList = await shopApi.getProductsList(shopState.options, filters);
 
         if (canceled && process.browser) {

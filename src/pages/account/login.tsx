@@ -1,19 +1,22 @@
 // react
-import React from 'react';
+import React, { useEffect } from 'react';
 // third-party
 import classNames from 'classnames';
 import { FormattedMessage, useIntl } from 'react-intl';
 // application
+import { toast } from 'react-toastify';
 import AppLink from '~/components/shared/AppLink';
 import BlockSpace from '~/components/blocks/BlockSpace';
 import Checkbox from '~/components/shared/Checkbox';
 import PageTitle from '~/components/shared/PageTitle';
 import Redirect from '~/components/shared/Redirect';
-import url from '~/services/url';
-import { useSignInForm } from '~/services/forms/sign-in';
-import { useSignUpForm } from '~/services/forms/sign-up';
+import url from '~/api/services/url';
+import { useSignInForm } from '~/api/services/forms/sign-in';
+import { useSignUpForm } from '~/api/services/forms/sign-up';
 import { useUser } from '~/store/user/userHooks';
-import { validateEmail } from '~/services/validators';
+import { validateEmail, validateUserName } from '~/api/services/validators';
+import { globalIntl } from '~/api/services/i18n/global-intl';
+import { AuthService, VehicleService } from '~/api/services/allapi';
 
 function Page() {
     const intl = useIntl();
@@ -26,6 +29,24 @@ function Page() {
     }
 
     const { ref: signInFormRememberMeRef, ...signInFormRememberMeRefProps } = signInForm.register('remember');
+    // setup a watch from react hook form for the email
+    function handleForgotPassowrd() {
+        // if email is empty ask to enter email
+        const email = signInForm.watch('email');
+        // email should follow a regex
+        if (!email || email === 'red-parts@example.com') {
+            toast.error('Please enter email');
+            return;
+        }
+        if (!validateEmail(email)) {
+            toast.error('Please enter valid email');
+            return;
+        }
+        AuthService.passwordForgot({ requestBody: { email: signInForm.watch('email') } })
+            .then((res) => {
+                toast.success('Password Reset Email sent successfully');
+            });
+    }
 
     return (
         <React.Fragment>
@@ -92,24 +113,24 @@ function Page() {
                                                 )}
                                             </div>
                                             <small className="form-text text-muted">
-                                                <AppLink href="/">
+                                                <button className="p-0 btn-link btn" type="button" onClick={handleForgotPassowrd}>
                                                     <FormattedMessage id="LINK_FORGOT_PASSWORD" />
-                                                </AppLink>
+                                                </button>
                                             </small>
                                         </div>
-                                        <div className="form-group">
-                                            <div className="form-check">
-                                                <Checkbox
-                                                    className="form-check-input"
-                                                    id="sign-in-remember"
-                                                    inputRef={signInFormRememberMeRef}
-                                                    {...signInFormRememberMeRefProps}
-                                                />
-                                                <label className="form-check-label" htmlFor="sign-in-remember">
-                                                    <FormattedMessage id="INPUT_REMEMBER_ME_LABEL" />
-                                                </label>
-                                            </div>
-                                        </div>
+                                        {/* <div className="form-group"> */}
+                                        {/*     <div className="form-check"> */}
+                                        {/*         <Checkbox */}
+                                        {/*             className="form-check-input" */}
+                                        {/*             id="sign-in-remember" */}
+                                        {/*             inputRef={signInFormRememberMeRef} */}
+                                        {/*             {...signInFormRememberMeRefProps} */}
+                                        {/*         /> */}
+                                        {/*         <label className="form-check-label" htmlFor="sign-in-remember"> */}
+                                        {/*             <FormattedMessage id="INPUT_REMEMBER_ME_LABEL" /> */}
+                                        {/*         </label> */}
+                                        {/*     </div> */}
+                                        {/* </div> */}
                                         <div className="form-group mb-0">
                                             <button
                                                 type="submit"
@@ -161,6 +182,29 @@ function Page() {
                                                 )}
                                             </div>
                                         </div>
+                                        <div className="form-group">
+                                            <label htmlFor="signup-username">
+                                                <FormattedMessage id="INPUT_USERNAME_LABEL" />
+                                            </label>
+                                            <input
+                                                id="signup-username"
+                                                type="text"
+                                                className={classNames('form-control', {
+                                                    'is-invalid': signUpForm.errors.username,
+                                                })}
+                                                placeholder="username"
+                                                {...signUpForm.register('username', {
+                                                    required: true,
+                                                    validate: { username: validateUserName },
+                                                })}
+                                            />
+                                            <div className="invalid-feedback">
+                                                {signUpForm.errors.username?.type === 'required' && (
+                                                    <FormattedMessage id="ERROR_FORM_REQUIRED" />
+                                                )}
+                                            </div>
+                                        </div>
+
                                         <div className="form-group">
                                             <label htmlFor="signup-password">
                                                 <FormattedMessage id="INPUT_PASSWORD_LABEL" />

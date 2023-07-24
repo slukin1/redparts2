@@ -11,8 +11,8 @@ import { useFormContext } from 'react-hook-form';
 // application
 import { countriesApi } from '~/api';
 import { ICountry } from '~/interfaces/country';
-import { useDetachableForm } from '~/services/hooks';
-import { validateEmail } from '~/services/validators';
+import { useDetachableForm } from '~/api/services/hooks';
+import { validateEmail } from '~/api/services/validators';
 
 export interface IAddressForm {
     firstName: string;

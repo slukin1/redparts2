@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import AppImage from '~/components/shared/AppImage';
 import AppLink from '~/components/shared/AppLink';
 import Decor from '~/components/shared/Decor';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { ICategory } from '~/interfaces/category';
 
 interface Props {
@@ -43,7 +43,7 @@ function BlockCategories(props: Props) {
                             <ul className="category-card__children">
                                 {children.map((child) => (
                                     <li key={child.id}>
-                                        <AppLink href={url.category(child)}>
+                                        <AppLink href={url.productsCustom(child)}>
                                             {child.name}
                                         </AppLink>
                                     </li>
@@ -51,7 +51,7 @@ function BlockCategories(props: Props) {
                             </ul>
                             <div className="category-card__actions">
                                 <AppLink
-                                    href={url.category(category)}
+                                    href={url.prodcutsCustomShopAll()}
                                     className="category-card__link"
                                 >
                                     <FormattedMessage id="LINK_SHOP_ALL" />

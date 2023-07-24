@@ -1,7 +1,7 @@
 // react
 import React, { useMemo } from 'react';
 // application
-import { baseUrl } from '~/services/utils';
+import { baseUrl } from '~/api/services/utils';
 
 interface Props extends React.ImgHTMLAttributes<HTMLImageElement> {}
 

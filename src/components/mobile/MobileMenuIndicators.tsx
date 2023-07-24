@@ -4,7 +4,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 // application
 import AppLink from '~/components/shared/AppLink';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { useWishlist } from '~/store/wishlist/wishlistHooks';
 import { useCart } from '~/store/cart/cartHooks';
 import { useMobileMenuClose } from '~/store/mobile-menu/mobileMenuHooks';
@@ -18,10 +18,10 @@ import {
 function MobileMenuIndicators() {
     const mobileMenuClose = useMobileMenuClose();
     const wishlist = useWishlist();
-    const cart = useCart();
+    // const cart = useCart();
 
     return (
-        <div className="mobile-menu__indicators">
+        <div className="mobile-menu__indicators justify-content-around">
             <AppLink href={url.wishlist()} className="mobile-menu__indicator" onClick={mobileMenuClose}>
                 <span className="mobile-menu__indicator-icon">
                     <Heart20Svg />
@@ -43,27 +43,27 @@ function MobileMenuIndicators() {
                     <FormattedMessage id="TEXT_MOBILE_INDICATOR_ACCOUNT" />
                 </span>
             </AppLink>
-            <AppLink href={url.cart()} className="mobile-menu__indicator" onClick={mobileMenuClose}>
-                <span className="mobile-menu__indicator-icon">
-                    <Cart20Svg />
-                    {cart.items.length > 0 && (
-                        <span className="mobile-menu__indicator-counter">
-                            {cart.items.length}
-                        </span>
-                    )}
-                </span>
-                <span className="mobile-menu__indicator-title">
-                    <FormattedMessage id="TEXT_MOBILE_INDICATOR_CART" />
-                </span>
-            </AppLink>
-            <AppLink href={url.accountGarage()} className="mobile-menu__indicator" onClick={mobileMenuClose}>
-                <span className="mobile-menu__indicator-icon">
-                    <Car20Svg />
-                </span>
-                <span className="mobile-menu__indicator-title">
-                    <FormattedMessage id="TEXT_MOBILE_INDICATOR_GARAGE" />
-                </span>
-            </AppLink>
+            {/* <AppLink href={url.cart()} className="mobile-menu__indicator" onClick={mobileMenuClose}> */}
+            {/*    <span className="mobile-menu__indicator-icon"> */}
+            {/*        <Cart20Svg /> */}
+            {/*        {cart.items.length > 0 && ( */}
+            {/*            <span className="mobile-menu__indicator-counter"> */}
+            {/*                {cart.items.length} */}
+            {/*            </span> */}
+            {/*        )} */}
+            {/*    </span> */}
+            {/*    <span className="mobile-menu__indicator-title"> */}
+            {/*        <FormattedMessage id="TEXT_MOBILE_INDICATOR_CART" /> */}
+            {/*    </span> */}
+            {/* </AppLink> */}
+            {/* <AppLink href={url.accountGarage()} className="mobile-menu__indicator" onClick={mobileMenuClose}> */}
+            {/*    <span className="mobile-menu__indicator-icon"> */}
+            {/*        <Car20Svg /> */}
+            {/*    </span> */}
+            {/*    <span className="mobile-menu__indicator-title"> */}
+            {/*        <FormattedMessage id="TEXT_MOBILE_INDICATOR_GARAGE" /> */}
+            {/*    </span> */}
+            {/* </AppLink> */}
         </div>
     );
 }

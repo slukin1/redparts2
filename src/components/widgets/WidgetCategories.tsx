@@ -3,7 +3,7 @@ import React from 'react';
 // application
 import AppLink from '~/components/shared/AppLink';
 import Collapse, { ICollapseRenderFn } from '~/components/shared/Collapse';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { ICategory } from '~/interfaces/category';
 
 interface Props {

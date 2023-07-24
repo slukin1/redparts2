@@ -1,5 +1,5 @@
 // react
-import React, { useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 // third-party
 import classNames from 'classnames';
 import Slick from 'react-slick';
@@ -141,7 +141,31 @@ function BlockProductsCarousel<T extends ISectionHeaderGroup>(props: Props<T>) {
         onChangeGroup,
     } = props;
     const slickRef = useRef<Slick>(null);
+    const [error, setError] = React.useState(false);
+    const errorTimeoutRef = useRef<number | null>(null);
 
+    useEffect(() => {
+        // Clear the previous timeout if it exists
+        if (errorTimeoutRef.current !== null) {
+            clearTimeout(errorTimeoutRef.current);
+        }
+
+        // Set a new timeout to check if the products array is empty after 4 seconds
+        errorTimeoutRef.current = window.setTimeout(() => {
+            if (products.length === 0) {
+                setError(true);
+            } else {
+                setError(false);
+            }
+        }, 6000);
+
+        // Clean up the timeout when the component unmounts or the products array changes
+        return () => {
+            if (errorTimeoutRef.current !== null) {
+                clearTimeout(errorTimeoutRef.current);
+            }
+        };
+    }, [products]);
     const handleNextClick = () => {
         if (slickRef.current) {
             slickRef.current.slickNext();
@@ -205,16 +229,31 @@ function BlockProductsCarousel<T extends ISectionHeaderGroup>(props: Props<T>) {
                     onChangeGroup={onChangeGroup}
                 />
 
-                <div
-                    className={classNames('block-products-carousel__carousel', {
-                        'block-products-carousel__carousel--loading': loading,
-                        'block-products-carousel__carousel--has-items': columns.length > 0,
-                    })}
-                >
-                    <div className="block-products-carousel__carousel-loader" />
+                {!error ? (
+                    <div
+                        className={classNames('block-products-carousel__carousel', {
+                            'block-products-carousel__carousel--loading': loading,
+                            'block-products-carousel__carousel--has-items': columns.length > 0,
+                        })}
+                    >
+                        <div className="block-products-carousel__carousel-loader" />
 
-                    {carousel}
-                </div>
+                        {carousel}
+                    </div>
+                ) : (
+                    <div className="w-100 d-flex flex-column justify-content-center align-items-center">
+                        <p>A Server Side Error occurred, please try again later</p>
+                        <button
+                            type="button"
+                            className="btn btn-danger"
+                            onClick={() => {
+                                window.location.reload();
+                            }}
+                        >
+                            Reload
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     );

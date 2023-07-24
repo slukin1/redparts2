@@ -9,7 +9,7 @@ import AppImage from '~/components/shared/AppImage';
 import AppLink from '~/components/shared/AppLink';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
 import PageTitle from '~/components/shared/PageTitle';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { accountApi } from '~/api';
 import { IAddress } from '~/interfaces/address';
 import { IOrder } from '~/interfaces/order';
@@ -24,12 +24,12 @@ function Page() {
     useEffect(() => {
         if (user) {
             accountApi.getDefaultAddress().then(setAddress);
-            accountApi.getOrdersList({ limit: 3 }).then((list) => {
-                setOrders(list.items);
-            });
+            // accountApi.getOrdersList({ limit: 3 }).then((list) => {
+            //     setOrders(list.items);
+            // });
         } else {
             setAddress(null);
-            setOrders([]);
+            // setOrders([]);
         }
     }, [user]);
 
@@ -111,40 +111,40 @@ function Page() {
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    {orders.map((order) => (
-                                        <tr key={order.id}>
-                                            <td>
-                                                <AppLink href={url.accountOrderView(order)}>
-                                                    <FormattedMessage
-                                                        id="FORMAT_ORDER_NUMBER"
-                                                        values={{ number: order.number }}
-                                                    />
-                                                </AppLink>
-                                            </td>
-                                            <td>
-                                                <FormattedMessage
-                                                    id="FORMAT_DATE_MEDIUM"
-                                                    values={{ date: Date.parse(order.createdAt) }}
-                                                />
-                                            </td>
-                                            <td>
-                                                <FormattedMessage
-                                                    id={`TEXT_ORDER_STATUS_${order.status}`}
-                                                />
-                                            </td>
-                                            <td>
-                                                <FormattedMessage
-                                                    id="TEXT_ORDER_TOTAL"
-                                                    values={{
-                                                        total: <CurrencyFormat value={order.total} />,
-                                                        quantity: order.quantity,
-                                                    }}
-                                                />
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
+                                {/* <tbody> */}
+                                {/*     {orders.map((order) => ( */}
+                                {/*         <tr key={order.id}> */}
+                                {/*             <td> */}
+                                {/*                 <AppLink href={url.accountOrderView(order)}> */}
+                                {/*                     <FormattedMessage */}
+                                {/*                         id="FORMAT_ORDER_NUMBER" */}
+                                {/*                         values={{ number: order.number }} */}
+                                {/*                     /> */}
+                                {/*                 </AppLink> */}
+                                {/*             </td> */}
+                                {/*             <td> */}
+                                {/*                 <FormattedMessage */}
+                                {/*                     id="FORMAT_DATE_MEDIUM" */}
+                                {/*                     values={{ date: Date.parse(order.createdAt) }} */}
+                                {/*                 /> */}
+                                {/*             </td> */}
+                                {/*             <td> */}
+                                {/*                 <FormattedMessage */}
+                                {/*                     id={`TEXT_ORDER_STATUS_${order.status}`} */}
+                                {/*                 /> */}
+                                {/*             </td> */}
+                                {/*             <td> */}
+                                {/*                 <FormattedMessage */}
+                                {/*                     id="TEXT_ORDER_TOTAL" */}
+                                {/*                     values={{ */}
+                                {/*                         total: <CurrencyFormat value={order.total} />, */}
+                                {/*                         quantity: order.quantity, */}
+                                {/*                     }} */}
+                                {/*                 /> */}
+                                {/*             </td> */}
+                                {/*         </tr> */}
+                                {/*     ))} */}
+                                {/* </tbody> */}
                             </table>
                         </div>
                     </div>

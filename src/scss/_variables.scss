@@ -847,6 +847,7 @@
          theme: $theme-scheme,
          sale:  (main: #ff3333, opposite: #fff),
          new:   (main: #3377ff, opposite: #fff),
+         used:  (main: #3377ff, opposite: #fff),
          hot:   (main: #614ba6, opposite: #fff),
       ), $tag-badges);
 
@@ -1103,13 +1104,13 @@
       $addtocart-button-scheme: () !default;
       $addtocart-button-scheme: map_merge((
          // default
-         default-bg-color:   transparent,
+         default-bg-color:   'green',
          default-font-color: #ccc,
          // normal
-         normal-bg-color:    map_get($theme-scheme, main),
-         normal-font-color:  map_get($theme-scheme, opposite),
+         normal-bg-color:    green,
+         normal-font-color:  green,
          // hover
-         hover-bg-color:     map_get($dark-scheme, main),
+         hover-bg-color:     green,
          hover-font-color:   map_get($dark-scheme, opposite),
          // active
          active-bg-color:    lighten(map_get($dark-scheme, main), 10%),

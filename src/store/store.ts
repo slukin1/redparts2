@@ -32,7 +32,6 @@ export const load = () => {
 
     try {
         state = localStorage.getItem(STORAGE_KEY);
-
         if (typeof state === 'string') {
             state = JSON.parse(state);
         }

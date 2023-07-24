@@ -8,7 +8,7 @@ import AccountLayout from '~/components/account/AccountLayout';
 import AppLink from '~/components/shared/AppLink';
 import AsyncAction from '~/components/shared/AsyncAction';
 import PageTitle from '~/components/shared/PageTitle';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import VehicleForm from '~/components/shared/VehicleForm';
 import { IVehicle } from '~/interfaces/vehicle';
 import { RecycleBin16Svg } from '~/svg';

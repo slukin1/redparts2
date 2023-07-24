@@ -11,6 +11,7 @@ import { IMegamenu } from '~/interfaces/menu';
 interface Props extends React.HTMLAttributes<HTMLElement> {
     menu: IMegamenu;
     onItemClick?: (item: ILink) => void;
+    closeMenu?: () => void;
 }
 
 function Megamenu(props: Props) {
@@ -18,6 +19,7 @@ function Megamenu(props: Props) {
         menu,
         onItemClick,
         className,
+        closeMenu,
         ...rootProps
     } = props;
     const hasImage = !!menu.image;
@@ -35,7 +37,6 @@ function Megamenu(props: Props) {
                 {menu.columns.map((column, columnIndex) => {
                     const columnClasses = classNames(`col-${column.size}`);
                     const hasLinks = column.links?.length > 0;
-
                     return (
                         <div className={columnClasses} key={columnIndex}>
                             {hasLinks && (
@@ -43,6 +44,7 @@ function Megamenu(props: Props) {
                                     className="megamenu__links"
                                     links={column.links}
                                     onItemClick={onItemClick}
+                                    closeMenu={closeMenu}
                                 />
                             )}
                         </div>

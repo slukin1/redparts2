@@ -1,20 +1,21 @@
 // react
-import React, { useEffect, useMemo } from 'react';
+import React, {
+    lazy, Suspense, useEffect, useMemo, useState,
+} from 'react';
 // third-party
 import classNames from 'classnames';
 import { useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
 // application
+import dynamic from 'next/dynamic';
 import BlockHeader from '~/components/blocks/BlockHeader';
 import BlockSpace from '~/components/blocks/BlockSpace';
-import ProductsView from '~/components/shop/ProductsView';
-import ShopSidebar from '~/components/shop/ShopSidebar';
-import url from '~/services/url';
-import { getCategoryParents } from '~/services/utils';
+import url from '~/api/services/url';
+import { getCategoryParents } from '~/api/services/utils';
 import { buildQuery } from '~/store/shop/shopHelpers';
-import { CurrentVehicleScopeProvider } from '~/services/current-vehicle';
+import { CurrentVehicleScopeProvider } from '~/api/services/current-vehicle';
 import { ILink } from '~/interfaces/link';
-import { SidebarProvider } from '~/services/sidebar';
+import { SidebarProvider } from '~/api/services/sidebar';
 import { useShop } from '~/store/shop/shopHooks';
 import {
     IShopPageGridLayout,
@@ -22,6 +23,10 @@ import {
     IShopPageOffCanvasSidebar,
     IShopPageSidebarPosition,
 } from '~/interfaces/pages';
+
+import ShopSidebar from '~/components/shop/ShopSidebar';
+
+import ProductsView from '~/components/shop/ProductsView';
 
 interface Props {
     layout: IShopPageLayout;
@@ -38,7 +43,6 @@ function ShopPageShop(props: Props) {
     const intl = useIntl();
     const router = useRouter();
     const shopState = useShop();
-
     // Replace current url.
     useEffect(() => {
         if (!shopState.init) {

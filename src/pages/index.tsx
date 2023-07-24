@@ -13,9 +13,9 @@ import BlockProductsColumns from '~/components/blocks/BlockProductsColumns';
 import BlockSale from '~/components/blocks/BlockSale';
 import BlockSpace from '~/components/blocks/BlockSpace';
 import BlockZone from '~/components/blocks/BlockZone';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { shopApi, blogApi } from '~/api';
-import { useDeferredData, useProductColumns, useProductTabs } from '~/services/hooks';
+import { useDeferredData, useProductColumns, useProductTabs } from '~/api/services/hooks';
 
 function Page() {
     const intl = useIntl();
@@ -26,12 +26,12 @@ function Page() {
     const featuredProducts = useProductTabs(
         useMemo(() => [
             { id: 1, name: 'All', categorySlug: null },
-            { id: 2, name: 'Power Tools', categorySlug: 'power-tools' },
-            { id: 3, name: 'Hand Tools', categorySlug: 'hand-tools' },
-            { id: 4, name: 'Plumbing', categorySlug: 'plumbing' },
-            // { id: 2, name: 'Power Tools', categorySlug: 'power-tools' },
-            // { id: 3, name: 'Hand Tools', categorySlug: 'hand-tools' },
-            // { id: 4, name: 'Plumbing', categorySlug: 'plumbing' },
+            { id: 2, name: 'Hatchback', categorySlug: 'Hatchback' },
+            { id: 3, name: 'Crocan SUV', categorySlug: 'Crocan SUV' },
+            { id: 4, name: 'Minivan', categorySlug: 'Minivan' },
+            { id: 5, name: 'Sedan', categorySlug: 'Sedan' },
+            { id: 6, name: 'Coupe', categorySlug: 'Coupe' },
+            { id: 7, name: 'Open', categorySlug: 'Open' },
         ], []),
         (tab) => shopApi.getFeaturedProducts(tab.categorySlug, 8),
     );
@@ -58,17 +58,17 @@ function Page() {
 
     const newArrivals = useDeferredData(() => shopApi.getLatestProducts(12), []);
     const newArrivalsLinks = useMemo(() => [
-        { title: 'Wheel Covers', url: url.products() },
-        { title: 'Timing Belts', url: url.products() },
-        { title: 'Oil Pans', url: url.products() },
-        { title: 'Show All', url: url.products() },
+        // { title: 'Wheel Covers', url: url.products() },
+        // { title: 'Timing Belts', url: url.products() },
+        // { title: 'Oil Pans', url: url.products() },
+        // { title: 'Show All', url: url.products() },
     ], []);
 
     const latestPosts = useDeferredData(() => blogApi.getLatestPosts(8), []);
     const latestPostsLinks = useMemo(() => [
-        { title: 'Special Offers', url: url.blog() },
-        { title: 'New Arrivals', url: url.blog() },
-        { title: 'Reviews', url: url.blog() },
+        // { title: 'Special Offers', url: url.blog() },
+        // { title: 'New Arrivals', url: url.blog() },
+        // { title: 'Reviews', url: url.blog() },
     ], []);
 
     const brands = useDeferredData(() => shopApi.getBrands({ limit: 16 }), []);
@@ -97,6 +97,10 @@ function Page() {
         <React.Fragment>
             <BlockFinder />
             <BlockFeatures layout="top-strip" />
+            <BlockBrands
+                layout="columns-8-full"
+                brands={brands.data}
+            />
             <BlockSpace layout="divider-nl" />
             <BlockProductsCarousel
                 blockTitle={intl.formatMessage({ id: 'HEADER_FEATURED_PRODUCTS' })}
@@ -147,10 +151,7 @@ function Page() {
                 links={latestPostsLinks}
             />
             <BlockSpace layout="divider-nl" />
-            <BlockBrands
-                layout="columns-8-full"
-                brands={brands.data}
-            />
+
             <BlockSpace layout="divider-nl" className="d-xl-block d-none" />
             <BlockProductsColumns columns={columns} />
             <BlockSpace layout="before-footer" />

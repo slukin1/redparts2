@@ -2,7 +2,7 @@
 import React from 'react';
 // application
 import AppLink from '~/components/shared/AppLink';
-import url from '~/services/url';
+import url from '~/api/services/url';
 
 function Terms() {
     return (

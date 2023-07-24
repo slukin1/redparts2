@@ -1,20 +1,18 @@
-// react
-import React from 'react';
-// third-party
+import React, { useState } from 'react';
 import classNames from 'classnames';
-// application
-import { Check12x9Svg } from '~/svg';
-import { colorType } from '~/services/color';
+import { ArrowRoundedDown9x6Svg, Check12x9Svg } from '~/svg';
+import { colorType } from '~/api/services/color';
 import { IColorFilter, IColorFilterValue } from '~/interfaces/filter';
 
 interface Props {
     options: IColorFilter;
     value: IColorFilterValue;
-    onChangeValue?: (event: { filter: IColorFilter, value: IColorFilterValue }) => void;
+    onChangeValue?: (event: { filter: IColorFilter; value: IColorFilterValue }) => void;
 }
 
 function FilterColor(props: Props) {
     const { options, value, onChangeValue } = props;
+    const [isExpanded, setIsExpanded] = useState(false);
 
     const updateValue = (newValue: IColorFilterValue) => {
         if (onChangeValue) {
@@ -22,20 +20,26 @@ function FilterColor(props: Props) {
         }
     };
 
-    // noinspection DuplicatedCode
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.checked && !value.includes(event.target.value)) {
-            updateValue([...value, event.target.value]);
+        if (event.target.checked) {
+            updateValue([event.target.value]);
         }
-        if (!event.target.checked && value.includes(event.target.value)) {
-            updateValue(value.filter((x) => x !== event.target.value));
-        }
+    };
+
+    const displayedItems = isExpanded ? options.items : options.items.slice(0, 14);
+
+    const handleShowMore = () => {
+        setIsExpanded(true);
+    };
+
+    const handleShowLess = () => {
+        setIsExpanded(false);
     };
 
     return (
         <div className="filter-color">
             <div className="filter-color__list">
-                {options.items.map((item) => (
+                {displayedItems.map((item) => (
                     <div key={item.slug} className="filter-color__item">
                         <span
                             className={classNames('filter-color__check', 'input-check-color', {
@@ -47,7 +51,8 @@ function FilterColor(props: Props) {
                             <label className="input-check-color__body">
                                 <input
                                     className="input-check-color__input"
-                                    type="checkbox"
+                                    type="radio"
+                                    name="colorOption"
                                     value={item.slug}
                                     checked={value.includes(item.slug)}
                                     disabled={item.count === 0}
@@ -63,6 +68,26 @@ function FilterColor(props: Props) {
                     </div>
                 ))}
             </div>
+            {options.items.length > 14 && (
+                <button
+                    className="bg-white text-black-50 font-weight-bold px-0 py-3 w-100 d-flex justify-content-between align-items-center btn-sm"
+                    type="button"
+                    onClick={isExpanded ? handleShowLess : handleShowMore}
+                    style={{
+                        padding: '0',
+                        border: 'none',
+                        cursor: 'pointer',
+                        outline: 'none',
+                    }}
+                >
+                    {isExpanded ? 'Show Less' : 'Show More'}
+                    {isExpanded ? (
+                        <ArrowRoundedDown9x6Svg style={{ transform: 'rotate(180deg)' }} />
+                    ) : (
+                        <ArrowRoundedDown9x6Svg />
+                    )}
+                </button>
+            )}
         </div>
     );
 }

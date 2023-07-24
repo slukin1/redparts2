@@ -8,7 +8,7 @@ import BlockSpace from '~/components/blocks/BlockSpace';
 import BlogSidebar from '~/components/blog/BlogSidebar';
 import Decor from '~/components/shared/Decor';
 import Post from '~/components/blog/Post';
-import { baseUrl } from '~/services/utils';
+import { baseUrl } from '~/api/services/utils';
 import { IBlogPageSidebarPosition } from '~/interfaces/pages';
 
 interface Props {

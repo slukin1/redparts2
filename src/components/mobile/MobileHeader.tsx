@@ -4,14 +4,15 @@ import React, { useRef, useState } from 'react';
 import classNames from 'classnames';
 import { FormattedMessage, useIntl } from 'react-intl';
 // application
+import { useRouter } from 'next/router';
 import AppLink from '~/components/shared/AppLink';
 import MobileLogo from '~/components/mobile/MobileLogo';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import VehiclePickerModal from '~/components/shared/VehiclePickerModal';
 import { IVehicle } from '~/interfaces/vehicle';
 import { useCart } from '~/store/cart/cartHooks';
 import { useGarageCurrent, useGarageSetCurrent } from '~/store/garage/garageHooks';
-import { useGlobalMousedown } from '~/services/hooks';
+import { useGlobalMousedown } from '~/api/services/hooks';
 import { useMobileMenuOpen } from '~/store/mobile-menu/mobileMenuHooks';
 import { useWishlist } from '~/store/wishlist/wishlistHooks';
 import {
@@ -36,6 +37,7 @@ function MobileHeader() {
     const searchIndicatorRef = useRef<HTMLDivElement | null>(null);
     const [searchIsOpen, setSearchIsOpen] = useState(false);
     const [vehiclePickerIsOpen, setVehiclePickerIsOpen] = useState(false);
+    const router = useRouter();
 
     const openSearch = () => {
         setSearchIsOpen(true);
@@ -67,6 +69,11 @@ function MobileHeader() {
 
     const onSearchSubmit = (event: React.FormEvent) => {
         event.preventDefault();
+        const query = searchInputRef.current?.value;
+        if (!query || query === '') {
+            return;
+        }
+        router.replace(`/catalog/products?filter_search=${query}`).then();
     };
 
     useGlobalMousedown((event) => {
@@ -128,16 +135,16 @@ function MobileHeader() {
                                 className="mobile-search__input"
                                 placeholder={searchPlaceholder}
                             />
-                            <button
+                            <AppLink
                                 type="button"
                                 className="mobile-search__vehicle-picker"
-                                onClick={openVehiclePicker}
+                                href={url.prodcutsCustomShopAll()}
                             >
                                 <Car20Svg />
-                                <span className="mobile-search__vehicle-picker-label">
-                                    <FormattedMessage id="BUTTON_SEARCH_SELECT_VEHICLE_MOBILE" />
-                                </span>
-                            </button>
+                                {/* <span className="mobile-search__vehicle-picker-label"> */}
+                                {/*    <FormattedMessage id="BUTTON_SEARCH_SELECT_VEHICLE_MOBILE" /> */}
+                                {/* </span> */}
+                            </AppLink>
                             <button type="submit" className="mobile-search__button mobile-search__button--search">
                                 <Search20Svg />
                             </button>
@@ -178,18 +185,18 @@ function MobileHeader() {
                                 </span>
                             </AppLink>
                         </div>
-                        <div className="mobile-indicator">
-                            <AppLink href={url.cart()} className="mobile-indicator__button">
-                                <span className="mobile-indicator__icon">
-                                    <Cart20Svg />
-                                    {cart.quantity > 0 && (
-                                        <span className="mobile-indicator__counter">
-                                            {cart.quantity}
-                                        </span>
-                                    )}
-                                </span>
-                            </AppLink>
-                        </div>
+                        {/* <div className="mobile-indicator"> */}
+                        {/*    <AppLink href={url.cart()} className="mobile-indicator__button"> */}
+                        {/*        <span className="mobile-indicator__icon"> */}
+                        {/*            <Cart20Svg /> */}
+                        {/*            {cart.quantity > 0 && ( */}
+                        {/*                <span className="mobile-indicator__counter"> */}
+                        {/*                    {cart.quantity} */}
+                        {/*                </span> */}
+                        {/*            )} */}
+                        {/*        </span> */}
+                        {/*    </AppLink> */}
+                        {/* </div> */}
                     </div>
                 </div>
             </div>

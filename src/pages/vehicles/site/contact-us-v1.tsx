@@ -20,7 +20,7 @@ function Page() {
                 breadcrumb={[
                     { title: 'Home', url: '' },
                     { title: 'Breadcrumb', url: '' },
-                    { title: 'Current Page', url: '' },
+                    { title: 'Current Index', url: '' },
                 ]}
                 afterHeader={false}
             />

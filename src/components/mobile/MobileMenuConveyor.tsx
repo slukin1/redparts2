@@ -8,7 +8,7 @@ import React, {
     useState,
 } from 'react';
 // application
-import { MobileMenuContext } from '~/services/mobile-menu';
+import { MobileMenuContext } from '~/api/services/mobile-menu';
 
 export interface IMobileMenuConveyorController {
     reset: () => void;

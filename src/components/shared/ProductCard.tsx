@@ -4,24 +4,29 @@ import React from 'react';
 import classNames from 'classnames';
 import { FormattedMessage, useIntl } from 'react-intl';
 // application
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 import AppImage from '~/components/shared/AppImage';
 import AppLink from '~/components/shared/AppLink';
 import AsyncAction from '~/components/shared/AsyncAction';
 import CompatibilityStatusBadge from '~/components/shared/CompatibilityStatusBadge';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
 import Rating from '~/components/shared/Rating';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { IProduct } from '~/interfaces/product';
 import { useCartAddItem } from '~/store/cart/cartHooks';
 import { useCompareAddItem } from '~/store/compare/compareHooks';
 import { useQuickviewOpen } from '~/store/quickview/quickviewHooks';
+import { useInquireOpen } from '~/store/inquire/inquireHooks';
 import { useWishlistAddItem } from '~/store/wishlist/wishlistHooks';
 import {
     Cart20Svg,
     Compare16Svg,
-    Quickview16Svg,
+    Quickview16Svg, WhatsApp20Svg,
     Wishlist16Svg,
 } from '~/svg';
+import ButtonWhatsApp from '~/components/ButtonWhatsapp';
+import { useWhatsappOpen } from '~/store/whatsapp/whatsappHooks';
 
 export type IProductCardElement = 'actions' | 'status-badge' | 'meta' | 'features' | 'buttons' | 'list-buttons';
 
@@ -42,15 +47,20 @@ function ProductCard(props: Props) {
         ...rootProps
     } = props;
     const intl = useIntl();
+    const whatsapp = useWhatsappOpen();
+    const showWhatsapp = () => whatsapp(product.slug);
     const featuredAttributes = product.attributes.filter((x) => x.featured);
     const cartAddItem = useCartAddItem();
     const quickviewOpen = useQuickviewOpen();
     const compareAddItem = useCompareAddItem();
     const wishlistAddItem = useWishlistAddItem();
+    const inquire = useInquireOpen();
+    const router = useRouter();
 
     const showQuickview = () => quickviewOpen(product.slug);
     const addToWishlist = () => wishlistAddItem(product);
     const addToCompare = () => compareAddItem(product);
+    const showInquire = () => inquire(product.slug);
 
     const rootClasses = classNames('product-card', className, {
         [`product-card--layout--${layout}`]: layout,
@@ -127,10 +137,10 @@ function ProductCard(props: Props) {
                 {!exclude.includes('meta') && (
                     <div className="product-card__meta">
                         <span className="product-card__meta-title">
-                            <FormattedMessage id="TEXT_SKU" />
+                            <FormattedMessage id="TABLE_REFERENCE" />
                             {': '}
                         </span>
-                        {product.sku}
+                        {product.refNo}
                     </div>
                 )}
 
@@ -145,18 +155,18 @@ function ProductCard(props: Props) {
                     <AppLink href={url.product(product)}>{product.name}</AppLink>
                 </div>
 
-                <div className="product-card__rating">
-                    <Rating className="product-card__rating-stars" value={product.rating || 0} />
-                    <div className=" product-card__rating-label">
-                        <FormattedMessage
-                            id="TEXT_RATING_LABEL"
-                            values={{
-                                rating: product.rating,
-                                reviews: product.reviews,
-                            }}
-                        />
-                    </div>
-                </div>
+                {/* <div className="product-card__rating"> */}
+                {/*    /!*<Rating className="product-card__rating-stars" value={product.rating || 0} />*!/ */}
+                {/*    <div className=" product-card__rating-label"> */}
+                {/*        <FormattedMessage */}
+                {/*            id="TEXT_RATING_LABEL" */}
+                {/*            values={{ */}
+                {/*                rating: product.rating, */}
+                {/*                reviews: product.reviews, */}
+                {/*            }} */}
+                {/*        /> */}
+                {/*    </div> */}
+                {/* </div> */}
 
                 {!exclude.includes('features') && featuredAttributes.length > 0 && (
                     <div className="product-card__features">
@@ -192,36 +202,63 @@ function ProductCard(props: Props) {
                     )}
                 </div>
                 {!exclude.includes('buttons') && (
+
                     <React.Fragment>
-                        <AsyncAction
-                            action={() => cartAddItem(product)}
-                            render={({ run, loading }) => (
-                                <button
-                                    type="button"
-                                    className={classNames('product-card__addtocart-icon', {
-                                        'product-card__addtocart-icon--loading': loading,
-                                    })}
-                                    aria-label={intl.formatMessage({ id: 'BUTTON_ADD_TO_CART' })}
-                                    onClick={run}
-                                >
-                                    <Cart20Svg />
-                                </button>
-                            )}
-                        />
+                        {typeof window !== 'undefined' && (
+                            <AsyncAction
+                                action={() => showWhatsapp()}
+                                render={({ run, loading }) => (
+                                    <React.Fragment>
+                                        <button
+                                            type="button"
+                                            className={classNames('product-card__addtocart-icon', {
+                                                'product-card__addtocart-icon--loading': loading,
+                                            })}
+                                            onClick={run}
+                                            aria-label={intl.formatMessage({ id: 'BUTTON_INQUIRY' })}
+                                        >
+                                            <WhatsApp20Svg />
+                                        </button>
+                                    </React.Fragment>
+                                )}
+                            />
+
+                        )}
                         {!exclude.includes('list-buttons') && (
                             <React.Fragment>
                                 <AsyncAction
-                                    action={() => cartAddItem(product)}
+                                    action={() => showInquire()}
                                     render={({ run, loading }) => (
-                                        <button
-                                            type="button"
-                                            className={classNames('product-card__addtocart-full', {
-                                                'product-card__addtocart-full--loading': loading,
-                                            })}
-                                            onClick={run}
-                                        >
-                                            <FormattedMessage id="BUTTON_ADD_TO_CART" />
-                                        </button>
+                                        <React.Fragment>
+                                            <button
+                                                type="button"
+                                                className={classNames('product-card__addtocart-full', {
+                                                    'product-card__addtocart-full--loading': loading,
+                                                })}
+                                                onClick={run}
+                                            >
+                                                <FormattedMessage id="BUTTON_INQUIRY" />
+                                            </button>
+                                        </React.Fragment>
+                                    )}
+                                />
+                                <AsyncAction
+                                    action={() => showWhatsapp()}
+                                    render={({ run, loading }) => (
+                                        <React.Fragment>
+                                            <button
+                                                type="button"
+                                                style={{
+                                                    backgroundColor: 'green',
+                                                }}
+                                                className={classNames('product-card__addtocart-full btn btn-success', {
+                                                    'product-card__addtocart-full--loading': loading,
+                                                })}
+                                                onClick={run}
+                                            >
+                                                WhatsApp
+                                            </button>
+                                        </React.Fragment>
                                     )}
                                 />
                                 <AsyncAction

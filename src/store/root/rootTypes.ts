@@ -10,6 +10,9 @@ import userReducer, { USER_NAMESPACE } from '~/store/user/userReducer';
 import wishlistReducer, { WISHLIST_NAMESPACE } from '~/store/wishlist/wishlistReducer';
 import { AppReducerStateType } from '~/store/types';
 import { SHOP_NAMESPACE } from '~/store/shop/shopTypes';
+import inquireReducer, { INQUIRE_NAMESPACE } from '~/store/inquire/inquireReducer';
+import dataReducer, { DATA_NAMESPACE } from '~/store/data/dataReducer';
+import whatsappReducer, { WHATSAPP_NAMESPACE } from '~/store/whatsapp/whatsappReducer';
 
 export interface IRootState {
     [CART_NAMESPACE]: AppReducerStateType<typeof cartReducer>;
@@ -22,4 +25,7 @@ export interface IRootState {
     [SHOP_NAMESPACE]: AppReducerStateType<typeof shopReducer>;
     [USER_NAMESPACE]: AppReducerStateType<typeof userReducer>;
     [WISHLIST_NAMESPACE]: AppReducerStateType<typeof wishlistReducer>;
+    [INQUIRE_NAMESPACE]: AppReducerStateType<typeof inquireReducer>;
+    [DATA_NAMESPACE]: AppReducerStateType<typeof dataReducer>;
+    [WHATSAPP_NAMESPACE]: AppReducerStateType<typeof whatsappReducer>;
 }

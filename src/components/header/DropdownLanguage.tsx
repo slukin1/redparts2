@@ -4,10 +4,10 @@ import React, { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 // application
 import Dropdown, { IDropdownItem } from '~/components/header/Dropdown';
-import { getAllLanguages } from '~/services/i18n/utils';
+import { getAllLanguages } from '~/api/services/i18n/utils';
 import { ILanguage } from '~/interfaces/language';
 // data
-import { useLanguage, useSetLocale } from '~/services/i18n/hooks';
+import { useLanguage, useSetLocale } from '~/api/services/i18n/hooks';
 
 interface Item extends IDropdownItem {
     language: ILanguage;

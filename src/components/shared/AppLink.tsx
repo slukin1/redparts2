@@ -10,7 +10,7 @@ import {
     UrlObject,
 } from 'url';
 // application
-import { baseUrl } from '~/services/utils';
+import { baseUrl } from '~/api/services/utils';
 
 export type IAppLinkHref = string | LinkProps;
 
@@ -67,7 +67,6 @@ function AppLink(props: Props) {
     const isExternal = !!data.href.hostname;
     const hasPath = !!data.href.pathname;
     const onlyHash = formatUrl(data.href).startsWith('#');
-
     if (isExternal || anchor || onlyHash) {
         let anchorHref;
 

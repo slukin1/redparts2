@@ -5,7 +5,7 @@ import classNames from 'classnames';
 // application
 import AppLink from '~/components/shared/AppLink';
 import CurrencyFormat from '~/components/shared/CurrencyFormat';
-import url from '~/services/url';
+import url from '~/api/services/url';
 import { IProduct } from '~/interfaces/product';
 import AppImage from '~/components/shared/AppImage';
 

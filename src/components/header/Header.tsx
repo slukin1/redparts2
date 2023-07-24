@@ -13,8 +13,10 @@ import Logo from '~/components/header/Logo';
 import MainMenu from '~/components/header/MainMenu';
 import Search from '~/components/header/Search';
 import Topbar from '~/components/header/Topbar';
-import url from '~/services/url';
-import { Heart32Svg, Person32Svg, Cart32Svg } from '~/svg';
+import url from '~/api/services/url';
+import {
+    Heart32Svg, Person32Svg, Cart32Svg, ArrowDownSm7x5Svg,
+} from '~/svg';
 import { useCart } from '~/store/cart/cartHooks';
 import { useOptions } from '~/store/options/optionsHooks';
 import { useUser } from '~/store/user/userHooks';
@@ -29,16 +31,17 @@ function Header() {
     const departmentsLabel = useMemo(() => (
         desktopLayout === 'spaceship'
             ? <FormattedMessage id="BUTTON_DEPARTMENTS" />
-            : <FormattedMessage id="BUTTON_DEPARTMENTS_LONG" />
+            : <FormattedMessage id="BUTTON_DEPARTMENTS" />
+
     ), [desktopLayout]);
 
     const accountIndicatorLabel = user ? user.email : <FormattedMessage id="TEXT_INDICATOR_ACCOUNT_LABEL" />;
     const accountIndicatorValue = <FormattedMessage id="TEXT_INDICATOR_ACCOUNT_VALUE" />;
     const accountIndicatorCtrl = useRef<IIndicatorController | null>(null);
 
-    const cart = useCart();
-    const cartIndicatorLabel = <FormattedMessage id="TEXT_INDICATOR_CART_LABEL" />;
-    const cartIndicatorCtrl = useRef<IIndicatorController | null>(null);
+    // const cart = useCart();
+    // const cartIndicatorLabel = <FormattedMessage id="TEXT_INDICATOR_CART_LABEL" />;
+    // const cartIndicatorCtrl = useRef<IIndicatorController | null>(null);
 
     return (
         <div className="header">
@@ -86,7 +89,22 @@ function Header() {
             <div className="header__search">
                 <Search />
             </div>
-            <div className="header__indicators">
+            <div className="header__indicators align-items-center d-flex">
+                <div className="main-menu mx-3">
+                    <ul className="main-menu__list">
+                        <li
+                            className="main-menu__item main-menu__item--hover"
+                            key={1}
+                        >
+                            <AppLink
+                                className="main-menu__link"
+                                href={url.faq()}
+                            >
+                                FAQ
+                            </AppLink>
+                        </li>
+                    </ul>
+                </div>
                 <Indicator
                     href={url.wishlist()}
                     icon={<Heart32Svg />}
@@ -104,17 +122,17 @@ function Header() {
                     <AccountMenu onCloseMenu={() => accountIndicatorCtrl.current?.close()} />
                 </Indicator>
 
-                <Indicator
-                    href={url.cart()}
-                    icon={<Cart32Svg />}
-                    label={cartIndicatorLabel}
-                    value={<CurrencyFormat value={cart.total} />}
-                    counter={cart.quantity}
-                    trigger="click"
-                    controllerRef={cartIndicatorCtrl}
-                >
-                    <Dropcart onCloseMenu={() => cartIndicatorCtrl.current?.close()} />
-                </Indicator>
+                {/* <Indicator */}
+                {/*    href={url.cart()} */}
+                {/*    icon={<Cart32Svg />} */}
+                {/*    label={cartIndicatorLabel} */}
+                {/*    value={<CurrencyFormat value={cart.total} />} */}
+                {/*    counter={cart.quantity} */}
+                {/*    trigger="click" */}
+                {/*    controllerRef={cartIndicatorCtrl} */}
+                {/* > */}
+                {/*    <Dropcart onCloseMenu={() => cartIndicatorCtrl.current?.close()} /> */}
+                {/* </Indicator> */}
             </div>
         </div>
     );

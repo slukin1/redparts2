@@ -4,15 +4,15 @@ import React, { ComponentType, useEffect, useMemo } from 'react';
 import AppBase, { AppContext, AppProps } from 'next/app';
 import Head from 'next/head';
 import { NextComponentType, NextPageContext } from 'next';
-import { useStore } from 'react-redux';
+import { useStore, useDispatch } from 'react-redux';
 // application
 import config from '~/config';
-import LanguageProvider, { getLanguageInitialProps, ILanguageProviderProps } from '~/services/i18n/provider';
+import LanguageProvider, { getLanguageInitialProps, ILanguageProviderProps } from '~/api/services/i18n/provider';
 import Layout from '~/components/Layout';
 import PageTitle from '~/components/shared/PageTitle';
 import { AppDispatch } from '~/store/types';
-import { CurrentVehicleGarageProvider } from '~/services/current-vehicle';
-import { getLanguageByLocale } from '~/services/i18n/utils';
+import { CurrentVehicleGarageProvider } from '~/api/services/current-vehicle';
+import { getLanguageByLocale } from '~/api/services/i18n/utils';
 import { load, save, wrapper } from '~/store/store';
 import { optionsSetAll } from '~/store/options/optionsActions';
 import { useApplyClientState } from '~/store/client';
@@ -30,6 +30,8 @@ import '../scss/style.header-classic-variant-five.scss';
 import '../scss/style.mobile-header-variant-one.scss';
 import '../scss/style.mobile-header-variant-two.scss';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { getAllData } from '../store/data/dataAction';
+import { VehicleService } from '~/api/services/allapi';
 
 interface Props extends AppProps {
     languageInitialProps: ILanguageProviderProps;
@@ -43,13 +45,13 @@ function App(props: Props) {
     const store = useStore();
     const applyClientState = useApplyClientState();
     const loadUserVehicles = useLoadUserVehicles();
-
-    // Loading and saving state on the client side (cart, wishlist, etc.).
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getAllData());
+    }, []);
     useEffect(() => {
         const state = load();
-
         applyClientState(state || {});
-
         if (process.browser) {
             store.subscribe(() => {
                 save(store.getState());
